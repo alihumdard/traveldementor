@@ -18,6 +18,7 @@ use App\Http\Middleware\UserAuthCheck;
 */
 
 Route::middleware('check.userAuthCheck')->group(function () {
+    Route::get('/run-commands', [UserController::class, 'runMigrations']);
     Route::match(['post', 'get'], '/admins',      [UserController::class, 'staff'])->name('staff');
     Route::match(['post', 'get'], '/users',       [UserController::class, 'users'])->name('users');
     Route::match(['post', 'get'], '/vfs/embassy', [UserController::class, 'vfs_embassy'])->name('vfs.embassy');
