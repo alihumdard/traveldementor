@@ -76,7 +76,7 @@
 
               @if($add_as_user == user_roles('3') && $user->role == user_roles('1'))
               <div class="col-lg-6 mb-2">
-                <label for="com_pic">@lang('lang.admin')</label>
+                <label for="com_pic">Staff</label>
                 <select name="admin_id" id="admin_id" class="form-select">
                   <option disabled selected>@lang('select admins') </option>
                   @foreach($admins_list ?? [] as $value)
@@ -397,8 +397,6 @@
       var re = /\S+@\S+\.\S+/;
       return re.test(email);
     }
-
-
     //user status changes
     $(document).on('click', '.btn_status', function() {
       let id = $(this).find('span').attr('data-user_id');

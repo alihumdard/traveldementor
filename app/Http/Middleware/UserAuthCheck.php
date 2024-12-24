@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Middleware;
 
+use App\Models\Location;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -16,6 +17,7 @@ class UserAuthCheck
      */
     public function handle(Request $request, Closure $next)
     {
+        
         $user = auth()->user();
         if ($user) {
             if($user->status == 1 || $user->status == 2 ){

@@ -56,19 +56,19 @@
               <thead class="table-dark" style="background-color: #184A45;">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th>@lang('lang.joining_date')</th>
+                  <th>Joining Date</th>
                   <th></th>
-                  <th>@lang('lang.name')</th>
-                  <th>@lang('lang.email')</th>
+                  <th>Name</th>
+                  <th>Email</th>
 
                   @if($user->role == user_roles('1'))
                   <th></th>
-                  <th>@lang('lang.admins')</th>
-                  <th>@lang('lang.admin_email')</th>
+                  <th>Staff</th>
+                  <th>Staff Email</th>
                   @endif
 
-                  <th>@lang('lang.status')</th>
-                  <th>@lang('lang.actions')</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="tableData">

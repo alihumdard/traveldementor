@@ -60,7 +60,7 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'User does not exist')->withInput();
         }
     }
-    
+
     public function logout(REQUEST $request)
     {
         session()->forget('lang');
@@ -100,7 +100,6 @@ class AuthController extends Controller
                         'body' => 'Thank you for choosing our services. We are pleased to provide you with the OTP verification.',
                     ];
                     $mail = new otpVerifcation($emailData);
-
 
 
                     try {
@@ -196,5 +195,4 @@ class AuthController extends Controller
             return redirect('/login')->with('error', 'Invalid verification link.');
         }
     }
-
 }
