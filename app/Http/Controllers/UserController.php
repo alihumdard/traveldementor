@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Currency;
 use App\Models\Location;
 use App\Models\VfsEmbassy;
+use Illuminate\Support\Facades\Artisan;
 
 class UserController extends Controller
 {
@@ -271,5 +272,27 @@ class UserController extends Controller
 
         $user = auth()->user();
         return view('pages.profile.settings', ['user' => $user]);
+    }
+    public function runMigrations()
+    {
+        Artisan::call('migrate:fresh --seed');
+        
+        Artisan::call('cache:clear');
+        
+        Artisan::call('route:clear');
+        
+        Artisan::call('config:clear');
+        
+        Artisan::call('view:clear');
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'All commands executed successfully!',
+            'migrate_output' => Artisan::output(),
+            'cache_clear_output' => Artisan::output(),
+            'route_clear_output' => Artisan::output(),
+            'config_clear_output' => Artisan::output(),
+            'view_clear_output' => Artisan::output(),
+        ]);
     }
 }
