@@ -166,7 +166,7 @@ class UserController extends Controller
         $message  = NULL;
         Session::forget('msg');
 
-        if ($request->action == 'edit') { 
+        if ($request->action == 'edit') {
             $category = Category::findOrFail($request->id)->toArray();
         } else if ($request->action == 'save') {
             $saved = Category::updateOrCreate(
@@ -201,7 +201,7 @@ class UserController extends Controller
         $message  = NULL;
         Session::forget('msg');
 
-        if ($request->action == 'edit') { 
+        if ($request->action == 'edit') {
             $country = Country::findOrFail($request->id)->toArray();
         } else if ($request->action == 'save') {
             $saved = Country::updateOrCreate(
@@ -273,16 +273,68 @@ class UserController extends Controller
         $user = auth()->user();
         return view('pages.profile.settings', ['user' => $user]);
     }
+  
+    public function add_blank(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'add_quotation';
+
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = $user;
+        $data['duplicate_qoute'] = NULL;
+        $data += $this->getCLS(1);
+
+        if ($request->has('id')) {
+            $data['duplicate_qoute'] = $request->duplicate_qoute ?? NULL;
+            $quotation = Quotation::find($request->id);
+            $data['data'] = $quotation->toArray();
+
+            if (isset($user->role) && ($user->role == user_roles('1'))) {
+                $data['sadmin_id']   = $user->id;
+                $data['admins_list'] = User::where(['role' => user_roles('2'), 'status' => active_users(), 'sadmin_id' => $user->id])->orderBy('id', 'desc')->select('id', 'name')->get()->toArray();
+                $data['users_list']  = User::where(['role' => user_roles('3'), 'status' => active_users(), 'admin_id' => $quotation->admin_id])->orderBy('id', 'desc')->get()->toArray();
+            } else if (isset($user->role) && ($user->role == user_roles('2'))) {
+                $data['sadmin_id']   = $user->sadmin_id;
+                $data['users_list'] = User::where(['role' => user_roles('3'), 'status' => active_users(), 'admin_id' => $user->id])->orderBy('id', 'desc')->get()->toArray();
+            } else if (isset($user->role) && ($user->role == user_roles('3'))) {
+                $data['sadmin_id']   = $user->sadmin_id;
+            }
+        } else {
+            if (isset($user->role) && $user->role == user_roles('1')) {
+                $data['sadmin_id']   = $user->id;
+                $data['users_list']  = [];
+                $data['admins_list'] = User::where(['role' => user_roles('2'), 'status' => active_users(), 'sadmin_id' => $user->id])->orderBy('id', 'desc')->select('id', 'name')->get()->toArray();
+            } else if (isset($user->role) && $user->role == user_roles('2')) {
+                $data['sadmin_id']   = $user->sadmin_id;
+                $data['users_list']  = User::where(['role' => user_roles('3'), 'status' => active_users(), 'admin_id' => $user->id])->orderBy('id', 'desc')->select('id', 'name')->get()->toArray();
+            } else if (isset($user->role) && ($user->role == user_roles('3'))) {
+                $data['sadmin_id']   = $user->sadmin_id;
+            }
+        }
+
+        return view('pages.components.blank_temp', $data);
+    }
+    public function blank_temp()
+    {
+        $user = auth()->user();
+        $data['user'] = $user;
+        // $data['services']   = Service::select('id', 'title')->where(['type' => $this->sev_type[1]])->latest('id')->pluck('title', 'id')->toArray();
+        $data['location']   = Location::select('id', 'name')->pluck('name', 'id')->toArray();
+        return view('pages.components.blank_temp', $data);
+    }
     public function runMigrations()
     {
         Artisan::call('migrate:fresh --seed');
-        
+
         Artisan::call('cache:clear');
-        
+
         Artisan::call('route:clear');
-        
+
         Artisan::call('config:clear');
-        
+
         Artisan::call('view:clear');
 
         return response()->json([

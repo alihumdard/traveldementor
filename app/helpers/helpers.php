@@ -71,6 +71,7 @@ function view_permission($page_name)
                 case 'VFS':
                 case 'categories':
                 case 'countries':
+                case 'blank-temp':
                     return true;
                 default:
                     return false;

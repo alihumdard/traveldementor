@@ -26,6 +26,8 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/currencies',  [UserController::class, 'currencies'])->name('currencies');
     Route::match(['post', 'get'], '/categories',  [UserController::class, 'categories'])->name('categories');
     Route::match(['post', 'get'], '/countries',  [UserController::class, 'countries'])->name('countries');
+    Route::match(['post', 'get'], '/blank-temp', [UserController::class, 'blank_temp'])->name('blank.temp');
+    Route::match(['post', 'get'], '/add-blank', [UserController::class, 'add_blank'])->name('add.blank');
     Route::match(['post', 'get'], '/locations',   [UserController::class, 'locations'])->name('locations');
 });
 //basic routes of login and registeration ...
