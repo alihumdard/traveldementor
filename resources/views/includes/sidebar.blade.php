@@ -127,6 +127,14 @@
             </a>
         </li>
         @endif
+        @if(view_permission('blank-temp'))
+        <li>
+            <a href="{{ route('blank.temp') }}" class="{{(request()->routeIs('blank.temp')) ? 'menu-acitve' : ''}}">
+                <i class=" ml-3 fas fa-money-bill"></i>
+                <span class="link_name">Blank Temp</span>
+            </a>
+        </li>
+        @endif
 
         @if(view_permission('locations'))
         <li>
