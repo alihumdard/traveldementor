@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
@@ -9,6 +11,7 @@ use Illuminate\Http\Client\ConnectionException;
 use App\Models\User;
 use App\Models\Currency;
 use App\Models\Location;
+use App\Models\VfsEmbassy;
 
 class UserController extends Controller
 {
@@ -28,7 +31,6 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-
         if ($user) {
             // User roles: 1 for Super Admin, 2 for Admin, 3 for User
             if (isset($user->role) && $user->role == user_roles('1')) {
@@ -57,7 +59,6 @@ class UserController extends Controller
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['staff'] = User::where(['role' => user_roles('2'), 'sadmin_id' => $user->id])->latest('id')->get()->toArray();
         }
-
         return view('pages.profile.staff', $data);
     }
 
@@ -69,20 +70,16 @@ class UserController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-
         if (isset($user->role) && $user->role == user_roles('1')) {
-
             $users = User::join('users as staff', 'users.staff_id', '=', 'staff.id')
-                ->where(['users.role' => user_roles('3'), 'users.sstaff_id' => $user->id])
+                ->where(['users.role' => user_roles('3'), 'users.staff_id' => $user->id])
                 ->select('users.*', 'staff.name as staff_name', 'staff.user_pic as staff_pic', 'staff.email as staff_email')
                 ->orderBy('users.id', 'desc')
                 ->get()
                 ->toArray();
-            $staffs_list = User::where(['role' => user_roles('2'), 'sstaff_id' => $user->id])->orderBy('id', 'desc')->select('id', 'name')->get()->toArray();
-
+            $staffs_list = User::where(['role' => user_roles('2'), 'staff_id' => $user->id])->orderBy('id', 'desc')->select('id', 'name')->get()->toArray();
             return view('pages.profile.users', ['data' => $users, 'user' => $user, 'add_as_user' => user_roles('3'), 'staffs_list' => $staffs_list]);
         } else {
-
             $users = User::where(['role' => user_roles('3'), 'staff_id' => $user->id])->orderBy('id', 'desc')->get()->toArray();
             return view('pages.profile.users', ['data' => $users, 'user' => $user, 'add_as_user' => user_roles('3')]);
         }
@@ -99,7 +96,6 @@ class UserController extends Controller
         $currency = NULL;
         $message  = NULL;
         Session::forget('msg');
-
         if ($request->action == 'edit') {
             $currency = Currency::findOrFail($request->id)->toArray();
         } else if ($request->action == 'save') {
@@ -110,7 +106,7 @@ class UserController extends Controller
                     'code'      => strtoupper($request->code),
                     'type'      => $request->type,
                     'created_by' => $user->id,
-                    'sadmin_id' => $user->id,
+                    'sadmin_id' =>  $user->id,
                 ]
             );
             $message = "Currency " . ($request->id ? "Updated" : "Saved") . " Successfully";
@@ -124,7 +120,108 @@ class UserController extends Controller
         $currencies = Currency::where(['sadmin_id' => $user->id, 'status' => $this->status['Active']])->latest('id')->get()->toArray();
         return view('pages.components.currencies', ['user' => $user, 'currency' => $currency, 'data' => $currencies, 'types' => $this->currencyTypes]);
     }
+    public function vfs_embassy(REQUEST $request)
+    {
+        $user = auth()->user();
+        $page_name = 'VFS';
 
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $vfs = NULL;
+        $message  = NULL;
+        Session::forget('msg');
+
+        if ($request->action == 'edit') {
+            $vfs = VfsEmbassy::findOrFail($request->id)->toArray();
+        } else if ($request->action == 'save') {
+            $saved = VfsEmbassy::updateOrCreate(
+                ['id' => $request->id ?? NULL],
+                [
+                    'name'        => ucwords($request->name),
+                    'status'      => $this->status['Active'],
+                    'created_by'  => $user->id,
+                ]
+            );
+            $message = "VFS " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            Session::flash('msg', $message);
+        } else if ($request->action == 'dell') {
+            VfsEmbassy::where('id', $request->id)->update(['status' => $this->status['Deleted']]);
+            $message = "VFS has been deleted Successfully";
+            Session::flash('msg', $message);
+        }
+        $vfs_embassies = VfsEmbassy::where(['status' => $this->status['Active']])->latest('id')->get()->toArray();
+        return view('pages.components.vfs_embassy', ['user' => $user, 'vfs' => $vfs, 'data' => $vfs_embassies]);
+    }
+    public function categories(REQUEST $request)
+    {
+        $user = auth()->user();
+        $page_name = 'categories';
+
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $category = NULL;
+        $message  = NULL;
+        Session::forget('msg');
+
+        if ($request->action == 'edit') { 
+            $category = Category::findOrFail($request->id)->toArray();
+        } else if ($request->action == 'save') {
+            $saved = Category::updateOrCreate(
+                ['id' => $request->id ?? NULL],
+                [
+                    'name' => ucwords($request->name),
+                    'type' => $request->type,
+                    'status' => $this->status['Active'],
+                    'created_by' => $user->id,
+                ]
+            );
+            $message = "Category" . ($request->id ? "Updated" : "Saved") . " Successfully";
+            Session::flash('msg', $message);
+        } else if ($request->action == 'dell') {
+            $deleted = Category::where('id', $request->id)->update(['status' => $this->status['Deleted']]);
+            $message = "Category has been deleted Successfully";
+            Session::flash('msg', $message);
+        }
+        $categories = Category::where(['status' => $this->status['Active']])->latest('id')->get()->toArray();
+        $data = ['user' => $user, 'category' => $category, 'data' => $categories];
+        return view('pages.components.categories', $data);
+    }
+    public function countries(REQUEST $request)
+    {
+        $user = auth()->user();
+        $page_name = 'countries';
+
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $country = NULL;
+        $message  = NULL;
+        Session::forget('msg');
+
+        if ($request->action == 'edit') { 
+            $country = Country::findOrFail($request->id)->toArray();
+        } else if ($request->action == 'save') {
+            $saved = Country::updateOrCreate(
+                ['id' => $request->id ?? NULL],
+                [
+                    'name' => ucwords($request->name),
+                    'status' => $this->status['Active'],
+                    'created_by' => $user->id,
+                ]
+            );
+            $message = "Country" . ($request->id ? "Updated" : "Saved") . " Successfully";
+            Session::flash('msg', $message);
+        } else if ($request->action == 'dell') {
+            $deleted = Country::where('id', $request->id)->update(['status' => $this->status['Deleted']]);
+            $message = "Country has been deleted Successfully";
+            Session::flash('msg', $message);
+        }
+        $countries = Country::where(['status' => $this->status['Active']])->latest('id')->get()->toArray();
+        $data = ['user' => $user, 'country' => $country, 'data' => $countries];
+        return view('pages.components.countries', $data);
+    }
     public function locations(REQUEST $request)
     {
         $user = auth()->user();

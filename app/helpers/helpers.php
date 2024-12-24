@@ -68,6 +68,9 @@ function view_permission($page_name)
                 case 'currencies':
                 case 'locations':
                 case 'settings':
+                case 'VFS':
+                case 'categories':
+                case 'countries':
                     return true;
                 default:
                     return false;
