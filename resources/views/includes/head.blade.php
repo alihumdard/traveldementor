@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 <!-- Fontawesome Kit -->
-<link rel="stylesheet" href="assets/font-web/css/all.css">
+<link rel="stylesheet" href="/assets/font-web/css/all.css">
 
 <!-- jQuery library -->
 <link rel="stylesheet" href="{{ asset('assets/dist/css/bootstrap.min.css') }}">
