@@ -67,6 +67,12 @@
             </div>
           </div>
         </div>
+        @if (Session::has('message'))
+        <div class="alert alert-success col-lg-8 col-md-12 col-sm-12 ">
+          <button type="button" class="close ml-2" data-dismiss="alert">&times;</button>
+          <strong>{{ session('msg') }}</strong>
+        </div>
+        @endif
         <hr>
         <div class="px-2">
           <div class="table-responsive">

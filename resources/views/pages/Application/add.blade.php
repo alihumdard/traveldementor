@@ -89,14 +89,16 @@
                 </h3>
             </div>
             <div class="container" id="home">
-                <form action="quotationStore" id="formData" method="post">
+                <form action="{{ route('application.store') }}" id="formData" method="post">
                     <div class="row">
                         @csrf
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
                             <select required name="country_id" id="country_id" class="form-select">
                                 <option disabled selected> Select country</option>
-                                <option value=""> Pakistan</option>
+                                @foreach ($countries as $country)
+                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
                             </select>
                             <span id="country_id_error" class="error-message text-danger"></span>
                         </div>
@@ -104,7 +106,9 @@
                             <label for="category_id">Category</label>
                             <select required name="category_id" id="category_id" class="form-select">
                                 <option disabled selected> Select category</option>
-                                <option value=""> Pakistan</option>
+                                @foreach ($categories as $category )
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
                             </select>
                             <span id="category_id_error" class="error-message text-danger"></span>
                         </div>
@@ -112,7 +116,9 @@
                             <label for="user_id">User</label>
                             <select required name="user_id" id="user_id" class="form-select">
                                 <option disabled selected>Select User</option>
-                                <option value=""> Pakistan</option>
+                                @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
                             </select>
                             <span id="User_id_error" class="error-message text-danger"></span>
                         </div>
@@ -130,8 +136,8 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="visa_status">Visa Status</label>
                             <select required name="visa_status" id="visa_status" class="form-select">
-                                <option disabled selected>Pending</option>
-                                 <option value="">Approved</option>
+                                <option value="pending">Pending</option>
+                                 <option value="approved">Approved</option>
                             </select>
                             <span id="visa_status_error" class="error-message text-danger"></span>
                         </div>
@@ -141,9 +147,9 @@
                             <span id="visa_expiry_date_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="usf_Ref">USF Ref</label>
-                            <input required type="number" name="usf_Ref" id="usf_Ref" class="form-control" placeholder="Enter usf ref or tracking id ">
-                            <span id="USF_Ref_error" class="error-message text-danger"></span>
+                            <label for="vsf_ref_track_id">USF Ref</label>
+                            <input required type="number" name="vsf_ref_track_id" id="vsf_ref_track_id" class="form-control" placeholder="Enter usf ref or tracking id ">
+                            <span id="vsf_ref_track_id_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="ds_160">DS160</label>
@@ -156,8 +162,9 @@
                         <div class="col-lg-4 col-md-6  col-sm-12 ">
                             <label for="status">Status</label>
                             <select required name="status" id="status" class="form-select">
-                                <option disabled selected> Pending</option>
-                                <option value="">Approved</option>
+                                @foreach ($visa_status as $key => $value)
+                                <option value="{{$value}}">{{ $key }}</option>
+                                @endforeach
                             </select>
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>
