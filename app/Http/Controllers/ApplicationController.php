@@ -63,13 +63,20 @@ class ApplicationController extends Controller
                 'passport_expiry'        => $request->passport_expiry,
                 'visa_status'            => ucwords($request->visa_status),  // Capitalize the first letter of visa status
                 'visa_expiry_date'       => $request->visa_expiry_date,
-                'visa_refer_tracking_id' => $request->vsf_ref_track_id,
+                'visa_refer_tracking_id' => $request->visa_refer_tracking_id,
                 'ds_160'                 => $request->ds_160,
                 'status'                 => $request->status,
                 'created_by'             => $user->id,
             ]
         );
-        $message = "Application" . ($request->id ? "Updated" : "Saved") . " Successfully";
+        $message = "Application  " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return redirect()->route('application.index')->with('message', $message);
+    }
+    public function delete($id)
+    {
+    $application=Application::find($id);
+    $application->delete();
+    return redirect()->back()->with('message','Successfull Deleted');
+    
     }
 }
