@@ -34,13 +34,13 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/add-blank',  [UserController::class, 'add_blank'])->name('add.blank');
     Route::match(['post', 'get'], '/locations',   [UserController::class, 'locations'])->name('locations');
     Route::match(['post', 'get'], '/application/add{id?}',    [ApplicationController::class, 'add'])->name('application.add');
-    Route::match(['post', 'get'], '/application/index',  [ApplicationController::class, 'index'])->name('application.index');
+    Route::match(['post', 'get'], '/application',  [ApplicationController::class, 'index'])->name('application.index');
     Route::match(['post', 'get'], '/appointment/add',    [AppointmentController::class, 'add'])->name('appointment.add');
-    Route::match(['post', 'get'], '/appointment/index',  [AppointmentController::class, 'index'])->name('appointment.index');
+    Route::match(['post', 'get'], '/appointment',  [AppointmentController::class, 'index'])->name('appointment.index');
     Route::match(['post', 'get'], '/insurance/add',      [InsuranceController::class, 'add'])->name('insurance.add');
-    Route::match(['post', 'get'], '/insurance/index',    [InsuranceController::class, 'index'])->name('insurance.index');
+    Route::match(['post', 'get'], '/insurance',    [InsuranceController::class, 'index'])->name('insurance.index');
     Route::match(['post', 'get'], '/tracking/add',       [TrackingController::class, 'add'])->name('tracking.add');
-    Route::match(['post', 'get'], '/tracking/index',     [TrackingController::class, 'index'])->name('tracking.index');
+    Route::match(['post', 'get'], '/tracking',     [TrackingController::class, 'index'])->name('tracking.index');
 });
 
 //basic routes of login and registeration ...
