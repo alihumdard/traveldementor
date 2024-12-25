@@ -12,4 +12,11 @@ class AppointmentController extends Controller
         $data['user'] = $user;
         return view('pages.Appointment.listing', $data);
     }
+    public function add()
+    {  $user = auth()->user();
+        $data['user'] = $user;
+        return view('pages.Appointment.add', $data);
+
+    }
+
 }
