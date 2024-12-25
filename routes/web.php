@@ -33,9 +33,10 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/blank-temp', [UserController::class, 'blank_temp'])->name('blank.temp');
     Route::match(['post', 'get'], '/add-blank',  [UserController::class, 'add_blank'])->name('add.blank');
     Route::match(['post', 'get'], '/locations',   [UserController::class, 'locations'])->name('locations');
-    Route::match(['post', 'get'], '/application/add{id?}',    [ApplicationController::class, 'add'])->name('application.add');
+    Route::match(['post', 'get'], '/application/add/{id?}',    [ApplicationController::class, 'add'])->name('application.add');
     Route::match(['post', 'get'], '/application/store',    [ApplicationController::class, 'application_store'])->name('application.store');
     Route::match(['post', 'get'], '/application',  [ApplicationController::class, 'index'])->name('application.index');
+    Route::match(['post', 'get'], '/application/delete/{id}',  [ApplicationController::class, 'delete'])->name('application.delete');
     Route::match(['post', 'get'], '/appointment/add',    [AppointmentController::class, 'add'])->name('appointment.add');
     Route::match(['post', 'get'], '/appointment',  [AppointmentController::class, 'index'])->name('appointment.index');
     Route::match(['post', 'get'], '/insurance/add',      [InsuranceController::class, 'add'])->name('insurance.add');
