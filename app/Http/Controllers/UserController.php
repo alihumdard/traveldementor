@@ -323,7 +323,7 @@ class UserController extends Controller
         $data['user'] = $user;
         // $data['services']   = Service::select('id', 'title')->where(['type' => $this->sev_type[1]])->latest('id')->pluck('title', 'id')->toArray();
         $data['location']   = Location::select('id', 'name')->pluck('name', 'id')->toArray();
-        return view('pages.components.blank_temp', $data);
+        return view('pages.blank', $data);
     }
     public function runMigrations()
     {

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'page name')
+@section('title', 'Appointment')
 @section('content')
 
 <div class="content-wrapper py-0 my-0">

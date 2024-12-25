@@ -71,6 +71,10 @@ function view_permission($page_name)
                 case 'VFS':
                 case 'categories':
                 case 'countries':
+                case 'Application':
+                case 'Appointment':
+                case 'Insurance':
+                case 'Tracking':
                 case 'blank-temp':
                     return true;
                 default:
