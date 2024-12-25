@@ -1,14 +1,14 @@
 <div class="sidebar" style="background-color: #452C88;">
     <div class="navbar-brand brand-logo d-none mx-5 px-2 mb-2" id="logo-full-img">
-        <img src="assets/images/traveldementor.jpeg" height="30px" width="140px" alt="logo">
+        <img src="/assets/images/traveldementor.jpeg" height="30px" width="140px" alt="logo">
     </div>
     <div class="navbar-brand brand-logo mb-2 mx-2" id="logo-img">
-        <img src="assets/images/scooble.svg" style="width: 100%; " alt="logo">
+        <img src="/assets/images/scooble.svg" style="width: 100%; " alt="logo">
     </div>
     <div class="logo_details py-2" style="border-top: 1px solid #FFFFFF45; border-bottom: 1px solid #FFFFFF45;">
         <div class="pl-3 pr-2" id="profile_img">
             <img style="border-radius: 12px !important; object-fit: cover; width: 45px; height: 45px;"
-                src="{{ (isset($user->user_pic)) ? asset('storage/' . $user->user_pic) : 'assets/images/user.png'}}"
+                src="{{ (isset($user->user_pic)) ? asset('storage/' . $user->user_pic) : '/assets/images/user.png'}}"
                 alt="profile">
         </div>
         <div class="logo_name d-none" id="logo-name">

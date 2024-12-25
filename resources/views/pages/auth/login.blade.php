@@ -82,7 +82,7 @@
       box-shadow: none;
     }
     .contact {
-    color:#3C90D0 !important;
+    color:#212B60!important;
   }
   .text-warning.contact:hover {
     color: #184A45 !important;
