@@ -53,4 +53,6 @@ class Users extends Seeder
             'created_by' => '2'
         ]);
     }
+    
+    
 }

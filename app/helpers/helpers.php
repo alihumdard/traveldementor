@@ -68,13 +68,13 @@ function view_permission($page_name)
                 case 'currencies':
                 case 'locations':
                 case 'settings':
-                case 'VFS':
+                case 'vfs':
                 case 'categories':
                 case 'countries':
-                case 'Application':
-                case 'Appointment':
-                case 'Insurance':
-                case 'Tracking':
+                case 'application':
+                case 'appointment':
+                case 'insurance':
+                case 'tracking':
                 case 'blank-temp':
                     return true;
                 default:

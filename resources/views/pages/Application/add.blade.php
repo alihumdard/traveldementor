@@ -102,7 +102,7 @@
                             <input required type="date" name="date" id="q_date" value="" class="form-control">
                             <span id="q_date_error" class="error-message text-danger"></span>
                             <input type="hidden" name="id" id="q_id" value="" />
-                            <input type="hidden" name="sadmin_id" id="sadmin_id" value="" />
+                            <input type="hidden" name="sadmin_id" id="sadmin_id" value="{{ $application->id ?? '' }}" />
                         </div>
 
                         <div class="col-lg-3 col-md-6 col-sm-12 my-2">
@@ -119,36 +119,30 @@
                             </select>
                             <span id="admin_id_error" class="error-message text-danger"></span>
                         </div>
-                        @else
                         <input type="hidden" name="admin_id" id="admin_id"
-                            value="{{ ($user->role == user_roles('2')) ? $user->id : $user->admin_id }}" />
-                        @endif
+                            value="" />
 
-                        @if (isset($user->role) && ($user->role == user_roles('1') || $user->role == user_roles('2')))
                         <div class="col-lg-3 col-md-6 col-sm-12 my-2">
                             <label for="user_id">@lang('lang.users')</label>
                             <select required name="user_id" id="user_id" class="form-select">
                                 <option disabled selected> Select @lang('lang.users')</option>
                                 @forelse($users_list as $value)
-                                <option value="{{ $value['id'] }}" {{ isset($data['user_id']) &&
-                                    $data['user_id']==$value['id'] ? 'selected' : '' }}>
-                                    {{ $value['name'] }}
+                                <option value="">
+                                  hdd
                                 </option>
-                                @empty
                                 <!-- Code to handle the case when $driver_list is empty or null -->
-                                @endforelse
                             </select>
                             <span id="user_id_error" class="error-message text-danger"></span>
                         </div>
                         @else
-                        <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}" />
+                        <input type="hidden" name="user_id" id="user_id" value="" />
                         @endif
 
                         <div
-                            class="col-lg-{{ ($user->role == user_roles('3')) ? (($user->role == user_roles('2')) ? '4' : '6') : '3' }} col-md-6 col-sm-12 my-2">
+                            class=" col-md-6 col-sm-12 my-2">
                             <label for="client_name">@lang('lang.client_name')</label>
                             <input required type="text" maxlength="100" name="client_name" id="client_name"
-                                value="{{ $data['client_name'] ?? '' }}" placeholder="@lang('lang.client_name')"
+                                value="" placeholder="@lang('lang.client_name')"
                                 class="form-control">
                             <span id="client_name_error" class="error-message text-danger"></span>
                         </div>
@@ -156,7 +150,7 @@
                         <div class="col-lg-12 mb-2">
                             <label for="q_desc">@lang('lang.quotation_desc')</label>
                             <textarea name="desc" id="q_desc" class="form-control"
-                                placeholder="@lang('lang.quotation_desc')">{{ $data['desc'] ?? '' }}</textarea>
+                                placeholder="@lang('lang.quotation_desc')"></textarea>
                             <p id="charCountContainer" class="text-secondary text-right" style="display: none;"><span
                                     id="charCount">250</span> /250</p>
                             <span id="q_desc_error" class="error-message text-danger"></span>
@@ -166,14 +160,10 @@
                             <label for="service_id">@lang('Quote Location')</label>
                             <select required name="location_id" id="location" class="form-select">
                                 <option disabled selected> Select @lang('quote location')</option>
-                                @forelse($location as $key => $value)
-                                <option value="{{ $key}}" {{ isset($data['location_id']) && $data['location_id']==$key
-                                    ? 'selected' : '' }}>
-                                    {{ $value }}
+                                <option value="">
+                                   {{   yyyyy }}
                                 </option>
-                                @empty
                                 <!-- Code to handle the case when $driver_list is empty or null -->
-                                @endforelse
                             </select>
                             <span id="location_error" class="error-message text-danger"></span>
                         </div>
@@ -181,7 +171,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <label for="q_amount">@lang('Total Amount')</label>
                             <input required type="number" min="1" name="amount" id="q_amount"
-                                value="{{ $data['amount'] ?? 1 }}" placeholder="@lang('lang.quoted_amount')"
+                                value="" placeholder="@lang('lang.quoted_amount')"
                                 class="form-control">
                             <span id="q_amount_error" class="error-message text-danger"></span>
                         </div>
@@ -190,14 +180,10 @@
                             <label for="currency_code">Currency</label>
                             <select required name="currency_id" id="currency_code" class="form-select">
                                 <option disabled selected> @lang('select currency')</option>
-                                @forelse($currencies as $key => $value)
-                                <option value="{{ $key}}" {{ isset($data['currency_id']) && $data['currency_id']==$key
-                                    ? 'selected' : '' }}>
-                                    {{ $value }}
+                                <option >
+                                   jjgg
                                 </option>
-                                @empty
                                 <!-- Code to handle the case when $driver_list is empty or null -->
-                                @endforelse
                             </select>
                             <span id="currency_code_error" class="error-message text-danger"></span>
                         </div>
@@ -214,12 +200,11 @@
                                 <span>@lang('Upload')</span>
                             </label>
                             <input type="file" id="q_file" name="file"
-                                data-file_exists="{{ ($data['file'] ?? NULL) ? 'yes' : 'no'; }}" style="display: none;">
+                                data-file_exists="" style="display: none;">
                             <p class="float-right mr-3 file-uploaded d-none text-success"
                                 style="font-size: smaller; margin-top:-5px;">@lang('File Uploaded') <i
                                     class="fas fa-check-circle fa-lg"></i></p>
                             <span id="q_file_error" class="error-message text-danger"></span>
-                            @if($data['file'] ?? NULL)
                             <p class="float-right  text-black previous-file"
                                 style="font-size: smaller; margin-top:-9px;"><span class="mr-2">@lang('* Pervious File
                                     ')</span>

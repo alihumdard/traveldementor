@@ -23,4 +23,8 @@ class Country extends Model
         'name' => 'required|unique:categories,name',
         'type' => 'required',
     ];
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }
