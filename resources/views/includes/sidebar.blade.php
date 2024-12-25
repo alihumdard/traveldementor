@@ -64,7 +64,7 @@
             </a>
         </li>
         @endif
-        @if(view_permission('VFS'))
+        @if(view_permission('vfs'))
         <li>
             <a href="{{ route('vfs.embassy') }}" class="{{(request()->routeIs('vfs.embassy')) ? 'menu-acitve' : ''}}">
                 <i class="mt-3 ml-3">
@@ -193,7 +193,7 @@
             </a>
         </li>
         @endif
-        @if(view_permission('Application'))
+        @if(view_permission('application'))
         <li>
             <a href="{{ route('application.index') }}" class="{{(request()->routeIs('application.index')) ? 'menu-acitve' : ''}}">
                 <i class=" ml-3 fas fa-money-bill"></i>
@@ -201,11 +201,36 @@
             </a>
         </li>
         @endif
-        @if(view_permission('Appointment'))
+        @if(view_permission('appointment'))
         <li>
             <a href="{{ route('appointment.index') }}" class="{{(request()->routeIs('appointment.index')) ? 'menu-acitve' : ''}}">
                 <i class=" ml-3 fas fa-money-bill"></i>
                 <span class="link_name">Appointment</span>
+            </a>
+        </li>
+        @endif
+        @if(view_permission('insurance'))
+        <li>
+            <a href="{{ route('insurance.index') }}"
+                class="{{(request()->routeIs('insurance.index')) ? 'menu-acitve' : ''}} scroll-item">
+                <i class="mt-3 ml-3">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M20.4023 13.5801C20.76 13.7701 21.036 14.0701 21.2301 14.3701C21.6083 14.9901 21.5776 15.7501 21.2097 16.4201L20.4943 17.6201C20.1162 18.2601 19.411 18.6601 18.6855 18.6601C18.3278 18.6601 17.9292 18.5601 17.6022 18.3601C17.3365 18.1901 17.0299 18.1301 16.7029 18.1301C15.6911 18.1301 14.8429 18.9601 14.8122 19.9501C14.8122 21.1001 13.872 22.0001 12.6968 22.0001H11.3069C10.1215 22.0001 9.18125 21.1001 9.18125 19.9501C9.16081 18.9601 8.31259 18.1301 7.30085 18.1301C6.96361 18.1301 6.65702 18.1901 6.40153 18.3601C6.0745 18.5601 5.66572 18.6601 5.31825 18.6601C4.58245 18.6601 3.87729 18.2601 3.49917 17.6201L2.79402 16.4201C2.4159 15.7701 2.39546 14.9901 2.77358 14.3701C2.93709 14.0701 3.24368 13.7701 3.59115 13.5801C3.87729 13.4401 4.06125 13.2101 4.23498 12.9401C4.74596 12.0801 4.43937 10.9501 3.57071 10.4401C2.55897 9.87012 2.23194 8.60012 2.81446 7.61012L3.49917 6.43012C4.09191 5.44012 5.35913 5.09012 6.38109 5.67012C7.27019 6.15012 8.425 5.83012 8.9462 4.98012C9.10972 4.70012 9.20169 4.40012 9.18125 4.10012C9.16081 3.71012 9.27323 3.34012 9.4674 3.04012C9.84553 2.42012 10.5302 2.02012 11.2763 2.00012H12.7172C13.4735 2.00012 14.1582 2.42012 14.5363 3.04012C14.7203 3.34012 14.8429 3.71012 14.8122 4.10012C14.7918 4.40012 14.8838 4.70012 15.0473 4.98012C15.5685 5.83012 16.7233 6.15012 17.6226 5.67012C18.6344 5.09012 19.9118 5.44012 20.4943 6.43012L21.179 7.61012C21.7718 8.60012 21.4447 9.87012 20.4228 10.4401C19.5541 10.9501 19.2475 12.0801 19.7687 12.9401C19.9322 13.2101 20.1162 13.4401 20.4023 13.5801ZM9.10972 12.0101C9.10972 13.5801 10.4076 14.8301 12.0121 14.8301C13.6165 14.8301 14.8838 13.5801 14.8838 12.0101C14.8838 10.4401 13.6165 9.18012 12.0121 9.18012C10.4076 9.18012 9.10972 10.4401 9.10972 12.0101Z"
+                            fill="white" />
+                    </svg>
+                </i>
+                <span class="link_name">Insurance</span>
+            </a>
+        </li>
+        @endif
+       
+
+        @if(view_permission('locations'))
+        <li>
+            <a href="{{ route('locations') }}" class="{{(request()->routeIs('locations')) ? 'menu-acitve' : ''}}">
+                <i class=" ml-3 fas fa-map-marker-alt"></i>
+                <span class="link_name">@lang('Locations')</span>
             </a>
         </li>
         @endif
@@ -214,15 +239,6 @@
             <a href="{{ route('blank.temp') }}" class="{{(request()->routeIs('blank.temp')) ? 'menu-acitve' : ''}}">
                 <i class=" ml-3 fas fa-money-bill"></i>
                 <span class="link_name">Blank Temp</span>
-            </a>
-        </li>
-        @endif
-
-        @if(view_permission('locations'))
-        <li>
-            <a href="{{ route('locations') }}" class="{{(request()->routeIs('locations')) ? 'menu-acitve' : ''}}">
-                <i class=" ml-3 fas fa-map-marker-alt"></i>
-                <span class="link_name">@lang('Locations')</span>
             </a>
         </li>
         @endif
