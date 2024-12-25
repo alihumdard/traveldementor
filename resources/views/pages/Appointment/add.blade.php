@@ -148,10 +148,10 @@
                             <span id="applicant_contact_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="applicant_email">Applicant email</label>
-                            <input required type="email" name="applicant_email" id="applicant_email" class="form-control"
+                            <label for="appointment_email">Appointment email</label>
+                            <input required type="email" name="appointment_email" id="appointment_email" class="form-control"
                                 placeholder="Enter your email">
-                            <span id="applicant_email_error" class="error-message text-danger"></span>
+                            <span id="appointment_email_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="appointment_contact_no">Appointment contact</label>

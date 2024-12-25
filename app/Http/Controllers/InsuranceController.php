@@ -12,4 +12,8 @@ class InsuranceController extends Controller
         $data['user'] = $user;
         return view('pages.Insurance.listing', $data);
     }
+    public function add()
+    {
+        return view('pages.insurance.add');
+    }
 }
