@@ -43,28 +43,6 @@
         height: 400px;
     }
 
-    .custom-button {
-        width: 100%;
-        height: 36px;
-        display: inline-block;
-        background-color: #00a962;
-        color: white;
-        cursor: pointer;
-        border: none;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 3px;
-        padding: 6px;
-    }
-
-    .custom-button:hover {
-        background-color: #00824b;
-    }
-
-    .custom-button:active {
-        background-color: #00a962;
-    }
-
     #addAddressModal .modal-header {
         padding: 0.5rem 1rem;
     }
@@ -72,6 +50,23 @@
     #addAddressModal .modal-title {
         font-size: 1rem;
         margin-bottom: 0;
+    }
+    #btn_save_application {
+        background-color: #452c88;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    #btn_save_application:hover {
+        background-color: #331f66;
+        transform: scale(1.05);
+    }
+    #btn_cancel_application{
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    #btn_cancel_application:hover{
+        transform: scale(1.05); 
+    }
+    label{
+        margin-bottom: 0px !important;
     }
 </style>
 
@@ -97,222 +92,90 @@
                 <form action="quotationStore" id="formData" method="post">
                     <div class="row">
                         @csrf
-                        <div class=" col-md-6 col-sm-12  my-2">
-                            <label for="q_date">@lang('lang.date')</label>
-                            <input required type="date" name="date" id="q_date" value="" class="form-control">
-                            <span id="q_date_error" class="error-message text-danger"></span>
-                            <input type="hidden" name="id" id="q_id" value="" />
-                            <input type="hidden" name="sadmin_id" id="sadmin_id" value="{{ $application->id ?? '' }}" />
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-sm-12 my-2">
-                            <label for="admin_id">@lang('lang.admins') </label>
-                            <select required name="admin_id" id="admin_id" class="form-select"
-                                onchange="getUsers(this.value)">
-                                <option disabled selected> Select @lang('lang.admins') </option>
-                                <option value="">
-                                    hhhddd
-                                </option>
-                                <option value="">
-                                    hhhddd
-                                </option>
+                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                            <label for="country_id">Country</label>
+                            <select required name="country_id" id="country_id" class="form-select">
+                                <option disabled selected> Select country</option>
+                                <option value=""> Pakistan</option>
                             </select>
-                            <span id="admin_id_error" class="error-message text-danger"></span>
+                            <span id="country_id_error" class="error-message text-danger"></span>
                         </div>
-                        <input type="hidden" name="admin_id" id="admin_id"
-                            value="" />
-
-                        <div class="col-lg-3 col-md-6 col-sm-12 my-2">
-                            <label for="user_id">@lang('lang.users')</label>
+                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                            <label for="category_id">Category</label>
+                            <select required name="category_id" id="category_id" class="form-select">
+                                <option disabled selected> Select category</option>
+                                <option value=""> Pakistan</option>
+                            </select>
+                            <span id="category_id_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="user_id">User</label>
                             <select required name="user_id" id="user_id" class="form-select">
-                                <option disabled selected> Select @lang('lang.users')</option>
-                                @forelse($users_list as $value)
-                                <option value="">
-                                  hdd
-                                </option>
-                                <!-- Code to handle the case when $driver_list is empty or null -->
+                                <option disabled selected>Select User</option>
+                                <option value=""> Pakistan</option>
                             </select>
-                            <span id="user_id_error" class="error-message text-danger"></span>
+                            <span id="User_id_error" class="error-message text-danger"></span>
                         </div>
-                        @else
-                        <input type="hidden" name="user_id" id="user_id" value="" />
-                        @endif
-
-                        <div
-                            class=" col-md-6 col-sm-12 my-2">
-                            <label for="client_name">@lang('lang.client_name')</label>
-                            <input required type="text" maxlength="100" name="client_name" id="client_name"
-                                value="" placeholder="@lang('lang.client_name')"
-                                class="form-control">
-                            <span id="client_name_error" class="error-message text-danger"></span>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="passport_no">Passport Number</label>
+                            <input required type="text" maxlength="100" name="passport_no" id="passport_no"
+                                class="form-control" placeholder="Enter your passport number">
+                            <span id="passport_no_error" class="error-message text-danger"></span>
                         </div>
-
-                        <div class="col-lg-12 mb-2">
-                            <label for="q_desc">@lang('lang.quotation_desc')</label>
-                            <textarea name="desc" id="q_desc" class="form-control"
-                                placeholder="@lang('lang.quotation_desc')"></textarea>
-                            <p id="charCountContainer" class="text-secondary text-right" style="display: none;"><span
-                                    id="charCount">250</span> /250</p>
-                            <span id="q_desc_error" class="error-message text-danger"></span>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="passport_expiry">Passport Expiry Date</label>
+                            <input required type="date" name="passport_expiry" id="passport_expiry" class="form-control">
+                            <span id="passport_expiry_error" class="error-message text-danger"></span>
                         </div>
-
-                        <div class="col-lg-3 col-md-6  col-sm-12 ">
-                            <label for="service_id">@lang('Quote Location')</label>
-                            <select required name="location_id" id="location" class="form-select">
-                                <option disabled selected> Select @lang('quote location')</option>
-                                <option value="">
-                                   {{   yyyyy }}
-                                </option>
-                                <!-- Code to handle the case when $driver_list is empty or null -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                            <label for="visa_status">Visa Status</label>
+                            <select required name="visa_status" id="visa_status" class="form-select">
+                                <option disabled selected>Pending</option>
+                                 <option value="">Approved</option>
                             </select>
-                            <span id="location_error" class="error-message text-danger"></span>
+                            <span id="visa_status_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="visa_expiry_date">Visa Expiry Date</label>
+                            <input required type="date" name="visa_expiry_date" id="visa_expiry_date" class="form-control">
+                            <span id="visa_expiry_date_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="usf_Ref">USF Ref</label>
+                            <input required type="number" name="usf_Ref" id="usf_Ref" class="form-control" placeholder="Enter usf ref or tracking id ">
+                            <span id="USF_Ref_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="ds_160">DS160</label>
+                            <input required type="number" name="ds_160" id="ds_160" class="form-control" placeholder="Enter dsf 160">
+                            <span id="ds_160_error" class="error-message text-danger"></span>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-sm-12">
-                            <label for="q_amount">@lang('Total Amount')</label>
-                            <input required type="number" min="1" name="amount" id="q_amount"
-                                value="" placeholder="@lang('lang.quoted_amount')"
-                                class="form-control">
-                            <span id="q_amount_error" class="error-message text-danger"></span>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-sm-12">
-                            <label for="currency_code">Currency</label>
-                            <select required name="currency_id" id="currency_code" class="form-select">
-                                <option disabled selected> @lang('select currency')</option>
-                                <option >
-                                   jjgg
-                                </option>
-                                <!-- Code to handle the case when $driver_list is empty or null -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6  col-sm-12 ">
+                            <label for="status">Status</label>
+                            <select required name="status" id="status" class="form-select">
+                                <option disabled selected> Pending</option>
+                                <option value="">Approved</option>
                             </select>
-                            <span id="currency_code_error" class="error-message text-danger"></span>
+                            <span id="status_error" class="error-message text-danger"></span>
                         </div>
-
-                        <div class="col-lg-3 col-md-6 col-sm-12 ">
-                            <label for="q_file">@lang('Upload File ')</label>
-                            <label for="q_file" class="custom-button">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M22.8 14.4C22.4817 14.4 22.1765 14.5264 21.9515 14.7515C21.7264 14.9765 21.6 15.2817 21.6 15.6V20.4C21.6 20.7183 21.4736 21.0235 21.2485 21.2485C21.0235 21.4736 20.7183 21.6 20.4 21.6H3.6C3.28174 21.6 2.97652 21.4736 2.75147 21.2485C2.52643 21.0235 2.4 20.7183 2.4 20.4V15.6C2.4 15.2817 2.27357 14.9765 2.04853 14.7515C1.82348 14.5264 1.51826 14.4 1.2 14.4C0.88174 14.4 0.576515 14.5264 0.351472 14.7515C0.126428 14.9765 0 15.2817 0 15.6V20.4C0 21.3548 0.379285 22.2705 1.05442 22.9456C1.72955 23.6207 2.64522 24 3.6 24H20.4C21.3548 24 22.2705 23.6207 22.9456 22.9456C23.6207 22.2705 24 21.3548 24 20.4V15.6C24 15.2817 23.8736 14.9765 23.6485 14.7515C23.4235 14.5264 23.1183 14.4 22.8 14.4ZM11.148 16.452C11.2621 16.5612 11.3967 16.6469 11.544 16.704C11.6876 16.7675 11.843 16.8003 12 16.8003C12.157 16.8003 12.3124 16.7675 12.456 16.704C12.6033 16.6469 12.7379 16.5612 12.852 16.452L17.652 11.652C17.878 11.426 18.0049 11.1196 18.0049 10.8C18.0049 10.4804 17.878 10.174 17.652 9.948C17.426 9.72204 17.1196 9.59509 16.8 9.59509C16.4804 9.59509 16.174 9.72204 15.948 9.948L13.2 12.708V1.2C13.2 0.88174 13.0736 0.576515 12.8485 0.351472C12.6235 0.126428 12.3183 0 12 0C11.6817 0 11.3765 0.126428 11.1515 0.351472C10.9264 0.576515 10.8 0.88174 10.8 1.2V12.708L8.052 9.948C7.94011 9.83611 7.80729 9.74736 7.6611 9.68681C7.51491 9.62626 7.35823 9.59509 7.2 9.59509C7.04177 9.59509 6.88509 9.62626 6.7389 9.68681C6.59271 9.74736 6.45989 9.83611 6.348 9.948C6.23611 10.0599 6.14736 10.1927 6.08681 10.3389C6.02626 10.4851 5.99509 10.6418 5.99509 10.8C5.99509 10.9582 6.02626 11.1149 6.08681 11.2611C6.14736 11.4073 6.23611 11.5401 6.348 11.652L11.148 16.452Z"
-                                        fill="white" />
-                                </svg>
-                                <span>@lang('Upload')</span>
-                            </label>
-                            <input type="file" id="q_file" name="file"
-                                data-file_exists="" style="display: none;">
-                            <p class="float-right mr-3 file-uploaded d-none text-success"
-                                style="font-size: smaller; margin-top:-5px;">@lang('File Uploaded') <i
-                                    class="fas fa-check-circle fa-lg"></i></p>
-                            <span id="q_file_error" class="error-message text-danger"></span>
-                            <p class="float-right  text-black previous-file"
-                                style="font-size: smaller; margin-top:-9px;"><span class="mr-2">@lang('* Pervious File
-                                    ')</span>
-                                <a class="text-info" href="{{ asset($data['file']) }}" target="_blank">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a class="text-secondary text-bold bold btn btn-link" href="{{ asset($data['file']) }}"
-                                    download="Contract{{$data['id']}}_for_{{$data['client_name']}}" target="_blank">
-                                    <i class="fa fa-download"></i>
-                                </a>
-                            </p>
-                            @endif
-                        </div>
-
-                        <div id="existing_row">
-                            @forelse( json_decode($data['service_data'] ?? '[]') as $key => $serv_data)
-                            <div class="row">
-                                @if($key == '0')
-                                <div class="col-lg-1 col-md-12 col-sm-12 order-lg-last">
-                                    <label class="d-none d-lg-block">Add</label>
-                                    <span class="fw-bold btn btn-success btn-block text-center" id="btn_addNewRow"> +
-                                    </span>
-                                </div>
-                                @else
-                                <div class="col-lg-1 col-md-12 col-sm-12 order-lg-last">
-                                    <label class="d-none d-lg-block">Remove</label>
-                                    <span class="fw-bold btn_removeRow btn btn-danger btn-block"> - </span>
-                                </div>
-                                @endif
-
-                                <div class="col-lg-3 col-md-6  col-sm-12 ">
-                                    <label for="service_id">@lang('Service')</label>
-                                    <select required name="service_id[]" class="form-select service_id ">
-                                        <option disabled selected> Select @lang('quote service')</option>
-                                        @forelse($services as $sid => $val)
-                                        <option value="{{ $sid}}" {{ isset($serv_data->service_id) &&
-                                            $serv_data->service_id == $sid ? 'selected' : '' }}>
-                                            {{ $val }}
-                                        </option>
-                                        @empty
-                                        <!-- Code to handle the case when $driver_list is empty or null -->
-                                        @endforelse
-                                    </select>
-                                    <span class="error-message text-danger service_id_error"></span>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <label for="q_amount">@lang('Service Amount')</label>
-                                    <input required type="number" min="1" name="s_amount[]"
-                                        value="{{ $serv_data->s_amount ?? 1 }}" placeholder="@lang('serivce amount')"
-                                        class="form-control s_amount">
-                                    <span class="error-message text-danger s_amount_error "></span>
-                                </div>
-                            </div>
-                            @empty
-
-                            <div class="row">
-                                <div class="col-lg-1 col-md-12 col-sm-12 order-lg-last">
-                                    <label class="d-none d-lg-block">Add</label>
-                                    <span class="fw-bold btn btn-success btn-block text-center" id="btn_addNewRow"> +
-                                    </span>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6  col-sm-12 ">
-                                    <label for="service_id">@lang('Service')</label>
-                                    <select required name="service_id[]" class="form-select service_id ">
-                                        <option disabled selected> Select @lang('quote service')</option>
-                                        @forelse($services as $key => $value)
-                                        <option value="{{ $key}}" {{ isset($serv_data->service_id) &&
-                                            $serv_data->service_id == $key ? 'selected' : '' }}>
-                                            {{ $value }}
-                                        </option>
-                                        @empty
-                                        <!-- Code to handle the case when $driver_list is empty or null -->
-                                        @endforelse
-                                    </select>
-                                    <span class="error-message text-danger service_id_error"></span>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <label for="q_amount">@lang('Service Amount')</label>
-                                    <input required type="number" min="1" name="s_amount[]"
-                                        value="{{ $serv_data->s_amount ?? 1 }}" placeholder="@lang('serivce amount')"
-                                        class="form-control s_amount">
-                                    <span class="error-message text-danger s_amount_error "></span>
-                                </div>
-                            </div>
-                            <!-- Code to handle the case when $driver_list is empty or null -->
-                            @endforelse
-                        </div>
-                        <div id="new_rowdata">
-                            <!-- dynamic row added -->
-                        </div>
-
                     </div>
 
                     <div class="mt-3">
                         <div class="row justify-content-end mt-2  ">
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
-                                <a href="/quotations" id="btn_cancel_quotation"
+                                <a href="/application" id="btn_cancel_application"
                                     class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
                                     <span>@lang('Cancel')</span>
                                 </a>
                             </div>
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
-                                <button type="submit" id="btn_save_quotation" class="btn btn-block  text-white"
-                                    style="background-color: #184A45FF; border-radius: 8px;">
+                                <button type="submit" id="btn_save_application" class="btn btn-block  text-white"
+                                    style="border-radius: 8px;">
                                     <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
-                                    <span id="text">@lang('Save Quotation')</span>
+                                    <span id="text">@lang('Save Application')</span>
                                 </button>
                             </div>
                         </div>
@@ -329,259 +192,5 @@
 <!-- viewlocation Modal End -->
 @stop
 @pushOnce('script')
-<script>
-    var newRow = `
-            <div class="row mt-md-3 mt-sm-3 mt-3">
-                <div class="col-lg-1 col-md-12 col-sm-12 order-lg-last">
-                    <label class="d-none d-lg-block">Remove</label>
-                    <span class="fw-bold btn_removeRow btn btn-danger btn-block" > - </span>
-                </div>
-                <div class="col-lg-3 col-md-6  col-sm-12">
-                    <label for="service_id">@lang('Service')</label>
-                    <select required name="service_id[]"  class="form-select service_id">
-                        <option disabled selected> Select @lang('quote service')</option>
-                        @forelse($services as $key => $value)
-                        <option value="{{ $key}}" >
-                            {{ $value }}
-                        </option>
-                        @empty
-                        <!-- Code to handle the case when $driver_list is empty or null -->
-                        @endforelse
-                    </select>
-                    <span  class="error-message text-danger service_id_error"></span>
-                </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <label for="q_amount">@lang('Service Aamount')</label>
-                    <input required type="number" min="1" name="s_amount[]"  value="" placeholder="@lang('service amount')" class="form-control s_amount">
-                    <span  class="error-message text-danger s_amount_error"></span>
-                </div>
-
-            </div>
-            `;
-
-    $(document).ready(function() {
-
-        $('#q_file').change(function() {
-            var fileUploadedParagraph = $('.file-uploaded');
-            if ($(this).prop('files').length > 0) {
-                fileUploadedParagraph.removeClass('d-none');
-                $('.previous-file').addClass('d-none');
-            } else {
-                fileUploadedParagraph.addClass('d-none');
-            }
-        });
-
-        $('#btn_addNewRow').on('click', function() {
-            $('#new_rowdata').append(newRow);
-        });
-
-        $(document).on('click', '.btn_removeRow', function() {
-            $(this).closest('.row').fadeOut('slow', function() {
-                $(this).remove();
-            });
-        });
-
-        const maxLength = 250;
-        const textarea = $('#q_desc');
-        const charCountElement = $('#charCount');
-        const charCountContainer = $('#charCountContainer');
-        const submitButton = $('#btn_save_quotation');
-        textarea.on('input', function() {
-            const currentLength = textarea.val().length;
-            const charCount = Math.max(maxLength - currentLength);
-            charCountElement.text(charCount);
-
-            if (currentLength > 0) {
-                charCountContainer.show();
-            } else {
-                charCountContainer.hide();
-            }
-
-            if (currentLength > maxLength) {
-                const exceededCount = currentLength - maxLength;
-                charCountElement.css('color', 'red');
-                charCountElement.text(`Your limit exceeded by ${exceededCount} characters`);
-                submitButton.prop('disabled', true);
-            } else if (currentLength === maxLength) {
-                charCountElement.css('color', ''); // Reset text color
-                charCountElement.text(''); // Clear the message
-                submitButton.prop('disabled', false);
-            } else {
-                charCountElement.css('color', ''); // Reset text color
-                charCountElement.text(`${maxLength - currentLength}`);
-                submitButton.prop('disabled', false);
-            }
-        });
-
-        $('#btn_save_quotation').click(function(event) {
-            var qDate = $('#q_date').val();
-            var adminId = $('#admin_id').val();
-            var userId = $('#user_id').val();
-            var client_name = $('#client_name').val();
-            var q_desc = $('#q_desc').val();
-            var q_amount = $('#q_amount').val();
-            var currency_code = $('#currency_code').val();
-            var location = $('#location').val();
-            var q_file = $('#q_file').val();
-            var file_exists = $('#q_file').attr('data-file_exists');
-
-            // Reset error messages
-            $('.error-message text-danger').text('');
-            var hasEmptyDropdown = false;
-            var hasEmptyservice = false;
-
-            $('.service_id_error').each(function() {
-                var selectedValue = $(this).prev('.service_id').val();
-                if (selectedValue === null || selectedValue === '') {
-                    $(this).text('*Please select a service.');
-                    hasEmptyDropdown = true;
-                } else {
-                    $(this).text('');
-                }
-            });
-
-            $('.s_amount_error').each(function() {
-                var s_amount = $(this).prev('.s_amount').val();
-                if (s_amount == null || s_amount == '') {
-                    $(this).text('*Please select a quote amount.');
-                    hasEmptyservice = true;
-                } else {
-                    $(this).text('');
-                }
-            });
-
-            if (hasEmptyDropdown) {
-                event.preventDefault();
-            }
-
-            if (hasEmptyservice) {
-                event.preventDefault();
-            }
-
-            if (qDate === '') {
-                $('#q_date_error').text('*Please enter a quatation date.');
-                event.preventDefault();
-            }
-
-            if (adminId === null) {
-                $('#admin_id_error').text('*Please select a admin.');
-                event.preventDefault();
-            }
-
-            if (userId === null) {
-                $('#user_id_error').text('*Please select a user.');
-                event.preventDefault();
-            }
-
-            if (client_name == '') {
-                $('#client_name_error').text('*Please enter client name.');
-                event.preventDefault();
-            }
-
-            if (q_desc == '') {
-                $('#q_desc_error').text('*Please enter client description.');
-                event.preventDefault();
-            }
-
-            if (q_amount == '') {
-                $('#q_amount_error').text('*Please enter quoted ammount.');
-                event.preventDefault();
-            }
-
-            if (currency_code === null) {
-                $('#currency_code_error').text('*Please select a currency.');
-                event.preventDefault();
-            }
-
-            if (location === null) {
-                $('#location_error').text('*Please select a location.');
-                event.preventDefault();
-            }
-
-            if (q_file == '' && file_exists == 'no') {
-                $('#q_file_error').text('*Please select a qoute file.');
-                event.preventDefault();
-            }
-        });
-
-
-        $('.s_amount').on('input', function() {
-            $('.s_amount_error').each(function() {
-                var s_amount = $(this).prev('.s_amount').val();
-                if (s_amount == null || s_amount == '') {
-                    $(this).text('*Please enter a quote amount.');
-                } else {
-                    $(this).text('');
-                }
-            });
-        });
-
-        $('#q_date').on('input', function() {
-            $('#q_date_error').text('');
-        });
-
-        $('#admin_id').on('input', function() {
-            $('#admin_id_error').text('');
-        });
-
-        $('#user_id').on('change', function() {
-            $('#user_id_error').text('');
-        });
-
-        $('#currency_code').on('change', function() {
-            $('#currency_code_error').text('');
-        });
-
-        $('#q_file').on('change', function() {
-            $('#q_file_error').text('');
-            $('.previous-file').addClass('d-none');
-        });
-
-        $('#service_id').on('change', function() {
-            $('#service_id_error').text('');
-        });
-
-        $('#q_amount').on('input', function() {
-            $('#q_amount_error').text('');
-        });
-
-        $('#client_name').on('input', function() {
-            $('#client_name_error').text('');
-        });
-
-        $('#q_desc').on('input', function() {
-            $('#q_desc_error').text('');
-        });
-
-        $('#location').on('change', function() {
-            $('#location_error').text('');
-        });
-
-    });
-
-    function getUsers(adminId) {
-        $.ajax({
-            url: '/get_users/' + adminId,
-            type: 'GET',
-            success: function(response) {
-                var users = response;
-                var options = '';
-                users.forEach(function(user) {
-                    options += '<option value="' + user.id + '">' + user.name + '</option>';
-                });
-                if (options) {
-                    $('#user_id_error').text('');
-                    $('#user_id').html(options);
-                } else {
-                    $('#user_id_error').text('*admin do not have any user.');
-                    $('#user_id').html('');
-                }
-            },
-            error: function(xhr, status, error) {
-                // Handle the error
-            }
-        });
-    }
-</script>
 @endPushOnce
