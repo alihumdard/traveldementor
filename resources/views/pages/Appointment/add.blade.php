@@ -189,9 +189,9 @@
                             <span id="appointment_reschedule_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="appointment-refer-no">Appointment refer no</label>
-                            <input required type="number" name="appointment-refer-no" id="appointment-refer-no" class="form-control">
-                            <span id="appointment-refer-no_error" class="error-message text-danger"></span>
+                            <label for="appointment_refer_no">Appointment refer no</label>
+                            <input required type="number" name="appointment_refer_no" id="appointment_refer_no" class="form-control">
+                            <span id="appointment_refer_no_error" class="error-message text-danger"></span>
                         </div>
                     </div>
 

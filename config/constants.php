@@ -166,4 +166,8 @@ return [
         'Deactive' => 2,
         'Deleted' => 3
     ],
+    'VISA_STATUS'=>[
+        'Pending'=>1,
+        'Progress'=>2,
+    ]
 ];
