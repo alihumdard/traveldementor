@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'page name')
+@section('title', 'Application')
 @section('content')
 
 <div class="content-wrapper py-0 my-0">
@@ -23,7 +23,7 @@
             <div class="col-lg-12">
               <div class="row mx-1">
                 <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">   
-                  <a href="{{ route('add.blank') }}">
+                  <a href="{{ route('application.add') }}">
                     <button class="btn add-btn text-white" style="background-color: #E95C20FF;"><span><i class="fa fa-plus"></i> @lang('lang.add_quotation')</span></button>
                   </a>
                 </div>
@@ -132,7 +132,6 @@
   </div>
 
 @stop
-
 @pushOnce('scripts')
 <script>
   var users_table = $('#qoute-table').DataTable({});

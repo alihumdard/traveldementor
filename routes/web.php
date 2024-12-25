@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthController;;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InsuranceController;
+use App\Http\Controllers\TrackingController;;
 
 use App\Http\Middleware\UserAuthCheck;
 
@@ -27,9 +31,19 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/categories',  [UserController::class, 'categories'])->name('categories');
     Route::match(['post', 'get'], '/countries',  [UserController::class, 'countries'])->name('countries');
     Route::match(['post', 'get'], '/blank-temp', [UserController::class, 'blank_temp'])->name('blank.temp');
-    Route::match(['post', 'get'], '/add-blank', [UserController::class, 'add_blank'])->name('add.blank');
+    Route::match(['post', 'get'], '/add-blank',  [UserController::class, 'add_blank'])->name('add.blank');
     Route::match(['post', 'get'], '/locations',   [UserController::class, 'locations'])->name('locations');
 });
+
+Route::match(['post', 'get'], '/add/application',      [ApplicationController::class, 'add'])->name('application.add');
+Route::match(['post', 'get'], '/application/index',  [ApplicationController::class, 'index'])->name('application.index');
+Route::match(['post', 'get'], '/add/appointment',      [AppointmentController::class, 'add'])->name('appointment.add');
+Route::match(['post', 'get'], '/appointment/index',  [AppointmentController::class, 'index'])->name('appointment.index');
+Route::match(['post', 'get'], '/add/insurance',      [InsuranceController::class, 'add'])->name('insurance.add');
+Route::match(['post', 'get'], '/insurance/index',  [InsuranceController::class, 'index'])->name('insurance.index');
+Route::match(['post', 'get'], '/add/tracking',      [TrackingController::class, 'add'])->name('tracking.add');
+Route::match(['post', 'get'], '/tracking/index',  [TrackingController::class, 'index'])->name('tracking.index');
+
 //basic routes of login and registeration ...
 Route::get('/',       [UserController::class, 'index'])->name('dashboard');
 Route::get('/login',  [AuthController::class, 'index'])->name('login');
