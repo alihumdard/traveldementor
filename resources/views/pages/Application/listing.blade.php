@@ -16,7 +16,6 @@
               <path d="M18.4862 18.5H18.4978" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </span>
-          <span>@lang('lang.quotations')</span>
         </h3>
         <div class="row mb-2">
           <!-- <div class="col-lg-4"></div> -->
@@ -24,7 +23,7 @@
             <div class="row mx-1">
               <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
                 <a href="{{ route('application.add') }}">
-                  <button class="btn add-btn text-white" style="background-color: #E95C20FF;"><span><i class="fa fa-plus"></i> @lang('lang.add_quotation')</span></button>
+                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i> Add application</span></button>
                 </a>
               </div>
               <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
@@ -72,7 +71,7 @@
         <div class="px-2">
           <div class="table-responsive">
             <table id="qoute-table" class="display" style="width:100%">
-              <thead class="table-dark" style="background-color: #184A45;">
+              <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
                   <th style="width: 100px;">@lang('lang.quoted_date')</th>
