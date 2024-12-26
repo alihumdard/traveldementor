@@ -100,7 +100,7 @@
                         <input type="hidden" id="application_id" name="id" value="{{ isset($application) ? $application->id : '' }}">
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
-                            <select required name="country_id" id="country_id" class="form-select">
+                            <select  name="country_id" id="country_id" class="form-select">
                                 <option disabled selected> Select country</option>
                                 @foreach ($countries as $country)
                                 <option value="{{ $country->id }}" {{ isset($application) && $application->country_id ==
@@ -114,7 +114,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="category_id">Category</label>
-                            <select required name="category_id" id="category_id" class="form-select">
+                            <select  name="category_id" id="category_id" class="form-select">
                                 <option disabled selected> Select category</option>
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" {{ isset($application) && $application->category_id
@@ -128,7 +128,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="user_id">User</label>
-                            <select required name="user_id" id="user_id" class="form-select">
+                            <select  name="user_id" id="user_id" class="form-select">
                                 <option disabled selected>Select User</option>
                                 @foreach ($users as $user)
                                 <option value="{{ $user->id }}" {{ isset($application) && $application->user_id ==
@@ -142,7 +142,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="passport_no">Passport Number</label>
-                            <input required type="text" maxlength="100" name="passport_no" id="passport_no"
+                            <input  type="text" maxlength="100" name="passport_no" id="passport_no"
                                 class="form-control" placeholder="Enter your passport number"
                                 value="{{ isset($application) ? $application->passport_no : old('passport_no') }}">
                             <span id="passport_no_error" class="error-message text-danger"></span>
@@ -150,14 +150,14 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="passport_expiry">Passport Expiry Date</label>
-                            <input required type="date" name="passport_expiry" id="passport_expiry" class="form-control"
+                            <input  type="date" name="passport_expiry" id="passport_expiry" class="form-control"
                                 value="{{ isset($application) ? $application->passport_expiry : old('passport_expiry') }}">
                             <span id="passport_expiry_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="visa_status">Visa Status</label>
-                            <select required name="visa_status" id="visa_status" class="form-select">
+                            <select  name="visa_status" id="visa_status" class="form-select">
                                 <option value="pending" {{ isset($application) && $application->visa_status == 'pending'
                                     ? 'selected' : '' }}>Pending</option>
                                 <option value="approved" {{ isset($application) && $application->visa_status ==
@@ -168,7 +168,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="visa_expiry_date">Visa Expiry Date</label>
-                            <input required type="date" name="visa_expiry_date" id="visa_expiry_date"
+                            <input  type="date" name="visa_expiry_date" id="visa_expiry_date"
                                 class="form-control"
                                 value="{{ isset($application) ? $application->visa_expiry_date : old('visa_expiry_date') }}">
                             <span id="visa_expiry_date_error" class="error-message text-danger"></span>
@@ -176,7 +176,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="vsf_ref_track_id">VSF Ref</label>
-                            <input required type="number" name="visa_refer_tracking_id" id="visa_refer_tracking_id"
+                            <input  type="number" name="visa_refer_tracking_id" id="visa_refer_tracking_id"
                                 class="form-control" placeholder="Enter vsf ref or tracking id "
                                 value="{{ isset($application) ? $application->visa_refer_tracking_id : old('visa_refer_tracking_id') }}">
                             <span id="visa_refer_tracking_id_error" class="error-message text-danger"></span>
@@ -184,7 +184,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="ds_160">DS160</label>
-                            <input required type="number" name="ds_160" id="ds_160" class="form-control"
+                            <input  type="number" name="ds_160" id="ds_160" class="form-control"
                                 placeholder="Enter dsf 160"
                                 value="{{ isset($application) ? $application->ds_160 : old('ds_160') }}">
                             <span id="ds_160_error" class="error-message text-danger"></span>
@@ -194,7 +194,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12 ">
                             <label for="status">Status</label>
-                            <select required name="status" id="status" class="form-select">
+                            <select  name="status" id="status" class="form-select">
                                 @foreach ($visa_status as $key => $value)
                                 <option value="{{ $value }}" {{ isset($application) && $application->status == $value ?
                                     'selected' : '' }}>
@@ -235,6 +235,76 @@
 
 <!-- viewlocation Modal End -->
 @stop
-@pushOnce('script')
+@pushOnce('scripts')
+<script>
+    $(document).ready(function () {
+        
+        $('#formData').on('submit', function (e) {
+        
+            e.preventDefault(); // Prevent form submission
+            let isValid = true;
+
+            // Clear previous error messages
+            $('.error-message').text('');
+
+            // Check each required field
+            if ($('#country_id').val() === null) {
+                $('#country_id_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#category_id').val() === null) {
+                $('#category_id_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#user_id').val() === null) {
+                $('#User_id_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#passport_no').val().trim() === '') {
+                $('#passport_no_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#passport_expiry').val().trim() === '') {
+                $('#passport_expiry_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#visa_status').val() === null) {
+                $('#visa_status_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#visa_expiry_date').val().trim() === '') {
+                $('#visa_expiry_date_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#visa_refer_tracking_id').val().trim() === '') {
+                $('#visa_refer_tracking_id_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#ds_160').val().trim() === '') {
+                $('#ds_160_error').text('This field is required');
+                isValid = false;
+            }
+
+            if ($('#status').val() === null) {
+                $('#status_error').text('This field is required');
+                isValid = false;
+            }
+
+            // Submit the form if all fields are valid
+            if (isValid) {
+                this.submit();
+            }
+        });
+    });
+</script>
+
 
 @endPushOnce
