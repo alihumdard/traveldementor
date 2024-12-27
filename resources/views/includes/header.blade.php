@@ -8,85 +8,97 @@
     background-color: #f0f0f0 !important;
     /* Dropdown menu ka background color change kare */
   }
-/* Ensure the parent element is positioned correctly */
-.navbar-nav .nav-item {
-    position: relative; /* Important for absolute positioning of dropdown */
-}
 
-/* Style the dropdown menu */
-.navbar-nav .nav-item .dropdown-menu {
-    display: none; /* Initially hide the dropdown */
+  /* Ensure the parent element is positioned correctly */
+  .navbar-nav .nav-item {
+    position: relative;
+    /* Important for absolute positioning of dropdown */
+  }
+
+  /* Style the dropdown menu */
+  .navbar-nav .nav-item .dropdown-menu {
+    display: none;
+    /* Initially hide the dropdown */
     position: absolute;
-    top: 100%; /* Positions the dropdown directly below the parent item */
-    right: 10; /* Aligns the dropdown to the right of the parent item */
-    width: 200px; /* Set the width of the dropdown menu */
+    top: 100%;
+    /* Positions the dropdown directly below the parent item */
+    right: 10;
+    /* Aligns the dropdown to the right of the parent item */
+    width: 200px;
+    /* Set the width of the dropdown menu */
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    z-index: 9999; /* Ensure dropdown appears above other content */
-    opacity: 0; /* Hide the dropdown initially */
-     visibility: hidden; /*Hide it initially */
-    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition effect */
-}
+    z-index: 9999;
+    /* Ensure dropdown appears above other content */
+    opacity: 0;
+    /* Hide the dropdown initially */
+    visibility: hidden;
+    /*Hide it initially */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Smooth transition effect */
+  }
 
-/* Show the dropdown when the parent is hovered */
-.navbar-nav .nav-item:hover .dropdown-menu {
-    display: block; /* Make the dropdown visible */
-    opacity: 1; /* Make the dropdown fully opaque */
-    visibility: visible; /* Ensure it's visible */
+  /* Show the dropdown when the parent is hovered */
+  .navbar-nav .nav-item:hover .dropdown-menu {
+    display: block;
+    /* Make the dropdown visible */
+    opacity: 1;
+    /* Make the dropdown fully opaque */
+    visibility: visible;
+    /* Ensure it's visible */
     margin-left: 50px;
-}
+  }
 
-/* Styling for items in the dropdown */
-.dropdown-item {
+  /* Styling for items in the dropdown */
+  .dropdown-item {
     padding: 10px;
     color: #452C88;
     font-size: 14px;
     text-decoration: none;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
+  }
 
-/* Hover effect on items */
-.dropdown-item:hover {
+  /* Hover effect on items */
+  .dropdown-item:hover {
     background-color: #f4f4f4;
     color: #5a2a91;
-}
+  }
 
-/* Profile image styles */
-.nav-profile-image img {
+  /* Profile image styles */
+  .nav-profile-image img {
     border-radius: 50%;
     width: 34px;
     height: 34px;
     object-fit: cover;
-}
+  }
 
-/* Add divider between items */
-.dropdown-divider {
+  /* Add divider between items */
+  .dropdown-divider {
     border-top: 1px solid #ddd;
     margin: 5px 0;
-}
+  }
 
-/* Styling for text and profile content */
-.preview-item-content {
+  /* Styling for text and profile content */
+  .preview-item-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-}
+  }
 
-/* Text styles for profile name */
-.preview-item-content .nav-profile-text {
+  /* Text styles for profile name */
+  .preview-item-content .nav-profile-text {
     margin-left: 10px;
     font-weight: bold;
-}
+  }
 
-/* Custom text color for links */
-.preview-item-content p {
+  /* Custom text color for links */
+  .preview-item-content p {
     margin: 0;
     font-size: 14px;
     color: #452C88;
-}
-
+  }
 </style>
 <nav class="navbar p-0 row">
   <div class="navbar-menu-wrapper col-12 col-lg-12 col-sm-12 d-flex" style="background-color: #F5F5F5 !important; justify-content: flex-end;">
@@ -95,78 +107,32 @@
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
           <div class="nav-profile-image">
             <button class="btn content-background btn-sm text-white">
-              <i class="fa fa-plus" style="font-size: 20px;"></i>
+              <i class="fas fa-plus" style="font-size: 20px;"></i>
             </button>
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-          @if(view_permission('quotations'))
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item" href="{{ route('quotations') }}">
-            <div class="preview-thumbnail">
-              <div class="preview-icon">
-                <i class="ml-3 fa-regular fa-file-lines"></i>
-              </div>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <p class="ellipsis mb-0 mx-4" style="color: #452C88;">@lang('lang.quotations')</p>
-            </div>
-          </a>
-          @endif
+          <ul class="list-unstyled m-0 p-2">
+            <!-- First List Item -->
+            <li class="d-flex align-items-center py-2">
+              <i class="fas fa-envelope mx-2" style="font-size: 18px; color: #452C88;"></i>
+              <a href="#" class="text-decoration-none" style="color: #452C88;">Application</a>
+            </li>
 
-          @if(view_permission('contracts'))
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item" href="{{ route('contracts') }}">
-            <div class="preview-thumbnail">
-              <div class="preview-icon">
-                <i class=" ml-3  fa-solid fa-file-signature"></i>
-              </div>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <p class="ellipsis mb-0 mx-4" style="color: #452C88;">@lang('lang.contracts')</p>
-            </div>
-          </a>
-          @endif
-
-          @if(view_permission('invoices'))
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item" href="{{ route('invoices') }}">
-            <div class="preview-thumbnail">
-              <div class="preview-icon">
-                <i class=" ml-3 fa-solid fa-receipt"></i>
-              </div>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <p class="ellipsis mb-0 mx-4" style="color: #452C88;">@lang('lang.invoices')</p>
-            </div>
-          </a>
-          @endif
-
-          @if(view_permission('users'))
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item" href="{{ '/users' }}">
-            <div class="preview-thumbnail">
-              <div class="preview-icon ml-2">
-                <svg width="40" height="32" viewBox="0 0 27 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M5.15246 34.6808H12.5431V27.2902C8.66263 27.7192 5.58148 30.8003 5.15246 34.6808ZM14.4035 27.2902V34.6808H21.7942C21.3652 30.8003 18.284 27.7192 14.4035 27.2902ZM21.7943 36.5412C21.6643 37.7177 21.2909 38.8194 20.7258 39.7963L22.3362 40.7279C23.2074 39.2219 23.7057 37.4732 23.7057 35.611C23.7057 29.9599 19.1245 25.3787 13.4733 25.3787C7.82218 25.3787 3.24097 29.9599 3.24097 35.611C3.24097 37.4732 3.73928 39.2219 4.61043 40.7279L6.22082 39.7963C5.65571 38.8194 5.28232 37.7177 5.15237 36.5412H21.7943Z" fill="#452C88" />
-                  <path d="M16.264 35.6108C16.264 37.1521 15.0146 38.4015 13.4734 38.4015C11.9321 38.4015 10.6827 37.1521 10.6827 35.6108C10.6827 34.0696 11.9321 32.8202 13.4734 32.8202C15.0146 32.8202 16.264 34.0696 16.264 35.6108Z" fill="#452C88" />
-                  <path d="M20.5285 32.6761C20.2626 31.6836 20.8516 30.6635 21.844 30.3975L23.6411 29.916C24.6336 29.6501 25.6537 30.2391 25.9197 31.2315L26.8827 34.8256C27.1486 35.8182 26.5597 36.8382 25.5672 37.1042L23.7701 37.5857C22.7777 37.8516 21.7575 37.2627 21.4916 36.2701L20.5285 32.6761Z" fill="#452C88" />
-                  <path d="M1.02687 31.2307C1.29282 30.2382 2.31298 29.6492 3.30543 29.9152L5.10251 30.3967C6.09496 30.6626 6.68397 31.6828 6.41802 32.6752L5.45497 36.2693C5.18902 37.2618 4.16886 37.8507 3.17641 37.5849L1.37942 37.1033C0.386901 36.8374 -0.202083 35.8173 0.0638563 34.8248L1.02687 31.2307Z" fill="#452C88" />
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M5.10141 14.2159V11.4252H6.96184V14.2159C6.96184 17.8121 9.87713 20.7274 13.4733 20.7274C17.0696 20.7274 19.9848 17.8121 19.9848 14.2159V11.4252H21.8453V14.2159C21.8453 18.8396 18.0971 22.5878 13.4733 22.5878C8.84962 22.5878 5.10141 18.8396 5.10141 14.2159Z" fill="#452C88" />
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M3.97984 8.63467H23.0075C23.0744 8.46397 23.1465 8.26277 23.2184 8.03245L23.2297 7.99645C23.4806 7.1934 23.7057 6.47281 23.7057 5.00383C23.7057 4.25891 23.2217 3.63166 22.5811 3.13569C21.932 2.63319 21.0455 2.20297 20.058 1.85229C18.0806 1.15 15.5867 0.727844 13.4733 0.727844C11.36 0.727844 8.86607 1.15 6.88862 1.85229C5.9012 2.20297 5.0147 2.63319 4.3656 3.13569C3.72496 3.63166 3.24097 4.25891 3.24097 5.00383C3.24097 6.36758 3.46906 7.08632 3.70338 7.82492C3.72524 7.89375 3.7471 7.96268 3.76886 8.03235C3.84077 8.26268 3.91295 8.46388 3.97984 8.63467ZM9.75247 5.84402C9.75247 5.33029 10.1689 4.91381 10.6827 4.91381H16.264C16.7777 4.91381 17.1942 5.33029 17.1942 5.84402C17.1942 6.35776 16.7777 6.77424 16.264 6.77424H10.6827C10.1689 6.77424 9.75247 6.35776 9.75247 5.84402Z" fill="#452C88" />
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M4.19109 10.877C4.23332 10.6558 4.43583 10.4951 4.67219 10.4951H22.2745C22.5108 10.4951 22.7133 10.6558 22.7556 10.877L22.7558 10.8781L22.756 10.8792L22.7565 10.8819L22.7576 10.8883L22.7603 10.9052C22.7623 10.9183 22.7645 10.9351 22.7666 10.9553C22.7709 10.9958 22.7748 11.0501 22.7754 11.1163C22.7765 11.2486 22.7643 11.4297 22.7142 11.643C22.6128 12.0742 22.3599 12.6223 21.7809 13.1549C20.6329 14.2109 18.2743 15.1461 13.4733 15.1461C8.6723 15.1461 6.31374 14.2109 5.16576 13.1549C4.58671 12.6223 4.33387 12.0742 4.23248 11.643C4.18234 11.4297 4.17016 11.2486 4.17127 11.1163C4.17183 11.0501 4.17574 10.9958 4.18002 10.9553C4.18216 10.9351 4.18439 10.9183 4.18634 10.9052L4.18904 10.8883L4.19016 10.8819L4.19062 10.8792L4.1909 10.8781L4.19109 10.877Z" fill="#452C88" />
-                </svg>
-              </div>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <p class="ellipsis mb-0 mx-4" style="color: #452C88;">@lang('lang.users')</p>
-            </div>
-          </a>
-          @endif
-
-          <div class="dropdown-divider"></div>
+            <!-- Second List Item -->
+            <li class="d-flex align-items-center py-2">
+              <i class="fas fa-house-crack mx-2" style="font-size: 18px; color: #452C88;"></i>
+              <a href="#" class="text-decoration-none" style="color: #452C88;">Insurance</a>
+            </li>
+            <!-- Third List Item -->
+            <li class="d-flex align-items-center py-2">
+              <i class="fas fa-hotel mx-2" style="font-size: 18px; color: #452C88;"></i>
+              <a href="#" class="text-decoration-none" style="color: #452C88;">Hotel Booking</a>
+            </li>
+          </ul>
         </div>
       </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
           <div class="nav-profile-image" style="margin-top: 6px;">
@@ -261,51 +227,7 @@
               </div>
             </div>
           </a>
-
           <div class="dropdown-divider"></div>
-
-          <!-- Settings link -->
-          <a class="dropdown-item preview-item" href="/settings">
-            <div class="preview-thumbnail">
-              <div class="preview-icon">
-                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M25.5028 16.9751C25.9499 17.2126 26.2948 17.5876 26.5375 17.9626C27.0102 18.7376 26.9719 19.6876 26.512 20.5251L25.6178 22.0251C25.1451 22.8251 24.2637 23.3251 23.3567 23.3251C22.9096 23.3251 22.4114 23.2001 22.0026 22.9501C21.6705 22.7376 21.2872 22.6626 20.8785 22.6626C19.6138 22.6626 18.5535 23.7001 18.5152 24.9376C18.5152 26.3751 17.3399 27.5001 15.8709 27.5001H14.1335C12.6517 27.5001 11.4764 26.3751 11.4764 24.9376C11.4509 23.7001 10.3906 22.6626 9.12594 22.6626C8.70439 22.6626 8.32115 22.7376 8.00179 22.9501C7.59301 23.2001 7.08203 23.3251 6.6477 23.3251C5.72793 23.3251 4.8465 22.8251 4.37384 22.0251L3.4924 20.5251C3.01975 19.7126 2.9942 18.7376 3.46685 17.9626C3.67125 17.5876 4.05448 17.2126 4.48881 16.9751C4.8465 16.8001 5.07644 16.5126 5.2936 16.1751C5.93233 15.1001 5.54909 13.6876 4.46326 13.0501C3.19859 12.3376 2.78981 10.7501 3.51795 9.51262L4.37384 8.03762C5.11476 6.80012 6.69879 6.36262 7.97624 7.08762C9.08762 7.68762 10.5311 7.28762 11.1826 6.22512C11.387 5.87512 11.502 5.50012 11.4764 5.12512C11.4509 4.63762 11.5914 4.17512 11.8341 3.80012C12.3068 3.02512 13.1627 2.52512 14.0952 2.50012H15.8964C16.8417 2.50012 17.6976 3.02512 18.1703 3.80012C18.4002 4.17512 18.5535 4.63762 18.5152 5.12512C18.4896 5.50012 18.6046 5.87512 18.809 6.22512C19.4605 7.28762 20.904 7.68762 22.0282 7.08762C23.2928 6.36262 24.8896 6.80012 25.6178 8.03762L26.4737 9.51262C27.2146 10.7501 26.8058 12.3376 25.5284 13.0501C24.4425 13.6876 24.0593 15.1001 24.7108 16.1751C24.9152 16.5126 25.1451 16.8001 25.5028 16.9751ZM11.387 15.0126C11.387 16.9751 13.0094 18.5376 15.015 18.5376C17.0206 18.5376 18.6046 16.9751 18.6046 15.0126C18.6046 13.0501 17.0206 11.4751 15.015 11.4751C13.0094 11.4751 11.387 13.0501 11.387 15.0126Z" fill="#452C88" />
-                </svg>
-              </div>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <p class="ellipsis mb-0 mx-4" style="color: #452C88;">@lang('lang.settings')</p>
-            </div>
-          </a>
-
-          <div class="dropdown-divider"></div>
-
-          <!-- Google Link -->
-          <a class="dropdown-item preview-item" href="https://www.google.com" target="_blank">
-            <div class="preview-icon">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 9H6V12H8V9ZM8 5H6V7H8V5ZM11 2H9V4H11V2ZM13 6H11V8H13V6ZM13 9H11V11H13V9ZM11 14H9V16H11V14ZM9 18H7V20H9V18ZM6 22H8V20H6V22ZM4 20H6V18H4V20ZM4 16H6V14H4V16ZM5 12H7V10H5V12Z" fill="#452C88" />
-              </svg>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <p class="ellipsis mb-0 mx-4" style="color: #452C88;">Google</p>
-            </div>
-          </a>
-
-          <!-- Facebook Link -->
-          <a class="dropdown-item preview-item" href="https://www.facebook.com" target="_blank">
-            <div class="preview-icon">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13 2C6.923 2 2 6.923 2 13C2 19.077 6.923 24 13 24C19.077 24 24 19.077 24 13C24 6.923 19.077 2 13 2ZM13 22.5C7.664 22.5 3 17.836 3 13C3 8.164 7.664 3.5 13 3.5C18.336 3.5 23 8.164 23 13C23 17.836 18.336 22.5 13 22.5ZM14 12H12V10H14V12ZM14 16H12V13H14V16ZM14 8H12V6H14V8Z" fill="#452C88" />
-              </svg>
-            </div>
-            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <p class="ellipsis mb-0 mx-4" style="color: #452C88;">Facebook</p>
-            </div>
-          </a>
-
-          <div class="dropdown-divider"></div>
-
           <!-- Logout link -->
           <a class="dropdown-item preview-item" href="/logout">
             <div class="preview-thumbnail">

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Appoinment')
+@section('title', 'Insurance')
 @section('content')
 
 <style>

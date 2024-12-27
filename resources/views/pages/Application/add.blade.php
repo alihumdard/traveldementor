@@ -90,7 +90,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span></span>
+                    <span>Application</span>
                 </h3>
             </div>
             <div class="container" id="home">
