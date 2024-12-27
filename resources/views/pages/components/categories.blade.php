@@ -61,7 +61,7 @@
             </div>
 
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-end  justify-content-center">
-              <input type="submit" id="btn_save_" class="btn form-control content-background w-50 text-white mt-2" name="submit" value="{{ ($category['id'] ?? '') !== '' ? 'Update' : 'Add' }}" />
+              <input type="submit" id="btn_save_" class="btn form-control w-50 text-white mt-2" name="submit" value="{{ ($category['id'] ?? '') !== '' ? 'Update' : 'Add' }}" style="background-color: #452C88;"/>
               <div class="text-danger error-message mt-1" id="submitBtn-error"></div>
             </div>
           </div>
@@ -78,7 +78,7 @@
         <div class="px-2">
           <div class="table-responsive">
             <table id="category-table" class="display" style="width:100%">
-              <thead class="table-dark" style="background-color: #184A45;">
+              <thead class="table-dark" style="background-color:#5F4A99;">
                 <tr style="font-size: small;">
                   <th>#</th>
                   <th> Name </th>

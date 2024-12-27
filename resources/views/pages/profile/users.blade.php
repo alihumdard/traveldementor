@@ -111,7 +111,7 @@
                   <td>
                     <button class="btn btn_status">
                       <span data-user_id="{{$value['id']}}">
-                        <div style="width: 100%; height: 100%; padding-top: 6px; padding-bottom: 7px; padding-left: 14px; padding-right: 12px;    background: rgba(245, 34, 45, 0.19); border-radius: 3px; justify-content: center; align-items: center; display: inline-flex">
+                        <div style="width: 100%; height: 100%; padding-top: 6px; padding-bottom: 7px; padding-left: 14px; padding-right: 12px;    background: rgba(136, 118, 119, 0.19); border-radius: 3px; justify-content: center; align-items: center; display: inline-flex">
                           <div style="text-align: center; color: #F5222D; font-size: 14px; font-weight: 500; word-wrap: break-word">@lang('lang.deleted')</div>
                         </div>
                       </span>
