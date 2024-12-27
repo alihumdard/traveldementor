@@ -25,7 +25,7 @@
           <div class="col-lg-12">
             <div class="row mx-1">
               <div class="col-lg-9 col-sm-6 mb-1 pr-0" style="text-align: right;">
-                <button class="btn content-background add-btn text-white" data-toggle="modal" data-target="#addUsers"><span><i class="fa fa-plus"></i> @lang('lang.add_user')</span></button>
+                <button class="btn add-btn text-white" data-toggle="modal" data-target="#addUsers" style="background-color: #452C88;"><span><i class="fa fa-plus"></i> @lang('lang.add_user')</span></button>
               </div>
               <div class="col-lg-3 col-sm-6 pr-0">
                 <div class="input-group">
@@ -53,7 +53,7 @@
         <div class="px-2">
           <div class="table-responsive">
             <table id="drivers-table" class="display" style="width:100%">
-              <thead class="table-dark" style="background-color: #184A45;">
+              <thead class="table-dark" style="background-color: #5F4A99;">
                 <tr style="font-size: small;">
                   <th>#</th>
                   <th>Joining Date</th>

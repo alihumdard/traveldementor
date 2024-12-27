@@ -12,13 +12,7 @@ use App\Models\VfsEmbassy;
 
 class ScheduleController extends Controller
 {
-    public function schedule_index()
-    {
-        $user = auth()->user();
-        $data['user'] = $user;
-        $data['appointments'] = Appointment::with('client')->get();
-        return view('pages.appointment.schedule.listing', $data);
-    }
+   
     public function add($id = null)
     {       
         $userIds = Application::pluck('user_id')->unique()->toArray();

@@ -5,6 +5,7 @@ use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HotelBookingController;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\PendingController;
 use App\Http\Controllers\ScheduleController;
@@ -56,6 +57,10 @@ Route::middleware('check.userAuthCheck')->group(function () {
 
     Route::match(['post', 'get'], '/tracking/add',              [TrackingController::class, 'add'])->name('tracking.add');
     Route::match(['post', 'get'], '/tracking',                  [TrackingController::class, 'index'])->name('tracking.index');
+    
+    Route::match(['post', 'get'], '/hotel/add',              [HotelBookingController::class, 'add'])->name('hotel.add');
+    Route::match(['post', 'get'], '/hotel',                  [HotelBookingController::class, 'index'])->name('hotel.index');
+    
 });
 
 //basic routes of login and registeration ...

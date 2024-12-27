@@ -124,7 +124,7 @@ class UserController extends Controller
     public function vfs_embassy(REQUEST $request)
     {
         $user = auth()->user();
-        $page_name = 'VFS';
+        $page_name = 'vfs';
 
         if (!view_permission($page_name)) {
             return redirect()->back();

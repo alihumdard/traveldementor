@@ -107,9 +107,9 @@
         
         @if(view_permission('pending_appointment'))
         <li>
-            <a href="{{ route('appointment.index') }}" class="{{(request()->routeIs('appointment.index')) ? 'menu-acitve' : ''}}">
+            <a href="{{ route('pending.appointment.index') }}" class="{{(request()->routeIs('pending.appointment.index')) ? 'menu-acitve' : ''}}">
             <i class="ml-3 fa-solid fa-calendar-check"></i>
-                <span class="link_name">Appointment</span>
+                <span class="link_name">Pending Appointment</span>
             </a>
         </li>
         @endif
@@ -123,7 +123,15 @@
             </a>
         </li>
         @endif
-
+        @if(view_permission('hotel_booking'))
+        <li>
+            <a href="{{ route('hotel.index') }}"
+                class="{{(request()->routeIs('hotel.index')) ? 'menu-acitve' : ''}} scroll-item">
+                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
+                <span class="link_name">Hotel Booking</span>
+            </a>
+        </li>
+        @endif
 
         @if(view_permission('locations'))
         <li>
