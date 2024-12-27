@@ -11,6 +11,7 @@ class HotelBookingController extends Controller
         return view('pages.hotelbooking.add');
 
     }
+    
     public function index()
     {
         $user = auth()->user();
