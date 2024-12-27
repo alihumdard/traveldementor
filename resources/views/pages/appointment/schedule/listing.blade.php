@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Appointment')
+@section('title', 'Schedule Appointment')
 @section('content')
 
 <div class="content-wrapper py-0 my-0">
@@ -16,6 +16,7 @@
               <path d="M18.4862 18.5H18.4978" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </span>
+          <span>Schedule Appointment</span>
         </h3>
         <div class="row mb-2">
           <!-- <div class="col-lg-4"></div> -->

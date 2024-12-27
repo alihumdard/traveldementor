@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Appoinment')
+@section('title', 'Pending Appoinment')
 @section('content')
 
 <style>
@@ -89,7 +89,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span></span>
+                    <span>Pending Appointment</span>
                 </h3>
             </div>
             <div class="container" id="home">

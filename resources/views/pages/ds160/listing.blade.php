@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'ds160')
+@section('title', 'DS160')
 @section('content')
 
 <div class="content-wrapper py-0 my-0">

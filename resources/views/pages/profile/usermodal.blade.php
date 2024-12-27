@@ -135,7 +135,7 @@
               <div class="col-lg-6 mt-3">
                 <div class="row py-4 justify-content-end">
                   <div class="col-lg-12">
-                    <button type="submit" id="btn_save" class="btn btn-md text-white px-5 " data-target="#add" style="background-color: #184A45; width: 100%;">
+                    <button type="submit" id="btn_save" class="btn btn-md text-white px-5 " data-target="#add" style="background-color: #452C88; width: 100%;">
                       <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
                       <span id="add_btn">@lang('lang.add')</span>
                     </button>

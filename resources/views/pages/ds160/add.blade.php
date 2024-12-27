@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', ' Hotel Booking')
+@section('title', ' DS160')
 @section('content')
 
 <style>
@@ -97,7 +97,7 @@
                     <div class="row">
                         @csrf
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="application_id">Applicant Name </label>
+                            <label for="application_id">Applicant name </label>
                             <select  name="application_id" id="application_id" class="form-select">
                                 <option value="xyz"> Select application</option>
                                 <option value="">xyz</option>
@@ -123,7 +123,7 @@
                             <span id="ds160_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="revised_ds160">Revised Ds160</label>
+                            <label for="revised_ds160">Revised ds160</label>
                             <input type="text" name="revised_ds160" id="revised_ds160" class="form-control">
                             <span id="revised_ds160_error" class="error-message text-danger"></span>
                         </div>
@@ -148,20 +148,82 @@
                             <span id="sec_answer_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="us_travel_doc_email">Us travel email</label>
+                            <label for="us_travel_doc_email">Us travel doc email</label>
                             <input type="email" name="us_travel_doc_email" id="us_travel_doc_email" class="form-control">
                             <span id="us_travel_doc_email_error" class="error-message text-danger"></span>
                         </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="us_travel_doc_password">Us travel doc password</label>
+                            <input type="password" name="us_travel_doc_password" id="us_travel_doc_password" class="form-control">
+                            <span id="us_travel_doc_password_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="us_travel_doc_updated_password">Us travel doc updated password</label>
+                            <input type="password" name="us_travel_doc_updated_password" id="us_travel_doc_updated_password" class="form-control">
+                            <span id="us_travel_doc_updated_password_error" class="error-message text-danger"></span>
+                        </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="status">Status</label>
-                            <select  name="status" id="status" class="form-select">
-                                <option value="xyz"> Select status</option>
-                                <option value="">xyz</option>
+                            <label for="challan_created">Challan created</label>
+                            <select  name="challan_created" id="challan_created" class="form-select">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
                             </select>
-                            <span id="status_error" class="error-message text-danger"></span>
+                            <span id="challan_created_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                            <label for="challan_submitted">Challan submitted</label>
+                            <select  name="challan_submitted" id="challan_submitted" class="form-select">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <span id="challan_submitted_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                            <label for="payment_mode">Payment mode</label>
+                            <select  name="payment_mode" id="payment_mode" class="form-select">
+                                <option value="online">Online</option>
+                                <option value="cash">Cash</option>
+                            </select>
+                            <span id="payment_mode_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="transaction_date">Transcation date</label>
+                            <input type="date" name="transaction_date" id="transaction_date" class="form-control">
+                            <span id="transaction_date_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appoint_date">Appointment date</label>
+                            <input type="date" name="appoint_date" id="appoint_date" class="form-control">
+                            <span id="appoint_date_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appoint_reschedule">Appointment reschedule</label>
+                            <input type="date" name="appoint_reschedule" id="appoint_reschedule" class="form-control">
+                            <span id="appoint_reschedule_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                            <label for="pick_up_location">Pick up location</label>
+                            <select name="pick_up_location" id="pick_up_location" class="form-select">
+                                <option value="xyz">Pick location</option>
+                                <option value="lahore">Lahore</option>
+                                <option value="sargodha">Sargodha</option>
+                            </select>
+                            <span id="pick_up_location_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                            <label for="premium_delivery">Premium delivery</label>
+                            <select name="premium_delivery" id="premium_delivery" class="form-select">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <span id="premium_delivery_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="delivery_address">Delivery address</label>
+                            <textarea name="delivery_address" id="delivery_address" class="form-control">
+                            <span id="delivery_address_error" class="error-message text-danger"></span>
                         </div>
                     </div>
-
                     <div class="mt-3">
                         <div class="row justify-content-end mt-2  ">
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
