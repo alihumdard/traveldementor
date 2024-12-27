@@ -94,80 +94,123 @@
                 </h3>
             </div>
             <div class="container" id="home">
-                <form action="quotationStore" id="formData" method="post">
+                <form action="{{ route('insurance.store') }}" id="formData" method="post">
+                    @csrf
                     <div class="row">
-                        @csrf
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                        <!-- Hidden ID Field -->
+                        <input type="hidden" name="id" value="{{ isset($insurance) ? $insurance->id : '' }}">
+                        
+                        <!-- Application ID -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="application_id">Application</label>
-                            <select required name="application_id" id="application_id" class="form-select">
-                                <option value="xyz"> Select application</option>
-                                <option value="">xyz</option>
+                            <select name="application_id" id="application_id" class="form-select">
+                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select application</option>
+                                @foreach ($clients as $client)
+                                    <option value="{{ $client->id }}" {{ isset($insurance) && $insurance->application_id == $client->id ? 'selected' : '' }}>
+                                        {{ $client->name }}
+                                    </option>
+                                @endforeach
                             </select>
                             <span id="application_id_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                
+                        <!-- Country -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
-                            <select required name="country_id" id="country_id" class="form-select">
-                                <option value="xyz"> Select country</option>
-                                <option value="xyz"> Pakistan</option>
+                            <select name="country_id" id="country_id" class="form-select">
+                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select country</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}" {{ isset($insurance) && $insurance->country_id == $country->id ? 'selected' : '' }}>
+                                        {{ $country->name }}
+                                    </option>
+                                @endforeach
                             </select>
                             <span id="country_id_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="plan_type">Plan type</label>
-                            <select required name="plan_type" id="plan_type" class="form-select">
-                                <option value="xyz">Select plan type</option>
-                                <option value="xyz">xyz</option>
+                
+                        <!-- Plan Type -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="plan_type">Plan Type</label>
+                            <select name="plan_type" id="plan_type" class="form-select">
+                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select plan type</option>
+                                <option value="individual" {{ isset($insurance) && $insurance->plan_type == 'individual' ? 'selected' : '' }}>Individual</option>
+                                <option value="family" {{ isset($insurance) && $insurance->plan_type == 'family' ? 'selected' : '' }}>Family</option>
                             </select>
                             <span id="plan_type_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Start Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="s_date">Start date</label>
-                            <input required type="date" name="s_date" id="s_date" class="form-control">
+                            <label for="s_date">Start Date</label>
+                            <input type="date" name="s_date" id="s_date" class="form-control" 
+                                value="{{ isset($insurance) ? $insurance->s_date : '' }}">
                             <span id="s_date_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- End Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="e_date">End date</label>
-                            <input required type="date" name="e_date" id="e_date" class="form-control">
+                            <label for="e_date">End Date</label>
+                            <input type="date" name="e_date" id="e_date" class="form-control" 
+                                value="{{ isset($insurance) ? $insurance->e_date : '' }}">
                             <span id="e_date_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Policy Number -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="policy_no">Policy no</label>
-                            <input required type="number" name="policy_no" id="policy_no" class="form-control">
+                            <label for="policy_no">Policy Number</label>
+                            <input type="number" name="policy_no" id="policy_no" class="form-control" 
+                                value="{{ isset($insurance) ? $insurance->policy_no : '' }}">
                             <span id="policy_no_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Sale Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="sale_date">Sale date</label>
-                            <input required type="date" name="sale_date" id="sale_date" class="form-control">
+                            <label for="sale_date">Sale Date</label>
+                            <input type="date" name="sale_date" id="sale_date" class="form-control" 
+                                value="{{ isset($insurance) ? $insurance->sale_date : '' }}">
                             <span id="sale_date_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Amount -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="amount">Amount</label>
-                            <input required type="number" name="amount" id="amount" class="form-control">
+                            <input type="number" name="amount" id="amount" class="form-control" 
+                                value="{{ isset($insurance) ? $insurance->amount : '' }}">
                             <span id="amount_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Payable After 40% -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="payable_after_40_per">Payable after 40%</label>
-                            <input required type="number" name="payable_after_40_per" id="payable_after_40_per" class="form-control">
+                            <label for="payable_after_40_per">Payable After 40%</label>
+                            <input type="number" name="payable_after_40_per" id="payable_after_40_per" class="form-control" 
+                                value="{{ isset($insurance) ? $insurance->payable_after_40_per : '' }}">
                             <span id="payable_after_40_per_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Net Payable -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="net_payable">Net payable</label>
-                            <input required type="number" name="net_payable" id="net_payable" class="form-control">
+                            <label for="net_payable">Net Payable</label>
+                            <input type="number" name="net_payable" id="net_payable" class="form-control" 
+                                value="{{ isset($insurance) ? $insurance->net_payable : '' }}">
                             <span id="net_payable_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Refund Applied -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="refund_applied" style="margin-bottom:10px;">Refund Applied</label>
+                            <label for="refund_applied">Refund Applied</label>
                             <div>
-                                <input required type="radio" name="refund_applied" id="refund_applied_yes" value="yes">
+                                <input type="radio" name="refund_applied" id="refund_applied_yes" value="yes" 
+                                    {{ isset($insurance) && $insurance->refund_applied == 'yes' ? 'checked' : '' }}>
                                 <label for="refund_applied_yes">Yes</label>
-                                <input required type="radio" name="refund_applied" id="refund_applied_no" value="no" style="margin-left: 10px;">
+                
+                                <input type="radio" name="refund_applied" id="refund_applied_no" value="no" 
+                                    {{ isset($insurance) && $insurance->refund_applied == 'no' ? 'checked' : '' }} style="margin-left: 10px;">
                                 <label for="refund_applied_no">No</label>
                             </div>
                             <span id="refund_applied_error" class="error-message text-danger"></span>
                         </div>
-                    </div>
-
+                
+                    <!-- Form Buttons -->
                     <div class="mt-3">
                         <div class="row justify-content-end mt-2  ">
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
@@ -183,10 +226,12 @@
                                     <span id="text">@lang('Save')</span>
                                 </button>
                             </div>
-                        </div>
-                    </div>
+                            </div>
+
+
 
                 </form>
+                
             </div>
         </div>
     </div>
@@ -196,6 +241,87 @@
 
 <!-- viewlocation Modal End -->
 @stop
-@pushOnce('script')
+@pushOnce('scripts')
+<script>
+    $(document).ready(function () {
+        $('#formData').on('submit', function (e) {
+            let isValid = true;
+
+            // Clear previous error messages
+            $('.error-message').text('');
+
+            // Validate application ID
+            if (!$('#application_id').val()) {
+                $('#application_id_error').text('Application is required.');
+                isValid = false;
+            }
+
+            // Validate country ID
+            if (!$('#country_id').val()) {
+                $('#country_id_error').text('Country is required.');
+                isValid = false;
+            }
+
+            // Validate plan type
+            if (!$('#plan_type').val()) {
+                $('#plan_type_error').text('Plan type is required.');
+                isValid = false;
+            }
+
+            // Validate start date
+            if (!$('#s_date').val()) {
+                $('#s_date_error').text('Start date is required.');
+                isValid = false;
+            }
+
+            // Validate end date
+            if (!$('#e_date').val()) {
+                $('#e_date_error').text('End date is required.');
+                isValid = false;
+            }
+
+            // Validate policy number
+            if (!$('#policy_no').val()) {
+                $('#policy_no_error').text('Policy number is required.');
+                isValid = false;
+            }
+
+            // Validate sale date
+            if (!$('#sale_date').val()) {
+                $('#sale_date_error').text('Sale date is required.');
+                isValid = false;
+            }
+
+            // Validate amount
+            if (!$('#amount').val()) {
+                $('#amount_error').text('Amount is required.');
+                isValid = false;
+            }
+
+            // Validate payable after 40%
+            if (!$('#payable_after_40_per').val()) {
+                $('#payable_after_40_per_error').text('Payable after 40% is required.');
+                isValid = false;
+            }
+
+            // Validate net payable
+            if (!$('#net_payable').val()) {
+                $('#net_payable_error').text('Net payable is required.');
+                isValid = false;
+            }
+
+            // Validate refund applied
+            if (!$('input[name="refund_applied"]:checked').val()) {
+                $('#refund_applied_error').text('Refund applied is required.');
+                isValid = false;
+            }
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 
 @endPushOnce

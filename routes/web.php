@@ -44,15 +44,17 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/appointment/schedule/add/{id?}',    [ScheduleController::class, 'add'])->name('schedule.appointment.add');
     Route::match(['post', 'get'], '/appointment/schedule',     [ScheduleController::class, 'schedule_index'])->name('schedule.appointment.index');
     Route::match(['post', 'get'], '/appointment/schedule/store',        [ScheduleController::class, 'appointment_store'])->name('schedule.appointment.store');
-    Route::match(['post', 'get'], '/appointment/delete/{id}',  [ScheduleController::class, 'delete'])->name('schedule.appointment.delete');
-   
+    Route::match(['post', 'get'], '/appointment/schedule/delete/{id}', [ScheduleController::class, 'delete'])->name('schedule.appointment.delete');
+
     Route::match(['post', 'get'], '/appointment/pending/add/{id?}',    [PendingController::class, 'add'])->name('pending.appointment.add');
     Route::match(['post', 'get'], '/appointment/pending',      [PendingController::class, 'pending_index'])->name('pending.appointment.index');
     Route::match(['post', 'get'], '/appointment/pending/store',        [PendingController::class, 'appointment_store'])->name('pending.appointment.store');
-    Route::match(['post', 'get'], '/appointment/delete/{id}',  [PendingController::class, 'delete'])->name('pending.appointment.delete');
+    Route::match(['post', 'get'], '/appointment/pending/delete/{id}',  [PendingController::class, 'delete'])->name('pending.appointment.delete');
 
-    Route::match(['post', 'get'], '/insurance/add',             [InsuranceController::class, 'add'])->name('insurance.add');
+    Route::match(['post', 'get'], '/insurance/add/{id?}',             [InsuranceController::class, 'add'])->name('insurance.add');
     Route::match(['post', 'get'], '/insurance',                 [InsuranceController::class, 'index'])->name('insurance.index');
+    Route::match(['post', 'get'], '/insurance/store',                 [InsuranceController::class, 'store'])->name('insurance.store');
+    Route::match(['post', 'get'], '/insurance/delete/{id?}',                 [InsuranceController::class, 'delete'])->name('insurance.delete');
 
     Route::match(['post', 'get'], '/tracking/add',              [TrackingController::class, 'add'])->name('tracking.add');
     Route::match(['post', 'get'], '/tracking',                  [TrackingController::class, 'index'])->name('tracking.index');

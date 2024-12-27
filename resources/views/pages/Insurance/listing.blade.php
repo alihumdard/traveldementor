@@ -71,29 +71,38 @@
         <hr>
         <div class="px-2">
           <div class="table-responsive">
+            @if (Session::has('message'))
+            <div class="alert alert-success col-lg-8 col-md-12 col-sm-12 ">
+              <button type="button" class="close ml-2" data-dismiss="alert">&times;</button>
+              <strong>{{ session('message') }}</strong>
+            </div>
+            @endif
             <table id="qoute-table" class="display" style="width:100%">
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th style="width: 100px;">Insurance date</th>
-
-                  <th>@lang('lang.client_name')</th>
-                  <th>@lang('Location')</th>
-                  <th>@lang('Qoute Status')</th>
-                  <th>@lang('lang.actions')</th>
+                  <th style="width: 100px;">Applicant Name</th>
+                  <th>Country</th>
+                  <th>Insurance Plan</th>
+                  <th>Policy No</th>
+                  <th>Amount</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="tableData">
+                @foreach ($insurances as $insurance)    
                 <tr style="font-size: small;">
-                  <td>hhh</td>
-                  <td>hhh</td>
-                  <td>hhh</td>
-                  <td>hhh</td>
-                  <td>hhh</td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $insurance->client->name }}</td>
+                  <td>{{ $insurance->country->name }}</td>
+                  <td>{{ $insurance->plan_type }}</td>
+                  <td>{{ $insurance->policy_no }}</td>
+                  <td>{{ $insurance->amount }}</td>
+                  
                   <td class="">
                   <div class="d-flex my-auto">
                       <!-- Edit Button -->
-                      <a href="{{route('insurance.add')}}" class="btn p-0">
+                      <a href="{{route('insurance.add',['id'=>$insurance])}}" class="btn p-0">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#233A85" />
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M16.1634 23.6195L22.3139 15.6658C22.6482 15.2368 22.767 14.741 22.6556 14.236C22.559 13.777 22.2768 13.3406 21.8534 13.0095L20.8208 12.1893C19.922 11.4744 18.8078 11.5497 18.169 12.3699L17.4782 13.2661C17.3891 13.3782 17.4114 13.5438 17.5228 13.6341C17.5228 13.6341 19.2684 15.0337 19.3055 15.0638C19.4244 15.1766 19.5135 15.3271 19.5358 15.5077C19.5729 15.8614 19.3278 16.1925 18.9638 16.2376C18.793 16.2602 18.6296 16.2075 18.5107 16.1097L16.676 14.6499C16.5868 14.5829 16.4531 14.5972 16.3788 14.6875L12.0185 20.3311C11.7363 20.6848 11.6397 21.1438 11.7363 21.5878L12.2934 24.0032C12.3231 24.1312 12.4345 24.2215 12.5682 24.2215L15.0195 24.1914C15.4652 24.1838 15.8812 23.9807 16.1634 23.6195ZM19.5955 22.8673H23.5925C23.9825 22.8673 24.2997 23.1886 24.2997 23.5837C24.2997 23.9795 23.9825 24.3 23.5925 24.3H19.5955C19.2055 24.3 18.8883 23.9795 18.8883 23.5837C18.8883 23.1886 19.2055 22.8673 19.5955 22.8673Z" fill="#233A85" />
@@ -101,7 +110,7 @@
                       </a>
 
                       <!-- Delete Button -->
-                      <a href="" class="btn p-0">
+                      <a href="{{ route('insurance.delete', ['id' => $insurance->id])  }}" class="btn p-0">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
                           <path d="M10 2L9 3H3V5H21V3H15L14 2H10ZM4.36523 7L6.06836 22H17.9316L19.6348 7H4.36523Z" fill="black" transform="translate(6, 6)" />
@@ -116,9 +125,9 @@
                         </svg>
                       </a>
                     </div>
-
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
