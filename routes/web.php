@@ -69,3 +69,14 @@ Route::match(['post', 'get'], '/set_password',    [AuthController::class, 'set_p
 Route::match(['post', 'get'], '/register',        [AuthController::class, 'user_register'])->name('register.user');
 Route::match(['post', 'get'], '/logout',          [AuthController::class, 'logout'])->name('logout');
 Route::match(['post', 'get'], '/verify/{hash}',   [AuthController::class, 'verify'])->name('verify');
+
+Route::get('/forget',function(){
+
+    return view('pages.auth.otp');
+});
+Route::get('/password',function(){
+
+    return view('pages.auth.password');
+});
+
+

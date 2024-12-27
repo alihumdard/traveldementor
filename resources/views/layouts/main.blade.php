@@ -139,6 +139,7 @@ $notifications = NULL;
         .menu-acitve {
             background-color: #c49b31 !important;
         }
+       
     </style>
 </head>
 
