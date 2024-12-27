@@ -86,6 +86,7 @@
                   <th>Applicant contact</th>
                   <th>Appointment email</th>
                   <th>Appointment type</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="tableData">
@@ -95,6 +96,7 @@
                   <td>{{ $appointment->no_application }}</td>
                   <td>{{ $appointment->no_application }}</td>
                   <td>{{ $appointment->applicant_contact }}</td>
+                  <td>{{ $appointment->appointment_email }}</td>
                   <td>{{ $appointment->appointment_email }}</td>
                   <td>{{ $appointment->appointment_type }}</td>
                   <td class="">
