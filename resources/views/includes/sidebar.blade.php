@@ -127,7 +127,7 @@
         <li>
             <a href="{{ route('hotel.index') }}"
                 class="{{(request()->routeIs('hotel.index')) ? 'menu-acitve' : ''}} scroll-item">
-                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
+                <i class="ml-3 fa-solid fa-hotel"></i>
                 <span class="link_name">Hotel Booking</span>
             </a>
         </li>
@@ -136,7 +136,7 @@
         <li>
             <a href="{{ route('ds.index') }}"
                 class="{{(request()->routeIs('ds.index')) ? 'menu-acitve' : ''}} scroll-item">
-                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
+                <i class="ml-3 fa-solid fa-passport"></i>
                 <span class="link_name">DS160</span>
             </a>
         </li>
