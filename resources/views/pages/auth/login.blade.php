@@ -88,12 +88,12 @@
     color: #184A45 !important;
   }
   #btn_user_login {
-    background-color: #3C90D0; /* Initial color */
+    background-color: #212B60; /* Initial color */
     transition: background-color 0.3s ease; /* Smooth transition */
   }
 
   #btn_user_login:hover {
-    background-color: #2A6E99; /* Change to a darker blue on hover */
+    background-color:rgb(15, 26, 76); /* Change to a darker blue on hover */
   }
   </style>
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">  -->
@@ -102,7 +102,7 @@
 <body style="overflow-x: hidden;">
   <div class="container-fluid mx-2" style="margin-top: 20px !important;">
     <div class="row">
-      <div class="col-12 col-md-6 col-lg-6 ml-auto " style="height: 90vh !important; width: 100%;">
+      <div class="col-12 col-md-12 col-lg-6 ml-auto" style="height: 90vh !important; width: 100%;">
         <div class="">
           <!-- Navbar Brand -->
           <a class="navbar-brand">
@@ -168,7 +168,7 @@
                   <label for="remember-me" class="m-0 ml-1">@lang('lang.remember_me')</label>
                 </div>
                 <div>
-                  <a href="/forgot_password" class="btn btn-link ml-2">@lang('Change Password')?</a>
+                  <a href="/forgot_password" class="btn btn-link ml-2" style="color: #212B60;">@lang('Change Password')?</a>
                 </div>
               </div>
               @if (Session::has('password_changed'))
@@ -200,7 +200,7 @@
         </div>
       </div>
       <!-- For Demo Purpose -->
-      <div class="col-md-5 col-lg-5 pr-lg-5 d-lg-block d-md-block d-none mb-5 mb-md-0">
+      <div class="col-md-5 col-lg-5 pr-lg-5 d-none d-lg-block mb-5 mb-md-0">
         <div class="p-2 d-flex align-items-center justify-content-center" style="
           height: 90vh !important;
           border-radius: 15px;
