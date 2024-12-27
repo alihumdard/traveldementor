@@ -62,7 +62,7 @@
         transform: scale(1.05);
     }
 
-    #btn_cancel_hotel{
+    #btn_cancel_hotel {
         transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
@@ -71,7 +71,7 @@
     }
 
     label {
-        margin-bottom: 0px ;
+        margin-bottom: 0px;
     }
 </style>
 
@@ -94,87 +94,103 @@
                 </h3>
             </div>
             <div class="container" id="home">
-                <form action="quotationStore" id="formData" method="post">
+                <form action="{{ route('hotel.store') }}" id="formData" method="post">
+                    @csrf
                     <div class="row">
-                        @csrf
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="application_id">Name of Applicant</label>
-                            <select  name="application_id" id="application_id" class="form-select">
-                                <option value="xyz"> Select application</option>
-                                <option value="">xyz</option>
+                        <input type="hidden" name="id" value="{{ isset($hotelbooking) ? $hotelbooking->id : '' }}">
+                        
+                        <!-- Application ID -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="application_id">Application</label>
+                            <select name="application_id" id="application_id" class="form-select">
+                                <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select application</option>
+                                @foreach ($clients as $client)
+                                    <option value="{{ $client->id }}" {{ isset($hotelbooking) && $hotelbooking->application_id == $client->id ? 'selected' : '' }}>
+                                        {{ $client->name }}
+                                    </option>
+                                @endforeach
                             </select>
                             <span id="application_id_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                
+                        <!-- Country -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
                             <select name="country_id" id="country_id" class="form-select">
-                                <option value="xyz"> Select country</option>
-                                <option value="xyz"> Pakistan</option>
+                                <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select country</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}" {{ isset($hotelbooking) && $hotelbooking->country_id == $country->id ? 'selected' : '' }}>
+                                        {{ $country->name }}
+                                    </option>
+                                @endforeach
                             </select>
                             <span id="country_id_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Dates -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="s_date">Start date</label>
-                            <input type="date" name="s_date" id="s_date" class="form-control">
+                            <input type="date" name="s_date" id="s_date" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->s_date : '' }}">
                             <span id="s_date_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="e_date">End date</label>
-                            <input type="date" name="e_date" id="e_date" class="form-control">
+                            <input type="date" name="e_date" id="e_date" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->e_date : '' }}">
                             <span id="e_date_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="hotel_cancel_due_date">Hotel cancellation due date</label>
-                            <input type="date" name="hotel_cancel_due_date" id="hotel_cancel_due_date" class="form-control">
+                            <input type="date" name="hotel_cancel_due_date" id="hotel_cancel_due_date" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->hotel_cancel_due_date : '' }}">
                             <span id="hotel_cancel_due_date_error" class="error-message text-danger"></span>
                         </div>
+                
+                        <!-- Hotel Details -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="name">Hotel Name</label>
-                            <input type="text" name="name" id="name" class="form-control">
+                            <input type="text" name="name" id="name" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->name : '' }}">
                             <span id="name_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="reservation_id">Reservation</label>
-                            <select  name="reservation_id" id="reservation_id" class="form-select">
-                                <option value="xyz"> Select reservation</option>
-                                <option value="">xyz</option>
-                            </select>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="reservation_id">Reservation ID</label>
+                            <input type="text" name="reservation_id" id="reservation_id" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_id : '' }}">
                             <span id="reservation_id_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="reservation_email">Reservation Email</label>
-                            <input type="email" name="reservation_email" id="reservation_email" class="form-control">
+                            <input type="email" name="reservation_email" id="reservation_email" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_email : '' }}">
                             <span id="reservation_email_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                
+                        <!-- Status -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="status">Status</label>
-                            <select  name="status" id="status" class="form-select">
-                                <option value="xyz"> Select status</option>
-                                <option value="">xyz</option>
+                            <select name="status" id="status" class="form-select">
+                                <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select status</option>
+                                <option value="active" {{ isset($hotelbooking) && $hotelbooking->status == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="cancel" {{ isset($hotelbooking) && $hotelbooking->status == 'cancel' ? 'selected' : '' }}>Cancel</option>
+                                <option value="paid" {{ isset($hotelbooking) && $hotelbooking->status == 'paid' ? 'selected' : '' }}>Paid</option>
                             </select>
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>
                     </div>
-
+                
                     <div class="mt-3">
-                        <div class="row justify-content-end mt-2  ">
-                            <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
-                                <a href="/insurance" id="btn_cancel_hotel"
-                                    class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
+                        <div class="row justify-content-end mt-2">
+                            <div class="col-lg-2 col-md-6 col-sm-12 mb-3">
+                                <a href="/hotel" id="btn_cancel_hotel" class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
                                     <span>Cancel</span>
                                 </a>
                             </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
-                                <button type="submit" id="btn_save_hotel" class="btn btn-block  text-white"
-                                    style="border-radius: 8px;">
+                            <div class="col-lg-2 col-md-6 col-sm-12 mb-5">
+                                <button type="submit" id="btn_save_hotel" class="btn btn-block text-white" style="border-radius: 8px;">
                                     <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
                                     <span id="text">Save</span>
                                 </button>
                             </div>
                         </div>
                     </div>
-
                 </form>
+                
             </div>
         </div>
     </div>
@@ -184,6 +200,85 @@
 
 <!-- viewlocation Modal End -->
 @stop
-@pushOnce('script')
+@pushOnce('scripts')
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#formData").on("submit", function (e) {
+            e.preventDefault(); // Prevent form submission
+            
+            let isValid = true; // Track overall form validity
+            
+            // Clear previous error messages
+            $(".error-message").text("");
+
+            // Validate Application ID
+            if ($("#application_id").val() === null) {
+                $("#application_id_error").text("Please select an application.");
+                isValid = false;
+            }
+
+            // Validate Country
+            if ($("#country_id").val() === null) {
+                $("#country_id_error").text("Please select a country.");
+                isValid = false;
+            }
+
+            // Validate Start Date
+            if ($("#s_date").val() === "") {
+                $("#s_date_error").text("Start date is required.");
+                isValid = false;
+            }
+
+            // Validate End Date
+            if ($("#e_date").val() === "") {
+                $("#e_date_error").text("End date is required.");
+                isValid = false;
+            }
+
+            // Validate Cancellation Due Date
+            if ($("#hotel_cancel_due_date").val() === "") {
+                $("#hotel_cancel_due_date_error").text("Cancellation due date is required.");
+                isValid = false;
+            }
+
+            // Validate Hotel Name
+            if ($("#name").val().trim() === "") {
+                $("#name_error").text("Hotel name is required.");
+                isValid = false;
+            }
+
+            // Validate Reservation
+            if ($("#reservation_id").val().trim() === "") {
+                $("#reservation_id_error").text("Please select a reservation.");
+                isValid = false;
+            }
+
+            // Validate Reservation Email
+            const email = $("#reservation_email").val().trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === "") {
+                $("#reservation_email_error").text("Reservation email is required.");
+                isValid = false;
+            } else if (!emailRegex.test(email)) {
+                $("#reservation_email_error").text("Please enter a valid email.");
+                isValid = false;
+            }
+
+            // Validate Status
+            if ($("#status").val() === null) {
+                $("#status_error").text("Please select a status.");
+                isValid = false;
+            }
+
+            // Submit if all validations pass
+            if (isValid) {
+                this.submit(); // Submit the form
+            }
+        });
+    });
+</script>
 
 @endPushOnce

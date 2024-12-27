@@ -12,9 +12,17 @@ use App\Models\VfsEmbassy;
 
 class ScheduleController extends Controller
 {
-   
+
+
+    public function schedule_index()
+    {
+        $user = auth()->user();
+        $data['user'] = $user;
+        $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])->where('appointment_type', '=', 'schedule')->get();
+        return view('pages.appointment.schedule.listing', $data);
+    }
     public function add($id = null)
-    {       
+    {
         $userIds = Application::pluck('user_id')->unique()->toArray();
         $user = auth()->user();
         $data['user'] = $user;
@@ -60,10 +68,11 @@ class ScheduleController extends Controller
         $message = "Appointment " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return redirect()->route('schedule.appointment.index')->with('message', $message);
     }
+
     public function delete($id)
     {
-    $appointment=Appointment::find($id);
-    $appointment->delete();
-    return redirect()->back()->with('message','Successfull Deleted');
+        $appointment = Appointment::find($id);
+        $appointment->delete();
+        return redirect()->back()->with('message', 'Successfull Deleted');
     }
 }

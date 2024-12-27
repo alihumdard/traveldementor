@@ -16,7 +16,7 @@ class PendingController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['appointments'] = Appointment::with('client','category','vfsembassy')->get();
+        $data['appointments'] = Appointment::with('client','category','vfsembassy')->where('appointment_type', '=', 'pending')->get();
         return view('pages.appointment.pending.listing', $data);
     }
     public function add($id = null)
