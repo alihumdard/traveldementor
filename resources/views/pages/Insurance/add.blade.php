@@ -226,7 +226,7 @@
                                     <span id="text">@lang('Save')</span>
                                 </button>
                             </div>
-                            </div>
+                        </div>
 
 
 
