@@ -5,6 +5,7 @@ use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DSController;
 use App\Http\Controllers\HotelBookingController;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\PendingController;
@@ -60,6 +61,9 @@ Route::middleware('check.userAuthCheck')->group(function () {
     
     Route::match(['post', 'get'], '/hotel/add',              [HotelBookingController::class, 'add'])->name('hotel.add');
     Route::match(['post', 'get'], '/hotel',                  [HotelBookingController::class, 'index'])->name('hotel.index');
+   
+    Route::match(['post', 'get'], '/ds/add',              [DSController::class, 'add'])->name('ds.add');
+    Route::match(['post', 'get'], '/ds',                  [DSController::class, 'index'])->name('ds.index');
     
 });
 

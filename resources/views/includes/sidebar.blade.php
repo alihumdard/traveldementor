@@ -132,6 +132,15 @@
             </a>
         </li>
         @endif
+        @if(view_permission('ds_160'))
+        <li>
+            <a href="{{ route('ds.index') }}"
+                class="{{(request()->routeIs('ds.index')) ? 'menu-acitve' : ''}} scroll-item">
+                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
+                <span class="link_name">DS160</span>
+            </a>
+        </li>
+        @endif
 
         @if(view_permission('locations'))
         <li>
