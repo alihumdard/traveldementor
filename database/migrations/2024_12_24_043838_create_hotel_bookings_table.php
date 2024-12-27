@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('s_date')->nullable();
             $table->string('e_date')->nullable();
             $table->string('hotel_cancel_due_date')->nullable();
+            $table->string('name')->nullable();
             $table->string('reservation_id')->nullable();
             $table->string('reservation_email')->nullable();
             $table->string('status')->nullable();

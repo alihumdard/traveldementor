@@ -76,6 +76,7 @@ function view_permission($page_name)
                 case 'pending_appointment':
                 case 'insurance':
                 case 'tracking':
+                case 'hotel_booking':
                 case 'blank-temp':
                     return true;
                 default:

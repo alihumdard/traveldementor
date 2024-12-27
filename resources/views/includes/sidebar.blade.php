@@ -123,7 +123,15 @@
             </a>
         </li>
         @endif
-
+        @if(view_permission('hotel_booking'))
+        <li>
+            <a href="{{ route('hotel.index') }}"
+                class="{{(request()->routeIs('hotel.index')) ? 'menu-acitve' : ''}} scroll-item">
+                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
+                <span class="link_name">Hotel Booking</span>
+            </a>
+        </li>
+        @endif
 
         @if(view_permission('locations'))
         <li>

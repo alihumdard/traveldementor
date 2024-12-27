@@ -126,7 +126,7 @@
             <div class="col-lg-4 mt-3"></div>
             <div class="col-lg-4 mt-3"></div>
             <div class="col-lg-4 mt-3 my-4 text-right">
-              <button class="btn content-background text-white btn-md px-4" type="submit" name="update" onclick="validateForm(event)">
+              <button class="btn text-white btn-md px-4" type="submit" name="update" onclick="validateForm(event)" style="background-color: #452C88;">
                 <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
                 <span id="add_btn">@lang('lang.update')</span>
               </button>

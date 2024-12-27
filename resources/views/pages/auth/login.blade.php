@@ -209,8 +209,6 @@
           <img class="img-fluid" src="{{ asset('assets/images/login-banner.png') }}" alt="banner image">
         </div>
       </div>
-
-      <!-- Registeration Form -->
     </div>
   </div>
 
