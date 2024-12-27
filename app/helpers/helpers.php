@@ -72,7 +72,8 @@ function view_permission($page_name)
                 case 'categories':
                 case 'countries':
                 case 'application':
-                case 'appointment':
+                case 'schedule_appointment':
+                case 'pending_appointment':
                 case 'insurance':
                 case 'tracking':
                 case 'blank-temp':

@@ -20,6 +20,6 @@ class VfsEmbassy extends Model
     }
 
     public static $rules = [
-        'name' => 'required|unique:vfs_embassies,name',
+        'name' => 'required',
     ];
 }

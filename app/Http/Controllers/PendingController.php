@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Appointment;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\Country;
 use App\Models\VfsEmbassy;
-use Illuminate\Http\Request;
 
-class AppointmentController extends Controller
+class PendingController extends Controller
 {
-    public function schedule_index()
+    public function pending_index()
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['appointments'] = Appointment::with('client')->get();
-        return view('pages.appointment.listing', $data);
+        $data['appointments'] = Appointment::with('client','category','vfsembassy')->get();
+        return view('pages.appointment.pending.listing', $data);
     }
     public function add($id = null)
     {       
@@ -31,12 +31,12 @@ class AppointmentController extends Controller
         if ($id) {
             $data['appointment'] = Appointment::find($id);
         }
-        return view('pages.appointment.add', $data);
+        return view('pages.appointment.pending.add', $data);
     }
     public function appointment_store(Request $request)
     {
         $user = auth()->user();
-        $page_name = 'schedule_appointment';
+        $page_name = 'pending_appointment';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }

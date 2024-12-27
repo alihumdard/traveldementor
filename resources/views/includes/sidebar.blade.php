@@ -95,7 +95,17 @@
             </a>
         </li>
         @endif
-        @if(view_permission('appointment'))
+        
+        @if(view_permission('schedule_appointment'))
+        <li>
+            <a href="{{ route('schedule.appointment.index') }}" class="{{(request()->routeIs('schedule.appointment.index')) ? 'menu-acitve' : ''}}">
+                <i class=" ml-3 fas fa-money-bill"></i>
+                <span class="link_name">Schedule Appointment</span>
+            </a>
+        </li>
+        @endif
+        
+        @if(view_permission('pending_appointment'))
         <li>
             <a href="{{ route('appointment.index') }}" class="{{(request()->routeIs('appointment.index')) ? 'menu-acitve' : ''}}">
             <i class="ml-3 fa-solid fa-calendar-check"></i>
@@ -103,6 +113,7 @@
             </a>
         </li>
         @endif
+        
         @if(view_permission('insurance'))
         <li>
             <a href="{{ route('insurance.index') }}"
