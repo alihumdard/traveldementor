@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('application_id');
             $table->unsignedBigInteger('category_id');
-            $table->string('reservation_id')->nullable();
+            $table->string('ds_160_create_date')->nullable();
             $table->string('ds160')->nullable();
             $table->string('revised_ds160')->nullable();
-            $table->string('f_five_surname')->nullable();
+            $table->string('surname')->nullable();
             $table->string('year_of_birth')->nullable();
-            $table->string('s_question')->nullable();
-            $table->string('s_answer')->nullable();
+            $table->string('sec_question')->nullable();
+            $table->string('sec_answer')->nullable();
             $table->string('us_travel_doc_email')->nullable();
             $table->string('us_travel_doc_password')->nullable();
             $table->string('us_travel_doc_updated_password')->nullable();
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('payment_mode')->nullable();
             $table->string('transaction_date')->nullable();
             $table->string('appoint_date')->nullable();
-            $table->string('appoint_schedule')->nullable();
+            $table->string('appoint_reschedule')->nullable();
             $table->string('pick_up_location')->nullable();
             $table->string('premium_delivery')->nullable();
             $table->string('delivery_address')->nullable();
