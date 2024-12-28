@@ -63,8 +63,8 @@ class PendingController extends Controller
             ]
         );
 
-        $message = "Appointment " . ($request->id ? "Updated" : "Saved") . " Successfully";
-        return redirect()->route('schedule.appointment.index')->with('message', $message);
+        $message = "Appointment" . ($request->id ? "Updated" : "Saved") . " Successfully";
+        return redirect()->route('pending.appointment.index')->with('message', $message);
     }
     public function delete($id)
     {

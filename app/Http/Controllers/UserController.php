@@ -224,6 +224,17 @@ class UserController extends Controller
         $country = NULL;
         $message  = NULL;
         Session::forget('msg');
+        if ($request->action == 'save') {
+            $request->validate([
+                'name' => [
+                    'required',
+                    'max:60',
+                    Rule::unique('countries', 'name')->where(function ($query) {
+                        return $query->where('status', '!=', 3);
+                    })->ignore($request->id),
+                ],
+            ]);
+        }
 
         if ($request->action == 'edit') {
             $country = Country::findOrFail($request->id)->toArray();

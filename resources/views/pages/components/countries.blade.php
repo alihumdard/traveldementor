@@ -48,7 +48,11 @@
               <input type="text" maxlength="60" name="name" id="country_name" class="form-control"
                 value="{{ $country['name'] ?? '' }}" placeholder="Country name" required>
               <span id="country_name_error" class="error-message text-danger"></span>
-              <div class="text-danger error-message" id="name-error"></div>
+              <div class="text-danger error-message" id="name-error">
+                @if ($errors->has('name'))
+                <p>{{ $errors->first('name') }}</p>
+                @endif
+              </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
               <label for="title" class="mb-0 mt-1">Country code</label>
@@ -81,8 +85,8 @@
                 <tr style="font-size: small;">
                   <th>#</th>
                   <th> Name </th>
-                  <th> Status </th>
                   <th> Code </th>
+                  <th> Status </th>
                   <th> @lang('lang.actions')</th>
                 </tr>
               </thead>
@@ -91,6 +95,7 @@
                 <tr style="font-size: small;">
                   <td>{{ $key + 1 }}</td>
                   <td>{{ $value['name'] ?? '' }}</td>
+                  <td>{{ $value['code'] ?? '' }}</td>
 
                   @if($value['status'] == 1)
                   <td>
@@ -105,7 +110,6 @@
                     </button>
                   </td>
                   @endif
-                  <td>{{ $value['code'] ?? '' }}</td>
 
                   <td style="width: 80px;">
                     <div class="row">

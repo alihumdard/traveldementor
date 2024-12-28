@@ -23,10 +23,11 @@ class CountrySeeder extends Seeder
     }
     public function run()
     {
-        // Country::truncate();
+        Country::truncate();
         foreach ($this->countries as $country) {
             Country::create([
-                'name' => $country,
+                'name' => $country['name'],
+                'code' => $country['code'],
                 'status' => $this->status['Active'],
             ]);
         }
