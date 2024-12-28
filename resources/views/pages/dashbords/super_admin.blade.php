@@ -9,7 +9,7 @@
     }
 
     .col-lg-6.col-xl-4.col-md-6.mb-4 .card:hover {
-        transform: translateX(15px) scale(1.05);
+        transform:scale(1.01);
         /* Slide and zoom */
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     }

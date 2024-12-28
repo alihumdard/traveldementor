@@ -92,4 +92,9 @@ Route::get('/password',function(){
     return view('pages.auth.password');
 });
 
+Route::get('/detail',function(){
+
+    return view('pages.application.detail');
+});
+
 
