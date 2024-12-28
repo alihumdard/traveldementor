@@ -124,7 +124,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="vfs_embassy_id">Vfs embassy</label>
                             <select name="vfs_embassy_id" id="vfs_embassy_id" class="form-select">
-                                <option disabled selected>Select vfs embassy id</option>
+                                <option disabled selected>Select vfs embassy</option>
                                 @foreach ($vfsembasses as $vfsembassy)
                                     <option value="{{ $vfsembassy->id }}" {{ isset($appointment) && $appointment->vfs_embassy_id == $vfsembassy->id ? 'selected' : '' }}>{{ $vfsembassy->name }}</option>
                                 @endforeach

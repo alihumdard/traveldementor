@@ -95,7 +95,7 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th style="width: 100px;">Apply Date</th>
+                  <th>Apply Date</th>
                   <th>Passport Expiry Date</th>
                   <th>Visa Expiry Date</th>
                   <th>Visa Status</th>
