@@ -1,6 +1,11 @@
 @extends('layouts.main')
 @section('title', 'Insurance')
 @section('content')
+<style>
+  td{
+    text-align: center;
+  }
+</style>
 
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
