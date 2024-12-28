@@ -168,7 +168,7 @@ return [
     ],
     'VISA_STATUS'=>[
         'Pending'=>1,
-        'Progress'=>2,
+        'Inprogress'=>2,
     ],
     'COUNTRIES' =>[
         'Australia',

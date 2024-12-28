@@ -62,15 +62,16 @@
         transform: scale(1.05);
     }
 
-    #btn_cancel_hotel{
+    #btn_cancel_hotel {
         transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     #btn_cancel_hotel:hover {
         transform: scale(1.05);
     }
+
     label {
-        margin-bottom: 0px ;
+        margin-bottom: 0px;
     }
 </style>
 
@@ -98,7 +99,7 @@
                         @csrf
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="application_id">Applicant name </label>
-                            <select  name="application_id" id="application_id" class="form-select">
+                            <select name="application_id" id="application_id" class="form-select">
                                 <option value="xyz"> Select application</option>
                                 <option value="">xyz</option>
                             </select>
@@ -164,7 +165,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="challan_created">Challan created</label>
-                            <select  name="challan_created" id="challan_created" class="form-select">
+                            <select name="challan_created" id="challan_created" class="form-select">
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
@@ -172,7 +173,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="challan_submitted">Challan submitted</label>
-                            <select  name="challan_submitted" id="challan_submitted" class="form-select">
+                            <select name="challan_submitted" id="challan_submitted" class="form-select">
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
@@ -180,7 +181,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="payment_mode">Payment mode</label>
-                            <select  name="payment_mode" id="payment_mode" class="form-select">
+                            <select name="payment_mode" id="payment_mode" class="form-select">
                                 <option value="online">Online</option>
                                 <option value="cash">Cash</option>
                             </select>
@@ -218,9 +219,9 @@
                             </select>
                             <span id="premium_delivery_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                        <div class="col-lg-6 col-md-12 col-sm-12" style="margin-bottom: 10px;">
                             <label for="delivery_address">Delivery address</label>
-                            <textarea name="delivery_address" id="delivery_address" class="form-control">
+                            <textarea name="delivery_address" id="delivery_address" class="form-control"></textarea>
                             <span id="delivery_address_error" class="error-message text-danger"></span>
                         </div>
                     </div>

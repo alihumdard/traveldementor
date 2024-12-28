@@ -11,11 +11,12 @@
     width: 100%;
     font-size: 16px;
   }
-
   #category_type::-ms-expand {
     display: none;
   }
-
+.table-responsive{
+  overflow-x: hidden !important;
+}
   #category_type:hover,
   select:focus {
     border-color: #007bff;
@@ -67,11 +68,11 @@
             <table id="country-table" class="display" style="width:100%">
               <thead class="table-dark" style="background-color: #5F4A99;">
                 <tr style="font-size: small;">
-                  <th>#</th>
-                  <th> Name </th>
-                  <th> Status </th>
+                  <th style="width: 100px;">#</th>
+                  <th>Name</th>
+                  <th>Status</th>
                  
-                  <th> @lang('lang.actions')</th>
+                  <th>@lang('lang.actions')</th>
                 </tr>
               </thead>
               <tbody id="tableData">
