@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'page name')
+@section('title', 'Add DS160')
 @section('content')
 <style>
     tbody tr {
@@ -96,7 +96,6 @@
                     <div class="row">
                         @csrf
                         <input type="hidden" name="id" value="{{ isset($ds160) ? $ds160->id : '' }}">
-
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="application_id">Applicant name </label>
                             <select name="application_id" id="application_id" class="form-select">
@@ -304,37 +303,30 @@
 @stop
 @pushOnce('scripts')
 <script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
-</script>
-<script>
-    $(document).ready(function () {
-        $('#formData').on('submit', function (e) {
-            e.preventDefault(); // Prevent form submission
-            let isValid = true;
-
-            // Clear previous errors
-            $('.error-message').text('');
-
-            // Validate required fields
-            $(this).find('input, select, textarea').each(function () {
-                const field = $(this);
-                const value = field.val().trim();
-                const fieldId = field.attr('id');
-
-                // Check if the field is empty
-                if (value === '' ) {
-                    $(`#${fieldId}_error`).text('This field is required.');
-                    isValid = false;
-                }
-            });
-
-            // If form is valid, allow submission
-            if (isValid) {
-                this.submit();
+ $(document).ready(function() {
+    $("#formData").submit(function(e) {
+        let isValid = true;
+        
+        // Clear previous error messages
+        $(".error-message").text("");
+        
+        // Check each required field
+        $("#formData input:not([type='hidden']), #formData select, #formData textarea").each(function() {
+            if (!$(this).val()) {
+                isValid = false;
+                let fieldName = $(this).attr("id");
+                $(`#${fieldName}_error`).text("This field is required");
             }
         });
+        
+        if(!isValid) {
+            e.preventDefault();
+        } else {
+            $('#spinner').removeClass('d-none');
+            $('#text').addClass('d-none');
+            this.submit();
+        }
     });
-</script>
-
+});
 </script>
 @endPushOnce

@@ -13,6 +13,7 @@ use App\Models\Currency;
 use App\Models\Location;
 use App\Models\VfsEmbassy;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -132,6 +133,17 @@ class UserController extends Controller
         $vfs = NULL;
         $message  = NULL;
         Session::forget('msg');
+        if ($request->action == 'save') {
+            $request->validate([
+                'name' => [
+                    'required',
+                    'max:60',
+                    Rule::unique('vfs_embassies', 'name')->where(function ($query) {
+                        return $query->where('status', '!=', 3);
+                    })->ignore($request->id),
+                ],
+            ]);
+        }
 
         if ($request->action == 'edit') {
             $vfs = VfsEmbassy::findOrFail($request->id)->toArray();
@@ -166,6 +178,17 @@ class UserController extends Controller
         $message  = NULL;
         Session::forget('msg');
 
+        if ($request->action == 'save') {
+            $request->validate([
+                'name' => [
+                    'required',
+                    'max:60',
+                    Rule::unique('categories', 'name')->where(function ($query) {
+                        return $query->where('status', '!=', 3);
+                    })->ignore($request->id),
+                ],
+            ]);
+        }
         if ($request->action == 'edit') {
             $category = Category::findOrFail($request->id)->toArray();
         } else if ($request->action == 'save') {
@@ -187,6 +210,7 @@ class UserController extends Controller
         }
         $categories = Category::where(['status' => $this->status['Active']])->latest('id')->get()->toArray();
         $data = ['user' => $user, 'category' => $category, 'data' => $categories];
+
         return view('pages.components.categories', $data);
     }
     public function countries(REQUEST $request)
@@ -209,6 +233,7 @@ class UserController extends Controller
                 [
                     'name' => ucwords($request->name),
                     'status' => $this->status['Active'],
+                    'code' => $this->status['Active'],
                     'created_by' => $user->id,
                 ]
             );
@@ -273,7 +298,7 @@ class UserController extends Controller
         $user = auth()->user();
         return view('pages.profile.settings', ['user' => $user]);
     }
-  
+
     public function add_blank(Request $request)
     {
         $user = auth()->user();

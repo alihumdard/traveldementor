@@ -65,8 +65,6 @@ function view_permission($page_name)
                 case 'index':
                 case 'users':
                 case 'staff':
-                case 'currencies':
-                case 'locations':
                 case 'settings':
                 case 'vfs':
                 case 'categories':

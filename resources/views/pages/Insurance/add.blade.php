@@ -317,9 +317,7 @@
             }
 
             // Prevent form submission if validation fails
-            if (!isValid) {
-                e.preventDefault();
-            }
+            
         });
     });
 </script>

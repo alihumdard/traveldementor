@@ -14,10 +14,12 @@ class CountrySeeder extends Seeder
 
 
     protected $countries;
+    protected $status;
 
     public function __construct()
     {
         $this->countries = config('constants.COUNTRIES');
+        $this->status = config('constants.USER_STATUS');
     }
     public function run()
     {
@@ -25,6 +27,7 @@ class CountrySeeder extends Seeder
         foreach ($this->countries as $country) {
             Country::create([
                 'name' => $country,
+                'status' => $this->status['Active'],
             ]);
         }
     }
