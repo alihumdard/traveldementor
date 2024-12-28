@@ -32,7 +32,6 @@ class InsuranceController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        // Page name for permission checking
         $page_name = 'insurance';
         if (!view_permission($page_name)) {
             return redirect()->back();
