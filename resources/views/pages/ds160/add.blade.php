@@ -216,10 +216,8 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="payment_mode">Payment mode</label>
                             <select name="payment_mode" id="payment_mode" class="form-select">
-                                <option value="online" {{ isset($ds160) && $ds160->payment_mode == 'online' ? 'selected'
-                                    : '' }}>Online</option>
-                                <option value="cash" {{ isset($ds160) && $ds160->payment_mode == 'cash' ? 'selected' :
-                                    '' }}>Cash</option>
+                                <option value="online" {{ isset($ds160) && $ds160->payment_mode == 'online' ? 'selected' : '' }}>Online</option>
+                                <option value="cash" {{ isset($ds160) && $ds160->payment_mode == 'cash' ? 'selected' : '' }}>Cash</option>
                             </select>
                             <span id="payment_mode_error" class="error-message text-danger"></span>
                         </div>
@@ -269,11 +267,9 @@
                             </select>
                             <span id="premium_delivery_error" class="error-message text-danger"></span>
                         </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                        <div class="col-lg-6 col-md-12 col-sm-12" style="margin-bottom: 10px;">
                             <label for="delivery_address">Delivery address</label>
-                            <textarea name="delivery_address" id="delivery_address"
-                                class="form-control">{{ isset($ds160) ? $ds160->delivery_address : '' }}</textarea>
+                            <textarea name="delivery_address" id="delivery_address" class="form-control"></textarea>
                             <span id="delivery_address_error" class="error-message text-danger"></span>
                         </div>
                     </div>

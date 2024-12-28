@@ -45,6 +45,62 @@
             </a>
         </li>
         @endif
+        @if(view_permission('application'))
+        <li>
+            <a href="{{ route('application.index') }}" class="{{(request()->routeIs('application.index')) ? 'menu-acitve' : ''}}">
+                <i class="ml-3 fa-solid fa-envelope"></i>
+                <span class="link_name">Application</span>
+            </a>
+        </li>
+        @endif
+        @if(view_permission('schedule_appointment'))
+        <li>
+            <a href="{{ route('schedule.appointment.index') }}" class="{{(request()->routeIs('schedule.appointment.index')) ? 'menu-acitve' : ''}}">
+                <i class=" ml-3 fas fa-money-bill"></i>
+                <span class="link_name">Schedule Appointment</span>
+            </a>
+        </li>
+        @endif
+        
+        @if(view_permission('pending_appointment'))
+        <li>
+            <a href="{{ route('pending.appointment.index') }}" class="{{(request()->routeIs('pending.appointment.index')) ? 'menu-acitve' : ''}}">
+            <i class="ml-3 fa-solid fa-calendar-check"></i>
+                <span class="link_name">Pending Appointment</span>
+            </a>
+        </li>
+        @endif
+
+        @if(view_permission('insurance'))
+        <li>
+            <a href="{{ route('insurance.index') }}"
+                class="{{(request()->routeIs('insurance.index')) ? 'menu-acitve' : ''}} scroll-item">
+                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
+                <span class="link_name">Insurance</span>
+            </a>
+        </li>
+        @endif
+
+        @if(view_permission('hotel_booking'))
+        <li>
+            <a href="{{ route('hotel.index') }}"
+                class="{{(request()->routeIs('hotel.index')) ? 'menu-acitve' : ''}} scroll-item">
+                <i class="ml-3 fa-solid fa-hotel"></i>
+                <span class="link_name">Hotel Booking</span>
+            </a>
+        </li>
+        @endif
+
+        @if(view_permission('ds_160'))
+        <li>
+            <a href="{{ route('ds.index') }}"
+                class="{{(request()->routeIs('ds.index')) ? 'menu-acitve' : ''}} scroll-item">
+                <i class="ml-3 fa-solid fa-passport"></i>
+                <span class="link_name">DS160</span>
+            </a>
+        </li>
+        @endif
+
         @if(view_permission('vfs'))
         <li>
             <a href="{{ route('vfs.embassy') }}" class="{{(request()->routeIs('vfs.embassy')) ? 'menu-acitve' : ''}}">
@@ -53,6 +109,7 @@
             </a>
         </li>
         @endif
+
         @if(view_permission('categories'))
         <li>
             <a href="{{ route('categories') }}" class="{{(request()->routeIs('categories')) ? 'menu-acitve' : ''}}">
@@ -61,6 +118,7 @@
             </a>
         </li>
         @endif
+        
         @if(view_permission('countries'))
         <li>
             <a href="{{ route('countries') }}" class="{{(request()->routeIs('countries')) ? 'menu-acitve' : ''}}">
@@ -87,61 +145,7 @@
             </a>
         </li>
         @endif
-        @if(view_permission('application'))
-        <li>
-            <a href="{{ route('application.index') }}" class="{{(request()->routeIs('application.index')) ? 'menu-acitve' : ''}}">
-                <i class="ml-3 fa-solid fa-envelope"></i>
-                <span class="link_name">Application</span>
-            </a>
-        </li>
-        @endif
-        
-        @if(view_permission('schedule_appointment'))
-        <li>
-            <a href="{{ route('schedule.appointment.index') }}" class="{{(request()->routeIs('schedule.appointment.index')) ? 'menu-acitve' : ''}}">
-                <i class=" ml-3 fas fa-money-bill"></i>
-                <span class="link_name">Schedule Appointment</span>
-            </a>
-        </li>
-        @endif
-        
-        @if(view_permission('pending_appointment'))
-        <li>
-            <a href="{{ route('pending.appointment.index') }}" class="{{(request()->routeIs('pending.appointment.index')) ? 'menu-acitve' : ''}}">
-            <i class="ml-3 fa-solid fa-calendar-check"></i>
-                <span class="link_name">Pending Appointment</span>
-            </a>
-        </li>
-        @endif
-        
-        @if(view_permission('insurance'))
-        <li>
-            <a href="{{ route('insurance.index') }}"
-                class="{{(request()->routeIs('insurance.index')) ? 'menu-acitve' : ''}} scroll-item">
-                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
-                <span class="link_name">Insurance</span>
-            </a>
-        </li>
-        @endif
-        @if(view_permission('hotel_booking'))
-        <li>
-            <a href="{{ route('hotel.index') }}"
-                class="{{(request()->routeIs('hotel.index')) ? 'menu-acitve' : ''}} scroll-item">
-                <i class="ml-3 fa-solid fa-hotel"></i>
-                <span class="link_name">Hotel Booking</span>
-            </a>
-        </li>
-        @endif
-        @if(view_permission('ds_160'))
-        <li>
-            <a href="{{ route('ds.index') }}"
-                class="{{(request()->routeIs('ds.index')) ? 'menu-acitve' : ''}} scroll-item">
-                <i class="ml-3 fa-solid fa-passport"></i>
-                <span class="link_name">DS160</span>
-            </a>
-        </li>
-        @endif
-
+       
         @if(view_permission('locations'))
         <li>
             <a href="{{ route('locations') }}" class="{{(request()->routeIs('locations')) ? 'menu-acitve' : ''}}">

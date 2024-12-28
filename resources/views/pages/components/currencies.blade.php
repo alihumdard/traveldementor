@@ -15,7 +15,9 @@
   #currency_type::-ms-expand {
     display: none;
   }
-
+  .table-responsive{
+  overflow-x: hidden !important;
+}
   #currency_type:hover,
   select:focus {
     border-color: #007bff;

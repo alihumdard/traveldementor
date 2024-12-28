@@ -15,7 +15,9 @@
   #category_type::-ms-expand {
     display: none;
   }
-
+  .table-responsive{
+  overflow-x: hidden !important;
+}
   #category_type:hover,
   select:focus {
     border-color: #007bff;
@@ -59,13 +61,9 @@
             <div class="col-lg-4 col-md-4 col-sm-12">
               <label for="title" class="mb-0 mt-1">Category Type</label>
               <select name="type" id="category_type" class="form-control">
-                <option value="" disabled selected>select category type</option>
-
-                <option value="Visa" {{ (isset($category['type']) && $category['type']=='Visa' ) ? 'selected' : '' }}>
-                  Visa</option>
-                <option value="DS160" {{ (isset($category['type']) && $category['type']=='DS160' ) ? 'selected' : '' }}>
-                  DS160</option>
-
+                <option value="" disabled selected>Select category type</option>
+                <option value="Visa" {{ (isset($category['type']) && $category['type'] == 'Visa') ? 'selected' : '' }}>VISA</option>
+                <option value="DS160" {{ (isset($category['type']) && $category['type'] == 'DS160') ? 'selected' : '' }}>DS160</option>
               </select>
               <span id="category_type_error" class="error-message text-danger"></span>
               <div class="text-danger error-message" id="title-error"></div>
@@ -89,7 +87,7 @@
         <hr class="mt-3 mb-2">
         <div class="px-2">
           <div class="table-responsive">
-            <table id="category-table" class="display" style="width:100%">
+          <table id="category-table" class="display" style="width: 100%; table-layout: auto;">
               <thead class="table-dark" style="background-color:#5F4A99;">
                 <tr style="font-size: small;">
                   <th>#</th>

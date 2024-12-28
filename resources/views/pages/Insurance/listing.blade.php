@@ -77,7 +77,7 @@
               <strong>{{ session('message') }}</strong>
             </div>
             @endif
-            <table id="qoute-table" class="display" style="width:100%">
+            <table id="qoute-table" class="display" style="width:100%; table-layout:auto;">
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>

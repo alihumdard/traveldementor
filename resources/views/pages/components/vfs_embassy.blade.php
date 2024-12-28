@@ -97,7 +97,6 @@
                   </td>
                   @endif
                   <td style="width: 80px;">
-                    ali
                     <div class="row">
                       <div class="col-6 p-0">
                         <form method="POST" action="{{ route('vfs.embassy') }}">

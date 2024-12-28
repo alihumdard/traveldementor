@@ -32,8 +32,7 @@
             <div class="row mx-1">
               <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
                 <a href="{{ route('ds.add') }}">
-                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i
-                        class="fa fa-plus"></i>Add ds160</span></button>
+                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i>Add DS160</span></button>
                 </a>
               </div>
               <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
