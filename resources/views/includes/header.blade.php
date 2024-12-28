@@ -161,10 +161,10 @@
             </div>
 
             <script>
-              $('#all-read').on('click', function(e) {
-                e.preventDefault();
-                $('#form-notification').submit();
-              });
+              // $('#all-read').on('click', function(e) {
+              //   e.preventDefault();
+              //   $('#form-notification').submit();
+              // });
             </script>
             @if($notifications ?? '')
             @foreach($notifications as $key => $value)
