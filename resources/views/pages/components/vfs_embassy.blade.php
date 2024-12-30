@@ -15,7 +15,9 @@
   #vfsname::-ms-expand {
     display: none;
   }
-
+  .table-responsive{
+    overflow-x: hidden !important;
+  }
   #vfsname:hover,
   select:focus {
     border-color: #007bff;
