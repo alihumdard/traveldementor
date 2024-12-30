@@ -63,7 +63,6 @@ function view_permission($page_name)
         case 'Super Admin':
             switch ($page_name) {
                 case 'index':
-                case 'users':
                 case 'staff':
                 case 'settings':
                 case 'vfs':
