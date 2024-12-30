@@ -81,7 +81,7 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.86);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th style="width: 100px;">Application Name</th>
+                  <th>Application Name</th>
                   <th>No of application</th>
                   <th>Country</th>
                   <th>Category</th>

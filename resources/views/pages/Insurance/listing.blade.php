@@ -2,11 +2,6 @@
 @section('title', 'Insurance')
 @section('content')
 @include('pages.insurance.detail_page_modal')
-<style>
-  td{
-    text-align: center;
-  }
-</style>
 
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
@@ -46,9 +41,7 @@
                     <option value="">
                       @lang('Filter By Locations')
                     </option>
-
                     <option value="">jjj</option>
-
                   </select>
                 </div>
               </div>
@@ -65,9 +58,7 @@
                     <option value="">
                       @lang('lang.filter_by_status')
                     </option>
-
                     <option value="">iiii</option>
-
                   </select>
                 </div>
               </div>
@@ -87,7 +78,7 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th style="width: 100px;">Applicant Name</th>
+                  <th>Applicant Name</th>
                   <th>Country</th>
                   <th>Insurance Plan</th>
                   <th>Policy No</th>
