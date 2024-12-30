@@ -20,6 +20,9 @@
   select:focus {
     border-color: #007bff;
   }
+  table th, table td {
+    text-transform: capitalize;
+  }
 </style>
 <!-- partial -->
 <div class="content-wrapper py-0 my-2">
@@ -95,6 +98,7 @@
                   <th>#</th>
                   <th> Name </th>
                   <th> Type </th>
+                  <th> Status </th>
                   <th> @lang('lang.actions')</th>
                 </tr>
               </thead>
@@ -107,6 +111,19 @@
                   <td>{{ $value['name'] ?? '' }}</td>
 
                   <td>{{ $value['type'] ?? '' }}</td>
+                  @if($value['status'] == 1)
+                  <td>
+                    <button class="btn btn_status">
+                      <span data-user_id="{{$value['id']}}">
+                        <div
+                          style="width: 100%; height: 100%; padding-top: 5px; padding-bottom: 5px; padding-left: 19px; padding-right: 20px; background: rgba(48.62, 165.75, 19.34, 0.18); border-radius: 3px; justify-content: center; align-items: center; display: inline-flex">
+                          <div style="color: #31A613; font-size: 14px; font-weight: 500; word-wrap: break-word">
+                            Active</div>
+                        </div>
+                      </span>
+                    </button>
+                  </td>
+                  @endif
                   <td style="width: 80px;">
                     <div class="row">
                       <div class="col-6 p-0">

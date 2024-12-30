@@ -44,7 +44,7 @@ return [
         'Completed'   => 3,
         'Deleted'     => 4
     ],
-    
+
 
     'ADDRESS_STATUS_en' => [
         1 => 'On Going',
@@ -166,11 +166,11 @@ return [
         'Deactive' => 2,
         'Deleted' => 3
     ],
-    'VISA_STATUS'=>[
-        'Pending'=>1,
-        'Progress'=>2,
+    'VISA_STATUS' => [
+        'Pending' => 1,
+        'Progress' => 2,
     ],
-   'COUNTRIES' =>[
+    'COUNTRIES' => [
         ['name' => 'Australia', 'code' => 'AU'],
         ['name' => 'Austria', 'code' => 'AT'],
         ['name' => 'Azerbaijan', 'code' => 'AZ'],
@@ -268,14 +268,17 @@ return [
         'Anatolia Peshawar',
     ],
     'CATEGORIES' => [
-            'Tourist',
-            'Business',
-            'Family & Friend',
-            'Work',
-            'Family Reunion',
-            'Interview Waiver',
-            'Previously Refused',
-            'Fresh',
-            'Relative Permit',
+        ['name' => 'Tourist', 'type' => 'appointment'],
+        ['name' => 'Business', 'type' => 'appointment'],
+        ['name' => 'Family & Friend', 'type' => 'appointment'],
+        ['name' => 'Work', 'type' => 'appointment'],
+        ['name' => 'Family Reunion', 'type' => 'appointment'],
+        ['name' => 'Interview Waiver', 'type' => 'appointment'],
+        ['name' => 'Previously Refused', 'type' => 'appointment'],
+        ['name' => 'Fresh', 'type' => 'appointment'],
+        ['name' => 'Relative Permit', 'type' => 'appointment'],
+        ['name' => 'Fresh', 'type' => 'DS160'],
+        ['name' => 'Refused', 'type' => 'DS160'],
+        ['name' => 'Waiver', 'type' => 'DS160'],
     ],
 ];

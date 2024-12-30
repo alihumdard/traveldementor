@@ -26,7 +26,7 @@ class ScheduleController extends Controller
         $userIds = Application::pluck('user_id')->unique()->toArray();
         $user = auth()->user();
         $data['user'] = $user;
-        $data['categories'] = Category::all();
+        $data['categories'] = Category::where('type','=','appointment')->get();
         $data['countries'] = Country::all();
         $data['clients'] = Client::whereIn('id', $userIds)->get();
         $data['vfsembasses'] = VfsEmbassy::all();

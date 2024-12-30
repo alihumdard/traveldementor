@@ -1,5 +1,10 @@
 @extends('layouts.main')
 @section('title', 'DS160')
+<style>
+  table th, table td {
+   text-transform: capitalize;
+ }
+</style>
 @section('content')
 
 <div class="content-wrapper py-0 my-0">

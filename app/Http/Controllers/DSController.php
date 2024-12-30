@@ -14,7 +14,7 @@ class DSController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['categories']=Category::all();
+        $data['categories'] = Category::where('type','=','DS160')->get();
         $data['clients']=Client::all();
         if ($id) {
             $data['ds160'] = DS160::find($id);
