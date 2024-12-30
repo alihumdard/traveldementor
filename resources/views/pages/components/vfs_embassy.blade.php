@@ -15,7 +15,9 @@
   #vfsname::-ms-expand {
     display: none;
   }
-
+  .table-responsive{
+    overflow-x: hidden !important;
+  }
   #vfsname:hover,
   select:focus {
     border-color: #007bff;
@@ -101,7 +103,6 @@
                   </td>
                   @endif
                   <td style="width: 80px;">
-                    ali
                     <div class="row">
                       <div class="col-6 p-0">
                         <form method="POST" action="{{ route('vfs.embassy') }}">

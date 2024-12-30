@@ -217,7 +217,7 @@
           <a class="dropdown-item preview-item">
             <div class="preview-thumbnail">
               <div class="preview-icon">
-                <img style="border-radius: 12px !important; object-fit: cover; width: 45px; height: 45px;" src="{{ (isset($user->user_pic)) ? asset('storage/' . $user->user_pic) : 'assets/images/user.png'}}" alt="profile">
+                <img style="border-radius: 12px !important; object-fit: cover; width: 45px; height: 45px;" src="{{ (isset($user->user_pic)) ? asset('storage/' . $user->user_pic) : '/assets/images/user.png'}}" alt="profile">
               </div>
             </div>
             <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">

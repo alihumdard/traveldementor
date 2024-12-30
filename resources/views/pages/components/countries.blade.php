@@ -11,11 +11,12 @@
     width: 100%;
     font-size: 16px;
   }
-
   #category_type::-ms-expand {
     display: none;
   }
-
+.table-responsive{
+  overflow-x: hidden !important;
+}
   #category_type:hover,
   select:focus {
     border-color: #007bff;

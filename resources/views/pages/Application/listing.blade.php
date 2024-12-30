@@ -1,11 +1,84 @@
 @extends('layouts.main')
 @section('title', 'Application')
 <style>
-   table th, table td {
-    text-transform: capitalize;
+  tbody tr {
+    cursor: move;
+  }
+
+  tbody tr td:first-child {
+    cursor: grab;
+  }
+
+  .modal-backdrop.show {
+    opacity: 0 !important;
+  }
+
+  .draggable-modal .modal-dialog {
+    pointer-events: none;
+  }
+
+  .draggable-modal .modal-content {
+    pointer-events: auto;
+  }
+
+  .form-group .form-check {
+    margin-bottom: 5px;
+  }
+
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+  }
+
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+
+  .d-view_map {
+    width: 100%;
+    height: 400px;
+  }
+
+  #addAddressModal .modal-header {
+    padding: 0.5rem 1rem;
+  }
+
+  #addAddressModal .modal-title {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  #btn_save_application {
+    background-color: #452c88;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  #btn_save_application:hover {
+    background-color: #331f66;
+    transform: scale(1.05);
+  }
+
+  #btn_cancel_application {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  #btn_cancel_application:hover {
+    transform: scale(1.05);
+  }
+
+  label {
+    margin-bottom: 0px !important;
+  }
+
+  #qoutedetail {
+    backdrop-filter: blur(5px);
+    background-color: #01223770;
   }
 </style>
 @section('content')
+@include('pages.Application.detail_page_modal')
 
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
@@ -54,7 +127,7 @@
                   </div>
                   <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group">
                     <option value="">
-                      @lang('Filter By Locations')
+                      Filter By Locations
                     </option>
 
                     <option value="">jjj</option>
@@ -86,7 +159,7 @@
             </div>
           </div>
         </div>
-       
+
         <hr>
         <div class="px-2">
           <div class="table-responsive">
@@ -100,7 +173,7 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th style="width: 100px;">Apply Date</th>
+                  <th>Apply Date</th>
                   <th>Passport Expiry Date</th>
                   <th>Visa Expiry Date</th>
                   <th>Visa Status</th>
@@ -109,7 +182,7 @@
               </thead>
               <tbody id="tableData">
                 @foreach ($applications as $application )
-                 <tr style="font-size: small;">
+                <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $application->created_at }}</td>
                   <td>{{ $application->passport_expiry }}</td>
@@ -136,16 +209,13 @@
                             fill="#452C88" transform="translate(6, 6)" />
                         </svg>
                       </a>
-                      <a href="{{ route('application.add', ['id' => $application->id]) }}" class="btn p-0">
+                      <button data-id="{{  $application->id }}" id="quoteDetail_btn" class="btn p-0 quoteDetail_view" data-toggle="modal" data-target="#qoutedetail">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
-                          <path
-                            d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z"
-                            fill="#452C88" />
+                          <path d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z" fill="#452c88" />
                         </svg>
-                      </a>
+                      </button>
                     </div>
-
                   </td>
                 </tr>
                 @endforeach
@@ -195,5 +265,87 @@
     var selectedLocation = $(this).val();
     users_table.column(3).search(selectedLocation).draw();
   });
+
+
+
+  // $(document).on('click', '.quoteDetail_view', function(e) {
+  //   e.preventDefault();
+  //   var quoteDetail = $(this);
+  //   var quoteId = quoteDetail.attr('data-id');
+
+  //   var apiname = 'quoteDetail';
+  //   var apiurl = "{{ end_url('') }}" + apiname;
+  //   var payload = {
+  //     id: quoteId,
+  //     role: 'Admin',
+  //   };
+
+  //   var bearerToken = "{{session('access_token')}}";
+
+  //   $.ajax({
+  //     url: apiurl,
+  //     type: 'POST',
+  //     data: JSON.stringify(payload),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer ' + bearerToken
+  //     },
+  //     beforeSend: function() {
+  //       $('#data-qouteDetails').addClass('d-none');
+  //       $('#mdl-spinner').removeClass('d-none');
+  //     },
+  //     success: function(response) {
+
+  //       if (response.status === 'success') {
+  //         let s_id = response.data.service_id;
+  //         if (response.data.admin_pic) {
+  //           $('#quoteDetail_adminImg').attr('src', "{{ asset('storage') }}/" + response.data.admin_pic);
+  //         } else {
+  //           $('#quoteDetail_adminImg').attr('src', "assets/images/user.png")
+  //         }
+
+  //         if (response.data.user_pic) {
+  //           $('#quoteDetail_userImg').attr('src', "{{ asset('storage') }}/" + response.data.user_pic);
+  //         } else {
+  //           $('#quoteDetail_userImg').attr('src', "assets/images/user.png")
+  //         }
+
+  //         $("#quoteDetail_admin").val(response.data.admin_name);
+  //         $("#quoteDetail_user").val(response.data.user_name);
+  //         $("#quoteDetail_clientName").val(response.data.client_name);
+  //         $("#quoteDetail_description").val(response.data.desc);
+  //         $("#quoteDetail_date").val(response.data.date);
+  //         $("#quoteDetail_ammount").val(response.data.amount + ' (' + response.data.currency.code + ')');
+  //         $("#quoteDetail_service").val(services[s_id]);
+
+  //         var serviceData = response.data.service_data;
+  //         var tbody = $("#tbl_sevice_data");
+  //         var ind = 1;
+  //         $.each(JSON.parse(serviceData), function(index, key) {
+  //           var row = $("<tr class='text-center'>");
+  //           $("<td>").text(ind++).appendTo(row);
+  //           $("<td>").text(services[key.service_id]).appendTo(row);
+  //           $("<td>").text(key.s_amount + ' (' + response.data.currency.code + ')').appendTo(row);
+  //           row.appendTo(tbody);
+  //         });
+
+  //         setTimeout(function() {
+  //           $('#mdl-spinner').addClass('d-none');
+  //           $('#data-qouteDetails').removeClass('d-none');
+  //         }, 500);
+
+  //       } else if (response.status === 'error') {
+
+  //         showAlert("Warning", "Please fill the form correctly", response.status);
+  //         console.log(response.message);
+
+  //       }
+  //     },
+  //     error: function(xhr, status, error) {
+  //       console.log(status);
+  //       showAlert("Error", 'Request Can not Procceed', 'Can not Procceed furhter');
+  //     }
+  //   });
+  // });
 </script>
 @endPushOnce

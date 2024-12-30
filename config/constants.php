@@ -166,9 +166,9 @@ return [
         'Deactive' => 2,
         'Deleted' => 3
     ],
-    'VISA_STATUS' => [
-        'Pending' => 1,
-        'Progress' => 2,
+    'VISA_STATUS'=>[
+        'Pending'=>1,
+        'Inprogress'=>2,
     ],
     'COUNTRIES' => [
         ['name' => 'Australia', 'code' => 'AU'],
