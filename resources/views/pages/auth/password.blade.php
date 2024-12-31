@@ -81,84 +81,132 @@
     .form-control:focus {
       box-shadow: none;
     }
-    .contact {
-    color:#212B60!important;
-  }
-  .text-warning.contact:hover {
-    color: #184A45 !important;
-  }
-  #btn_user_login {
-    background-color: #212B60; /* Initial color */
-    transition: background-color 0.3s ease; /* Smooth transition */
-  }
 
-  #btn_user_login:hover {
-    background-color:rgb(15, 26, 76); /* Change to a darker blue on hover */
-  }
+    .contact {
+      color: #212B60 !important;
+    }
+
+    .text-warning.contact:hover {
+      color: #184A45 !important;
+    }
+
+    #btn_user_login {
+      background-color: #212B60;
+      /* Initial color */
+      transition: background-color 0.3s ease;
+      /* Smooth transition */
+    }
+
+    #btn_user_login:hover {
+      background-color: rgb(15, 26, 76);
+      /* Change to a darker blue on hover */
+    }
   </style>
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">  -->
 </head>
 
 <body style="overflow-x: hidden;">
-<div class="container-fluid mx-2" style="margin-top: 20px !important;">
+  <div class="container-fluid mx-2" style="margin-top: 20px !important;">
     <div class="row">
-        <div class="col-12 col-md-12 col-lg-6 ml-auto" style="height: 90vh !important; width: 100%;">
-            <div>
-                <!-- Navbar Brand -->
-                <a class="navbar-brand">
-                    <img src="{{asset('assets/images/traveldementor.jpeg')}}" width="350px" height="100px" alt=""> 
-                </a>
-            </div>
-            <div class="row mt-4">
-                <form action="login" method="post" class="w-100">
-                    @csrf
-                    <div class="row">
-                        <div class="w-100" style="padding-left: 15px;">
-                            <p style="font-weight: 500; font-size: 30px; line-height: 45px; color: #000000 !important;">
-                                Change your Password
-                            </p>
-                        </div>
-                        
-                        <!-- New Password -->
-                        <div class="input-group col-lg-12 mb-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0 border-left-0 border-top-0 border-dark" style="border-radius: 0px !important;">
-                                    <i class="fa-solid fa-lock"></i>
-                                </span>
-                            </div>
-                            <input id="new_password" type="password" name="new_password" placeholder="Create New Password" class="border-top-0 border-right-0 form-control bg-white border-left-0 border-md border-dark" style="border-radius: 0px !important;" />
-                        </div>
-                        
-                        <!-- Confirm Password -->
-                        <div class="input-group col-lg-12 mb-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0 border-left-0 border-top-0 border-dark" style="border-radius: 0px !important;">
-                                    <i class="fa-solid fa-lock"></i>
-                                </span>
-                            </div>
-                            <input id="confirm_password" type="password" name="confirm_password" placeholder="Confirm Your Password" class="border-top-0 border-right-0 form-control bg-white border-left-0 border-md border-dark" style="border-radius: 0px !important;" />
-                        </div>
+      <div class="col-12 col-md-12 col-lg-6 ml-auto" style="height: 90vh !important; width: 100%;">
+        <div>
+          <!-- Navbar Brand -->
+          <a class="navbar-brand">
+            <img src="{{asset('assets/images/traveldementor.jpeg')}}" width="350px" height="100px" alt="">
+          </a>
+        </div>
+        <div class="row mt-4">
+          <form action="{{ route('change.password') }}" method="post" class="w-100">
+            @csrf
+            <div class="row">
+              <div class="w-100" style="padding-left: 15px;">
+                <p style="font-weight: 500; font-size: 30px; line-height: 45px; color: #000000 !important;">
+                  Change your Password
+                </p>
+              </div>
 
-                        <!-- Submit Button -->
-                        <div class="form-group col-lg-12 mx-auto mb-0 d-flex justify-content-between">
-                            <!-- Next Button -->
-                            <button type="submit" id="btn_user_login" class="font-weight-bold sign_up btn btn-primary py-2 text-white flex-grow-1 ms-3" name="submit" style="max-width: 200px;">
-                                <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
-                                <span id="text">Submit</span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+              <!-- Email -->
+              <div class="form-group col-lg-12 mb-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-white border-md border-right-0">
+                      <i class="fa-solid fa-envelope"></i>
+                    </span>
+                  </div>
+                  <input type="email" name="email" placeholder="Enter Your Email" class="form-control border-left-0"
+                    required>
+                </div>
+                <div class="mt-1">
+                  @error('email')
+                  <div class="text-danger">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+              </div>
+
+              <!-- New Password -->
+              <div class="form-group col-lg-12 mb-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-white border-md border-right-0">
+                      <i class="fa-solid fa-lock"></i>
+                    </span>
+                  </div>
+                  <input type="password" name="new_password" placeholder="Create New Password"
+                    class="form-control border-left-0" required>
+                </div>
+                <div class="mt-1">
+                  @error('new_password')
+                  <div class="text-danger">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="form-group col-lg-12 mb-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-white border-md border-right-0">
+                      <i class="fa-solid fa-lock"></i>
+                    </span>
+                  </div>
+                  <input type="password" name="new_password_confirmation" placeholder="Confirm New Password"
+                    class="form-control border-left-0" required>
+                </div>
+                <div class="mt-1">
+                  @error('new_password_confirmation')
+                  <div class="text-danger">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group col-lg-12 mx-auto mb-0">
+                <button type="submit" id="btn_user_login" class="font-weight-bold sign_up btn btn-block py-2 text-white"
+                  name="submit">
+                  <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
+                  <span id="text">Submit</span>
+                </button>
+              </div>
             </div>
+          </form>
         </div>
-        <!-- Image Section (Visible only on large screens) -->
-        <div class="col-md-5 col-lg-5 pr-lg-5 d-none d-lg-block mb-5 mb-md-0">
-            <div class="p-2 d-flex align-items-center justify-content-center" style="height: 90vh !important; border-radius: 15px;">
-                <img class="img-fluid" src="{{ asset('assets/images/confirm-password.png') }}" alt="banner image">
-            </div>
+
+
+      </div>
+      <!-- Image Section (Visible only on large screens) -->
+      <div class="col-md-5 col-lg-5 pr-lg-5 d-none d-lg-block mb-5 mb-md-0">
+        <div class="p-2 d-flex align-items-center justify-content-center"
+          style="height: 90vh !important; border-radius: 15px;">
+          <img class="img-fluid" src="{{ asset('assets/images/confirm-password.png') }}" alt="banner image">
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
 
 </html>

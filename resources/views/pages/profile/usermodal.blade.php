@@ -307,6 +307,7 @@
 
   <script>
     $(document).ready(function() {
+   
       const maxLength = 150;
       const textarea = $('#address');
       const charCountElement = $('#charCount');
@@ -406,6 +407,7 @@
 
     $(document).on('submit', '#user_sts', function(event) {
       event.preventDefault();
+      alert();  
       var id = $('#sts_user_id').val();
       var status = $('#status').val();
       var _token = $(this).find('input[name="_token"]').val();

@@ -37,11 +37,14 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/blank-temp',                        [UserController::class, 'blank_temp'])->name('blank.temp');
     Route::match(['post', 'get'], '/add-blank',                         [UserController::class, 'add_blank'])->name('add.blank');
     Route::match(['post', 'get'], '/locations',                         [UserController::class, 'locations'])->name('locations');
+    Route::match(['post', 'get'], '/staff/add/{id?}',                   [UserController::class, 'add'])->name('staff.add');
+    
 
     Route::match(['post', 'get'], '/application/add/{id?}',             [ApplicationController::class, 'add'])->name('application.add');
     Route::match(['post', 'get'], '/application/store',                 [ApplicationController::class, 'application_store'])->name('application.store');
     Route::match(['post', 'get'], '/application',                       [ApplicationController::class, 'index'])->name('application.index');
     Route::match(['post', 'get'], '/application/delete/{id}',           [ApplicationController::class, 'delete'])->name('application.delete');
+    Route::match(['post', 'get'], '/application/{id}',                  [ApplicationController::class, 'detail_page'])->name('application.detail');
 
     Route::match(['post', 'get'], '/appointment/schedule/add/{id?}',    [ScheduleController::class, 'add'])->name('schedule.appointment.add');
     Route::match(['post', 'get'], '/appointment/schedule',              [ScheduleController::class, 'schedule_index'])->name('schedule.appointment.index');
@@ -70,6 +73,7 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/ds',                                [DSController::class, 'index'])->name('ds.index');
     Route::match(['post', 'get'], '/ds/store/{id?}',                    [DSController::class, 'store'])->name('ds.store');
     Route::match(['post', 'get'], '/ds/delete/{id?}',                    [DSController::class, 'delete'])->name('ds.delete');
+
     
 });
 
@@ -80,7 +84,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //Auth Controller... 
 Route::match(['post', 'get'], '/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot.password');
-Route::match(['post', 'get'], '/set_password',    [AuthController::class, 'set_password'])->name('set.password');
+Route::match(['post', 'get'], '/change_password', [AuthController::class, 'change_password'])->name('change.password');
 Route::match(['post', 'get'], '/register',        [AuthController::class, 'user_register'])->name('register.user');
 Route::match(['post', 'get'], '/logout',          [AuthController::class, 'logout'])->name('logout');
 Route::match(['post', 'get'], '/verify/{hash}',   [AuthController::class, 'verify'])->name('verify');

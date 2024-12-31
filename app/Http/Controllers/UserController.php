@@ -86,7 +86,11 @@ class UserController extends Controller
             return view('pages.profile.users', ['data' => $users, 'user' => $user, 'add_as_user' => user_roles('3')]);
         }
     }
-
+    public function add($id = null)
+    {
+        dd();
+        return view('pages.profile.add_staff');
+    }
     public function currencies(REQUEST $request)
     {
         $user = auth()->user();

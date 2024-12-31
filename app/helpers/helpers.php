@@ -75,7 +75,6 @@ function view_permission($page_name)
                 case 'tracking':
                 case 'hotel_booking':
                 case 'ds_160':
-                case 'blank-temp':
                     return true;
                 default:
                     return false;
@@ -93,7 +92,6 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'index':
                     return true;
-
                 default:
                     return false;
             }
