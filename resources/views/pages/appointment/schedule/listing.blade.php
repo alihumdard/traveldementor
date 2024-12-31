@@ -86,8 +86,7 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.86);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th style="width: 100px;">Application</th>
-
+                  <th>Application</th>
                   <th>No of application</th>
                   <th>Applicant contact</th>
                   <th>Appointment email</th>

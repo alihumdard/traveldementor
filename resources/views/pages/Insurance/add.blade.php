@@ -52,6 +52,65 @@
         margin-bottom: 0;
     }
 
+    .radio-group {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .custom-radio {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .custom-radio input[type="radio"] {
+        display: none;
+    }
+
+    .radio-mark {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #007bff;
+        display: inline-block;
+        position: relative;
+        background-color: #fff;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .radio-mark.square {
+        border-radius: 4px;
+        /* Square shape */
+    }
+
+    .custom-radio input[type="radio"]:checked+.radio-mark {
+        background-color: #007bff;
+        border-color: #0056b3;
+    }
+
+    .radio-mark::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.3s;
+    }
+
+    .custom-radio input[type="radio"]:checked+.radio-mark::after {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .error-message {
+        font-size: 12px;
+    }
+
     #btn_save_insurance {
         background-color: #452c88;
         transition: background-color 0.3s ease, transform 0.2s ease;
@@ -62,7 +121,7 @@
         transform: scale(1.05);
     }
 
-    #btn_cancel_insurance{
+    #btn_cancel_insurance {
         transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
@@ -70,8 +129,13 @@
         transform: scale(1.05);
     }
 
+    label[for="refund_applied"] {
+    margin-bottom: 6px; 
+    display: block; 
+}
+
     label {
-        margin-bottom: 0px ;
+        margin-bottom: 0px;
     }
 </style>
 
@@ -99,35 +163,35 @@
                     <div class="row">
                         <!-- Hidden ID Field -->
                         <input type="hidden" name="id" value="{{ isset($insurance) ? $insurance->id : '' }}">
-                        
+
                         <!-- Application ID -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="application_id">Application</label>
                             <select name="application_id" id="application_id" class="form-select">
                                 <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select application</option>
                                 @foreach ($clients as $client)
-                                    <option value="{{ $client->id }}" {{ isset($insurance) && $insurance->application_id == $client->id ? 'selected' : '' }}>
-                                        {{ $client->name }}
-                                    </option>
+                                <option value="{{ $client->id }}" {{ isset($insurance) && $insurance->application_id == $client->id ? 'selected' : '' }}>
+                                    {{ $client->name }}
+                                </option>
                                 @endforeach
                             </select>
                             <span id="application_id_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Country -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
                             <select name="country_id" id="country_id" class="form-select">
                                 <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select country</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}" {{ isset($insurance) && $insurance->country_id == $country->id ? 'selected' : '' }}>
-                                        {{ $country->name }}
-                                    </option>
+                                <option value="{{ $country->id }}" {{ isset($insurance) && $insurance->country_id == $country->id ? 'selected' : '' }}>
+                                    {{ $country->name }}
+                                </option>
                                 @endforeach
                             </select>
                             <span id="country_id_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Plan Type -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="plan_type">Plan Type</label>
@@ -138,100 +202,105 @@
                             </select>
                             <span id="plan_type_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Start Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="s_date">Start Date</label>
-                            <input type="date" name="s_date" id="s_date" class="form-control" 
+                            <input type="date" name="s_date" id="s_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->s_date : '' }}">
                             <span id="s_date_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- End Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="e_date">End Date</label>
-                            <input type="date" name="e_date" id="e_date" class="form-control" 
+                            <input type="date" name="e_date" id="e_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->e_date : '' }}">
                             <span id="e_date_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Policy Number -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="policy_no">Policy Number</label>
-                            <input type="number" name="policy_no" id="policy_no" class="form-control" 
+                            <input type="number" name="policy_no" id="policy_no" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->policy_no : '' }}">
                             <span id="policy_no_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Sale Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="sale_date">Sale Date</label>
-                            <input type="date" name="sale_date" id="sale_date" class="form-control" 
+                            <input type="date" name="sale_date" id="sale_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->sale_date : '' }}">
                             <span id="sale_date_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Amount -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="amount">Amount</label>
-                            <input type="number" name="amount" id="amount" class="form-control" 
+                            <input type="number" name="amount" id="amount" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->amount : '' }}">
                             <span id="amount_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Payable After 40% -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="payable_after_40_per">Payable After 40%</label>
-                            <input type="number" name="payable_after_40_per" id="payable_after_40_per" class="form-control" 
+                            <input type="number" name="payable_after_40_per" id="payable_after_40_per" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->payable_after_40_per : '' }}">
                             <span id="payable_after_40_per_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Net Payable -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="net_payable">Net Payable</label>
-                            <input type="number" name="net_payable" id="net_payable" class="form-control" 
+                            <input type="number" name="net_payable" id="net_payable" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->net_payable : '' }}">
                             <span id="net_payable_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Refund Applied -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="refund_applied">Refund Applied</label>
-                            <div>
-                                <input type="radio" name="refund_applied" id="refund_applied_yes" value="yes" 
-                                    {{ isset($insurance) && $insurance->refund_applied == 'yes' ? 'checked' : '' }}>
-                                <label for="refund_applied_yes">Yes</label>
-                
-                                <input type="radio" name="refund_applied" id="refund_applied_no" value="no" 
-                                    {{ isset($insurance) && $insurance->refund_applied == 'no' ? 'checked' : '' }} style="margin-left: 10px;">
-                                <label for="refund_applied_no">No</label>
+                            <div class="radio-group">
+                                <label class="custom-radio">
+                                    <input type="radio" name="refund_applied" id="refund_applied_yes" value="yes"
+                                        {{ isset($insurance) && $insurance->refund_applied == 'yes' ? 'checked' : '' }}>
+                                    <span class="radio-mark square"></span>
+                                    Yes
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" name="refund_applied" id="refund_applied_no" value="no"
+                                        {{ isset($insurance) && $insurance->refund_applied == 'no' ? 'checked' : '' }}>
+                                    <span class="radio-mark square"></span>
+                                    No
+                                </label>
                             </div>
                             <span id="refund_applied_error" class="error-message text-danger"></span>
                         </div>
-                
-                    <!-- Form Buttons -->
-                    <div class="mt-3">
-                        <div class="row justify-content-end mt-2  ">
-                            <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
-                                <a href="/insurance" id="btn_cancel_insurance"
-                                    class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
-                                    <span>@lang('Cancel')</span>
-                                </a>
+
+                        <!-- Form Buttons -->
+                        <div class="mt-3">
+                            <div class="row justify-content-end mt-2  ">
+                                <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
+                                    <a href="/insurance" id="btn_cancel_insurance"
+                                        class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
+                                        <span>@lang('Cancel')</span>
+                                    </a>
+                                </div>
+                                <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
+                                    <button type="submit" id="btn_save_insurance" class="btn btn-block  text-white"
+                                        style="border-radius: 8px;">
+                                        <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
+                                        <span id="text">@lang('Save')</span>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
-                                <button type="submit" id="btn_save_insurance" class="btn btn-block  text-white"
-                                    style="border-radius: 8px;">
-                                    <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
-                                    <span id="text">@lang('Save')</span>
-                                </button>
-                            </div>
-                        </div>
 
 
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -243,8 +312,8 @@
 @stop
 @pushOnce('scripts')
 <script>
-    $(document).ready(function () {
-        $('#formData').on('submit', function (e) {
+    $(document).ready(function() {
+        $('#formData').on('submit', function(e) {
             let isValid = true;
 
             // Clear previous error messages
@@ -317,7 +386,7 @@
             }
 
             // Prevent form submission if validation fails
-            
+
         });
     });
 </script>

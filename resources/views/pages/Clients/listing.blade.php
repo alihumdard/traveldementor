@@ -75,7 +75,7 @@
                 <thead class="table-dark" style="background-color: #184A45;">
                   <tr style="font-size: small;">
                     <th>#</th>
-                    <th style="width: 100px;">Name</th>
+                    <th>Name</th>
                   
                     <th>Surname</th>
                     <th>Contact no</th>
