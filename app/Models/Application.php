@@ -19,6 +19,10 @@ class Application extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function client()
+    {
+        return $this->belongsTo(Client::class,'user_id','id');
+    }
 
     public function category()
     {

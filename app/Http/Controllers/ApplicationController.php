@@ -44,6 +44,11 @@ class ApplicationController extends Controller
         }
         return view('pages.application.add', $data);
     }
+    public function add_staff($id = null)
+    {
+        dd();
+        return view('pages.profile.add_staff');
+    }
     public function application_store(Request $request)
     {
         $user = auth()->user();
@@ -72,11 +77,15 @@ class ApplicationController extends Controller
         $message = "Application  " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return redirect()->route('application.index')->with('message', $message);
     }
+    public function detail_page($id)
+    {
+        $data['detail_page'] = Application::with('user', 'category', 'country')->find($id);
+        return response()->json($data['detail_page']);
+    }
     public function delete($id)
     {
-    $application=Application::find($id);
-    $application->delete();
-    return redirect()->back()->with('message','Successfull Deleted');
-    
+        $application = Application::find($id);
+        $application->delete();
+        return redirect()->back()->with('message', 'Successfull Deleted');
     }
 }
