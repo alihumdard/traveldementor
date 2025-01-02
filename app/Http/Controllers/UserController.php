@@ -54,12 +54,10 @@ class UserController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-
         $data['user'] = auth()->user();
         $data['add_as_user'] = user_roles('2');
-
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['staff'] = User::where(['role' => user_roles('2'), 'sadmin_id' => $user->id])->latest('id')->get()->toArray();
+            $data['staffs'] = User::where(['role' => user_roles('2')])->latest('id')->get()->toArray();
         }
         return view('pages.profile.staff', $data);
     }
@@ -88,8 +86,45 @@ class UserController extends Controller
     }
     public function add($id = null)
     {
-        dd();
+        if ($id) {
+
+            $data['staff'] = User::find($id);
+            return view('pages.profile.add_staff', $data);
+        }
         return view('pages.profile.add_staff');
+    }
+    public function store(Request $request)
+    {
+
+        $admin = auth()->user();
+        $page_name = 'staff';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $message = null;
+        $saved = User::updateOrCreate(
+            ['id' => $request->id ?? null],
+            [
+                'name'          => $request->name,
+                'email'         => $request->email,
+                'phone'          => $request->phone,
+                'address'        => $request->address,
+                'password'        => Hash::make($request->password),
+                'sadmin_id'       => $admin->id,
+                'role'            => $request->role,
+                'created_by'      => $admin->id,
+            ]
+        );
+
+        $message = "Staff  " . ($request->id ? "Updated" : "Saved") . " Successfully";
+
+        return redirect()->route('staff')->with('message', $message);
+    }
+    public function delete($id)
+    {
+        $staff = User::find($id);
+        $staff->delete();
+        return redirect()->back()->with('message', 'Successful Deleted');
     }
     public function currencies(REQUEST $request)
     {
@@ -219,6 +254,7 @@ class UserController extends Controller
     }
     public function countries(REQUEST $request)
     {
+        // dd($request->all());
         $user = auth()->user();
         $page_name = 'countries';
 
@@ -248,7 +284,7 @@ class UserController extends Controller
                 [
                     'name' => ucwords($request->name),
                     'status' => $this->status['Active'],
-                    'code' => $this->status['Active'],
+                    'code' => $request->code,
                     'created_by' => $user->id,
                 ]
             );
@@ -301,16 +337,23 @@ class UserController extends Controller
         return view('pages.components.locations', $data);
     }
 
-    public function settings()
+    public function settings(Request $request, $user_id = null)
     {
-        $user = auth()->user();
+        $user = $user_id ? User::findOrFail($user_id) : auth()->user();
         $page_name = 'settings';
-
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-
-        $user = auth()->user();
+        $user->name = $request->name ?? $user->name;
+        $user->phone = $request->phone ?? $user->phone;
+        $user->address = $request->address ?? $user->address;
+        if (!empty($request->password)) {
+            $user->password = bcrypt($request->password);
+        }
+        if ($request->address ||  $request->phone || $request->name) {
+            $user->save();
+            return redirect()->back()->with('message', 'Successful updated');
+        }
         return view('pages.profile.settings', ['user' => $user]);
     }
 

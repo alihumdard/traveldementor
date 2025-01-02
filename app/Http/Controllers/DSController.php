@@ -25,7 +25,7 @@ class DSController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['ds160']=DS160::with('category','client')->get();
+        $data['ds160']=DS160::with('client','category')->get();
         return view('pages.ds160.listing', $data);
     }
 

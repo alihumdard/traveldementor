@@ -130,9 +130,9 @@
     }
 
     label[for="refund_applied"] {
-    margin-bottom: 6px; 
-    display: block; 
-}
+        margin-bottom: 6px;
+        display: block;
+    }
 
     label {
         margin-bottom: 0px;
@@ -170,7 +170,8 @@
                             <select name="application_id" id="application_id" class="form-select">
                                 <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select application</option>
                                 @foreach ($clients as $client)
-                                <option value="{{ $client->id }}" {{ isset($insurance) && $insurance->application_id == $client->id ? 'selected' : '' }}>
+                                <option value="{{ $client->id }}" {{ isset($insurance) && $insurance->application_id ==
+                                    $client->id ? 'selected' : '' }}>
                                     {{ $client->name }}
                                 </option>
                                 @endforeach
@@ -184,7 +185,8 @@
                             <select name="country_id" id="country_id" class="form-select">
                                 <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select country</option>
                                 @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" {{ isset($insurance) && $insurance->country_id == $country->id ? 'selected' : '' }}>
+                                <option value="{{ $country->id }}" {{ isset($insurance) && $insurance->country_id ==
+                                    $country->id ? 'selected' : '' }}>
                                     {{ $country->name }}
                                 </option>
                                 @endforeach
@@ -197,8 +199,10 @@
                             <label for="plan_type">Plan Type</label>
                             <select name="plan_type" id="plan_type" class="form-select">
                                 <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select plan type</option>
-                                <option value="individual" {{ isset($insurance) && $insurance->plan_type == 'individual' ? 'selected' : '' }}>Individual</option>
-                                <option value="family" {{ isset($insurance) && $insurance->plan_type == 'family' ? 'selected' : '' }}>Family</option>
+                                <option value="individual" {{ isset($insurance) && $insurance->plan_type == 'individual'
+                                    ? 'selected' : '' }}>Individual</option>
+                                <option value="family" {{ isset($insurance) && $insurance->plan_type == 'family' ?
+                                    'selected' : '' }}>Family</option>
                             </select>
                             <span id="plan_type_error" class="error-message text-danger"></span>
                         </div>
@@ -246,7 +250,8 @@
                         <!-- Payable After 40% -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="payable_after_40_per">Payable After 40%</label>
-                            <input type="number" name="payable_after_40_per" id="payable_after_40_per" class="form-control"
+                            <input type="number" name="payable_after_40_per" id="payable_after_40_per"
+                                class="form-control"
                                 value="{{ isset($insurance) ? $insurance->payable_after_40_per : '' }}">
                             <span id="payable_after_40_per_error" class="error-message text-danger"></span>
                         </div>
@@ -264,14 +269,14 @@
                             <label for="refund_applied">Refund Applied</label>
                             <div class="radio-group">
                                 <label class="custom-radio">
-                                    <input type="radio" name="refund_applied" id="refund_applied_yes" value="yes"
-                                        {{ isset($insurance) && $insurance->refund_applied == 'yes' ? 'checked' : '' }}>
+                                    <input type="radio" name="refund_applied" id="refund_applied_yes" value="yes" {{
+                                        isset($insurance) && $insurance->refund_applied == 'yes' ? 'checked' : '' }}>
                                     <span class="radio-mark square"></span>
                                     Yes
                                 </label>
                                 <label class="custom-radio">
-                                    <input type="radio" name="refund_applied" id="refund_applied_no" value="no"
-                                        {{ isset($insurance) && $insurance->refund_applied == 'no' ? 'checked' : '' }}>
+                                    <input type="radio" name="refund_applied" id="refund_applied_no" value="no" {{
+                                        isset($insurance) && $insurance->refund_applied == 'no' ? 'checked' : '' }}>
                                     <span class="radio-mark square"></span>
                                     No
                                 </label>
@@ -291,29 +296,24 @@
                                 <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
                                     <button type="submit" id="btn_save_insurance" class="btn btn-block  text-white"
                                         style="border-radius: 8px;">
-                                        <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
+                                        <div class="spinner-border spinner-border-sm text-white d-none" id="spinner">
+                                        </div>
                                         <span id="text">@lang('Save')</span>
                                     </button>
                                 </div>
                             </div>
-
-
-
                 </form>
-
             </div>
         </div>
     </div>
 </div>
-
 </div>
-
-<!-- viewlocation Modal End -->
 @stop
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
         $('#formData').on('submit', function(e) {
+            e.preventDefault();
             let isValid = true;
 
             // Clear previous error messages
