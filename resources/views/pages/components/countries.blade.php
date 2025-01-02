@@ -50,7 +50,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12">
               <label for="title" class="mb-0 mt-1">Country Name</label>
               <input type="text" maxlength="60" name="name" id="country_name" class="form-control"
-                value="{{ $country['name'] ?? '' }}" placeholder="Country name" required>
+                value="{{ old('name', $country['name'] ?? '') }}" placeholder="Country name" required>
               <span id="country_name_error" class="error-message text-danger"></span>
               <div class="text-danger error-message" id="name-error">
                 @if ($errors->has('name'))
@@ -61,7 +61,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12">
               <label for="title" class="mb-0 mt-1">Country code</label>
               <input type="text" maxlength="60" name="code" id="country_code" class="form-control"
-                value="{{ $country['code'] ?? '' }}" placeholder="Country name" required>
+                value="{{ old('code', $country['code'] ?? '') }}" placeholder="Country name" required>
               <span id="country_code_error" class="error-message text-danger"></span>
               <div class="text-danger error-message" id="code-error"></div>
             </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DSController;
 use App\Http\Controllers\HotelBookingController;
 use App\Http\Controllers\InsuranceController;
@@ -27,10 +28,10 @@ use App\Http\Middleware\UserAuthCheck;
 
 Route::middleware('check.userAuthCheck')->group(function () {
     Route::get('/run-commands', [UserController::class, 'runMigrations']);
-    Route::match(['post', 'get'], '/admins',                            [UserController::class, 'staff'])->name('staff');
+    Route::match(['post', 'get'], '/admins/{id?}',                      [UserController::class, 'staff'])->name('staff');
     Route::match(['post', 'get'], '/users',                             [UserController::class, 'users'])->name('users');
     Route::match(['post', 'get'], '/vfs/embassy',                       [UserController::class, 'vfs_embassy'])->name('vfs.embassy');
-    Route::match(['post', 'get'], '/settings',                          [UserController::class, 'settings'])->name('settings');
+    Route::match(['post', 'get'], '/settings/{user_id?}',               [UserController::class, 'settings'])->name('settings');
     Route::match(['post', 'get'], '/currencies',                        [UserController::class, 'currencies'])->name('currencies');
     Route::match(['post', 'get'], '/categories',                        [UserController::class, 'categories'])->name('categories');
     Route::match(['post', 'get'], '/countries',                         [UserController::class, 'countries'])->name('countries');
@@ -38,6 +39,8 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/add-blank',                         [UserController::class, 'add_blank'])->name('add.blank');
     Route::match(['post', 'get'], '/locations',                         [UserController::class, 'locations'])->name('locations');
     Route::match(['post', 'get'], '/staff/add/{id?}',                   [UserController::class, 'add'])->name('staff.add');
+    Route::match(['post', 'get'], '/staff/store',                       [UserController::class, 'store'])->name('staff.store');
+    Route::match(['post', 'get'], '/staff/delete/{id?}',                [UserController::class, 'delete'])->name('staff.delete');
     
 
     Route::match(['post', 'get'], '/application/add/{id?}',             [ApplicationController::class, 'add'])->name('application.add');
@@ -72,8 +75,14 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/ds/add/{id?}',                      [DSController::class, 'add'])->name('ds.add');
     Route::match(['post', 'get'], '/ds',                                [DSController::class, 'index'])->name('ds.index');
     Route::match(['post', 'get'], '/ds/store/{id?}',                    [DSController::class, 'store'])->name('ds.store');
-    Route::match(['post', 'get'], '/ds/delete/{id?}',                    [DSController::class, 'delete'])->name('ds.delete');
+    Route::match(['post', 'get'], '/ds/delete/{id?}',                   [DSController::class, 'delete'])->name('ds.delete');
+    
+    Route::match(['post', 'get'], '/client/add/{id?}',                  [ClientController::class, 'add'])->name('client.add');
+    Route::match(['post', 'get'], '/client',                            [ClientController::class, 'index'])->name('client.index');
+    Route::match(['post', 'get'], '/client/store/{id?}',                 [ClientController::class, 'store'])->name('client.store');
+    Route::match(['post', 'get'], '/client/delete/{id?}',                [ClientController::class, 'delete'])->name('client.delete');
 
+    
     
 });
 
@@ -100,7 +109,11 @@ Route::get('/password',function(){
 
 Route::get('/detail',function(){
 
-    return view('pages.application.detail');
+    return view('pages.client.add');
+});
+Route::get('/d',function(){
+
+    return view('pages.client.listing');
 });
 
 

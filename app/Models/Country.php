@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'type', 'status', 'created_by'];
+    protected $fillable = ['name', 'type','code','status', 'created_by'];
 
     public function setNameAttribute($value)
     {

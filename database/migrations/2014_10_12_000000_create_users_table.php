@@ -39,6 +39,7 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

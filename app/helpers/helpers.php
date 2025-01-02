@@ -74,6 +74,7 @@ function view_permission($page_name)
                 case 'insurance':
                 case 'tracking':
                 case 'hotel_booking':
+                case 'client':
                 case 'ds_160':
                     return true;
                 default:

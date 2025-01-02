@@ -127,7 +127,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="user_id">User</label>
+                            <label for="user_id">Applicant Name</label>
                             <select  name="user_id" id="user_id" class="form-select">
                                 <option disabled selected>Select User</option>
                                 @foreach ($users as $user)

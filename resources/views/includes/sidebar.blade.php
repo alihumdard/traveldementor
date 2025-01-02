@@ -136,6 +136,14 @@
         </li>
         @endif
 
+        @if(view_permission('client'))
+        <li>
+            <a href="{{ route('client.index') }}" class="{{(request()->routeIs('client')) ? 'menu-acitve' : ''}}">
+                <i class="ml-3 fa-solid fa-passport"></i>
+                <span class="link_name">Client</span>
+            </a>
+        </li>
+        @endif
         @if(view_permission('vfs'))
         <li>
             <a href="{{ route('vfs.embassy') }}" class="{{(request()->routeIs('vfs.embassy')) ? 'menu-acitve' : ''}}">

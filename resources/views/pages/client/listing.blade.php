@@ -1,12 +1,7 @@
 @extends('layouts.main')
-@section('title', 'DS160')
-<style>
-  table th, table td {
-   text-transform: capitalize;
- }
-</style>
+@section('title', 'Client')
 @section('content')
-@include('pages.ds160.detail_page_modal')
+
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
     <div class="bg-white" style="border-radius: 20px;">
@@ -29,15 +24,16 @@
                 stroke-linejoin="round" />
             </svg>
           </span>
-          <span>DS160</span>
+          <span>Clients</span>
         </h3>
         <div class="row mb-2">
           <!-- <div class="col-lg-4"></div> -->
           <div class="col-lg-12">
             <div class="row mx-1">
               <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
-                <a href="{{ route('ds.add') }}">
-                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i>Add DS160</span></button>
+                <a href="{{ route('client.add') }}">
+                  <button class="btn add-btn text-white" style="background-color: #452c88;"><span><i
+                        class="fa fa-plus"></i>Add Client</span></button>
                 </a>
               </div>
               <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
@@ -95,29 +91,30 @@
             </div>
             @endif
             <table id="qoute-table" class="display" style="width:100%">
-              <thead class="table-dark" style="background-color: #5F4A99;">
+              <thead class="table-dark" style="background-color:#452c88;">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th>Applicant Name</th>
-                  <th>Category</th>
-                  <th>DS160</th>
-                  <th>Revised DS160</th>
-                  <th>Actions</th>
+                  <th>Name</th>
+                  <th>Surname</th>
+                  <th>Contact no</th>
+                  <th>Date of birth</th>
+                  <th>Refer Person</th>
+                  <th>Action</th>
                 </tr>
               </thead>
+              @foreach($clients as $client)
               <tbody id="tableData">
-                @foreach ($ds160 as $ds)
-
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $ds->client->name ?? 'N/A' }}</td>
-                  <td>{{ $ds->category->name ?? 'N/A' }}</td>
-                  <td>{{ $ds->ds160 }}</td>
-                  <td>{{ $ds->revised_ds160 }}</td>
-                  <td>
+                  <td>{{ $client->name }}</td>
+                  <td>{{ $client->sur_name}}</td>
+                  <td>{{ $client->contact_no }}</td>
+                  <td>{{ $client->dob }}</td>
+                  <td>{{ $client->refer_person }}</td>
+                  <td class="">
                     <div class="d-flex my-auto">
                       <!-- Edit Button -->
-                      <a href="{{ route('ds.add', ['id' => $ds->id]) }}" class="btn p-0">
+                      <a href="{{ route('client.add', ['id' => $client->id]) }}" class="btn p-0">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#233A85" />
                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -127,7 +124,7 @@
                       </a>
 
                       <!-- Delete Button -->
-                      <a href="{{ route('ds.delete', ['id' => $ds->id]) }}" class="btn p-0">
+                      <a href="{{ route('client.delete', ['id' => $client->id]) }}" class="btn p-0">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
                           <path d="M10 2L9 3H3V5H21V3H15L14 2H10ZM4.36523 7L6.06836 22H17.9316L19.6348 7H4.36523Z"
@@ -136,17 +133,20 @@
                       </a>
 
                       <!-- Quote Detail Button -->
-                      <button data-id="{{  $ds->id }}" id="quoteDetail_btn" class="btn p-0 quoteDetail_view" data-toggle="modal" data-target="#qoutedetail">
+                      {{-- <button data-id="{{  $client->id }}" id="quoteDetail_btn" class="btn p-0 quoteDetail_view"
+                        data-toggle="modal" data-target="#qoutedetail">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
-                          <path d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z" fill="#452c88" />
+                          <path
+                            d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z"
+                            fill="#452c88" />
                         </svg>
-                      </button>
+                      </button> --}}
                     </div>
                   </td>
                 </tr>
-                @endforeach
               </tbody>
+              @endforeach
             </table>
           </div>
         </div>

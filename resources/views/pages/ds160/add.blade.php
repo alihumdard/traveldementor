@@ -182,7 +182,6 @@
                                 class="form-control" value="{{ isset($ds160) ? $ds160->us_travel_doc_password : '' }}">
                             <span id="us_travel_doc_password_error" class="error-message text-danger"></span>
                         </div>
-
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_updated_password">Us travel doc updated password</label>
                             <input type="password" name="us_travel_doc_updated_password"
@@ -269,14 +268,14 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12" style="margin-bottom: 10px;">
                             <label for="delivery_address">Delivery address</label>
-                            <textarea name="delivery_address" id="delivery_address" class="form-control"></textarea>
+                            <textarea name="delivery_address" id="delivery_address" class="form-control">{{  $ds160->delivery_address ?? ''}}</textarea>
                             <span id="delivery_address_error" class="error-message text-danger"></span>
                         </div>
                     </div>
                     <div class="mt-3">
                         <div class="row justify-content-end mt-2  ">
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
-                                <a href="/insurance" id="btn_cancel_hotel" class="btn btn-block btn-warning text-white"
+                                <a href="/ds" id="btn_cancel_hotel" class="btn btn-block btn-warning text-white"
                                     style="border-radius: 8px;">
                                     <span>Cancel</span>
                                 </a>
