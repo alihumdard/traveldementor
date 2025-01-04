@@ -32,7 +32,7 @@
                 </div>
                 <div class="ml-3">
                   <label for="quoteDetail_user" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
-                  <input type="text" disabled id="quoteDetail_user" class="form-control" value="John Doe">
+                  <input type="text" disabled id="name" class="form-control" value="">
                 </div>
               </div>
             </div>
@@ -46,30 +46,30 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="transition: all 0.3s;">
+                {{-- <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Application</td>
-                  <td style="padding: 12px;">Xyz</td>
-                </tr>
+                  <td style="padding: 12px;" id>Xyz</td>
+                </tr> --}}
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Country</td>
-                  <td style="padding: 12px;">India</td>
+                  <td style="padding: 12px;" id="country"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS Embassy</td>
-                  <td style="padding: 12px;">Gerry's Lahore</td>
+                  <td style="padding: 12px;" id="vfs_emb"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Category</td>
-                  <td style="padding: 12px;">Business</td>
+                  <td style="padding: 12px;"id="category"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Application Number</td>
-                  <td style="padding: 12px;">12345</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">No of Application</td>
+                  <td style="padding: 12px;" id="no_application"></td>
                 </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
+                {{-- <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
                   <td style="padding: 12px;">Pending</td>
-                </tr>
+                </tr> --}}
               </tbody>
             </table>
             <div class="text-center mt-4">

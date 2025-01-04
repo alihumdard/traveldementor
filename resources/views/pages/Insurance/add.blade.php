@@ -379,14 +379,13 @@
                 isValid = false;
             }
 
-            // Validate refund applied
             if (!$('input[name="refund_applied"]:checked').val()) {
                 $('#refund_applied_error').text('Refund applied is required.');
                 isValid = false;
             }
-
-            // Prevent form submission if validation fails
-
+            if (isValid) {
+            this.submit(); // Submit the form programmatically
+        }
         });
     });
 </script>

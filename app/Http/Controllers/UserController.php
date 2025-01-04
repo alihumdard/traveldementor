@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
+use App\Models\Appointment;
 use App\Models\Category;
+use App\Models\Client;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -36,7 +39,18 @@ class UserController extends Controller
         if ($user) {
             // User roles: 1 for Super Admin, 2 for Admin, 3 for User
             if (isset($user->role) && $user->role == user_roles('1')) {
-                return view('pages.dashbords.super_admin', compact('user'));
+                $tot_apps=0;
+                $staffs=0;
+                $total_schd_apps=0;
+                $total_pend_apps=0;
+                $active_users=0;
+
+                $active_users = Client::count();
+                $total_pend_apps = Appointment::where('appointment_type','pending')->count();
+                $total_schd_apps = Appointment::where('appointment_type','schedule')->count();
+                $staffs = User::where('role','Staff')->count();
+                $tot_apps=Application::count();
+                return view('pages.dashbords.super_admin', compact('user','tot_apps','staffs','total_schd_apps','total_pend_apps','active_users'));
             } else if (isset($user->role) && $user->role == user_roles('2')) {
                 dd($user->role);
             } else if (isset($user->role) && $user->role == user_roles('3')) {

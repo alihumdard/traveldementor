@@ -39,7 +39,7 @@
                     <div class="own-card-padding card-body d-flex justify-content-between" style="border-top: none !important;">
                         <div>
                             <h5 class="font-weight-bold" style="color:black;"><span>Active User</span></h5>
-                            <h5 style="color: #452C88;">25</h5>
+                            <h5 style="color: #452C88;">{{ $active_users }}</h5>
                         </div>
                         <div>
                             <div class="ms-3">
@@ -58,7 +58,7 @@
                     <div class=" own-card-padding card-body d-flex justify-content-between" style="border-top:none !important;">
                         <div>
                             <h5 class="font-weight-bold" style="color: black;"><span>Total Applications</span></h5>
-                            <h5 style="color: #452C88;">12</h5>
+                            <h5 style="color: #452C88;">{{ $tot_apps }}</h5>
                         </div>
                         <div>
                             <div class="ms-3">
@@ -77,7 +77,7 @@
                     <div class=" own-card-padding card-body d-flex justify-content-between" style="border-top:none !important;">
                         <div>
                             <h5 class="font-weight-bold" style="color: black;"><span>Pending Appointment</span></h5>
-                            <h5 style="color: #452C88;">12</h5>
+                            <h5 style="color: #452C88;">{{ $total_pend_apps }}</h5>
                         </div>
                         <div>
                             <div class="ms-3">
@@ -97,7 +97,7 @@
                     <div class=" own-card-padding card-body d-flex justify-content-between" style="border-top:none !important;">
                         <div>
                             <h5 class="font-weight-bold" style="color: black;"><span>Schedule Appointment</span></h5>
-                            <h5 style="color: #452C88;">10</h5>
+                            <h5 style="color: #452C88;">{{ $total_schd_apps }}</h5>
                         </div>
                         <div class="ms-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="50" height="50">
@@ -114,7 +114,7 @@
                     <div class=" own-card-padding card-body d-flex justify-content-between" style="border-top:none !important;">
                         <div>
                             <h5 class="font-weight-bold" style="color: black;"><span>Staff</span></h5>
-                            <h5 style="color: #452C88;">10</h5>
+                            <h5 style="color: #452C88;">{{ $staffs }}</h5>
                         </div>
                         <div class="ms-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="50" height="50" fill="#452C88">

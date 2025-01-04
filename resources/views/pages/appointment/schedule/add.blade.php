@@ -176,8 +176,8 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="payment_mode">Payment mode</label>
                             <select name="payment_mode" id="payment_mode" class="form-select">
-                                <option value="debit_card" {{ isset($appointment) && $appointment->payment_mode == 'debit_card' ? 'selected' : '' }}>Debit card</option>
-                                <option value="credit_card" {{ isset($appointment) && $appointment->payment_mode == 'credit_card' ? 'selected' : '' }}>Credit card</option>
+                                <option value="debit card" {{ isset($appointment) && $appointment->payment_mode == 'debit_card' ? 'selected' : '' }}>Debit card</option>
+                                <option value="credit card" {{ isset($appointment) && $appointment->payment_mode == 'credit_card' ? 'selected' : '' }}>Credit card</option>
                             </select>
                             <span id="payment_mode_error" class="error-message text-danger"></span>
                         </div>

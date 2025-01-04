@@ -68,6 +68,13 @@ class ScheduleController extends Controller
         $message = "Appointment " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return redirect()->route('schedule.appointment.index')->with('message', $message);
     }
+    public function schedule_detail_page($id)
+    {
+        
+        $data['detail_page'] = Appointment::with('client', 'category', 'country','vfsembassy')->where('appointment_type','schedule')->find($id);
+        return response()->json($data);
+    }
+   
 
     public function delete($id)
     {

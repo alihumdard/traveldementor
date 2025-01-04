@@ -32,7 +32,7 @@
                 </div>
                 <div class="ml-3">
                   <label for="quoteDetail_user" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
-                  <input type="text" disabled id="quoteDetail_user" class="form-control" value="John Doe">
+                  <input type="text" disabled  id="name" class="form-control" value="">
                 </div>
               </div>
             </div>
@@ -46,51 +46,49 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Application</td>
-                  <td style="padding: 12px;">xyz</td>
-                </tr>
+                
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Country</td>
-                  <td style="padding: 12px;">USA</td>
+                  <td style="padding: 12px;" id="country"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Plan type</td>
-                  <td style="padding: 12px;">Faimly</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Plan Type</td>
+                  <td style="padding: 12px;" id="plan_type"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Start Date</td>
-                  <td style="padding: 12px;">2025-12-31</td>
+                  <td style="padding: 12px;" id="s_date"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">End Date</td>
-                  <td style="padding: 12px;">2025-12-31</td>
+                  <td style="padding: 12px;" id="e_date"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Policy Number</td>
-                  <td style="padding: 12px;">202</td>
+                  <td style="padding: 12px;" id="policy_no"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Sale Date</td>
-                  <td style="padding: 12px;">2025-12-31</td>
+                  <td style="padding: 12px;" id="sale_date"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Amount</td>
-                  <td style="padding: 12px;">54321</td>
+                  <td style="padding: 12px;" id="amount"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Payable after 40%</td>
-                  <td style="padding: 12px;">45600</td>
+                  <td style="padding: 12px;" id="payable_after_40_per"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Net Payable</td>
-                  <td style="padding: 12px;">74321</td>
+                  <td style="padding: 12px;" id="net_payable"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Refund Applied</td>
-                  <td style="padding: 12px;">Yes</td>
+                  <td style="padding: 12px;" id="refund_applied"></td>
                 </tr>
               </tbody>
+              
             </table>
             <div class="text-center mt-4">
               <button class="btn" style="background: linear-gradient(90deg, #452c88, #6a4ab5); color: white; padding: 12px 30px; border-radius: 8px; font-size: 16px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">

@@ -62,6 +62,11 @@ class InsuranceController extends Controller
         // Redirect back with a success message
         return redirect()->route('insurance.index')->with('message', $message);
     }
+    public function insurance_detail_page($id)
+    {
+        $data['detail_page'] = Insurance::with('client','country')->find($id);
+        return response()->json($data);
+    }
     public function delete($id)
     {
     $insurance=Insurance::find($id);
