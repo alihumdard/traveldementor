@@ -12,22 +12,10 @@
   <div style="border: none;">
     <div class="bg-white" style="border-radius: 20px;">
       <div class="p-3">
-        <h3 class="page-title">
-          <span class="page-title-icon bg-gradient-primary text-white me-2 py-2">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.46997 9C7.40297 9 8.96997 7.433 8.96997 5.5C8.96997 3.567 7.40297 2 5.46997 2C3.53697 2 1.96997 3.567 1.96997 5.5C1.96997 7.433 3.53697 9 5.46997 9Z"
-                stroke="white" stroke-width="1.5" />
-              <path
-                d="M16.97 15H19.97C21.07 15 21.97 15.9 21.97 17V20C21.97 21.1 21.07 22 19.97 22H16.97C15.87 22 14.97 21.1 14.97 20V17C14.97 15.9 15.87 15 16.97 15Z"
-                stroke="white" stroke-width="1.5" />
-              <path
-                d="M11.9999 5H14.6799C16.5299 5 17.3899 7.29 15.9999 8.51L8.00995 15.5C6.61995 16.71 7.47994 19 9.31994 19H11.9999"
-                stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M5.48622 5.5H5.49777" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M18.4862 18.5H18.4978" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
+        <h3 class="page-title d-flex align-items-center">
+          <span class="page-title-icon bg-gradient-primary text-white me-2 py-2 d-flex justify-content-center align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" width="24" height="24">
+              <path d="M0 64C0 28.7 28.7 0 64 0L384 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM183 278.8c-27.9-13.2-48.4-39.4-53.7-70.8l39.1 0c1.6 30.4 7.7 53.8 14.6 70.8zm41.3 9.2l-.3 0-.3 0c-2.4-3.5-5.7-8.9-9.1-16.5c-6-13.6-12.4-34.3-14.2-63.5l47.1 0c-1.8 29.2-8.1 49.9-14.2 63.5c-3.4 7.6-6.7 13-9.1 16.5zm40.7-9.2c6.8-17.1 12.9-40.4 14.6-70.8l39.1 0c-5.3 31.4-25.8 57.6-53.7 70.8zM279.6 176c-1.6-30.4-7.7-53.8-14.6-70.8c27.9 13.2 48.4 39.4 53.7 70.8l-39.1 0zM223.7 96l.3 0 .3 0c2.4 3.5 5.7 8.9 9.1 16.5c6 13.6 12.4 34.3 14.2 63.5l-47.1 0c1.8-29.2 8.1-49.9 14.2-63.5c3.4-7.6 6.7-13 9.1-16.5zM183 105.2c-6.8 17.1-12.9 40.4-14.6 70.8l-39.1 0c5.3-31.4 25.8-57.6 53.7-70.8zM352 192A128 128 0 1 0 96 192a128 128 0 1 0 256 0zM112 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l224 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-224 0z" />
             </svg>
           </span>
           <span>DS160</span>
@@ -166,45 +154,45 @@
 
 <script>
   $(document).on('click', '#ds160_detail', function() {
-    var ds160Id = $(this).data('id');  
+    var ds160Id = $(this).data('id');
     $.ajax({
-        url: '/ds/' + ds160Id,
-        method: 'GET',
-        success: function(response) {
-            console.log(response);
-            // Ensure the response structure is correct
-             // Assuming client is an object
-            $("#category").text(response.detail_page.category.name); // Assuming category is an object
-            $("#ds_160_create_date").text(response.detail_page.ds_160_create_date);
-            $("#ds160").text(response.detail_page.ds160);
-            $("#revised_ds160").text(response.detail_page.revised_ds160);
-            $("#surname").text(response.detail_page.surname); // Use text() instead of val() for non-input fields
-            $("#name").val(response.detail_page.name); // Use text() instead of val() for non-input fields
-            $("#name").text(response.detail_page.client.name); // Use text() instead of val() for non-input fields
-            $("#year_of_birth").text(response.detail_page.year_of_birth);
-            $("#sec_question").text(response.detail_page.sec_question);
-            $("#sec_answer").text(response.detail_page.sec_answer);
-            $("#us_travel_doc_email").text(response.detail_page.us_travel_doc_email);
-            $("#us_travel_doc_password").text(response.detail_page.us_travel_doc_password);
-            $("#us_travel_doc_updated_password").text(response.detail_page.us_travel_doc_updated_password);
-            $("#challan_created").text(response.detail_page.challan_created);
-            $("#challan_submitted").text(response.detail_page.challan_submitted);
-            $("#payment_mode").text(response.detail_page.payment_mode);
-            $("#transaction_date").text(response.detail_page.transaction_date);
-            $("#appoint_date").text(response.detail_page.appoint_date);
-            $("#appoint_reschedule").text(response.detail_page.appoint_reschedule);
-            $("#pick_up_location").text(response.detail_page.pick_up_location);
-            $("#premium_delivery").text(response.detail_page.premium_delivery);
-            $("#delivery_address").text(response.detail_page.delivery_address);
-            
-            // Show the modal with updated details
-            $('#qoutedetail').modal('show');
-        },
-        error: function(error) {
-            console.error('Error fetching application details:', error);
-        }
+      url: '/ds/' + ds160Id,
+      method: 'GET',
+      success: function(response) {
+        console.log(response);
+        // Ensure the response structure is correct
+        // Assuming client is an object
+        $("#category").text(response.detail_page.category.name); // Assuming category is an object
+        $("#ds_160_create_date").text(response.detail_page.ds_160_create_date);
+        $("#ds160").text(response.detail_page.ds160);
+        $("#revised_ds160").text(response.detail_page.revised_ds160);
+        $("#surname").text(response.detail_page.surname); // Use text() instead of val() for non-input fields
+        $("#name").val(response.detail_page.name); // Use text() instead of val() for non-input fields
+        $("#name").text(response.detail_page.client.name); // Use text() instead of val() for non-input fields
+        $("#year_of_birth").text(response.detail_page.year_of_birth);
+        $("#sec_question").text(response.detail_page.sec_question);
+        $("#sec_answer").text(response.detail_page.sec_answer);
+        $("#us_travel_doc_email").text(response.detail_page.us_travel_doc_email);
+        $("#us_travel_doc_password").text(response.detail_page.us_travel_doc_password);
+        $("#us_travel_doc_updated_password").text(response.detail_page.us_travel_doc_updated_password);
+        $("#challan_created").text(response.detail_page.challan_created);
+        $("#challan_submitted").text(response.detail_page.challan_submitted);
+        $("#payment_mode").text(response.detail_page.payment_mode);
+        $("#transaction_date").text(response.detail_page.transaction_date);
+        $("#appoint_date").text(response.detail_page.appoint_date);
+        $("#appoint_reschedule").text(response.detail_page.appoint_reschedule);
+        $("#pick_up_location").text(response.detail_page.pick_up_location);
+        $("#premium_delivery").text(response.detail_page.premium_delivery);
+        $("#delivery_address").text(response.detail_page.delivery_address);
+
+        // Show the modal with updated details
+        $('#qoutedetail').modal('show');
+      },
+      error: function(error) {
+        console.error('Error fetching application details:', error);
+      }
     });
-});
+  });
 </script>
 
 
@@ -243,7 +231,6 @@
     var selectedLocation = $(this).val();
     users_table.column(3).search(selectedLocation).draw();
   });
-  
 </script>
 
 @endPushOnce

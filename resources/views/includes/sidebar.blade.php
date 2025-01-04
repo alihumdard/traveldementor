@@ -139,7 +139,7 @@
         @if(view_permission('client'))
         <li>
             <a href="{{ route('client.index') }}" class="{{(request()->routeIs('client')) ? 'menu-acitve' : ''}}">
-                <i class="ml-3 fa-solid fa-passport"></i>
+                <i class="ml-3 fa-solid fa-user"></i>
                 <span class="link_name">Client</span>
             </a>
         </li>
