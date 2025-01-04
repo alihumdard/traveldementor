@@ -66,6 +66,12 @@ class PendingController extends Controller
         $message = "Appointment" . ($request->id ? "Updated" : "Saved") . " Successfully";
         return redirect()->route('pending.appointment.index')->with('message', $message);
     }
+    public function pending_detail_page($id)
+    {
+        
+        $data['detail_page'] = Appointment::with('client', 'category', 'country','vfsembassy')->where('appointment_type','pending')->find($id);
+        return response()->json($data);
+    }
     public function delete($id)
     {
     $appointment=Appointment::find($id);

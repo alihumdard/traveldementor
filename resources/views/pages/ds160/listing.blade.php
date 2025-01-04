@@ -20,31 +20,30 @@
           </span>
           <span>DS160</span>
         </h3>
-      </div>
-      <div class="row mb-2">
-        <!-- <div class="col-lg-4"></div> -->
-        <div class="col-lg-12">
-          <div class="row mx-1">
-            <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
-              <a href="{{ route('ds.add') }}">
-                <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i>Add DS160</span></button>
-              </a>
-            </div>
-            <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
-              <div class="input-group">
-                <div class="input-group-prepend d-none d-md-block d-sm-block d-lg-block">
-                  <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
-                    <svg width="11" height="15" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M7.56221 14.0648C7.58971 14.3147 7.52097 14.5814 7.36287 14.7563C7.29927 14.8336 7.22373 14.8949 7.14058 14.9367C7.05742 14.9785 6.96827 15 6.87825 15C6.78822 15 6.69907 14.9785 6.61592 14.9367C6.53276 14.8949 6.45722 14.8336 6.39363 14.7563L3.63713 11.4151C3.56216 11.3263 3.50516 11.2176 3.47057 11.0977C3.43599 10.9777 3.42477 10.8496 3.43779 10.7235V6.45746L0.145116 1.34982C0.0334875 1.17612 -0.0168817 0.955919 0.005015 0.737342C0.0269117 0.518764 0.119294 0.319579 0.261975 0.183308C0.392582 0.0666576 0.536937 0 0.688166 0H10.3118C10.4631 0 10.6074 0.0666576 10.738 0.183308C10.8807 0.319579 10.9731 0.518764 10.995 0.737342C11.0169 0.955919 10.9665 1.17612 10.8549 1.34982L7.56221 6.45746V14.0648ZM2.09047 1.66644L4.81259 5.88254V10.4819L6.1874 12.1484V5.8742L8.90953 1.66644H2.09047Z"
-                        fill="#323C47" />
-                    </svg>
+        <div class="row mb-2">
+          <!-- <div class="col-lg-4"></div> -->
+          <div class="col-lg-12">
+            <div class="row mx-1">
+              <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
+                <a href="{{ route('ds.add') }}">
+                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i>Add DS160</span></button>
+                </a>
+              </div>
+              <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
+                <div class="input-group">
+                  <div class="input-group-prepend d-none d-md-block d-sm-block d-lg-block">
+                    <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
+                      <svg width="11" height="15" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7.56221 14.0648C7.58971 14.3147 7.52097 14.5814 7.36287 14.7563C7.29927 14.8336 7.22373 14.8949 7.14058 14.9367C7.05742 14.9785 6.96827 15 6.87825 15C6.78822 15 6.69907 14.9785 6.61592 14.9367C6.53276 14.8949 6.45722 14.8336 6.39363 14.7563L3.63713 11.4151C3.56216 11.3263 3.50516 11.2176 3.47057 11.0977C3.43599 10.9777 3.42477 10.8496 3.43779 10.7235V6.45746L0.145116 1.34982C0.0334875 1.17612 -0.0168817 0.955919 0.005015 0.737342C0.0269117 0.518764 0.119294 0.319579 0.261975 0.183308C0.392582 0.0666576 0.536937 0 0.688166 0H10.3118C10.4631 0 10.6074 0.0666576 10.738 0.183308C10.8807 0.319579 10.9731 0.518764 10.995 0.737342C11.0169 0.955919 10.9665 1.17612 10.8549 1.34982L7.56221 6.45746V14.0648ZM2.09047 1.66644L4.81259 5.88254V10.4819L6.1874 12.1484V5.8742L8.90953 1.66644H2.09047Z"
+                          fill="#323C47" />
+                      </svg>
+                    </div>
                   </div>
-                </div>
-                <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group">
-                  <option value="">
-                    @lang('Filter By Locations')
-                  </option>
+                  <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group">
+                    <option value="">
+                      @lang('Filter By Locations')
+                    </option>
 
                   <option value="">jjj</option>
 
@@ -125,29 +124,73 @@
                       </svg>
                     </a>
 
-                    <!-- Quote Detail Button -->
-                    <button data-id="{{  $ds->id }}" id="quoteDetail_btn" class="btn p-0 quoteDetail_view" data-toggle="modal" data-target="#qoutedetail">
-                      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
-                        <path d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z" fill="#452c88" />
-                      </svg>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+                      <!-- Quote Detail Button -->
+                      <button data-id="{{  $ds->id }}" id="quoteDetail_btn" class="btn p-0 quoteDetail_view" data-toggle="modal" data-target="#qoutedetail">
+                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
+                          <path d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z" fill="#452c88" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
 
 @stop
 
 @pushOnce('scripts')
+
+<script>
+  $(document).on('click', '#ds160_detail', function() {
+    var ds160Id = $(this).data('id');  
+    $.ajax({
+        url: '/ds/' + ds160Id,
+        method: 'GET',
+        success: function(response) {
+            console.log(response);
+            // Ensure the response structure is correct
+             // Assuming client is an object
+            $("#category").text(response.detail_page.category.name); // Assuming category is an object
+            $("#ds_160_create_date").text(response.detail_page.ds_160_create_date);
+            $("#ds160").text(response.detail_page.ds160);
+            $("#revised_ds160").text(response.detail_page.revised_ds160);
+            $("#surname").text(response.detail_page.surname); // Use text() instead of val() for non-input fields
+            $("#name").val(response.detail_page.client.name); // Use text() instead of val() for non-input fields
+            $("#year_of_birth").text(response.detail_page.year_of_birth);
+            $("#sec_question").text(response.detail_page.sec_question);
+            $("#sec_answer").text(response.detail_page.sec_answer);
+            $("#us_travel_doc_email").text(response.detail_page.us_travel_doc_email);
+            $("#us_travel_doc_password").text(response.detail_page.us_travel_doc_password);
+            $("#us_travel_doc_updated_password").text(response.detail_page.us_travel_doc_updated_password);
+            $("#challan_created").text(response.detail_page.challan_created);
+            $("#challan_submitted").text(response.detail_page.challan_submitted);
+            $("#payment_mode").text(response.detail_page.payment_mode);
+            $("#transaction_date").text(response.detail_page.transaction_date);
+            $("#appoint_date").text(response.detail_page.appoint_date);
+            $("#appoint_reschedule").text(response.detail_page.appoint_reschedule);
+            $("#pick_up_location").text(response.detail_page.pick_up_location);
+            $("#premium_delivery").text(response.detail_page.premium_delivery);
+            $("#delivery_address").text(response.detail_page.delivery_address);
+            
+            // Show the modal with updated details
+            $('#qoutedetail').modal('show');
+        },
+        error: function(error) {
+            console.error('Error fetching application details:', error);
+        }
+    });
+});
+</script>
+
+
 <script>
   var users_table = $('#qoute-table').DataTable({});
 
@@ -183,5 +226,7 @@
     var selectedLocation = $(this).val();
     users_table.column(3).search(selectedLocation).draw();
   });
+  
 </script>
+
 @endPushOnce

@@ -47,36 +47,48 @@
               </thead>
               <tbody>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Country</td>
-                  <td style="padding: 12px;">United States</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Applicant Name</td>
+                  <td style="padding: 12px;" id="name">N/A</td>
+                </tr>
+                <tr style="transition: all 0.3s;">
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Applicant Date of Birth</td>
+                  <td style="padding: 12px;" id="dob">N/A</td>
+                </tr>
+                <tr style="transition: all 0.3s;">
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Contact No</td>
+                  <td style="padding: 12px;" id="contact_no">N/A</td>
+                </tr>
+                <tr style="transition: all 0.3s;">
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Country </td>
+                  <td style="padding: 12px;" id="country">loading</td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Category</td>
-                  <td style="padding: 12px;">Business</td>
+                  <td style="padding: 12px;" id="category">loading</td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Passport Number</td>
-                  <td style="padding: 12px;">A12345678</td>
+                  <td style="padding: 12px;" id="pass_no">loading</td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Passport Expiry Date</td>
-                  <td style="padding: 12px;">2025-12-31</td>
+                  <td style="padding: 12px;" id="pass_exp_date">loading</td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Visa Status</td>
-                  <td style="padding: 12px;">Approved</td>
+                  <td style="padding: 12px;" id="visa_status">loading</td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Visa Expiry Date</td>
-                  <td style="padding: 12px;">2026-06-15</td>
+                  <td style="padding: 12px;" id="visa_exp_date">loading</td>
                 </tr>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VSF Refer no</td>
-                  <td style="padding: 12px;">12345678</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VISA Refer No</td>
+                  <td style="padding: 12px;"id="vsf_ref_no">loading</td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">DS160</td>
-                  <td style="padding: 12px;">87654321</td>
+                  <td style="padding: 12px;" id="ds_160">loading</td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
@@ -85,7 +97,7 @@
               </tbody>
             </table>
             <div class="text-center mt-4">
-              <button class="btn" style="background: linear-gradient(90deg, #452c88, #6a4ab5); color: white; padding: 12px 30px; border-radius: 8px; font-size: 16px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+              <button class="btn btn_close" style="background: linear-gradient(90deg, #452c88, #6a4ab5); color: white; padding: 12px 30px; border-radius: 8px; font-size: 16px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                 Back
               </button>
             </div>

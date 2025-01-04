@@ -45,6 +45,11 @@ class ClientController extends Controller
         $message = "Client " . ($request->id ? "Updated" : "Created") . " Successfully";
         return redirect()->route('client.index')->with('message', $message);
     }
+    public function client_detail_page($id)
+    {
+        $data['detail_page']=Client::find($id);
+        return response()->json($data);
+    }
     public function delete($id)
     {
         $client = Client::find($id);

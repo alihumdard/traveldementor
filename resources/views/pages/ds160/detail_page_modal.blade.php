@@ -32,7 +32,7 @@
                 </div>
                 <div class="ml-3">
                   <label for="quoteDetail_user" class="mb-0"><span style="color: #452c88;">Applicant name</span></label>
-                  <input type="text" disabled id="quoteDetail_user" class="form-control" value="John Doe">
+                  <input type="text" disabled id="name" class="form-control" value="">
                 </div>
               </div>
             </div>
@@ -45,88 +45,91 @@
                   <th style="text-align: left; padding: 15px; font-size: 16px;">User Data</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Category</td>
-                  <td style="padding: 12px;">Business</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Ds160 Creation Date</td>
-                  <td style="padding: 12px;">22-12-2024</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">DS160</td>
-                  <td style="padding: 12px;">A12345678</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Revised DS160</td>
-                  <td style="padding: 12px;">202d33</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Surname </td>
-                  <td style="padding: 12px;">Ashraf</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Year of Birth</td>
-                  <td style="padding: 12px;">22-12-2002</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Security Question</td>
-                  <td style="padding: 12px;">What is your name?</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Security Answer</td>
-                  <td style="padding: 12px;">My name is Ali</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Us travel doc Email</td>
-                  <td style="padding: 12px;">xyz@gmail.com</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Us travel doc password</td>
-                  <td style="padding: 12px;">ali2532</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Us travel doc password updated</td>
-                  <td style="padding: 12px;">aali2532</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Challan Created</td>
-                  <td style="padding: 12px;">Yes</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Challan Submitted</td>
-                  <td style="padding: 12px;">Yes</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Payment Mode</td>
-                  <td style="padding: 12px;">Cash</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Transcation Date</td>
-                  <td style="padding: 12px;">22-12-2024</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Date</td>
-                  <td style="padding: 12px;">22-12-2024</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Reschedule</td>
-                  <td style="padding: 12px;">22-12-2024</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Pick up location</td>
-                  <td style="padding: 12px;">Sargodha</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Premium Delivery</td>
-                  <td style="padding: 12px;">Yes</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Delivery Address</td>
-                  <td style="padding: 12px;">Sargodha</td>
-                </tr>
-              </tbody>
+             <tbody>
+  
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Category Name</td>
+                <td style="padding: 12px;" id="category"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">DS160 Creation Date</td>
+                <td style="padding: 12px;" id="ds_160_create_date"></td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">DS160</td>
+                <td style="padding: 12px;" id="ds160"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Revised DS160</td>
+                <td style="padding: 12px;" id="revised_ds160"></td>
+              </tr>
+              {{-- <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Sur Name</td>
+                <td style="padding: 12px;" id="revised_ds160"></td>
+              </tr> --}}
+              
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Year of Birth</td>
+                <td style="padding: 12px;" id="year_of_birth"></td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Security Question</td>
+                <td style="padding: 12px;" id="sec_question"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Security Answer</td>
+                <td style="padding: 12px;" id="sec_answer"></td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">US Travel Doc Email</td>
+                <td style="padding: 12px;" id="us_travel_doc_email"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">US Travel Doc Password</td>
+                <td style="padding: 12px;" id="us_travel_doc_password"></td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">US Travel Doc Updated Password</td>
+                <td style="padding: 12px;" id="us_travel_doc_updated_password"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Challan Created</td>
+                <td style="padding: 12px;" id="challan_created"></td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Challan Submitted</td>
+                <td style="padding: 12px;" id="challan_submitted"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Payment Mode</td>
+                <td style="padding: 12px;" id="payment_mode"></td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Transaction Date</td>
+                <td style="padding: 12px;" id="transaction_date"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Date</td>
+                <td style="padding: 12px;" id="appoint_date"></td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Reschedule</td>
+                <td style="padding: 12px;" id="appoint_reschedule"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Pick-Up Location</td>
+                <td style="padding: 12px;" id="pick_up_location"></td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Premium Delivery</td>
+                <td style="padding: 12px;" id="premium_delivery"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Delivery Address</td>
+                <td style="padding: 12px;" id="delivery_address"></td>
+              </tr>
+              
+             </tbody>
             </table>
             <div class="text-center mt-4">
               <button class="btn" style="background: linear-gradient(90deg, #452c88, #6a4ab5); color: white; padding: 12px 30px; border-radius: 8px; font-size: 16px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">

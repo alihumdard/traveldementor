@@ -101,7 +101,7 @@
                         
                         <!-- Application ID -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="application_id">Application</label>
+                            <label for="application_id">Applicant Name</label>
                             <select name="application_id" id="application_id" class="form-select">
                                 <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select application</option>
                                 @foreach ($clients as $client)
@@ -279,6 +279,8 @@
             }
         });
     });
+
+    
 </script>
 
 @endPushOnce

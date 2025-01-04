@@ -30,7 +30,7 @@ class Appointment extends Model
     ];
     public function client()
     {
-        return $this->belongsTo(Client::class, 'user_id', 'id');
+        return $this->belongsTo(Client::class, 'application_id', 'id');
     }
     public function category()
     {

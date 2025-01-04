@@ -66,6 +66,11 @@ class DSController extends Controller
         $message = "DS160 " . ($request->id ? "Updated" : "Created") . " Successfully";
         return redirect()->route('ds.index')->with('message', $message);
     }
+    public function ds_detail_page($id)
+    {
+        $data['detail_page']=DS160::with('client','category')->find($id);
+        return response()->json($data);
+    }
     public function delete($id)
     {
     $ds_160=DS160::find($id);
