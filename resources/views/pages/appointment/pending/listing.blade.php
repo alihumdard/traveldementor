@@ -1,7 +1,8 @@
 @extends('layouts.main')
 @section('title', 'Appointment Appointment')
 <style>
-   table th, table td {
+  table th,
+  table td {
     text-transform: capitalize;
   }
 </style>
@@ -29,10 +30,10 @@
             <div class="row mx-1">
               <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
                 <a href="{{ route('pending.appointment.add') }}">
-                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i>Add appointment </span></button>
+                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i>Add Appointment </span></button>
                 </a>
               </div>
-              <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
+              <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2" >
                 <div class="input-group">
                   <div class="input-group-prepend d-none d-md-block d-sm-block d-lg-block">
                     <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
@@ -43,7 +44,7 @@
                   </div>
                   <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group">
                     <option value="">
-                      @lang('Filter By Locations')
+                    Filter By Location
                     </option>
 
                     <option value="">jjj</option>
@@ -62,11 +63,9 @@
                   </div>
                   <select name="filter_by_sts" id="filter_by_sts_qoute" class="form-select select-group">
                     <option value="">
-                      @lang('lang.filter_by_status')
+                      Filter By Status
                     </option>
-
                     <option value="">iiii</option>
-
                   </select>
                 </div>
               </div>
@@ -90,8 +89,8 @@
                   <th>No of application</th>
                   <th>Country</th>
                   <th>Category</th>
-                  <th>VFS Embassy</th>                  
-                  <th>Action</th>                  
+                  <th>VFS Embassy</th>
+                  <th>Action</th>
 
                 </tr>
               </thead>
@@ -105,7 +104,7 @@
                   <td>{{ $appointment->category->name ??'N/A'}}</td>
                   <td>{{ $appointment->vfsembassy->name ??'N/A'}}</td>
                   <td class="">
-                  <div class="d-flex my-auto">
+                    <div class="d-flex my-auto">
                       <!-- Edit Button -->
                       <a href="{{route('pending.appointment.add',['id' => $appointment->id])}}" class="btn p-0">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +131,7 @@
                     </div>
                   </td>
                 </tr>
-                        
+
                 @endforeach
               </tbody>
             </table>

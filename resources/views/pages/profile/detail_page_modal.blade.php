@@ -1,5 +1,5 @@
 <style>
-   #qoutedetail {
+  #qoutedetail {
     backdrop-filter: blur(5px);
     background-color: #01223770;
   }
@@ -9,11 +9,10 @@
     <div class="modal-content" style="border-radius: 12px;">
       <div class="modal-header" style="background: #452c88; border-radius: 12px 12px 0px 0px; display: flex; align-items: center;">
         <div style="display: flex; align-items: center;">
-          <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 4H20C21.1046 4 22 4.89543 22 6V18C22 19.1046 21.1046 20 20 20H4C2.89543 20 2 19.1046 2 18V6C2 4.89543 2.89543 4 4 4Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M22 6L12 13L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <svg width="25" height="24" viewBox="0 0 640 512" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z" />
           </svg>
-          <h5 class="modal-title text-white ml-2" id="qoutedetaillable"><span>Hotel Booking</span></h5>
+          <h5 class="modal-title text-white ml-2" id="qoutedetaillable"><span>Staff</span></h5>
         </div>
         <button class="btn p-0" data-dismiss="modal">
           <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,12 +22,12 @@
       </div>
 
       <div class="modal-body pt-1">
-        <div id="data-hotelbookingDetails">
+        <div id="data-applicationDetails">
           <div class="row pb-2 mb-2" style="border-bottom: 2px solid #ACADAE4D;">
             <div class="col-lg-6 mt-4 mb-1">
               <div class="d-flex justify-content-start">
                 <div>
-                  <img src="assets/images/user.png" id="quoteDetail_userImg" style="border-radius: 12px !important; object-fit: cover; width: 65px; height: 65px;" alt="no image">
+                  <img src="/assets/images/user.png" id="quoteDetail_userImg" style="border-radius: 12px !important; object-fit: cover; width: 65px; height: 65px;" alt="no image">
                 </div>
                 <div class="ml-3">
                   <label for="quoteDetail_user" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
@@ -47,40 +46,28 @@
               </thead>
               <tbody>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Application</td>
-                  <td style="padding: 12px;">Ali Ashraf</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Name</td>
+                  <td style="padding: 12px;">Ali</td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Country</td>
-                  <td style="padding: 12px;">Pakistan</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Start Date</td>
-                  <td style="padding: 12px;">22-12-2024</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">End Date</td>
-                  <td style="padding: 12px;">22-12-2024</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Hotel Cancellation Due Date</td>
-                  <td style="padding: 12px;">25-12-2024</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Hotel Name</td>
-                  <td style="padding: 12px;">Al Hayat Hotel</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Reservation ID</td>
-                  <td style="padding: 12px;">12</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Reservation Email</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Email</td>
                   <td style="padding: 12px;">xyz@gmail.com</td>
                 </tr>
                 <tr style="transition: all 0.3s;">
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Phone no</td>
+                  <td style="padding: 12px;">0324234543</td>
+                </tr>
+                <tr style="background-color: #ffffff; transition: all 0.3s;">
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Passowrd</td>
+                  <td style="padding: 12px;">ali89234dw</td>
+                </tr>
+                <tr style="transition: all 0.3s;">
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Address</td>
+                  <td style="padding: 12px;">House no 253 ahsan town Karachi</td>
+                </tr>
+                <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
-                  <td style="padding: 12px;">Active</td>
+                  <td style="padding: 12px;">Pending</td>
                 </tr>
               </tbody>
             </table>

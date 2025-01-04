@@ -30,7 +30,7 @@
             <div class="row mx-1">
               <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
                 <a href="{{ route('insurance.add') }}">
-                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i> Add insurance </span></button>
+                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i> Add Insurance </span></button>
                 </a>
               </div>
               <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
@@ -44,7 +44,7 @@
                   </div>
                   <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group">
                     <option value="">
-                      @lang('Filter By Locations')
+                    Filter By Location
                     </option>
                     <option value="">jjj</option>
                   </select>
@@ -61,7 +61,7 @@
                   </div>
                   <select name="filter_by_sts" id="filter_by_sts_qoute" class="form-select select-group">
                     <option value="">
-                      @lang('lang.filter_by_status')
+                    Filter By Status
                     </option>
                     <option value="">iiii</option>
                   </select>
