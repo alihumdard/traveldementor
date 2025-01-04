@@ -75,7 +75,12 @@ class UserController extends Controller
         }
         return view('pages.profile.staff', $data);
     }
-
+    public function staff_detail_page($id)
+    {
+        
+        $data['detail_page'] = User::where('appointment_type','pending')->find($id);
+        return response()->json($data);
+    }
     public function users()
     {
         $user = auth()->user();
