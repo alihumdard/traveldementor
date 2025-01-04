@@ -167,8 +167,6 @@
         method: 'GET',
         success: function(response) {
             console.log(response);
-            // Ensure the response structure is correct
-             // Assuming client is an object
             $("#category").text(response.detail_page.category.name); // Assuming category is an object
             $("#ds_160_create_date").text(response.detail_page.ds_160_create_date);
             $("#ds160").text(response.detail_page.ds160);
