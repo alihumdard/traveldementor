@@ -1,5 +1,5 @@
 <style>
-   #qoutedetail {
+  #qoutedetail {
     backdrop-filter: blur(5px);
     background-color: #01223770;
   }
@@ -32,7 +32,7 @@
                 </div>
                 <div class="ml-3">
                   <label for="quoteDetail_user" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
-                  <input type="text" disabled id="quoteDetail_user" class="form-control" value="John Doe">
+                  <input type="text" disabled id="name" class="form-control" value="John Doe">
                 </div>
               </div>
             </div>
@@ -46,61 +46,53 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Application</td>
-                  <td style="padding: 12px;">Xyz</td>
+                {{-- <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Applicant Name</td>
+                  <td style="padding: 12px;" id="name"></td>
+                </tr> --}}
+                <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Contact No</td>
+                  <td style="padding: 12px;" id="contact_no"></td>
                 </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <tr>
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Country</td>
-                  <td style="padding: 12px;">India</td>
+                  <td style="padding: 12px;" id="country"></td>
                 </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS Embassy</td>
-                  <td style="padding: 12px;">Gerry's Lahore</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <tr>
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Category</td>
-                  <td style="padding: 12px;">Business</td>
+                  <td style="padding: 12px;" id="category"></td>
                 </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Application Number</td>
-                  <td style="padding: 12px;">12345</td>
+                <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS Embassy</td>
+                  <td style="padding: 12px;" id="vfs_emb"></td>
                 </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Applicant Contact</td>
-                  <td style="padding: 12px;">1234567</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Email</td>
-                  <td style="padding: 12px;">xyz@gmail.com</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <tr>
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Contact</td>
-                  <td style="padding: 12px;">1234567</td>
+                  <td style="padding: 12px;" id="appoint_contact"></td>
                 </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS appointment refer</td>
-                  <td style="padding: 12px;">Ali Ashraf</td>
+                <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Email</td>
+                  <td style="padding: 12px;" id="appoint_email"></td>
                 </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Refer No</td>
+                  <td style="padding: 12px;" id="appointment_refer_no"></td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS Appointment Refer</td>
+                  <td style="padding: 12px;" id="vfs_appointment_refer"></td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Biometric Appointment Date</td>
+                  <td style="padding: 12px;" id="bio_metric_appointment_date"></td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Number of Applications</td>
+                  <td style="padding: 12px;" id="no_application"></td>
+                </tr>
+                <tr>
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Payment Mode</td>
-                  <td style="padding: 12px;">Debit Card</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Transaction Date</td>
-                  <td style="padding: 12px;">22-10-2024</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Biometric appointment date</td>
-                  <td style="padding: 12px;">22-10-2024</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment Reshedule</td>
-                  <td style="padding: 12px;">22-10-2024</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Appointment refer no</td>
-                  <td style="padding: 12px;">22102024</td>
+                  <td style="padding: 12px;" id="pay_mod"></td>
                 </tr>
               </tbody>
             </table>

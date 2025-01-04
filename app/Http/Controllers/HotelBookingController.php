@@ -58,6 +58,11 @@ class HotelBookingController extends Controller
 
         return redirect()->route('hotel.index')->with('message', $message);
     }
+    public function hotel_detail_page($id)
+    {
+        $data['detail_page']=HotelBooking::with('client','country')->find($id);
+        return response()->json($data);
+    }
 
     public function delete($id)
     {

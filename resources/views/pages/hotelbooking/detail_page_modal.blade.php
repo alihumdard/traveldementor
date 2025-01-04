@@ -32,7 +32,7 @@
                 </div>
                 <div class="ml-3">
                   <label for="quoteDetail_user" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
-                  <input type="text" disabled id="quoteDetail_user" class="form-control" value="John Doe">
+                  <input type="text" disabled id="name" class="form-control" value="John Doe">
                 </div>
               </div>
             </div>
@@ -46,41 +46,38 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Application</td>
-                  <td style="padding: 12px;">Ali Ashraf</td>
-                </tr>
+               
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Country</td>
-                  <td style="padding: 12px;">Pakistan</td>
+                  <td style="padding: 12px;" id="country"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Start Date</td>
-                  <td style="padding: 12px;">22-12-2024</td>
+                  <td style="padding: 12px;" id="s_date"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">End Date</td>
-                  <td style="padding: 12px;">22-12-2024</td>
+                  <td style="padding: 12px;" id="e_date"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Hotel Cancellation Due Date</td>
-                  <td style="padding: 12px;">25-12-2024</td>
+                  <td style="padding: 12px;" id="hotel_cancel_date"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Hotel Name</td>
-                  <td style="padding: 12px;">Al Hayat Hotel</td>
+                  <td style="padding: 12px;" id="hotel_name"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Reservation ID</td>
-                  <td style="padding: 12px;">12</td>
+                  <td style="padding: 12px;" id="reservation_id"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Reservation Email</td>
-                  <td style="padding: 12px;">xyz@gmail.com</td>
+                  <td style="padding: 12px;" id="reservation_email"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
-                  <td style="padding: 12px;">Active</td>
+                  <td style="padding: 12px;" id="status"></td>
                 </tr>
               </tbody>
             </table>

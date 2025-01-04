@@ -98,8 +98,6 @@
                 </tr>
               </thead>
               <tbody id="tableData">
-
-
                 @foreach($staffs as $key=>$value)
                 <tr>
                   <td>{{$key+1}}</td>
@@ -118,7 +116,6 @@
                           fill="#233A85" />
                       </svg>
                     </a>
-
                     <!-- Delete Button -->
                     <a href="{{ route('staff.delete',  ['id' => $value['id']]) }}" class="btn p-0">
                       <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -129,6 +126,7 @@
                     </a>
 
                     <!-- Quote Detail Button -->
+
                     <button data-id="#" id="quoteDetail_btn" class="btn p-0 quoteDetail_view" data-toggle="modal" data-target="#qoutedetail">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />

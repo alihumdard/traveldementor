@@ -158,8 +158,8 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="visa_status">Visa Status</label>
                             <select  name="visa_status" id="visa_status" class="form-select">
-                                <option value="pending" {{ isset($application) && $application->visa_status == 'pending'
-                                    ? 'selected' : '' }}>Pending</option>
+                                <option value="refused" {{ isset($application) && $application->visa_refused == 'refused'
+                                    ? 'selected' : '' }}>Refused</option>
                                 <option value="approved" {{ isset($application) && $application->visa_status ==
                                     'approved' ? 'selected' : '' }}>Approved</option>
                             </select>
