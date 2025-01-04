@@ -78,7 +78,7 @@
   }
 </style>
 @section('content')
-@include('pages.Application.detail_page_modal')
+@include('pages.application.detail_page_modal')
 
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
@@ -209,15 +209,16 @@
                             fill="#452C88" transform="translate(6, 6)" />
                         </svg>
                       </a>
-                      <button data-id="{{  $application->id }}" id="quoteDetail_btn" class="btn p-0 quoteDetail_view"
+                      <button data-id="{{ $application->id }}" id="quoteDetail_btn" class="btn p-0 quoteDetail_view"
                         data-toggle="modal" data-target="#qoutedetail">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
-                          <path
-                            d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z"
-                            fill="#452c88" />
+                            <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
+                            <path
+                                d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z"
+                                fill="#452c88" />
                         </svg>
-                      </button>
+                    </button>
+                    
                     </div>
                   </td>
                 </tr>
@@ -234,7 +235,7 @@
 @stop
 @pushOnce('scripts')
 <script>
-  var users_table = $('#qoute-table').DataTable({});
+  var users_table = $('#qoute-table').DataTable({ });
 
   $('#filter_by_sts_qoute').on('change', function() {
     var selectedStatus = $(this).val();
@@ -269,33 +270,35 @@
     users_table.column(3).search(selectedLocation).draw();
   });
 
-$('#quoteDetail_btn').on('click', function() {
-  var applicationId = $(this).data('id');  
-  $.ajax({
-    url: '/application/' + applicationId,  // Your route to fetch application details
-    method: 'GET',
-    success: function(response) {
-      console.log();
-      $('#quoteDetail_user').val(response.user.name); // Example field
-      $('#quoteDetail_userImg').attr('src', response.user.image_url || '{{ asset("assets/images/default.png") }}');
-            $('td:contains("Country")').next().text(response.country.name);
-            $('td:contains("Category")').next().text(response.category.name);
-            $('td:contains("Passport Number")').next().text(response.passport_number);
-            $('td:contains("Passport Expiry Date")').next().text(response.passport_expiry_date);
-            $('td:contains("Visa Status")').next().text(response.visa_status);
-            $('td:contains("Visa Expiry Date")').next().text(response.visa_expiry_date);
-            $('td:contains("VSF Refer no")').next().text(response.vsf_refer_no);
-            $('td:contains("DS160")').next().text(response.ds160);
-            $('td:contains("Status")').next().text(response.status);
+  $(document).on('click', '#quoteDetail_btn', function() {
+    var applicationId = $(this).data('id');  // Get the ID associated with the clicked button
+    console.log('Clicked application ID:', applicationId); // Check the application ID
 
-            // Show the modal
-            $('#qoutedetail').modal('show');
+    $.ajax({
+        url: '/application/' + applicationId,  // Your route to fetch application details
+        method: 'GET',
+        success: function(response) {
+            $("#name").text(response.detail_page.client.name);
+            $("#contact_no").text(response.detail_page.client.contact_no);
+            $("#dob").text(response.detail_page.client.dob);
+            $("#country").text(response.detail_page.country.name);
+            $("#category").text(response.detail_page.category.name);
+            $("#pass_no").text(response.detail_page.passport_no);
+            $("#pass_exp_date").text(response.detail_page.passport_expiry);
+            $("#visa_status").text(response.detail_page.visa_status);
+            $("#visa_exp_date").text(response.detail_page.visa_expiry_date);
+            $("#vsf_ref_no").text(response.detail_page.visa_refer_tracking_id);
+            $("#ds_160").text(response.detail_page.ds_160);
+            $("#quoteDetail_user").val(response.detail_page.client.name);
+
+            $('#qoutedetail').modal('show'); // Show the modal with updated details
         },
-        error: function(xhr) {
-            alert('Error fetching application details: ' + xhr.responseJSON.error);
+        error: function(error) {
+            console.error('Error fetching application details:', error);
         }
     });
-    });
+});
+
 
 
 

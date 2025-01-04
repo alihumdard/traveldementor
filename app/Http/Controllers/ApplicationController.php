@@ -46,7 +46,7 @@ class ApplicationController extends Controller
     }
     public function add_staff($id = null)
     {
-        dd();
+
         return view('pages.profile.add_staff');
     }
     public function application_store(Request $request)
@@ -79,8 +79,9 @@ class ApplicationController extends Controller
     }
     public function detail_page($id)
     {
-        $data['detail_page'] = Application::with('user', 'category', 'country')->find($id);
-        return response()->json($data['detail_page']);
+        
+        $data['detail_page'] = Application::with('client', 'category', 'country')->find($id);
+        return response()->json($data);
     }
     public function delete($id)
     {
