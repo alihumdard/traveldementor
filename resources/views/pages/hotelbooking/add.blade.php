@@ -146,18 +146,18 @@
                 
                         <!-- Hotel Details -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="name">Hotel Name</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->name : '' }}">
+                            <label for="name">Hotel name</label>
+                            <input type="text" name="name" id="name" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->name : '' }}" placeholder="Enter hotel name">
                             <span id="name_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="reservation_id">Reservation ID</label>
-                            <input type="text" name="reservation_id" id="reservation_id" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_id : '' }}">
+                            <label for="reservation_id">Reservation</label>
+                            <input type="text" name="reservation_id" id="reservation_id" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_id : '' }}" placeholder="Enter reservation">
                             <span id="reservation_id_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="reservation_email">Reservation Email</label>
-                            <input type="email" name="reservation_email" id="reservation_email" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_email : '' }}">
+                            <label for="reservation_email">Reservation email</label>
+                            <input type="email" name="reservation_email" id="reservation_email" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_email : '' }}" placeholder="Enter reservation email">
                             <span id="reservation_email_error" class="error-message text-danger"></span>
                         </div>
                 
@@ -184,7 +184,7 @@
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-5">
                                 <button type="submit" id="btn_save_hotel" class="btn btn-block text-white" style="border-radius: 8px;">
                                     <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
-                                    <span id="text">Save</span>
+                                    <span id="text">Submit</span>
                                 </button>
                             </div>
                         </div>

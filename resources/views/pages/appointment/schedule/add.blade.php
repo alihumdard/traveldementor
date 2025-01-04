@@ -144,7 +144,7 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="no_application">Application Number</label>
+                            <label for="no_application">Application number</label>
                             <input type="number" name="no_application" id="no_application" class="form-control" value="{{ isset($appointment) ? $appointment->no_application : '' }}">
                             <span id="no_application_error" class="error-message text-danger"></span>
                         </div>
@@ -211,13 +211,13 @@
                         <div class="row justify-content-end mt-2">
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4">
                                 <a href="/appointment/schedule" id="btn_cancel_appointment" class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
-                                    <span>@lang('Cancel')</span>
+                                    <span>Cancel</span>
                                 </a>
                             </div>
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
                                 <button type="submit" id="btn_save_appointment" class="btn btn-block text-white" style="border-radius: 8px;">
                                     <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
-                                    <span id="text">@lang('Submit')</span>
+                                    <span id="text">Submit</span>
                                 </button>
                             </div>
                         </div>

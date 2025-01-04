@@ -284,7 +284,7 @@
                                 <button type="submit" id="btn_save_hotel" class="btn btn-block  text-white"
                                     style="border-radius: 8px;">
                                     <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
-                                    <span id="text">Save</span>
+                                    <span id="text">Submit</span>
                                 </button>
                             </div>
                         </div>
