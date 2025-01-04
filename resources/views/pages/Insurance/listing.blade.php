@@ -40,6 +40,12 @@
               <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
                 <a href="{{ route('insurance.add') }}">
                   <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i> Add Insurance </span></button>
+<<<<<<< HEAD
+                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i> Add Insurance </span></button>
+=======
+                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i
+                        class="fa fa-plus"></i> Add insurance </span></button>
+>>>>>>> e8b8d93e7d475284131b0bfa50b3560c4f099f66
                 </a>
               </div>
               <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
