@@ -196,7 +196,7 @@
 
                         <!-- Plan Type -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="plan_type">Plan Type</label>
+                            <label for="plan_type">Plan type</label>
                             <select name="plan_type" id="plan_type" class="form-select">
                                 <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select plan type</option>
                                 <option value="individual" {{ isset($insurance) && $insurance->plan_type == 'individual'
@@ -209,7 +209,7 @@
 
                         <!-- Start Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="s_date">Start Date</label>
+                            <label for="s_date">Start date</label>
                             <input type="date" name="s_date" id="s_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->s_date : '' }}">
                             <span id="s_date_error" class="error-message text-danger"></span>
@@ -217,7 +217,7 @@
 
                         <!-- End Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="e_date">End Date</label>
+                            <label for="e_date">End date</label>
                             <input type="date" name="e_date" id="e_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->e_date : '' }}">
                             <span id="e_date_error" class="error-message text-danger"></span>
@@ -225,7 +225,7 @@
 
                         <!-- Policy Number -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="policy_no">Policy Number</label>
+                            <label for="policy_no">Policy number</label>
                             <input type="number" name="policy_no" id="policy_no" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->policy_no : '' }}">
                             <span id="policy_no_error" class="error-message text-danger"></span>
@@ -233,7 +233,7 @@
 
                         <!-- Sale Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="sale_date">Sale Date</label>
+                            <label for="sale_date">Sale date</label>
                             <input type="date" name="sale_date" id="sale_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->sale_date : '' }}">
                             <span id="sale_date_error" class="error-message text-danger"></span>
@@ -249,7 +249,7 @@
 
                         <!-- Payable After 40% -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="payable_after_40_per">Payable After 40%</label>
+                            <label for="payable_after_40_per">Payable after 40%</label>
                             <input type="number" name="payable_after_40_per" id="payable_after_40_per"
                                 class="form-control"
                                 value="{{ isset($insurance) ? $insurance->payable_after_40_per : '' }}">
@@ -258,7 +258,7 @@
 
                         <!-- Net Payable -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="net_payable">Net Payable</label>
+                            <label for="net_payable">Net payable</label>
                             <input type="number" name="net_payable" id="net_payable" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->net_payable : '' }}">
                             <span id="net_payable_error" class="error-message text-danger"></span>
@@ -266,7 +266,7 @@
 
                         <!-- Refund Applied -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="refund_applied">Refund Applied</label>
+                            <label for="refund_applied">Refund applied</label>
                             <div class="radio-group">
                                 <label class="custom-radio">
                                     <input type="radio" name="refund_applied" id="refund_applied_yes" value="yes" {{
@@ -290,7 +290,7 @@
                                 <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
                                     <a href="/insurance" id="btn_cancel_insurance"
                                         class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
-                                        <span>@lang('Cancel')</span>
+                                        <span>Cancel</span>
                                     </a>
                                 </div>
                                 <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
@@ -298,7 +298,7 @@
                                         style="border-radius: 8px;">
                                         <div class="spinner-border spinner-border-sm text-white d-none" id="spinner">
                                         </div>
-                                        <span id="text">@lang('Save')</span>
+                                        <span id="text">Submit</span>
                                     </button>
                                 </div>
                             </div>
