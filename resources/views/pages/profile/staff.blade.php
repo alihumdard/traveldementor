@@ -48,7 +48,7 @@
               <div class="col-lg-9 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
                 <a href="{{ route('staff.add') }}">
                   <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i
-                        class="fa fa-plus"></i>Add Staff</span></button>
+                        class="fa fa-plus mr-2"></i>Add Staff</span></button>
                 </a>
               </div>
 
@@ -94,6 +94,7 @@
                   <th> Email </th>
                   <th> Phone </th>
                   <th> Address </th>
+                  {{-- <th> Status </th> --}}
                   <th>Action</th>
                 </tr>
               </thead>
@@ -105,7 +106,21 @@
                   <td> {{ $value['email']}} </td>
                   <td> {{ $value['phone']}} </td>
                   <td> {{ $value['address']}} </td>
+                  {{-- @if($value['status'] == 1)
                   <td>
+                    <button class="btn btn_status">
+                      <span data-user_id="{{$value['id']}}">
+                        <div
+                          style="width: 100%; height: 100%; padding-top: 5px; padding-bottom: 5px; padding-left: 19px; padding-right: 20px; background: rgba(48.62, 165.75, 19.34, 0.18); border-radius: 3px; justify-content: center; align-items: center; display: inline-flex">
+                          <div style="color: #31A613; font-size: 14px; font-weight: 500; word-wrap: break-word">
+                            Active</div>
+                        </div>
+                      </span>
+                    </button>
+                  </td>
+                  @endif --}}
+                  <td>
+
                   <div class="d-flex my-auto">
                     <!-- Edit Button -->
                     <a href="{{ route('staff.add', ['id' => $value['id']]) }}" class="btn p-0">
@@ -127,12 +142,12 @@
 
                     <!-- Quote Detail Button -->
 
-                    <button data-id="#" id="quoteDetail_btn" class="btn p-0 quoteDetail_view" data-toggle="modal" data-target="#qoutedetail">
+                    {{-- <button data-id="{{ $value['id'] }}" id="staff_btn" class="btn p-0 quoteDetail_view" data-toggle="modal" data-target="#qoutedetail">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
                           <path d="M17.7167 13C13.5 13 11 18 11 18C11 18 13.5 23 17.7167 23C21.8333 23 24.3333 18 24.3333 18C24.3333 18 21.8333 13 17.7167 13ZM17.6667 14.6667C19.5167 14.6667 21 16.1667 21 18C21 19.85 19.5167 21.3333 17.6667 21.3333C15.8333 21.3333 14.3333 19.85 14.3333 18C14.3333 16.1667 15.8333 14.6667 17.6667 14.6667ZM17.6667 16.3333C16.75 16.3333 16 17.0833 16 18C16 18.9167 16.75 19.6667 17.6667 19.6667C18.5833 19.6667 19.3333 18.9167 19.3333 18C19.3333 17.8333 19.2667 17.6833 19.2333 17.5333C19.1 17.8 18.8333 18 18.5 18C18.0333 18 17.6667 17.6333 17.6667 17.1667C17.6667 16.8333 17.8667 16.5667 18.1333 16.4333C17.9833 16.3833 17.8333 16.3333 17.6667 16.3333Z" fill="#452c88" />
                         </svg>
-                      </button>
+                      </button> --}}
                    
 
                   </div>
@@ -165,6 +180,25 @@ $user_role_static = user_roles('2');
   $('#filter_by_sts_admin').on('change', function() {
     let selectedStatus = $(this).val();
     users_table.column(6).search(selectedStatus).draw();
+    $(document).on('click', '#staff_btn', function() {
+    var staffId = $(this).data('id');  
+    $.ajax({
+        url: '/staff/' + staffId,
+        method: 'GET',
+        success: function(response) {
+          console.log(response);
+            $("#name").val(response.detail_page.name);
+            $("#sur_name").text(response.detail_page.sur_name);
+            $("#contact_no").text(response.detail_page.contact_no);
+            $("#dob").text(response.detail_page.dob);
+            $("#refer_person").text(response.detail_page.refer_person);
+            $('#qoutedetail').modal('show'); 
+        },
+        error: function(error) {
+            console.error('Error fetching application details:', error);
+        }
+    });
+});
   });
 </script>
 @endPushOnce

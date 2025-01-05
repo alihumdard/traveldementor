@@ -26,6 +26,7 @@ class HotelBookingController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
+        $data['clients'] = Client::all();
         $data['hotel_bookings'] = HotelBooking::with('country', 'client')->get();
 
         return view('pages.hotelbooking.listing', $data);

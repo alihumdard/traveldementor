@@ -8,6 +8,9 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- summer note  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -18,6 +21,8 @@
                 scrollTop: position
             }, 0);
         }
+
+        $('.select2').select2();
     });
 
     showPreloader();

@@ -31,7 +31,7 @@
                 </div>
                 <div class="ml-3">
                   <label for="quoteDetail_user" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
-                  <input type="text" disabled id="quoteDetail_user" class="form-control" value="John Doe">
+                  <input type="text" disabled id="name" class="form-control" value="John Doe">
                 </div>
               </div>
             </div>
@@ -47,28 +47,21 @@
               <tbody>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Name</td>
-                  <td style="padding: 12px;">Ali</td>
+                  <td style="padding: 12px;" id="name"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Email</td>
-                  <td style="padding: 12px;">xyz@gmail.com</td>
+                  <td style="padding: 12px;" id="email"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Phone no</td>
-                  <td style="padding: 12px;">0324234543</td>
-                </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Passowrd</td>
-                  <td style="padding: 12px;">ali89234dw</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Phone No</td>
+                  <td style="padding: 12px;" id="phone_no"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Address</td>
-                  <td style="padding: 12px;">House no 253 ahsan town Karachi</td>
+                  <td style="padding: 12px;" id="address"></td>
                 </tr>
-                <tr style="background-color: #ffffff; transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
-                  <td style="padding: 12px;">Pending</td>
-                </tr>
+                
               </tbody>
             </table>
             <div class="text-center mt-4">

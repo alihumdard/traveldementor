@@ -66,6 +66,8 @@
                     </option>
                     <option value="">iiii</option>
                   </select>
+                  <input type="text" id="search_input" placeholder="Search Name of Applicant or Another Column" />
+
                 </div>
               </div>
             </div>
@@ -150,17 +152,26 @@
 
 @pushOnce('scripts')
 <script>
-  var users_table = $('#qoute-table').DataTable({});
+ // Create a custom filter
+$.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    var searchValue = $('#search_input').val().toLowerCase(); // Get search input value
 
-  $('#filter_by_sts_qoute').on('change', function() {
-    var selectedStatus = $(this).val();
-    users_table.column(7).search(selectedStatus).draw();
-  });
+    // Get the values of the two columns (index 1 and index 5)
+    var column1 = data[1] ? data[1].toLowerCase() : ""; // Name of Applicant
+    var column5 = data[4] ? data[4].toLowerCase() : ""; // Second column to search
 
-  $('#filter_by_loc').on('change', function() {
-    var selectedLocation = $(this).val();
-    users_table.column(5).search(selectedLocation).draw();
-  });
+    // Return true if either column matches the search value
+    return column1.includes(searchValue) || column5.includes(searchValue);
+});
+
+// Event listener for the search input
+$('#search_input').on('keyup', function () {
+    users_table.draw(); // Trigger DataTable redraw to apply custom filter
+});
+
+// Initialize DataTable
+var users_table = $('#qoute-table').DataTable({});
+
 </script>
 <script>
   var users_table = $('#qoute-table').DataTable();

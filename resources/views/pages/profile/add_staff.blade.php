@@ -268,9 +268,6 @@
             this.submit();
             }
 
-
-            // Prevent form submission if validation fails
-
         });
     });
 </script>

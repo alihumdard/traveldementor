@@ -90,11 +90,11 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span>Application</span>
+                    <span>Tracking Application</span>
                 </h3>
             </div>
             <div class="container" id="home">
-                <form action="{{ route('application.store') }}" id="formData" method="post">
+                <form action="{{ route('tracking.application.store') }}" id="formData" method="post">
                     <div class="row">
                         @csrf
                         <input type="hidden" id="application_id" name="id" value="{{ isset($application) ? $application->id : '' }}">
@@ -112,7 +112,7 @@
                             <span id="country_id_error" class="error-message text-danger"></span>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                        {{-- <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="category_id">Category</label>
                             <select  name="category_id" id="category_id" class="form-select">
                                 <option disabled selected> Select category</option>
@@ -124,7 +124,7 @@
                                 @endforeach
                             </select>
                             <span id="category_id_error" class="error-message text-danger"></span>
-                        </div>
+                        </div> --}}
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="user_id">Applicant Name</label>
@@ -173,24 +173,24 @@
                                 value="{{ isset($application) ? $application->visa_expiry_date : old('visa_expiry_date') }}">
                             <span id="visa_expiry_date_error" class="error-message text-danger"></span>
                         </div>
-                        {{-- <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                        
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="vsf_ref_track_id">VSF Ref</label>
                             <input  type="number" name="visa_refer_tracking_id" id="visa_refer_tracking_id"
                                 class="form-control" placeholder="Enter vsf ref or tracking id "
                                 value="{{ isset($application) ? $application->visa_refer_tracking_id : old('visa_refer_tracking_id') }}">
                             <span id="visa_refer_tracking_id_error" class="error-message text-danger"></span>
-                        </div> --}}
-{{-- 
+                        </div> 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="ds_160">DS160</label>
                             <input  type="number" name="ds_160" id="ds_160" class="form-control"
                                 placeholder="Enter dsf 160"
                                 value="{{ isset($application) ? $application->ds_160 : old('ds_160') }}">
                             <span id="ds_160_error" class="error-message text-danger"></span>
-                        </div> --}}
+                        </div>
 
                     </div>
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12 ">
                             <label for="status">Status</label>
                             <select  name="status" id="status" class="form-select">
@@ -203,12 +203,12 @@
                             </select>
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>
-                    </div> --}}
+                    </div>
 
                     <div class="mt-3">
                         <div class="row justify-content-end mt-2  ">
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
-                                <a href="/application" id="btn_cancel_application"
+                                <a href="/tracking/application" id="btn_cancel_application"
                                     class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
                                     <span>Cancel</span>
                                 </a>
