@@ -13,22 +13,10 @@
   <div style="border: none;">
     <div class="bg-white" style="border-radius: 20px;">
       <div class="p-3">
-        <h3 class="page-title">
-          <span class="page-title-icon bg-gradient-primary text-white me-2 py-2">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.46997 9C7.40297 9 8.96997 7.433 8.96997 5.5C8.96997 3.567 7.40297 2 5.46997 2C3.53697 2 1.96997 3.567 1.96997 5.5C1.96997 7.433 3.53697 9 5.46997 9Z"
-                stroke="white" stroke-width="1.5" />
-              <path
-                d="M16.97 15H19.97C21.07 15 21.97 15.9 21.97 17V20C21.97 21.1 21.07 22 19.97 22H16.97C15.87 22 14.97 21.1 14.97 20V17C14.97 15.9 15.87 15 16.97 15Z"
-                stroke="white" stroke-width="1.5" />
-              <path
-                d="M11.9999 5H14.6799C16.5299 5 17.3899 7.29 15.9999 8.51L8.00995 15.5C6.61995 16.71 7.47994 19 9.31994 19H11.9999"
-                stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M5.48622 5.5H5.49777" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M18.4862 18.5H18.4978" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
+        <h3 class="page-title d-flex align-items-center">
+          <span class="page-title-icon bg-gradient-primary text-white me-2 py-2 d-flex justify-content-center align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" width="24" height="24">
+              <path d="M543.8 287.6c17 0 32-14 32-32.1c1-9-3-17-11-24L309.5 7c-6-5-14-7-21-7s-15 1-22 8L10 231.5c-7 7-10 15-10 24c0 18 14 32.1 32 32.1l32 0 0 160.4c0 35.3 28.7 64 64 64l102.3 0-31.3-52.2c-4.1-6.8-2.6-15.5 3.5-20.5L288 368l-60.2-82.8c-10.9-15 8.2-33.5 22.8-22l117.9 92.6c8 6.3 8.2 18.4 .4 24.9L288 448l38.4 64 122.1 0c35.5 0 64.2-28.8 64-64.3l-.7-160.2 32 0z" />
             </svg>
           </span>
           <span>Insurance</span>
@@ -55,7 +43,7 @@
                   </div>
                   <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group">
                     <option value="">
-                    Filter By Location
+                      Filter By Location
                     </option>
                     <option value="">jjj</option>
                   </select>
@@ -74,7 +62,7 @@
                   </div>
                   <select name="filter_by_sts" id="filter_by_sts_qoute" class="form-select select-group">
                     <option value="">
-                    Filter By Status
+                      Filter By Status
                     </option>
                     <option value="">iiii</option>
                   </select>
@@ -208,31 +196,31 @@ var users_table = $('#qoute-table').DataTable({});
     users_table.column(3).search(selectedLocation).draw();
   });
   $(document).on('click', '#insurance_btn', function() {
-    var insuranceId = $(this).data('id');  // Get the ID associated with the clicked button
+    var insuranceId = $(this).data('id'); // Get the ID associated with the clicked button
     console.log('Clicked application ID:', insuranceId); // Check the application ID
 
-      $.ajax({
-        url: '/insurance/' + insuranceId,  // Your route to fetch application details
-        method: 'GET',
-            success: function(response) {
-              $("#name").val(response.detail_page.client.name);
-              $("#country").text(response.detail_page.country.name);
-              $("#plan_type").text(response.detail_page.plan_type);
-              $("#s_date").text(response.detail_page.s_date);
-              $("#e_date").text(response.detail_page.e_date);
-              $("#policy_no").text(response.detail_page.policy_no);
-              $("#payment_mode").text(response.detail_page.payment_mode);
-              $("#sale_date").text(response.detail_page.sale_date);
-              $("#amount").text(response.detail_page.amount);
-              $("#payable_after_40_per").text(response.detail_page.payable_after_40_per);
-              $("#net_payable").text(response.detail_page.net_payable);
-              $("#refund_applied").text(response.detail_page.refund_applied);
-            $('#qoutedetail').modal('show'); // Show the modal with updated details
-        },
-        error: function(error) {
-            console.error('Error fetching application details:', error);
-        }
+    $.ajax({
+      url: '/insurance/' + insuranceId, // Your route to fetch application details
+      method: 'GET',
+      success: function(response) {
+        $("#name").val(response.detail_page.client.name);
+        $("#country").text(response.detail_page.country.name);
+        $("#plan_type").text(response.detail_page.plan_type);
+        $("#s_date").text(response.detail_page.s_date);
+        $("#e_date").text(response.detail_page.e_date);
+        $("#policy_no").text(response.detail_page.policy_no);
+        $("#payment_mode").text(response.detail_page.payment_mode);
+        $("#sale_date").text(response.detail_page.sale_date);
+        $("#amount").text(response.detail_page.amount);
+        $("#payable_after_40_per").text(response.detail_page.payable_after_40_per);
+        $("#net_payable").text(response.detail_page.net_payable);
+        $("#refund_applied").text(response.detail_page.refund_applied);
+        $('#qoutedetail').modal('show'); // Show the modal with updated details
+      },
+      error: function(error) {
+        console.error('Error fetching application details:', error);
+      }
     });
-});
+  });
 </script>
 @endPushOnce

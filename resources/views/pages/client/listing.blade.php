@@ -6,25 +6,13 @@
   <div style="border: none;">
     <div class="bg-white" style="border-radius: 20px;">
       <div class="p-3">
-        <h3 class="page-title">
-          <span class="page-title-icon bg-gradient-primary text-white me-2 py-2">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.46997 9C7.40297 9 8.96997 7.433 8.96997 5.5C8.96997 3.567 7.40297 2 5.46997 2C3.53697 2 1.96997 3.567 1.96997 5.5C1.96997 7.433 3.53697 9 5.46997 9Z"
-                stroke="white" stroke-width="1.5" />
-              <path
-                d="M16.97 15H19.97C21.07 15 21.97 15.9 21.97 17V20C21.97 21.1 21.07 22 19.97 22H16.97C15.87 22 14.97 21.1 14.97 20V17C14.97 15.9 15.87 15 16.97 15Z"
-                stroke="white" stroke-width="1.5" />
-              <path
-                d="M11.9999 5H14.6799C16.5299 5 17.3899 7.29 15.9999 8.51L8.00995 15.5C6.61995 16.71 7.47994 19 9.31994 19H11.9999"
-                stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M5.48622 5.5H5.49777" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M18.4862 18.5H18.4978" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
+        <h3 class="page-title d-flex align-items-center">
+          <span class="page-title-icon bg-gradient-primary text-white me-2 py-2 d-flex justify-content-center align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" width="24" height="24">
+              <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
             </svg>
           </span>
-          <span>Clients</span>
+          <span>Client</span>
         </h3>
         <div class="row mb-2">
           <!-- <div class="col-lg-4"></div> -->
@@ -191,24 +179,29 @@
     users_table.column(3).search(selectedLocation).draw();
   });
   $(document).on('click', '#client_btn', function() {
+<<<<<<< HEAD
+    var insuranceId = $(this).data('id');
+    // console.log('Clicked application ID:', appointmentId); 
+=======
     var insuranceId = $(this).data('id');  
+>>>>>>> 77d753960161002dbe87975711bce96c2fa0afa2
     $.ajax({
-        url: '/client/' + insuranceId,
-        method: 'GET',
-        success: function(response) {
-          console.log(response);
-            $("#name").val(response.detail_page.name);
-            $("#sur_name").text(response.detail_page.sur_name);
-            $("#contact_no").text(response.detail_page.contact_no);
-            $("#dob").text(response.detail_page.dob);
-            $("#refer_person").text(response.detail_page.refer_person);
-            $('#qoutedetail').modal('show'); // Show the modal with updated details
-        },
-        error: function(error) {
-            console.error('Error fetching application details:', error);
-        }
+      url: '/client/' + insuranceId,
+      method: 'GET',
+      success: function(response) {
+        console.log(response);
+        $("#name").val(response.detail_page.name);
+        $("#sur_name").text(response.detail_page.sur_name);
+        $("#contact_no").text(response.detail_page.contact_no);
+        $("#dob").text(response.detail_page.dob);
+        $("#refer_person").text(response.detail_page.refer_person);
+        $('#qoutedetail').modal('show'); // Show the modal with updated details
+      },
+      error: function(error) {
+        console.error('Error fetching application details:', error);
+      }
     });
-});
+  });
 </script>
 
 @endPushOnce

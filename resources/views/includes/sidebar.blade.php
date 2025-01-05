@@ -146,8 +146,13 @@
 
         @if(view_permission('client'))
         <li>
+<<<<<<< HEAD
+            <a href="{{ route('client.index') }}" class="{{(request()->routeIs('client')) ? 'menu-acitve' : ''}}">
+                <i class="ml-3 fa-solid fa-user"></i>
+=======
             <a href="{{ route('client.index') }}" class="{{(request()->routeIs('client.index')) ? 'menu-acitve' : ''}}">
                 <i class="ml-3 fa-solid fa-passport"></i>
+>>>>>>> 77d753960161002dbe87975711bce96c2fa0afa2
                 <span class="link_name">Client</span>
             </a>
         </li>
