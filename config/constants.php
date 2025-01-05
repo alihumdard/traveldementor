@@ -167,8 +167,8 @@ return [
         'Deleted' => 3
     ],
     'VISA_STATUS'=>[
-        'Pending'=>1,
-        'Inprogress'=>2,
+        'In Process'=>1,
+        'Collected'=>2,
     ],
     'COUNTRIES' => [
         ['name' => 'Australia', 'code' => 'AU'],

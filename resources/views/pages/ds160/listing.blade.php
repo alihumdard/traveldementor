@@ -39,7 +39,7 @@
               <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
                 <a href="{{ route('ds.add') }}">
                   <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i
-                        class="fa fa-plus"></i>Add DS160</span></button>
+                        class="fa fa-plus mr-2"></i>Add DS160</span></button>
                 </a>
               </div>
               <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
@@ -57,9 +57,7 @@
                     <option value="">
                       @lang('Filter By Locations')
                     </option>
-
                     <option value="">jjj</option>
-
                   </select>
                 </div>
               </div>
@@ -172,15 +170,12 @@
         method: 'GET',
         success: function(response) {
             console.log(response);
-            // Ensure the response structure is correct
-             // Assuming client is an object
-            $("#category").text(response.detail_page.category.name); // Assuming category is an object
+            $("#category").text(response.detail_page.category.name); 
             $("#ds_160_create_date").text(response.detail_page.ds_160_create_date);
             $("#ds160").text(response.detail_page.ds160);
             $("#revised_ds160").text(response.detail_page.revised_ds160);
-            $("#surname").text(response.detail_page.surname); // Use text() instead of val() for non-input fields
-            $("#name").val(response.detail_page.name); // Use text() instead of val() for non-input fields
-            $("#name").text(response.detail_page.client.name); // Use text() instead of val() for non-input fields
+            $("#surname").text(response.detail_page.surname); 
+            $("#name").val(response.detail_page.client.name); 
             $("#year_of_birth").text(response.detail_page.year_of_birth);
             $("#sec_question").text(response.detail_page.sec_question);
             $("#sec_answer").text(response.detail_page.sec_answer);

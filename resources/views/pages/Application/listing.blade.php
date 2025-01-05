@@ -152,6 +152,8 @@
                     <option value=""></option>
 
                   </select>
+                  <input type="text" id="search_input" placeholder="Search Name of Applicant or Another Column" />
+
                 </div>
               </div>
             </div>
@@ -172,8 +174,8 @@
                 <tr style="font-size: small;">
                   <th>#</th>
                   <th>Apply Date</th>
-                  <th>Passport Expiry Date</th>
-                  <th>Visa Expiry Date</th>
+                  <th>Country Name</th>
+                  <th>Applicant Name</th>
                   <th>Visa Status</th>
                   <th>Action</th>
                 </tr>
@@ -182,9 +184,9 @@
                 @foreach ($applications as $application )
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $application->created_at }}</td>
-                  <td>{{ $application->passport_expiry }}</td>
-                  <td>{{ $application->visa_expiry_date }}</td>
+                  <td>{{ table_date($application->created_at) }}</td>
+                  <td>{{ $application->country->name }}</td>
+                  <td>{{ $application->client->name }}</td>
                   <td>{{ $application->visa_status }}</td>
 
                   <td class="">
@@ -233,17 +235,20 @@
 @stop
 @pushOnce('scripts')
 <script>
-  var users_table = $('#qoute-table').DataTable({ });
+  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    var searchValue = $('#search_input').val().toLowerCase(); 
+    var column1 = data[2] ? data[2].toLowerCase() : ""; 
+    var column5 = data[3] ? data[3].toLowerCase() : ""; 
+    return column1.includes(searchValue) || column5.includes(searchValue);
+});
 
-  $('#filter_by_sts_qoute').on('change', function() {
-    var selectedStatus = $(this).val();
-    users_table.column(7).search(selectedStatus).draw();
-  });
+$('#search_input').on('keyup', function () {
+    users_table.draw(); 
+});
 
-  $('#filter_by_loc').on('change', function() {
-    var selectedLocation = $(this).val();
-    users_table.column(5).search(selectedLocation).draw();
-  });
+// Initialize DataTable
+var users_table = $('#qoute-table').DataTable({});
+
 </script>
 <script>
   var users_table = $('#qoute-table').DataTable();
