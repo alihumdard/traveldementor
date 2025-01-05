@@ -11,6 +11,7 @@ use App\Http\Controllers\HotelBookingController;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\PendingController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\TrackingApplicationController;
 use App\Http\Controllers\TrackingController;;
 
 use App\Http\Middleware\UserAuthCheck;
@@ -27,7 +28,7 @@ use App\Http\Middleware\UserAuthCheck;
 */
 
 Route::middleware('check.userAuthCheck')->group(function () {
-    Route::get('/run-commands', [UserController::class, 'runMigrations']);
+    Route::get('/run-commands',[UserController::class, 'runMigrations']);
     Route::match(['post', 'get'], '/admins/{id?}',                      [UserController::class, 'staff'])->name('staff');
     Route::match(['post', 'get'], '/users',                             [UserController::class, 'users'])->name('users');
     Route::match(['post', 'get'], '/vfs/embassy',                       [UserController::class, 'vfs_embassy'])->name('vfs.embassy');
@@ -42,6 +43,7 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/staff/store',                       [UserController::class, 'store'])->name('staff.store');
     Route::match(['post', 'get'], '/staff/delete/{id?}',                [UserController::class, 'delete'])->name('staff.delete');
     Route::match(['post', 'get'], '/staff/{id}',                        [UserController::class, 'staff_detail_page'])->name('staff.detail');
+    Route::match(['post', 'get'], '/passport/expiry',                   [UserController::class, 'passport_expiry'])->name('passport.expiry');
     
 
     Route::match(['post', 'get'], '/application/add/{id?}',             [ApplicationController::class, 'add'])->name('application.add');
@@ -49,6 +51,12 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/application',                       [ApplicationController::class, 'index'])->name('application.index');
     Route::match(['post', 'get'], '/application/delete/{id}',           [ApplicationController::class, 'delete'])->name('application.delete');
     Route::match(['post', 'get'], '/application/{id}',                  [ApplicationController::class, 'detail_page'])->name('application.detail');
+
+Route::match(['post', 'get'], '/tracking/application/add/{id?}',             [TrackingApplicationController::class, 'add'])->name('tracking.application.add');
+Route::match(['post', 'get'], '/tracking/application/store',                 [TrackingApplicationController::class, 'application_store'])->name('tracking.application.store');
+Route::match(['post', 'get'], '/tracking/application',                       [TrackingApplicationController::class, 'index'])->name('tracking.application.index');
+Route::match(['post', 'get'], '/tracking/application/delete/{id}',           [TrackingApplicationController::class, 'delete'])->name('tracking.application.delete');
+Route::match(['post', 'get'], '/tracking/application/{id}',                  [TrackingApplicationController::class, 'detail_page'])->name('tracking.application.detail');
 
     Route::match(['post', 'get'], '/appointment/schedule/add/{id?}',    [ScheduleController::class, 'add'])->name('schedule.appointment.add');
     Route::match(['post', 'get'], '/appointment/schedule',              [ScheduleController::class, 'schedule_index'])->name('schedule.appointment.index');

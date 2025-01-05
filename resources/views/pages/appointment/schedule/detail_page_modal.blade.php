@@ -31,8 +31,8 @@
                   <img src="/assets/images/user.png" id="quoteDetail_userImg" style="border-radius: 12px !important; object-fit: cover; width: 65px; height: 65px;" alt="no image">
                 </div>
                 <div class="ml-3">
-                  <label for="quoteDetail_user" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
-                  <input type="text" disabled id="name" class="form-control" value="John Doe">
+                  <label for="name" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
+                  <input type="text" disabled id="name" class="form-control" >
                 </div>
               </div>
             </div>

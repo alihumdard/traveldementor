@@ -100,9 +100,9 @@
                         <input type="hidden" name="appointment_type" value="schedule">
                         
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="application_id">Application</label>
+                            <label for="application_id">Applicant Name</label>
                             <select name="application_id" id="application_id" class="form-select">
-                                <option disabled selected> Select application</option>
+                                <option disabled selected> Select Applicant Name</option>
                                 @foreach ($clients as $client)
                                     <option value="{{ $client->id }}" {{ isset($appointment) && $appointment->application_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                                 @endforeach
@@ -149,11 +149,11 @@
                             <span id="no_application_error" class="error-message text-danger"></span>
                         </div>
                 
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                        {{-- <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="applicant_contact">Applicant contact</label>
                             <input type="tel" name="applicant_contact" id="applicant_contact" class="form-control" placeholder="Enter phone number" value="{{ isset($appointment) ? $appointment->applicant_contact : '' }}">
                             <span id="applicant_contact_error" class="error-message text-danger"></span>
-                        </div>
+                        </div> --}}
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="appointment_email">Appointment email</label>
@@ -275,10 +275,10 @@ $(document).ready(function () {
             isValid = false;
         }
 
-        if ($('#applicant_contact').val().trim() === '') {
-            $('#applicant_contact_error').text('This field is required');
-            isValid = false;
-        }
+        // if ($('#applicant_contact').val().trim() === '') {
+        //     $('#applicant_contact_error').text('This field is required');
+        //     isValid = false;
+        // }
 
         if ($('#appointment_email').val().trim() === '') {
             $('#appointment_email_error').text('This field is required');

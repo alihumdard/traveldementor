@@ -30,7 +30,7 @@
             <div class="row mx-1">
               <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
                 <a href="{{ route('pending.appointment.add') }}">
-                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus"></i>Add Appointment </span></button>
+                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i class="fa fa-plus mr-2"></i>Add Appointment </span></button>
                 </a>
               </div>
               <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2" >
@@ -50,6 +50,8 @@
                     <option value="">jjj</option>
 
                   </select>
+                  <input type="text" id="search_input" placeholder="Search Name of Applicant or Another Column" />
+
                 </div>
               </div>
               <div class="col-lg-3 col-md-6 col-sm-12 pr-0 my-2">
@@ -85,9 +87,9 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.86);">
                 <tr style="font-size: small;">
                   <th>#</th>
+                  <th>Country</th>
                   <th>Application Name</th>
                   <th>No of application</th>
-                  <th>Country</th>
                   <th>Category</th>
                   <th>VFS Embassy</th>
                   <th>Action</th>
@@ -98,9 +100,9 @@
                 @foreach ($appointments as $appointment)
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration ??'N/A' }}</td>
+                  <td>{{ $appointment->country->name ??'N/A'}} </td>
                   <td>{{ $appointment->client->name ??'N/A' }}</td>
                   <td>{{ $appointment->no_application ??'N/A' }}</td>
-                  <td>{{ $appointment->country->name ??'N/A'}} </td>
                   <td>{{ $appointment->category->name ??'N/A'}}</td>
                   <td>{{ $appointment->vfsembassy->name ??'N/A'}}</td>
                   <td class="">
@@ -146,17 +148,19 @@
 
 @pushOnce('scripts')
 <script>
-  var users_table = $('#qoute-table').DataTable({});
+ $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    var searchValue = $('#search_input').val().toLowerCase(); 
+    var column1 = data[1] ? data[1].toLowerCase() : ""; 
+    return column1.includes(searchValue);
+});
 
-  $('#filter_by_sts_qoute').on('change', function() {
-    var selectedStatus = $(this).val();
-    users_table.column(7).search(selectedStatus).draw();
-  });
+$('#search_input').on('keyup', function () {
+    users_table.draw(); 
+});
 
-  $('#filter_by_loc').on('change', function() {
-    var selectedLocation = $(this).val();
-    users_table.column(5).search(selectedLocation).draw();
-  });
+// Initialize DataTable
+var users_table = $('#qoute-table').DataTable({});
+
 </script>
 <script>
   var users_table = $('#qoute-table').DataTable();

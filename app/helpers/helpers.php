@@ -1,13 +1,22 @@
 <?php
 function table_date($datetime)
 {
-    $date = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $datetime);
-    if ($date instanceof DateTime) {
-        return $date->format('M d, Y');
-    } else {
-        return 'Invalid datetime';
+    try {
+        $date = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $datetime);
+        if (!$date) {
+            // Try another common format if the first fails
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $datetime);
+        }
+        if ($date instanceof DateTime) {
+            return $date->format('M d, Y');
+        } else {
+            return 'Invalid datetime';
+        }
+    } catch (Exception $e) {
+        return 'Error parsing datetime';
     }
 }
+
 
 function end_url()
 {
@@ -69,6 +78,7 @@ function view_permission($page_name)
                 case 'categories':
                 case 'countries':
                 case 'application':
+                case 'tracking_application':
                 case 'schedule_appointment':
                 case 'pending_appointment':
                 case 'insurance':

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alert;
 use App\Models\Application;
 use App\Models\Appointment;
 use App\Models\Category;
@@ -17,6 +18,8 @@ use App\Models\Location;
 use App\Models\VfsEmbassy;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
+
 
 class UserController extends Controller
 {
@@ -39,18 +42,18 @@ class UserController extends Controller
         if ($user) {
             // User roles: 1 for Super Admin, 2 for Admin, 3 for User
             if (isset($user->role) && $user->role == user_roles('1')) {
-                $tot_apps=0;
-                $staffs=0;
-                $total_schd_apps=0;
-                $total_pend_apps=0;
-                $active_users=0;
+                $tot_apps = 0;
+                $staffs = 0;
+                $total_schd_apps = 0;
+                $total_pend_apps = 0;
+                $active_users = 0;
 
                 $active_users = Client::count();
-                $total_pend_apps = Appointment::where('appointment_type','pending')->count();
-                $total_schd_apps = Appointment::where('appointment_type','schedule')->count();
-                $staffs = User::where('role','Staff')->count();
-                $tot_apps=Application::count();
-                return view('pages.dashbords.super_admin', compact('user','tot_apps','staffs','total_schd_apps','total_pend_apps','active_users'));
+                $total_pend_apps = Appointment::where('appointment_type', 'pending')->count();
+                $total_schd_apps = Appointment::where('appointment_type', 'schedule')->count();
+                $staffs = User::where('role', 'Staff')->count();
+                $tot_apps = Application::count();
+                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users'));
             } else if (isset($user->role) && $user->role == user_roles('2')) {
                 dd($user->role);
             } else if (isset($user->role) && $user->role == user_roles('3')) {
@@ -77,8 +80,8 @@ class UserController extends Controller
     }
     public function staff_detail_page($id)
     {
-        
-        $data['detail_page'] = User::where('appointment_type','pending')->find($id);
+
+        $data['detail_page'] = User::where('role', 'Staff')->find($id);
         return response()->json($data);
     }
     public function users()
@@ -448,5 +451,71 @@ class UserController extends Controller
             'config_clear_output' => Artisan::output(),
             'view_clear_output' => Artisan::output(),
         ]);
+    }
+    public function passport_expiry()
+    {
+
+        $user_id = auth()->user()->id;
+        $users = Application::with('client')->get();
+        foreach ($users as $user) {
+            if ($user->passport_expiry) {
+                $passportExpiry = Carbon::parse($user->passport_expiry);
+                $alertDate = $passportExpiry->subDays(7);
+                if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
+                    Alert::create([
+                        'user_id' => $user_id, 
+                        'title' => 'Passport Expiry Alert',
+                        'body' => json_encode([
+                            'id' => $user->client->id,
+                            'name' => $user->client->name,
+                            'message' => 'Your passport will expire on ' . $passportExpiry->format('M d, Y') . '. Please renew it.'
+                        ]),
+                        'status' => 'unseen',
+                    ]);
+                    
+                }
+            }
+        }
+
+        foreach ($users as $user) {
+            if ($user->visa_expiry_date) {
+                $visaExpiry = Carbon::parse($user->visa_expiry_date);
+                $alertDate = $visaExpiry->subDays(7);
+                if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
+                    Alert::create([
+                        'user_id' => $user_id, 
+                        'title' => 'Visa Expiry Alert',
+                        'body' => json_encode([
+                            'id' => $user->client->id,
+                            'name' => $user->client->name,
+                            'message' => 'Your Visa will expire on ' . $visaExpiry->format('M d, Y') . '. Please renew it.'
+                        ]),
+                        'status' => 'unseen',
+                    ]);
+                    
+                }
+            }
+        }
+        @dd($users->client)
+        foreach ($users->client as $user) {
+            if ($user->dob) {
+                $Dob = Carbon::parse($user->dob);
+                $alertDate = $Dob->subDays(2);
+                if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
+                    Alert::create([
+                        'user_id' => $user_id, 
+                        'title' => 'Date of Birth  Alert',
+                        'body' => json_encode([
+                            'id' => $user->id,
+                            'name' => $user->name,
+                            'message' => 'Dear ' . $user->client->name . ', your date of birth is recorded as ' . $Dob->format('M d, Y') . '. Please verify and update it if needed to avoid any discrepancies in your records.'
+                        ]),
+                        'status' => 'unseen',
+                    ]);
+                    
+                }
+            }
+        }
+
     }
 }

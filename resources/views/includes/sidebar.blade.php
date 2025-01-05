@@ -53,6 +53,14 @@
             </a>
         </li>
         @endif
+        @if(view_permission('tracking_application'))
+        <li>
+            <a href="{{ route('tracking.application.index') }}" class="{{(request()->routeIs('tracking.application.index')) ? 'menu-acitve' : ''}}">
+                <i class="ml-3 fa-solid fa-envelope"></i>
+                <span class="link_name">Tracking Application</span>
+            </a>
+        </li>
+        @endif
         @if(view_permission('schedule_appointment'))
         <li>
             <a href="{{ route('schedule.appointment.index') }}" class="{{(request()->routeIs('schedule.appointment.index')) ? 'menu-acitve' : ''}}">
@@ -138,7 +146,7 @@
 
         @if(view_permission('client'))
         <li>
-            <a href="{{ route('client.index') }}" class="{{(request()->routeIs('client')) ? 'menu-acitve' : ''}}">
+            <a href="{{ route('client.index') }}" class="{{(request()->routeIs('client.index')) ? 'menu-acitve' : ''}}">
                 <i class="ml-3 fa-solid fa-passport"></i>
                 <span class="link_name">Client</span>
             </a>
