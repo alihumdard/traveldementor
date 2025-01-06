@@ -168,7 +168,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="application_id">Applicant Name</label>
                             <select name="application_id" id="application_id" class="form-select">
-                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select application</option>
+                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select Applicant</option>
                                 @foreach ($clients as $client)
                                 <option value="{{ $client->id }}" {{ isset($insurance) && $insurance->application_id ==
                                     $client->id ? 'selected' : '' }}>
@@ -183,7 +183,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
                             <select name="country_id" id="country_id" class="form-select">
-                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select country</option>
+                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select Country</option>
                                 @foreach ($countries as $country)
                                 <option value="{{ $country->id }}" {{ isset($insurance) && $insurance->country_id ==
                                     $country->id ? 'selected' : '' }}>
@@ -196,9 +196,9 @@
 
                         <!-- Plan Type -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="plan_type">Plan type</label>
+                            <label for="plan_type">Plan Type</label>
                             <select name="plan_type" id="plan_type" class="form-select">
-                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select plan type</option>
+                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select Plan Type</option>
                                 <option value="individual" {{ isset($insurance) && $insurance->plan_type == 'individual'
                                     ? 'selected' : '' }}>Individual</option>
                                 <option value="family" {{ isset($insurance) && $insurance->plan_type == 'family' ?
@@ -209,7 +209,7 @@
 
                         <!-- Start Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="s_date">Start date</label>
+                            <label for="s_date">Start Date</label>
                             <input type="date" name="s_date" id="s_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->s_date : '' }}">
                             <span id="s_date_error" class="error-message text-danger"></span>
@@ -217,7 +217,7 @@
 
                         <!-- End Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="e_date">End date</label>
+                            <label for="e_date">End Date</label>
                             <input type="date" name="e_date" id="e_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->e_date : '' }}">
                             <span id="e_date_error" class="error-message text-danger"></span>
@@ -225,7 +225,7 @@
 
                         <!-- Policy Number -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="policy_no">Policy number</label>
+                            <label for="policy_no">Policy Number</label>
                             <input type="number" name="policy_no" id="policy_no" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->policy_no : '' }}">
                             <span id="policy_no_error" class="error-message text-danger"></span>
@@ -233,7 +233,7 @@
 
                         <!-- Sale Date -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="sale_date">Sale date</label>
+                            <label for="sale_date">Sale Date</label>
                             <input type="date" name="sale_date" id="sale_date" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->sale_date : '' }}">
                             <span id="sale_date_error" class="error-message text-danger"></span>
@@ -249,7 +249,7 @@
 
                         <!-- Payable After 40% -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="payable_after_40_per">Payable after 40%</label>
+                            <label for="payable_after_40_per">Payable After 40%</label>
                             <input type="number" name="payable_after_40_per" id="payable_after_40_per"
                                 class="form-control"
                                 value="{{ isset($insurance) ? $insurance->payable_after_40_per : '' }}">
@@ -258,7 +258,7 @@
 
                         <!-- Net Payable -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="net_payable">Net payable</label>
+                            <label for="net_payable">Net Payable</label>
                             <input type="number" name="net_payable" id="net_payable" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->net_payable : '' }}">
                             <span id="net_payable_error" class="error-message text-danger"></span>
@@ -266,7 +266,7 @@
 
                         <!-- Refund Applied -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="refund_applied">Refund applied</label>
+                            <label for="refund_applied">Refund Applied</label>
                             <div class="radio-group">
                                 <label class="custom-radio">
                                     <input type="radio" name="refund_applied" id="refund_applied_yes" value="yes" {{

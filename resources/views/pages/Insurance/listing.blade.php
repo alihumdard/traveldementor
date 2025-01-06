@@ -21,65 +21,20 @@
           </span>
           <span>Insurance</span>
         </h3>
-        <div class="row mb-2">
-    <div class="col-lg-12">
-        <div class="d-flex flex-wrap my-2 align-items-center mx-1">
-            <!-- Add Insurance Button -->
-            <div class="my-2">
-                <a href="{{ route('insurance.add') }}">
-                    <button class="btn add-btn text-white" style="background-color: #452C88;">
-                        <span><i class="fa fa-plus"></i> Add Insurance</span>
-                    </button>
-                </a>
-            </div>
-
-            <!-- Filter By Location (Commented Out) -->
-            <!--
-            <div class="my-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
-                            <svg width="11" height="15" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.56221 14.0648C7.58971 14.3147 7.52097..." fill="#323C47" />
-                            </svg>
-                        </div>
-                    </div>
-                    <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group" style="border-left: none;">
-                        <option value="">Filter By Location</option>
-                        <option value="">jjj</option>
-                    </select>
-                </div>
-            </div>
-            -->
-
-            <!-- Filter By Status (Commented Out) -->
-            <!--
-            <div class="my-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
-                            <svg width="11" height="15" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.56221 14.0648C7.58971 14.3147 7.52097..." fill="#323C47" />
-                            </svg>
-                        </div>
-                    </div>
-                    <select name="filter_by_sts" id="filter_by_sts_qoute" class="form-select select-group" style="border-left: none;">
-                        <option value="">Filter By Status</option>
-                        <option value="">iiii</option>
-                    </select>
-                </div>
-            </div>
-            -->
-
-            <!-- Search Inputs -->
-            <div class="my-2 d-flex">
-                <input type="text" id="search_input" class="form-control me-2" placeholder="Search Name of Applicant or Another Column" />
-                <input type="text" id="search_policy" class="form-control" placeholder="Search by Policy Number" />
-            </div>
+        <div class="row mb-2 justify-content-end">
+          <!-- Add Insurance Button -->
+          <div class="col-lg-2 col-md-4 col-sm-12 my-2 text-right text-md-right text-sm-center">
+            <a href="{{ route('insurance.add') }}">
+              <button class="btn add-btn text-white w-100" style="background-color: #452C88;">
+                <span><i class="fa fa-plus mr-2"></i> Add Insurance</span>
+              </button>
+            </a>
+          </div>
+          <!-- Search Inputs -->
+          <div class="col-lg-6 col-md-8 col-sm-12 my-2">
+            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Applicant or Another Column" />
+          </div>
         </div>
-    </div>
-</div>
-
         <hr>
         <div class="px-2">
           <div class="table-responsive">
@@ -159,8 +114,8 @@
 
 @pushOnce('scripts')
 <script>
- // Create a custom filter
-$.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+  // Create a custom filter
+  $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
     var searchValue = $('#search_input').val().toLowerCase(); // Get search input value
 
     // Get the values of the two columns (index 1 and index 5)
@@ -169,16 +124,15 @@ $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
 
     // Return true if either column matches the search value
     return column1.includes(searchValue) || column5.includes(searchValue);
-});
+  });
 
-// Event listener for the search input
-$('#search_input').on('keyup', function () {
+  // Event listener for the search input
+  $('#search_input').on('keyup', function() {
     users_table.draw(); // Trigger DataTable redraw to apply custom filter
-});
+  });
 
-// Initialize DataTable
-var users_table = $('#qoute-table').DataTable({});
-
+  // Initialize DataTable
+  var users_table = $('#qoute-table').DataTable({});
 </script>
 <script>
   var users_table = $('#qoute-table').DataTable();
