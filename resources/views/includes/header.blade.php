@@ -24,7 +24,7 @@
     /* Positions the dropdown directly below the parent item */
     right: 10;
     /* Aligns the dropdown to the right of the parent item */
-    width: 200px;
+    width: 300px;
     /* Set the width of the dropdown menu */
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -37,11 +37,13 @@
     /*Hide it initially */
     transition: opacity 0.3s ease, visibility 0.3s ease;
     /* Smooth transition effect */
+  
   }
 
   /* Show the dropdown when the parent is hovered */
   .navbar-nav .nav-item:hover .dropdown-menu {
     display: block;
+   
     /* Make the dropdown visible */
     opacity: 1;
     /* Make the dropdown fully opaque */
@@ -103,7 +105,7 @@
 <nav class="navbar p-0 row">
   <div class="navbar-menu-wrapper col-12 col-lg-12 col-sm-12 d-flex"
     style="background-color: #F5F5F5 !important; justify-content: flex-end;">
-    <ul class="navbar-nav navbar-nav-right">
+    <ul class="navbar-nav navbar-nav-right pr-lg-5">
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
           data-bs-toggle="dropdown">
@@ -118,24 +120,23 @@
           <ul class="list-unstyled m-0 p-2">
             <!-- First List Item -->
             <li class="d-flex align-items-center py-2">
-              <i class="fas fa-envelope mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;">Application</a>
+              <i class="fas fa-envelope mx-2" style="font-size: 22px; color: #452C88;"></i>
+              <a href="#" class="text-decoration-none" style="color: #452C88; font-size:1rem;">Application</a>
             </li>
 
             <!-- Second List Item -->
             <li class="d-flex align-items-center py-2">
-              <i class="fas fa-house-crack mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;">Insurance</a>
+              <i class="fas fa-house-crack mx-2" style="font-size: 22px; color: #452C88;"></i>
+              <a href="#" class="text-decoration-none" style="color: #452C88; font-size:1rem;">Insurance</a>
             </li>
             <!-- Third List Item -->
             <li class="d-flex align-items-center py-2">
-              <i class="fas fa-hotel mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;">Hotel Booking</a>
+              <i class="fas fa-hotel mx-2" style="font-size: 22px; color: #452C88;"></i>
+              <a href="#" class="text-decoration-none" style="color: #452C88; font-size:1rem;">Hotel Booking</a>
             </li>
           </ul>
         </div>
       </li>
-
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
           data-bs-toggle="dropdown">
@@ -250,8 +251,6 @@
           <!-- Dynamic Content Will Be Loaded Here -->
         </div>
       </li> --}}
-
-
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
           data-bs-toggle="dropdown">
@@ -302,7 +301,6 @@
           </a>
         </div>
       </li>
-
     </ul>
   </div>
 </nav>
@@ -326,7 +324,7 @@
                             <div class="p-2" style="background: rgba(69, 44, 136, 0.06); border-left: 3px solid #452C88;" data-alert-id="${alert.id}">
                                 <div class="row">
                                     <div class="col-lg-10">
-                                        <p class="mb-0" style="font-size: 11px;">${alert.title}</p>
+                                        <p class="mb-0" style="font-size: 16px; font-weight:600;">${alert.title}</p>
                                     </div>
                                     <div class="col-lg-2 text-center">
                                         <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -334,20 +332,20 @@
                                         </svg>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.body?.name || 'No name'}</p>
-                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.body?.message || 'No message'}</p>
+                                        <p class="mb-0" style="font-size: 16px; color:rgb(0, 0, 0); font-weight:500; text-transform: capitalize;">${alert.body?.name || 'No name'}</p>
+                                        <p class="mb-0" style="font-size: 14px; color:rgb(65, 65, 65);">${alert.body?.message || 'No message'}</p>
                                     </div>
                                     <div class="col-lg-10">
                                         <p class="mb-0" style="font-size: 11px;"></p>
                                     </div>
                                   <div class="col-lg-6 ">
-                                      <p class="mb-0" style="font-size: 15px; color:red; cursor: pointer;" data-id="${alert.id}">
+                                      <p class="mb-0" style="font-size: 18px; color:#452c88; cursor: pointer;" data-id="${alert.id}">
                                           <i class="fas fas fa-circle"></i>  
                                       </p>
                                 </div>
                               <div class="col-lg-6">
                                   <!-- Action with Delete Icon -->
-                                  <p class="mb-0" style="font-size: 15px; color:red; cursor: pointer;" data-id="${alert.id}">
+                                  <p class="mb-0" style="font-size: 18px; color:#452c88; cursor: pointer;" data-id="${alert.id}">
                                       <i class="fas fa-trash-alt"></i>  
                                   </p>
                               </div>

@@ -129,24 +129,24 @@
                 
                         <!-- Dates -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="s_date">Start date</label>
+                            <label for="s_date">Start Date</label>
                             <input type="date" name="s_date" id="s_date" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->s_date : '' }}">
                             <span id="s_date_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="e_date">End date</label>
+                            <label for="e_date">End Date</label>
                             <input type="date" name="e_date" id="e_date" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->e_date : '' }}">
                             <span id="e_date_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="hotel_cancel_due_date">Hotel cancellation due date</label>
+                            <label for="hotel_cancel_due_date">Hotel Cancellation Due Date</label>
                             <input type="date" name="hotel_cancel_due_date" id="hotel_cancel_due_date" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->hotel_cancel_due_date : '' }}">
                             <span id="hotel_cancel_due_date_error" class="error-message text-danger"></span>
                         </div>
                 
                         <!-- Hotel Details -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="name">Hotel name</label>
+                            <label for="name">Hotel Name</label>
                             <input type="text" name="name" id="name" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->name : '' }}" placeholder="Enter hotel name">
                             <span id="name_error" class="error-message text-danger"></span>
                         </div>
@@ -156,7 +156,7 @@
                             <span id="reservation_id_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="reservation_email">Reservation email</label>
+                            <label for="reservation_email">Reservation Email</label>
                             <input type="email" name="reservation_email" id="reservation_email" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_email : '' }}" placeholder="Enter reservation email">
                             <span id="reservation_email_error" class="error-message text-danger"></span>
                         </div>

@@ -27,9 +27,9 @@
           </span>
           <span>Hotel Booking</span>
         </h3>
-        <div class="row mb-2 ">
+        <div class="row mb-2 d-flex justify-content-end">
           <!-- Add Booking Button -->
-          <div class="col-lg-3 col-md-4 col-12 my-2 offset-lg-3 text-md-right text-sm-center">
+          <div class="col-lg-2 col-md-4 col-sm-12 my-2 pr-0 ">
             <a href="{{ route('hotel.add') }}">
               <button class="btn add-btn text-white w-100" style="background-color: #452C88;">
                 <span><i class="fa fa-plus mr-2"></i> Add Booking</span>
@@ -42,7 +42,7 @@
               <div class="input-group-text" style="background-color: white; border: 1px solid #DDDDDD; display: flex; align-items: center;">
                 <i class="fa fa-filter"></i>
               </div>
-              <select name="filter_by_country" id="filter_by_country" class="form-select select-group" style="border-left: none;">
+              <select name="filter_by_country" id="filter_by_country" class="form-select select-group" style="border-left: none;height: 45px;" >
                 <option value="">Filter By Applicant</option>
                 @foreach ($clients as $client)
                 <option value="{{ $client->name }}">{{ $client->name }}</option>
@@ -53,7 +53,7 @@
 
           <!-- Search Name of Client -->
           <div class="col-lg-3 col-md-4 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control" placeholder="Search By Country" />
+            <input type="text" id="search_input" class="form-control" placeholder="Search By Country" style="height: 45px;" />
           </div>
         </div>
         <hr>
