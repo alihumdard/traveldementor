@@ -168,6 +168,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
+              
               <tbody id="tableData">
                 @foreach ($applications as $application )
                 <tr style="font-size: small;">
@@ -223,16 +224,12 @@
 @stop
 @pushOnce('scripts')
 <script>
-<<<<<<< HEAD
-  var users_table = $('#qoute-table').DataTable({});
-=======
   $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
     var searchValue = $('#search_input').val().toLowerCase(); 
     var column1 = data[2] ? data[2].toLowerCase() : ""; 
     var column5 = data[3] ? data[3].toLowerCase() : ""; 
     return column1.includes(searchValue) || column5.includes(searchValue);
 });
->>>>>>> 77d753960161002dbe87975711bce96c2fa0afa2
 
 $('#search_input').on('keyup', function () {
     users_table.draw(); 

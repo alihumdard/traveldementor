@@ -496,7 +496,7 @@ class UserController extends Controller
                 }
             }
         }
-        @dd($users->client)
+        // @dd($users->client)
         foreach ($users->client as $user) {
             if ($user->dob) {
                 $Dob = Carbon::parse($user->dob);

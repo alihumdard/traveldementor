@@ -30,7 +30,8 @@ class ApplicationController extends Controller
     }
     public function index()
     {
-        $data['applications']  = Application::with('user', 'category', 'country')->get();
+        $data['applications']  = Application::with('client', 'category', 'country')->get();
+        
         return view('pages.application.listing', $data);
     }
     public function add($id = null)
