@@ -521,7 +521,7 @@ class UserController extends Controller
         $user_id = auth()->user()->id;
         $alerts = Alert::where('user_id', $user_id)
             ->where('status', 'unseen')
-            ->orderBy('created_at', 'desc') 
+            ->orderBy('created_at', 'desc')
             ->get();
         $alerts->each(function ($alert) {
             $alert->body = json_decode($alert->body);
@@ -529,7 +529,15 @@ class UserController extends Controller
 
         return response()->json([
             'alerts' => $alerts,
-            'count' => $alerts->count() 
+            'count' => $alerts->count()
         ]);
+    }
+    public function updateStatus(Request $request)
+    {
+        $alert = Alert::find($request->alert_id);
+        $alert->status = 'seen';
+        $alert->save();
+
+        return response()->json(['success' => true]);
     }
 }

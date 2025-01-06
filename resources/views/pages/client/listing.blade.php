@@ -179,12 +179,7 @@
     users_table.column(3).search(selectedLocation).draw();
   });
   $(document).on('click', '#client_btn', function() {
-<<<<<<< HEAD
-    var insuranceId = $(this).data('id');
-    // console.log('Clicked application ID:', appointmentId); 
-=======
     var insuranceId = $(this).data('id');  
->>>>>>> 77d753960161002dbe87975711bce96c2fa0afa2
     $.ajax({
       url: '/client/' + insuranceId,
       method: 'GET',
