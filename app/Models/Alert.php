@@ -14,5 +14,11 @@ class Alert extends Model
         'body',
         'url',
         'status',
+        'client_id',
+        'name',
+        'email',
+        'email_forward',
+        'type',
+        'deleted_at',
     ];
 }
