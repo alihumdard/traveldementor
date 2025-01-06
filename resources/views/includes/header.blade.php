@@ -133,7 +133,7 @@
         </div>
       </li>
 
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
           <div class="nav-profile-image" style="margin-top: 6px;">
             <div class="preview-thumbnail">
@@ -201,8 +201,28 @@
 
             <div class="dropdown-divider"></div>
           </div>
-      </li>
+      </li> --}}
       <li class="nav-item dropdown">
+        <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+            <div class="nav-profile-image" style="margin-top: 6px;">
+                <div class="preview-thumbnail">
+                    <i class="" style="color:#67748E; position: relative;">
+                        <!-- Notification Icon -->
+                        <svg width="25" height="25" viewBox="0 0 25 29" fill="#452C88" xmlns="http://www.w3.org/2000/svg">
+                            <!-- SVG Path Here -->
+                        </svg>
+                    </i>
+                    <span id="alertBadge" class="badge bg-danger text-white" style="position: absolute; top: 1.2rem; right: 0.1rem; border-radius: 50%;">0</span>
+                </div>
+            </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" id="alertDropdown">
+            <!-- Dynamic Content Will Be Loaded Here -->
+        </div>
+    </li>
+    
+    
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
           <div class="nav-profile-image">
             <div class="preview-thumbnail">
@@ -242,8 +262,62 @@
             </div>
           </a>
         </div>
-      </li>
+      </li> --}}
 
     </ul>
   </div>
 </nav>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    function fetchAlerts() {
+        $.ajax({
+            url: '{{ route('alerts.fetch') }}',
+            method: 'GET',
+            success: function(response) {
+                // Update the alert count
+                $('#alertBadge').text(response.count);
+
+                // Clear previous alerts and append new ones
+                $('#alertDropdown').empty();
+                if (response.alerts.length > 0) {
+                    response.alerts.forEach(function(alert) {
+                        var alertHTML = `
+                            <div class="dropdown-divider"></div>
+                            <div class="p-2" style="background: rgba(69, 44, 136, 0.06); border-left: 3px solid #452C88;">
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <p class="mb-0" style="font-size: 11px;">${alert.title}</p>
+                                    </div>
+                                    <div class="col-lg-2 text-center">
+                                        <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- SVG Path Here -->
+                                        </svg>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <!-- Access the 'name' and 'message' fields from the body -->
+                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.body.name}</p>
+                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.body.message}</p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p class="mb-0" style="font-size: 11px;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $('#alertDropdown').append(alertHTML);
+                    });
+                    
+                } else {
+                    $('#alertDropdown').append('<p>No new alerts</p>');
+                }
+            }
+        });
+    }
+
+    // Fetch alerts when the page loads
+    fetchAlerts();
+});
+
+
+</script>

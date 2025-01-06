@@ -287,7 +287,6 @@
                 isValid = false;
             }
 
-            // Submit the form if all fields are valid
             if (isValid) {
                 this.submit();
             }
