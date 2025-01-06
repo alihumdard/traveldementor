@@ -44,7 +44,8 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/staff/delete/{id?}',                [UserController::class, 'delete'])->name('staff.delete');
     Route::match(['post', 'get'], '/staff/{id}',                        [UserController::class, 'staff_detail_page'])->name('staff.detail');
     Route::match(['post', 'get'], '/passport/expiry',                   [UserController::class, 'passport_expiry'])->name('passport.expiry');
-    
+    Route::match(['post', 'get'], '/alerts/fetch',                      [UserController::class, 'fetchUnseenAlerts'])->name('alerts.fetch');
+
 
     Route::match(['post', 'get'], '/application/add/{id?}',             [ApplicationController::class, 'add'])->name('application.add');
     Route::match(['post', 'get'], '/application/store',                 [ApplicationController::class, 'application_store'])->name('application.store');

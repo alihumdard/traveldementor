@@ -463,7 +463,7 @@ class UserController extends Controller
                 $alertDate = $passportExpiry->subDays(7);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
                     Alert::create([
-                        'user_id' => $user_id, 
+                        'user_id' => $user_id,
                         'title' => 'Passport Expiry Alert',
                         'body' => json_encode([
                             'id' => $user->client->id,
@@ -472,7 +472,6 @@ class UserController extends Controller
                         ]),
                         'status' => 'unseen',
                     ]);
-                    
                 }
             }
         }
@@ -483,7 +482,7 @@ class UserController extends Controller
                 $alertDate = $visaExpiry->subDays(7);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
                     Alert::create([
-                        'user_id' => $user_id, 
+                        'user_id' => $user_id,
                         'title' => 'Visa Expiry Alert',
                         'body' => json_encode([
                             'id' => $user->client->id,
@@ -492,18 +491,17 @@ class UserController extends Controller
                         ]),
                         'status' => 'unseen',
                     ]);
-                    
                 }
             }
         }
-        @dd($users->client)
-        foreach ($users->client as $user) {
-            if ($user->dob) {
+        // dd($user->client->dob);
+        foreach ($users as $user) {
+            if ($user->client->dob) {
                 $Dob = Carbon::parse($user->dob);
                 $alertDate = $Dob->subDays(2);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
                     Alert::create([
-                        'user_id' => $user_id, 
+                        'user_id' => $user_id,
                         'title' => 'Date of Birth  Alert',
                         'body' => json_encode([
                             'id' => $user->id,
@@ -512,10 +510,24 @@ class UserController extends Controller
                         ]),
                         'status' => 'unseen',
                     ]);
-                    
                 }
             }
         }
+    }
+    public function fetchUnseenAlerts()
+    {
+        $user_id = auth()->user()->id;
+        $alerts = Alert::where('user_id', $user_id)
+            ->where('status', 'unseen')
+            ->orderBy('created_at', 'desc') 
+            ->get();
+        $alerts->each(function ($alert) {
+            $alert->body = json_decode($alert->body);
+        });
 
+        return response()->json([
+            'alerts' => $alerts,
+            'count' => $alerts->count() 
+        ]);
     }
 }
