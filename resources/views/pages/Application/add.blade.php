@@ -101,7 +101,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
                             <select  name="country_id" id="country_id" class="form-select">
-                                <option disabled selected> Select country</option>
+                                <option disabled selected> Select Country</option>
                                 @foreach ($countries as $country)
                                 <option value="{{ $country->id }}" {{ isset($application) && $application->country_id ==
                                     $country->id ? 'selected' : '' }}>
@@ -115,7 +115,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="category_id">Category</label>
                             <select  name="category_id" id="category_id" class="form-select">
-                                <option disabled selected> Select category</option>
+                                <option disabled selected> Select Category</option>
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" {{ isset($application) && $application->category_id
                                     == $category->id ? 'selected' : '' }}>

@@ -64,7 +64,7 @@
               <div class="col-lg-4 col-md-4 col-sm-12">
                 <label for="title" class="mb-0 mt-1">Country code</label>
                 <input type="text" maxlength="60" name="code" id="country_code" class="form-control"
-                  value="{{ old('code', $country['code'] ?? '') }}" placeholder="Country code" required>
+                  value="{{ old('code', $country['code'] ?? '') }}" placeholder="Country code like Pk,Au" required>
                 <span id="country_code_error" class="error-message text-danger"></span>
                 <div class="text-danger error-message" id="code-error"></div>
               </div>

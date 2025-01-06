@@ -104,61 +104,22 @@
           </span>
           <span>Tracking Application</span>
         </h3>
-        <div class="row mb-2">
-          <!-- <div class="col-lg-4"></div> -->
-          <div class="col-lg-12">
-            <div class="row mx-1">
-              <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
-                <a href="{{ route('tracking.application.add') }}">
-                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i
-                        class="fa fa-plus"></i> Add Application</span></button>
-                </a>
-              </div>
-              <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
-                <div class="input-group">
-                  <div class="input-group-prepend d-none d-md-block d-sm-block d-lg-block">
-                    <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
-                      <svg width="11" height="15" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M7.56221 14.0648C7.58971 14.3147 7.52097 14.5814 7.36287 14.7563C7.29927 14.8336 7.22373 14.8949 7.14058 14.9367C7.05742 14.9785 6.96827 15 6.87825 15C6.78822 15 6.69907 14.9785 6.61592 14.9367C6.53276 14.8949 6.45722 14.8336 6.39363 14.7563L3.63713 11.4151C3.56216 11.3263 3.50516 11.2176 3.47057 11.0977C3.43599 10.9777 3.42477 10.8496 3.43779 10.7235V6.45746L0.145116 1.34982C0.0334875 1.17612 -0.0168817 0.955919 0.005015 0.737342C0.0269117 0.518764 0.119294 0.319579 0.261975 0.183308C0.392582 0.0666576 0.536937 0 0.688166 0H10.3118C10.4631 0 10.6074 0.0666576 10.738 0.183308C10.8807 0.319579 10.9731 0.518764 10.995 0.737342C11.0169 0.955919 10.9665 1.17612 10.8549 1.34982L7.56221 6.45746V14.0648ZM2.09047 1.66644L4.81259 5.88254V10.4819L6.1874 12.1484V5.8742L8.90953 1.66644H2.09047Z"
-                          fill="#323C47" />
-                      </svg>
-                    </div>
-                  </div>
-                  <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group">
-                    <option value="">
-                      Filter By Locations
-                    </option>
-                    <option value=""></option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6 col-sm-12 pr-0 my-2">
-                <div class="input-group">
-                  <div class="input-group-prepend d-none d-md-block d-sm-block d-lg-block">
-                    <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
-                      <svg width="11" height="15" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M7.56221 14.0648C7.58971 14.3147 7.52097 14.5814 7.36287 14.7563C7.29927 14.8336 7.22373 14.8949 7.14058 14.9367C7.05742 14.9785 6.96827 15 6.87825 15C6.78822 15 6.69907 14.9785 6.61592 14.9367C6.53276 14.8949 6.45722 14.8336 6.39363 14.7563L3.63713 11.4151C3.56216 11.3263 3.50516 11.2176 3.47057 11.0977C3.43599 10.9777 3.42477 10.8496 3.43779 10.7235V6.45746L0.145116 1.34982C0.0334875 1.17612 -0.0168817 0.955919 0.005015 0.737342C0.0269117 0.518764 0.119294 0.319579 0.261975 0.183308C0.392582 0.0666576 0.536937 0 0.688166 0H10.3118C10.4631 0 10.6074 0.0666576 10.738 0.183308C10.8807 0.319579 10.9731 0.518764 10.995 0.737342C11.0169 0.955919 10.9665 1.17612 10.8549 1.34982L7.56221 6.45746V14.0648ZM2.09047 1.66644L4.81259 5.88254V10.4819L6.1874 12.1484V5.8742L8.90953 1.66644H2.09047Z"
-                          fill="#323C47" />
-                      </svg>
-                    </div>
-                  </div>
-                  <select name="filter_by_sts" id="filter_by_sts_qoute" class="form-select select-group">
-                    <option value="">
-                     Filter By Status
-                    </option>
+        <div class="row mb-2 justify-content-end">
+          <!-- Add Appointment Button -->
+          <div class="col-lg-3 col-md-4 col-sm-12 my-2 text-md-right text-sm-center">
+            <a href="{{ route('tracking.application.add') }}">
+              <button class="btn add-btn text-white w-100" style="background-color: #452C88;">
+                <span><i class="fa fa-plus mr-2"></i>Add Application</span>
+              </button>
+            </a>
+          </div>
 
-                    <option value=""></option>
-                  </select>
-                  <input type="text" id="search_input" placeholder="Search Name of Applicant or Another Column" />
-
-                  
-                </div>
-              </div>
-            </div>
+          <!-- Search Input -->
+          <div class="col-lg-6 col-md-8 col-sm-12 my-2">
+            <input type="text" id="search_input" class="form-control " placeholder="Search Name of Applicant/Country" />
           </div>
         </div>
+
 
         <hr>
         <div class="px-2">

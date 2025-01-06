@@ -42,7 +42,7 @@
               <thead style="background-color: #452c88; color: white;">
                 <tr>
                   <th style="text-align: left; padding: 15px; font-size: 16px;">Field</th>
-                  <th style="text-align: left; padding: 15px; font-size: 16px;">User Data</th>
+                  <th style="text-align: left; padding: 15px; font-size: 16px;">Applicant Data</th>
                 </tr>
               </thead>
               <tbody>
@@ -58,8 +58,7 @@
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Country </td>
                   <td style="padding: 12px;" id="country">loading</td>
-                </tr>
-               
+                </tr>   
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Passport Number</td>
                   <td style="padding: 12px;" id="pass_no">loading</td>
@@ -90,11 +89,6 @@
                 </tr>
               </tbody>
             </table>
-            <div class="text-center mt-4">
-              <button class="btn btn_close" style="background: linear-gradient(90deg, #452c88, #6a4ab5); color: white; padding: 12px 30px; border-radius: 8px; font-size: 16px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                Back
-              </button>
-            </div>
           </div>
         </div>
       </div>
