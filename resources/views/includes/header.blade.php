@@ -308,95 +308,64 @@
 </nav>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
-    function fetchAlerts() {
-        $.ajax({
-            url: '{{ route('alerts.fetch') }}',
-            method: 'GET',
-            success: function(response) {
-                // Update the alert count
-                $('#alertBadge').text(response.count);
-
-                // Clear previous alerts and append new ones
-                $('#alertDropdown').empty();
-                if (response.alerts.length > 0) {
-                    response.alerts.forEach(function(alert) {
-                        var alertHTML = `
-                            <div class="dropdown-divider"></div>
-                            <div class="p-2" style="background: rgba(69, 44, 136, 0.06); border-left: 3px solid #452C88;" data-alert-id="${alert.id}">
-                                <div class="row">
-                                    <div class="col-lg-10">
-                                        <p class="mb-0" style="font-size: 11px;">${alert.title}</p>
-                                    </div>
-                                    <div class="col-lg-2 text-center">
-                                        <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <!-- SVG Path Here -->
-                                        </svg>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.body?.name || 'No name'}</p>
-                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.body?.message || 'No message'}</p>
-                                    </div>
-                                    <div class="col-lg-10">
-                                        <p class="mb-0" style="font-size: 11px;"></p>
-                                    </div>
-                                  <div class="col-lg-6 ">
-                                      <p class="mb-0" style="font-size: 15px; color:red; cursor: pointer;" data-id="${alert.id}">
-                                          <i class="fas fas fa-circle"></i>  
-                                      </p>
-                                </div>
-                              <div class="col-lg-6">
-                                  <!-- Action with Delete Icon -->
-                                  <p class="mb-0" style="font-size: 15px; color:red; cursor: pointer;" data-id="${alert.id}">
-                                      <i class="fas fa-trash-alt"></i>  
-                                  </p>
-                              </div>
-                                </div>
-                            </div>
-                        `;
-                        $('#alertDropdown').append(alertHTML);
-                    });
-                } else {
-                    $('#alertDropdown').append('<p>No new alerts</p>');
-                }
-            }
-        });
-    }
-
-    // Fetch alerts when the page loads
-    fetchAlerts();
-});
-
-$(document).on('click', '[data-id]', function() {
-    var alertId = $(this).data('id');
-    var statusElement = $(this).closest('p');
+ 
+ $(document).ready(function() {
+ $(document).on('click', '[data-update]', function() {
+    var alertId = $(this).data('update'); // Get the alert id from the data-update attribute
+    var iconElement = $(this).find('i');  // Find the <i> element inside the clicked <p>
 
     $.ajax({
-        url: '/update/alert/status',  
+        url: '/update/alert/status',
         method: 'POST',
         data: {
             alert_id: alertId,
         },
         success: function(response) {
             if(response.success) {
-                statusElement.css('color', 'green');
-                statusElement.html('<i class="fas fa-check-circle"></i>');
+                iconElement.css('color', 'green');
+                iconElement.removeClass('fa-circle').addClass('fa-check-circle'); // Change the icon to check-circle
             } else {
                 console.error('Failed to update status');
-                statusElement.css('color', 'red'); 
-                statusElement.html('<i class="fas fa-sync-alt"></i>');
+                iconElement.css('color', 'red');
+                iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); // Change the icon to sync-alt on failure
             }
         },
         error: function(xhr, status, error) {
             console.error('Error:', error);
-            statusElement.css('color', 'red'); 
-            statusElement.html('<i class="fas fa-sync-alt"></i>');
+            iconElement.css('color', 'red');
+            iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); // Change to sync-alt icon in case of error
         }
     });
 });
 
 
+$(document).on('click', '[data-id]', function() {
+    var alertId = $(this).data('id');
 
+    $.ajax({
+        url: '/delete/alert',  
+        method: 'POST',
+        data: {
+            alert_id: alertId,
+        },
+        success: function(response) {
+            if(response.success) {
+ 
+              $('#alertBadge').text(function(index, currentCount) {
+                    return Math.max(0, parseInt(currentCount) - 1); // Ensure count doesn't go below 0
+                });
+              $(`[data-alert-id="${alertId}"]`).closest('.p-2').fadeOut();
+            } else {
+                console.error('Failed to deleted');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            statusElement.css('color', 'red'); 
+        }
+    });
+});
 
+});
 
 </script>

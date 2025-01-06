@@ -454,7 +454,6 @@ class UserController extends Controller
     }
     public function passport_expiry()
     {
-
         $user_id = auth()->user()->id;
         $users = Application::with('client')->get();
         foreach ($users as $user) {
@@ -465,6 +464,7 @@ class UserController extends Controller
                     Alert::create([
                         'user_id' => $user_id,
                         'title' => 'Passport Expiry Alert',
+                        'url' => route('application.index'),
                         'body' => json_encode([
                             'id' => $user->client->id,
                             'name' => $user->client->name,
@@ -484,6 +484,7 @@ class UserController extends Controller
                     Alert::create([
                         'user_id' => $user_id,
                         'title' => 'Visa Expiry Alert',
+                        'url' => route('application.index'),
                         'body' => json_encode([
                             'id' => $user->client->id,
                             'name' => $user->client->name,
@@ -505,6 +506,7 @@ class UserController extends Controller
                     Alert::create([
                         'user_id' => $user_id,
                         'title' => 'Date of Birth  Alert',
+                        'url' => route('client.index'),
                         'body' => json_encode([
                             'id' => $user->id,
                             'name' => $user->name,
@@ -539,5 +541,19 @@ class UserController extends Controller
         $alert->save();
 
         return response()->json(['success' => true]);
+    }
+    public function alert_delete(Request $request)
+    { 
+        $user_id = auth()->user()->id;
+        $alerts = Alert::where('user_id', $user_id)
+            ->where('status', 'unseen')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $alert = Alert::find($request->alert_id);
+        $alert->delete();
+        return response()->json([
+            'count' => $alerts->count(),
+            'success' => true,
+        ]);
     }
 }
