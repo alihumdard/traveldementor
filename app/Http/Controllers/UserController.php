@@ -494,9 +494,11 @@ class UserController extends Controller
                 }
             }
         }
+
         // dd($user->client->dob);
         foreach ($users as $user) {
             if ($user->client->dob) {
+
                 $Dob = Carbon::parse($user->dob);
                 $alertDate = $Dob->subDays(2);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {

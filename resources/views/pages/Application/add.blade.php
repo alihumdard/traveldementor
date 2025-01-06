@@ -282,16 +282,6 @@
                 isValid = false;
             }
 
-            if ($('#visa_refer_tracking_id').val().trim() === '') {
-                $('#visa_refer_tracking_id_error').text('This field is required');
-                isValid = false;
-            }
-
-            if ($('#ds_160').val().trim() === '') {
-                $('#ds_160_error').text('This field is required');
-                isValid = false;
-            }
-
             if ($('#status').val() === null) {
                 $('#status_error').text('This field is required');
                 isValid = false;
