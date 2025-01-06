@@ -140,7 +140,7 @@
                     <option value=""></option>
 
                   </select>
-                  <input type="text" id="search_input" placeholder="Search Name of Applicant or Another Column" />
+                  <input type="text" id="search_input" placeholder="Search Name of Applicant or Another Column" style="height: 45px;" />
 
                 </div>
               </div>

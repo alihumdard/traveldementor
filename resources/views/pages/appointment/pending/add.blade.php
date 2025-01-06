@@ -102,7 +102,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="application_id">Application</label>
                             <select name="application_id" id="application_id" class="form-select">
-                                <option disabled selected> Select application</option>
+                                <option disabled selected> Select Application</option>
                                 @foreach ($clients as $client)
                                     <option value="{{ $client->id }}" {{ isset($appointment) && $appointment->application_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                                 @endforeach
@@ -113,7 +113,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
                             <select name="country_id" id="country_id" class="form-select">
-                                <option disabled selected> Select country</option>
+                                <option disabled selected> Select Country</option>
                                 @foreach ($countries as $country)
                                     <option value="{{ $country->id }}" {{ isset($appointment) && $appointment->country_id == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
                                 @endforeach
@@ -122,9 +122,9 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="vfs_embassy_id">VFS embassy</label>
+                            <label for="vfs_embassy_id">VFS Embassy</label>
                             <select name="vfs_embassy_id" id="vfs_embassy_id" class="form-select">
-                                <option disabled selected>Select vfs embassy</option>
+                                <option disabled selected>Select Vfs Embassy</option>
                                 @foreach ($vfsembasses as $vfsembassy)
                                     <option value="{{ $vfsembassy->id }}" {{ isset($appointment) && $appointment->vfs_embassy_id == $vfsembassy->id ? 'selected' : '' }}>{{ $vfsembassy->name }}</option>
                                 @endforeach
@@ -135,7 +135,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="category_id">Category</label>
                             <select name="category_id" id="category_id" class="form-select">
-                                <option disabled selected>Select category</option>
+                                <option disabled selected>Select Category</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ isset($appointment) && $appointment->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
@@ -144,7 +144,7 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="no_application">Application number</label>
+                            <label for="no_application">Application Number</label>
                             <input type="number" name="no_application" id="no_application" class="form-control" value="{{ isset($appointment) ? $appointment->no_application : '' }}">
                             <span id="no_application_error" class="error-message text-danger"></span>
                         </div>

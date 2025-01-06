@@ -76,6 +76,9 @@
     backdrop-filter: blur(5px);
     background-color: #01223770;
   }
+  .dataTables_filter {
+    margin-bottom: 8px;
+  }
 </style>
 @section('content')
 @include('pages.tracking_application.detail_page_modal')
@@ -116,11 +119,9 @@
 
           <!-- Search Input -->
           <div class="col-lg-6 col-md-8 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control " placeholder="Search Name of Applicant/Country" />
+            <input type="text" id="search_input" class="form-control " placeholder="Search Name of Applicant/Country" style="height: 45px;" />
           </div>
         </div>
-
-
         <hr>
         <div class="px-2">
           <div class="table-responsive">

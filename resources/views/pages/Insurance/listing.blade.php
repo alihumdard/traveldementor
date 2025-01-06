@@ -23,7 +23,7 @@
         </h3>
         <div class="row mb-2 justify-content-end">
           <!-- Add Insurance Button -->
-          <div class="col-lg-2 col-md-4 col-sm-12 my-2 text-right text-md-right text-sm-center">
+          <div class="col-lg-2 col-md-4 col-sm-12 my-2 pr-0">
             <a href="{{ route('insurance.add') }}">
               <button class="btn add-btn text-white w-100" style="background-color: #452C88;">
                 <span><i class="fa fa-plus mr-2"></i> Add Insurance</span>
@@ -32,7 +32,7 @@
           </div>
           <!-- Search Inputs -->
           <div class="col-lg-6 col-md-8 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Applicant or Another Column" />
+            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Applicant or Another Column" style="height: 45px;" />
           </div>
         </div>
         <hr>
