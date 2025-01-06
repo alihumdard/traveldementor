@@ -5,9 +5,11 @@
   table td {
     text-transform: capitalize;
   }
+
   .dataTables_filter {
-    display: none; /* Hides the default search box */
-}
+    display: none;
+    /* Hides the default search box */
+  }
 </style>
 @section('content')
 
@@ -26,59 +28,33 @@
           <span>Hotel Booking</span>
         </h3>
         <div class="row mb-2">
-          <!-- <div class="col-lg-4"></div> -->
-          <div class="col-lg-12">
-            <div class="row mx-1">
-              <div class="col-lg-6 col-md-12 col-sm-12 my-2 pr-0" style="text-align: right;">
-                <a href="{{ route('hotel.add') }}">
-                  <button class="btn add-btn text-white" style="background-color: #452C88;"><span><i
-                        class="fa fa-plus"></i>Add Booking</span></button>
-                </a>
+          <!-- Add Booking Button -->
+          <div class="col-lg-3 col-md-4 col-sm-12 my-2 text-right">
+            <a href="{{ route('hotel.add') }}">
+              <button class="btn add-btn text-white" style="background-color: #452C88;">
+                <span><i class="fa fa-plus mr-2"></i> Add Booking</span>
+              </button>
+            </a>
+          </div>
+
+          <!-- Filter By Client Dropdown with Icon in the same line -->
+          <div class="col-lg-3 col-md-4 col-sm-12 my-2">
+            <div class="input-group d-flex">
+              <div class="input-group-text" style="background-color: white; border: 1px solid #DDDDDD; display: flex; align-items: center;">
+                <i class="fa fa-filter"></i>
               </div>
-              {{-- <div class="col-lg-3  col-md-6 col-sm-12 pr-0 my-2">
-                <div class="input-group">
-                  <div class="input-group-prepend d-none d-md-block d-sm-block d-lg-block">
-                    <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
-                      <svg width="11" height="15" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M7.56221 14.0648C7.58971 14.3147 7.52097 14.5814 7.36287 14.7563C7.29927 14.8336 7.22373 14.8949 7.14058 14.9367C7.05742 14.9785 6.96827 15 6.87825 15C6.78822 15 6.69907 14.9785 6.61592 14.9367C6.53276 14.8949 6.45722 14.8336 6.39363 14.7563L3.63713 11.4151C3.56216 11.3263 3.50516 11.2176 3.47057 11.0977C3.43599 10.9777 3.42477 10.8496 3.43779 10.7235V6.45746L0.145116 1.34982C0.0334875 1.17612 -0.0168817 0.955919 0.005015 0.737342C0.0269117 0.518764 0.119294 0.319579 0.261975 0.183308C0.392582 0.0666576 0.536937 0 0.688166 0H10.3118C10.4631 0 10.6074 0.0666576 10.738 0.183308C10.8807 0.319579 10.9731 0.518764 10.995 0.737342C11.0169 0.955919 10.9665 1.17612 10.8549 1.34982L7.56221 6.45746V14.0648ZM2.09047 1.66644L4.81259 5.88254V10.4819L6.1874 12.1484V5.8742L8.90953 1.66644H2.09047Z"
-                          fill="#323C47" />
-                      </svg>
-                    </div>
-                  </div>
-                  <select name="filter_by_loc" id="filter_by_loc" class="form-select select-group">
-                    <option value="">
-                      Filter By Location
-                    </option>
-
-                    <option value="">jjj</option>
-
-                  </select>
-                </div>
-              </div> --}}
-              <div class="col-lg-3 col-md-6 col-sm-12 pr-0 my-2">
-                <div class="input-group">
-                  <div class="input-group-prepend d-none d-md-block d-sm-block d-lg-block">
-                    <div class="input-group-text bg-white" style="border-right: none; border: 1px solid #DDDDDD;">
-                      <svg width="11" height="15" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M7.56221 14.0648C7.58971 14.3147 7.52097 14.5814 7.36287 14.7563C7.29927 14.8336 7.22373 14.8949 7.14058 14.9367C7.05742 14.9785 6.96827 15 6.87825 15C6.78822 15 6.69907 14.9785 6.61592 14.9367C6.53276 14.8949 6.45722 14.8336 6.39363 14.7563L3.63713 11.4151C3.56216 11.3263 3.50516 11.2176 3.47057 11.0977C3.43599 10.9777 3.42477 10.8496 3.43779 10.7235V6.45746L0.145116 1.34982C0.0334875 1.17612 -0.0168817 0.955919 0.005015 0.737342C0.0269117 0.518764 0.119294 0.319579 0.261975 0.183308C0.392582 0.0666576 0.536937 0 0.688166 0H10.3118C10.4631 0 10.6074 0.0666576 10.738 0.183308C10.8807 0.319579 10.9731 0.518764 10.995 0.737342C11.0169 0.955919 10.9665 1.17612 10.8549 1.34982L7.56221 6.45746V14.0648ZM2.09047 1.66644L4.81259 5.88254V10.4819L6.1874 12.1484V5.8742L8.90953 1.66644H2.09047Z"
-                          fill="#323C47" />
-                      </svg>
-                    </div>
-                  </div>
-                  <select name="filter_by_country" id="filter_by_country" class="form-select select-group select2">
-                    <option value="">Filter By Client</option>
-                    @foreach ( $clients as $client )
-                    <option value="{{ $client->name }}">{{ $client->name }}</option>
-                    @endforeach
-
-                  </select>
-                </div>
-                <input type="text" id="search_input" placeholder="Search Name of Applicant" />
-
-              </div>
+              <select name="filter_by_country" id="filter_by_country" class="form-select select-group" style="border-left: none;">
+                <option value="">Filter By Applicant</option>
+                @foreach ($clients as $client)
+                <option value="{{ $client->name }}">{{ $client->name }}</option>
+                @endforeach
+              </select>
             </div>
+          </div>
+
+          <!-- Search Name of Client -->
+          <div class="col-lg-6 col-md-4 col-sm-12 my-2">
+            <input type="text" id="search_input" class="form-control" placeholder="Search By Country" />
           </div>
         </div>
         <hr>
@@ -220,39 +196,37 @@
     var selectedStatus = $(this).val();
     users_table.column(1).search(selectedStatus).draw();
   });
-  $('#search_input').on('keyup', function () {
+  $('#search_input').on('keyup', function() {
     var searchValue = $(this).val();
     // Apply search only on column index 1
-    users_table.column(1).search(searchValue).draw();
-});
-
+    users_table.column(2).search(searchValue).draw();
+  });
 </script>
 
 <script>
   $(document).on('click', '#booking_btn', function() {
-    var bookingId = $(this).data('id');  // Get the ID associated with the clicked button
+    var bookingId = $(this).data('id'); // Get the ID associated with the clicked button
     console.log('Clicked application ID:', bookingId); // Check the application ID
 
     $.ajax({
-        url: '/hotel/booking/' + bookingId,  // Your route to fetch application details
-        method: 'GET',
-            success: function(response) {
-              $("#name").val(response.detail_page.client.name);
-              $("#country").text(response.detail_page.country.name);
-              $("#s_date").text(response.detail_page.s_date);
-              $("#e_date").text(response.detail_page.e_date);
-              $("#hotel_cancel_date").text(response.detail_page.hotel_cancel_due_date);
-              $("#hotel_name").text(response.detail_page.name);
-              $("#reservation_id").text(response.detail_page.reservation_id);
-              $("#reservation_email").text(response.detail_page.reservation_email);
-              $("#status").text(response.detail_page.status);
-            $('#qoutedetail').modal('show'); // Show the modal with updated details
-        },
-        error: function(error) {
-            console.error('Error fetching application details:', error);
-        }
+      url: '/hotel/booking/' + bookingId, // Your route to fetch application details
+      method: 'GET',
+      success: function(response) {
+        $("#name").val(response.detail_page.client.name);
+        $("#country").text(response.detail_page.country.name);
+        $("#s_date").text(response.detail_page.s_date);
+        $("#e_date").text(response.detail_page.e_date);
+        $("#hotel_cancel_date").text(response.detail_page.hotel_cancel_due_date);
+        $("#hotel_name").text(response.detail_page.name);
+        $("#reservation_id").text(response.detail_page.reservation_id);
+        $("#reservation_email").text(response.detail_page.reservation_email);
+        $("#status").text(response.detail_page.status);
+        $('#qoutedetail').modal('show'); // Show the modal with updated details
+      },
+      error: function(error) {
+        console.error('Error fetching application details:', error);
+      }
     });
-});
-
+  });
 </script>
 @endPushOnce
