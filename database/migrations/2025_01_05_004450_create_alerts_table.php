@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->string('body');
+            $table->string('url');
             $table->string('status')->default('unseen');
             $table->timestamps();
         });

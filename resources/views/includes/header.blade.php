@@ -306,14 +306,12 @@
 </nav>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
-    function fetchAlerts() {
-        $.ajax({
-            url: '{{ route('alerts.fetch') }}',
-            method: 'GET',
-            success: function(response) {
-                // Update the alert count
-                $('#alertBadge').text(response.count);
+ 
+ $(document).ready(function() {
+ $(document).on('click', '[data-update]', function() {
+    var alertId = $(this).data('update'); // Get the alert id from the data-update attribute
+    var iconElement = $(this).find('i');  // Find the <i> element inside the clicked <p>
+
 
                 // Clear previous alerts and append new ones
                 $('#alertDropdown').empty();
@@ -358,43 +356,43 @@
                     $('#alertDropdown').append('<p>No new alerts</p>');
                 }
             }
-        });
-    }
-
-    // Fetch alerts when the page loads
-    fetchAlerts();
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            iconElement.css('color', 'red');
+            iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); // Change to sync-alt icon in case of error
+        }
+    });
 });
+
 
 $(document).on('click', '[data-id]', function() {
     var alertId = $(this).data('id');
-    var statusElement = $(this).closest('p');
 
     $.ajax({
-        url: '/update/alert/status',  
+        url: '/delete/alert',  
         method: 'POST',
         data: {
             alert_id: alertId,
         },
         success: function(response) {
             if(response.success) {
-                statusElement.css('color', 'green');
-                statusElement.html('<i class="fas fa-check-circle"></i>');
+ 
+              $('#alertBadge').text(function(index, currentCount) {
+                    return Math.max(0, parseInt(currentCount) - 1); // Ensure count doesn't go below 0
+                });
+              $(`[data-alert-id="${alertId}"]`).closest('.p-2').fadeOut();
             } else {
-                console.error('Failed to update status');
-                statusElement.css('color', 'red'); 
-                statusElement.html('<i class="fas fa-sync-alt"></i>');
+                console.error('Failed to deleted');
             }
         },
         error: function(xhr, status, error) {
             console.error('Error:', error);
             statusElement.css('color', 'red'); 
-            statusElement.html('<i class="fas fa-sync-alt"></i>');
         }
     });
 });
 
-
-
-
+});
 
 </script>
