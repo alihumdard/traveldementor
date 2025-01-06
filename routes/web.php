@@ -46,6 +46,7 @@ Route::middleware('check.userAuthCheck')->group(function () {
     Route::match(['post', 'get'], '/passport/expiry',                   [UserController::class, 'passport_expiry'])->name('passport.expiry');
     Route::match(['post', 'get'], '/alerts/fetch',                      [UserController::class, 'fetchUnseenAlerts'])->name('alerts.fetch');
     Route::match(['post', 'get'], '/update/alert/status',               [UserController::class, 'updateStatus']);
+    Route::match(['post', 'get'], '/delete/alert',                      [UserController::class, 'alert_delete']);
 
 
 

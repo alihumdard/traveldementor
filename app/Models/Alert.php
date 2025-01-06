@@ -12,6 +12,7 @@ class Alert extends Model
         'user_id',
         'title',
         'body',
+        'url',
         'status',
     ];
 }
