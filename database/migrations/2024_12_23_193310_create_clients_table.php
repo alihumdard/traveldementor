@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('staff_id');
             $table->string('name');
             $table->string('sur_name')->nullable();
+            $table->string('email')->nullable();
             $table->string('contact_no')->nullable();
             $table->string('dob')->nullable();
             $table->string('refer_person')->nullable();

@@ -19,6 +19,8 @@ use App\Models\VfsEmbassy;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use App\Mail\AlertEmail;
+use Illuminate\Support\Facades\Mail;
 
 
 class UserController extends Controller
@@ -458,20 +460,33 @@ class UserController extends Controller
         $users = Application::with('client')->get();
         foreach ($users as $user) {
             if ($user->passport_expiry) {
+                // dd($user->passport_expiry);
                 $passportExpiry = Carbon::parse($user->passport_expiry);
                 $alertDate = $passportExpiry->subDays(7);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                    Alert::create([
-                        'user_id' => $user_id,
-                        'title' => 'Passport Expiry Alert',
-                        'url' => route('application.index'),
-                        'body' => json_encode([
-                            'id' => $user->client->id,
+                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'passport_expiry')->first();
+                    if (empty($alert)) {
+                        // dd($alert);
+                        Alert::create([
+                            'client_id' => $user->client->id,
                             'name' => $user->client->name,
-                            'message' => 'Your passport will expire on ' . $passportExpiry->format('M d, Y') . '. Please renew it.'
-                        ]),
-                        'status' => 'unseen',
-                    ]);
+                            'email' => $user->client->email,
+                            'email_forward' => 'n',
+                            'type' => 'passport_expiry',
+                            'user_id' => $user_id,
+                            'title' => 'Passport Expiry Alert',
+                            'url' => route('application.index'),
+                            'body' => json_encode([
+                                'Your passport will expire on ' . $passportExpiry->format('M d, Y') . '. Please renew it.'
+                            ]),
+                            'message' => 'Dear ' . $user->client->name . ', 
+                                Your passport is due to expire on ' . $passportExpiry->format('M d, Y') . '. 
+                                To avoid any inconvenience or travel restrictions, please ensure to renew your passport promptly. 
+                                Visit the passport renewal office or consult with your travel administrator for further guidance.',
+                            'status' => 'unseen',
+                            'deleted_at' => 'n',
+                        ]);
+                    }
                 }
             }
         }
@@ -481,39 +496,53 @@ class UserController extends Controller
                 $visaExpiry = Carbon::parse($user->visa_expiry_date);
                 $alertDate = $visaExpiry->subDays(7);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                    Alert::create([
-                        'user_id' => $user_id,
-                        'title' => 'Visa Expiry Alert',
-                        'url' => route('application.index'),
-                        'body' => json_encode([
-                            'id' => $user->client->id,
+                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'visa_expiry_date')->first();
+                    if (empty($alert)) {
+                        Alert::create([
+                            'client_id' => $user->client->id,
                             'name' => $user->client->name,
-                            'message' => 'Your Visa will expire on ' . $visaExpiry->format('M d, Y') . '. Please renew it.'
-                        ]),
-                        'status' => 'unseen',
-                    ]);
+                            'email' => $user->client->email,
+                            'email_forward' => 'n',
+                            'type' => 'visa_expiry_date',
+                            'user_id' => $user_id,
+                            'title' => 'Visa Expiry Alert',
+                            'url' => route('application.index'),
+                            'body' => json_encode('Your Visa will expire on ' . $visaExpiry->format('M d, Y') . '. Please renew it.'),
+                            'message' => 'Dear ' . $user->client->name . ', 
+                                Your visa is set to expire on ' . $visaExpiry->format('M d, Y') . '. 
+                                To ensure uninterrupted travel or stay, kindly proceed with the renewal process at your earliest convenience. 
+                                If assistance is needed, please contact the relevant authority or immigration office.',
+                            'status' => 'unseen',
+                            'deleted_at' => 'n',
+                        ]);
+                    }
                 }
             }
         }
 
-        // dd($user->client->dob);
         foreach ($users as $user) {
-            if ($user->client->dob) {
-
-                $Dob = Carbon::parse($user->dob);
-                $alertDate = $Dob->subDays(2);
+            if ($user->client && $user->client->dob) {
+                $dob = Carbon::parse($user->client->dob);
+                $currentYearDob = $dob->copy()->year(Carbon::now()->year);
+                $alertDate = $currentYearDob->subDays(2);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                    Alert::create([
-                        'user_id' => $user_id,
-                        'title' => 'Date of Birth  Alert',
-                        'url' => route('client.index'),
-                        'body' => json_encode([
-                            'id' => $user->id,
-                            'name' => $user->name,
-                            'message' => 'Dear ' . $user->client->name . ', your date of birth is recorded as ' . $Dob->format('M d, Y') . '. Please verify and update it if needed to avoid any discrepancies in your records.'
-                        ]),
-                        'status' => 'unseen',
-                    ]);
+                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'date_of_birth')->first();
+                    if (empty($alert)) {
+                        Alert::create([
+                            'client_id' => $user->client->id,
+                            'name' => $user->client->name,
+                            'email' => $user->client->email,
+                            'email_forward' => 'n',
+                            'type' => 'date_of_birth',
+                            'user_id' => $user_id,
+                            'title' => 'Date of Birth Alert',
+                            'url' => route('client.index'),
+                            'body' => json_encode('Dear ' . $user->client->name . ', your date of birth is recorded as ' . $dob->format('M d, Y') . '. Please verify and update it if needed to avoid any discrepancies in your records.'),
+                            'message' => 'Dear ' . $user->client->name . ', your date of birth is recorded as ' . $dob->format('M d, Y') . '. Please verify and update it if needed to avoid any discrepancies in your records.',
+                            'status' => 'unseen',
+                            'deleted_at' => 'n',
+                        ]);
+                    }
                 }
             }
         }
@@ -521,19 +550,39 @@ class UserController extends Controller
     public function fetchUnseenAlerts()
     {
         $user_id = auth()->user()->id;
+    
+        // Fetch unseen alerts for the user
         $alerts = Alert::where('user_id', $user_id)
             ->where('status', 'unseen')
+ 
             ->orderBy('created_at', 'desc')
             ->get();
-        $alerts->each(function ($alert) {
-            $alert->body = json_decode($alert->body);
-        });
-
+        
+        foreach ($alerts as $alert) {
+            $maildata = [
+                'title' => $alert->title,
+                'body' => json_decode($alert->body),
+                'message' => $alert->message,
+            ];
+            try {
+              if($alert->email_forward == 'n')
+              {
+                  Mail::to($alert->email)->send(new AlertEmail($maildata));
+                  $alert->email_forward = 'y';
+                  
+                  $alert->save();
+              }
+            } catch (\Exception $e) {
+                \Log::error("Failed to send email to {$alert->email}: " . $e->getMessage());
+            }
+        }
         return response()->json([
             'alerts' => $alerts,
             'count' => $alerts->count()
         ]);
+       
     }
+    
     public function updateStatus(Request $request)
     {
         $alert = Alert::find($request->alert_id);
@@ -543,14 +592,16 @@ class UserController extends Controller
         return response()->json(['success' => true]);
     }
     public function alert_delete(Request $request)
-    { 
+    {
         $user_id = auth()->user()->id;
         $alerts = Alert::where('user_id', $user_id)
             ->where('status', 'unseen')
             ->orderBy('created_at', 'desc')
             ->get();
         $alert = Alert::find($request->alert_id);
-        $alert->delete();
+        $alert->deleted_at = 'y';
+        $alert->status = 'seen';
+        $alert->save();
         return response()->json([
             'count' => $alerts->count(),
             'success' => true,
