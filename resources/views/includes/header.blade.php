@@ -112,18 +112,18 @@
             <!-- First List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-envelope mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Application</a>
+              <a href="{{ route('application.index') }}" class="text-decoration-none" style="color: #452C88;font-size:18px;">Application</a>
             </li>
 
             <!-- Second List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-house-crack mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Insurance</a>
+              <a href="{{ route('insurance.index') }}" class="text-decoration-none" style="color: #452C88;font-size:18px;">Insurance</a>
             </li>
             <!-- Third List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-hotel mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Hotel Booking</a>
+              <a href="{{ route('hotel.index') }}" class="text-decoration-none" style="color: #452C88;font-size:18px;">Hotel Booking</a>
             </li>
           </ul>
         </div>
