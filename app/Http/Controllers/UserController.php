@@ -57,9 +57,18 @@ class UserController extends Controller
                 $tot_apps = Application::count();
                 return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users'));
             } else if (isset($user->role) && $user->role == user_roles('2')) {
-                dd($user->role);
-            } else if (isset($user->role) && $user->role == user_roles('3')) {
-                dd($user->role);
+                $tot_apps = 0;
+                $staffs = 0;
+                $total_schd_apps = 0;
+                $total_pend_apps = 0;
+                $active_users = 0;
+
+                $active_users = Client::count();
+                $total_pend_apps = Appointment::where('appointment_type', 'pending')->count();
+                $total_schd_apps = Appointment::where('appointment_type', 'schedule')->count();
+                $staffs = User::where('role', 'Staff')->count();
+                $tot_apps = Application::count();
+                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users'));
             }
         } else {
             return redirect()->route('login');
