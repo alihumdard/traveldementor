@@ -7,22 +7,10 @@
   <div style="border: none;">
     <div class="bg-white" style="border-radius: 20px;">
       <div class="p-3">
-        <h3 class="page-title">
-          <span class="page-title-icon bg-gradient-primary text-white me-2 py-2">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.46997 9C7.40297 9 8.96997 7.433 8.96997 5.5C8.96997 3.567 7.40297 2 5.46997 2C3.53697 2 1.96997 3.567 1.96997 5.5C1.96997 7.433 3.53697 9 5.46997 9Z"
-                stroke="white" stroke-width="1.5" />
-              <path
-                d="M16.97 15H19.97C21.07 15 21.97 15.9 21.97 17V20C21.97 21.1 21.07 22 19.97 22H16.97C15.87 22 14.97 21.1 14.97 20V17C14.97 15.9 15.87 15 16.97 15Z"
-                stroke="white" stroke-width="1.5" />
-              <path
-                d="M11.9999 5H14.6799C16.5299 5 17.3899 7.29 15.9999 8.51L8.00995 15.5C6.61995 16.71 7.47994 19 9.31994 19H11.9999"
-                stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M5.48622 5.5H5.49777" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M18.4862 18.5H18.4978" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
+        <h3 class="page-title d-flex align-items-center">
+          <span class="page-title-icon bg-gradient-primary text-white me-2 py-2 d-flex justify-content-center align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" fill="white" width="24" height="24">
+              <path d="M128 0c17.7 0 32 14.3 32 32l0 32 128 0 0-32c0-17.7 14.3-32 32-32s32 14.3 32 32l0 32 48 0c26.5 0 48 21.5 48 48l0 48L0 160l0-48C0 85.5 21.5 64 48 64l48 0 0-32c0-17.7 14.3-32 32-32zM0 192l448 0 0 272c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 192zM329 305c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-95 95-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L329 305z" />
             </svg>
           </span>
           <span>Schedule Appointment</span>
@@ -39,7 +27,7 @@
 
           <!-- Search Input -->
           <div class="col-lg-6 col-md-8 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Country" style="height: 45px;"  />
+            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Country" style="height: 45px;" />
           </div>
         </div>
 

@@ -173,7 +173,7 @@ $notifications = NULL;
                                 <div class="row">
                                     
                                     <div class="col-lg-10">
-                                        <p class="mb-0" style="font-size: 11px;">${alert.title}</p>
+                                        <p class="mb-0" style="font-size: 16px;font-weight:600;">${alert.title}</p>
                                     </div>
                                     <div class="col-lg-2 text-center">
                                         <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -181,23 +181,34 @@ $notifications = NULL;
                                         </svg>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.name || 'No name'}</p>
-                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.message || 'No message'}</p>
+
+                                        <p class="mb-0" style="font-size: 14px; color:rgb(0, 0, 0); text-transform:capitalize;">${alert.body?.name || 'No name'}</p>
+                                        <p class="mb-0" style="font-size: 12px; color: #8F9090;">${alert.body?.message || 'No message'}</p>
+
                                     </div>
                                     <div class="col-lg-10">
-                                        <a href="${alert.url}"  style="text-decoration: none; color: inherit;">Goto Page</a>
+                                        <a href="${alert.url}"  style="text-decoration:underline; color: #452c88; font-weight:600;">Get details</a>
                                     </div>
-                                  <div class="col-lg-6 ">
-                                      <p class="mb-0 update" style="font-size: 15px; color:red; cursor: pointer;" data-update="${alert.id}">
-                                          <i class="fas fas fa-circle"></i>  
-                                      </p>
+
+                                   <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-3 d-flex align-items-center">
+                                                <p class="mb-0 update" style="font-size: 18px; color:#452C88; cursor: pointer;" data-update="${alert.id}">
+                                                    <i class="fa-solid fa-circle-check"></i>
+                                                </p>
+                                            </div>
+                                            <div class="col-3 d-flex align-items-center">
+                                                <p class="mb-0" style="font-size: 18px; color:#452C88; cursor: pointer;" data-id="${alert.id}">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                              
                                 </div>
-                                 <div class="col-lg-6">
-                                   <p class="mb-0" style="font-size: 15px; color:red; cursor: pointer;" data-id="${alert.id}">
-                                      <i class="fas fa-trash-alt"></i>  
-                                   </p>
-                                  </div>
-                            </div>
+
                             </div>
                         `;
                         $('#alertDropdown').append(alertHTML);

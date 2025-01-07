@@ -10,21 +10,13 @@
   }
 
   /* Ensure the parent element is positioned correctly */
-  .navbar-nav .nav-item {
-    position: relative;
-    /* Important for absolute positioning of dropdown */
-  }
-
+  
   /* Style the dropdown menu */
   .navbar-nav .nav-item .dropdown-menu {
     display: none;
     /* Initially hide the dropdown */
-    position: absolute;
-    top: 100%;
-    /* Positions the dropdown directly below the parent item */
-    right: 10;
-    /* Aligns the dropdown to the right of the parent item */
-    width: 200px;
+    width: 310px;
+    /* Aligns the dropdown to the left of the parent item */
     /* Set the width of the dropdown menu */
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -34,10 +26,11 @@
     opacity: 0;
     /* Hide the dropdown initially */
     visibility: hidden;
-    /*Hide it initially */
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Hide it initially */
+    transition: opacity 0.3s ease, visibility 0.3s ease, width 0.3s ease;
     /* Smooth transition effect */
-  }
+}
+
 
   /* Show the dropdown when the parent is hovered */
   .navbar-nav .nav-item:hover .dropdown-menu {
@@ -103,7 +96,7 @@
 <nav class="navbar p-0 row">
   <div class="navbar-menu-wrapper col-12 col-lg-12 col-sm-12 d-flex"
     style="background-color: #F5F5F5 !important; justify-content: flex-end;">
-    <ul class="navbar-nav navbar-nav-right">
+    <ul class="navbar-nav navbar-nav-right pr-lg-5">
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
           data-bs-toggle="dropdown">
@@ -119,18 +112,18 @@
             <!-- First List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-envelope mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;">Application</a>
+              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Application</a>
             </li>
 
             <!-- Second List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-house-crack mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;">Insurance</a>
+              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Insurance</a>
             </li>
             <!-- Third List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-hotel mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;">Hotel Booking</a>
+              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Hotel Booking</a>
             </li>
           </ul>
         </div>
@@ -172,7 +165,7 @@
             <a href="/notifications" style="text-decoration: none !important;">
               <div class="dropdown-divider"></div>
               <div class="p-2"
-                style="width: 100%; height: 100%; background: rgba(69, 44, 136, 0.06); border-left: 3px solid #452C88;">
+                style="width: 100%; height: 100%; background: rgba(69, 44, 136, 0.06); ">
                 <div class="row">
                   <div class="col-lg-10">
                     <p style="font-size: 11px;" class="mb-0">{{$value['title']}}</p>
@@ -278,18 +271,18 @@
             </div>
             <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
               <div class="nav-profile-text d-flex flex-column text-wrap">
-                <span class="mb-1 text-dark mx-4" style="font-size: large; color: #452C85;">{{(isset($user->name)) ?
+                <span class="mb-1 text-dark mx-4" style="font-size: 18px; color: #452C85;">{{(isset($user->name)) ?
                   $user->name : 'Guest'}}</span>
-                <span class="text-secondary mx-4 text-small">{{(isset($user->role)) ? $user->role : 'Guest'}}</span>
+                <span class="text-secondary mx-4" style="font-size: 18px;">{{(isset($user->role)) ? $user->role : 'Guest'}}</span>
               </div>
             </div>
           </a>
           <div class="dropdown-divider"></div>
           <!-- Logout link -->
-          <a class="dropdown-item preview-item" href="/logout">
+          <a class="dropdown-item preview-item" href="/logout" >
             <div class="preview-thumbnail">
               <div class="preview-icon">
-                <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="30" height="30" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M16.3488 6.7V3.85C16.3488 3.09413 16.0548 2.36922 15.5315 1.83475C15.0081 1.30027 14.2983 1 13.5581 1H3.7907C3.05056 1 2.34073 1.30027 1.81738 1.83475C1.29402 2.36922 1 3.09413 1 3.85V20.15C1 20.9059 1.29402 21.6308 1.81738 22.1652C2.34073 22.6997 3.05056 23 3.7907 23H13.5581C14.2983 23 15.0081 22.6997 15.5315 22.1652C16.0548 21.6308 16.3488 20.9059 16.3488 20.15V17.3C16.3488 16.5441 16.0548 15.8192 15.5315 15.2847C15.0081 14.7502 14.2983 14.45 13.5581 14.45H10.3988V10.75H16.3488C16.8888 10.75 17.3588 10.5003 17.5788 10.0653C17.7988 9.63027 17.7328 9.09025 17.2788 8.84725L11.2788 6.09725C11.0508 5.96025 10.7288 6.05025 10.4788 6.22725L6.47881 8.47725C6.27881 8.62725 6.10881 8.84725 6.06881 9.09725C6.02881 9.34725 6.10881 9.59725 6.27881 9.74725L10.4788 12.99725C10.7288 13.17425 11.0508 13.26425 11.2788 13.12725L17.2788 10.37725C17.7328 10.13425 17.7988 9.59425 17.5788 9.15925C17.3588 8.72425 16.8888 8.47425 16.3488 8.47425H10.3988V6.7H16.3488Z"
                     fill="#452C88" />
@@ -297,7 +290,7 @@
               </div>
             </div>
             <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-              <p class="ellipsis mb-0 mx-4" style="color: #452C88;">Logout</p>
+              <p class="ellipsis mb-0 mx-4" style="color: #452C88;font-size: 18px; font-weight:600;">Logout</p>
             </div>
           </a>
         </div>

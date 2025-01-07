@@ -188,9 +188,6 @@
                                 value="{{ isset($application) ? $application->ds_160 : old('ds_160') }}">
                             <span id="ds_160_error" class="error-message text-danger"></span>
                         </div>
-
-                    </div>
-                    <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12 ">
                             <label for="status">Status</label>
                             <select  name="status" id="status" class="form-select">
