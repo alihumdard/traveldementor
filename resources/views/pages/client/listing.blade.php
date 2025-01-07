@@ -38,7 +38,7 @@
             </div>
             @endif
             <table id="qoute-table" class="display" style="width:100%">
-              <thead class="table-dark" style="background-color:#452c88;">
+              <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
                   <th>Name</th>
