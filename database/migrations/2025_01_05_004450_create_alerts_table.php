@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email_forward')->default('n');
             $table->string('type');
             $table->string('body');
+            $table->text('message');
             $table->string('url');
             $table->string('deleted_at');
             $table->string('status')->default('unseen');

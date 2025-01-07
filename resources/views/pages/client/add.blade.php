@@ -128,6 +128,14 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" class="form-control"
+                                placeholder="Enter your email"
+                                value="{{ isset($client) ? $client->email : '' }}" />
+                            <span id="email_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="contact_no">Contact Number</label>
                             <input type="tel" name="contact_no" id="contact_no" class="form-control"
                                 placeholder="Enter your contact number"
@@ -202,6 +210,11 @@
             const surName = $('#sur_name').val().trim();
             if (!surName) {
                 $('#sur_name_error').text('Surname is required.');
+                isValid = false;
+            }
+            const email = $('#email').val().trim();
+            if (!email) {
+                $('#email_error').text('Email is required.');
                 isValid = false;
             }
 
