@@ -25,10 +25,7 @@
     border-color: #007bff;
   }
 
-  table th,
-  table td {
-    text-transform: capitalize;
-  }
+
 </style>
 <!-- partial -->
 <div class="content-wrapper py-0 my-2">
