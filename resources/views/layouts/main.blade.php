@@ -192,12 +192,12 @@ $notifications = NULL;
                                           <i class="fas fas fa-circle"></i>  
                                       </p>
                                 </div>
-                              <div class="col-lg-6">
-                                  <p class="mb-0" style="font-size: 15px; color:red; cursor: pointer;" data-id="${alert.id}">
+                                 <div class="col-lg-6">
+                                   <p class="mb-0" style="font-size: 15px; color:red; cursor: pointer;" data-id="${alert.id}">
                                       <i class="fas fa-trash-alt"></i>  
-                                  </p>
-                              </div>
-                                </div>
+                                   </p>
+                                  </div>
+                            </div>
                             </div>
                         `;
                         $('#alertDropdown').append(alertHTML);
@@ -227,7 +227,7 @@ function expiry() {
     });
 }
 
-setInterval(expiry, 10000);  // 10 seconds
+setInterval(expiry, 10000);
 
     fetchAlerts();
         setInterval(fetchAlerts, 10000);

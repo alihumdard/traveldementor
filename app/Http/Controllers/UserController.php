@@ -19,6 +19,8 @@ use App\Models\VfsEmbassy;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use App\Mail\AlertEmail;
+use Illuminate\Support\Facades\Mail;
 
 
 class UserController extends Controller
@@ -456,19 +458,19 @@ class UserController extends Controller
     {
         $user_id = auth()->user()->id;
         $users = Application::with('client')->get();
-        // dd($users);
         foreach ($users as $user) {
             if ($user->passport_expiry) {
+                // dd($user->passport_expiry);
                 $passportExpiry = Carbon::parse($user->passport_expiry);
                 $alertDate = $passportExpiry->subDays(7);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-
-                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'passport_expiry')->where('status','unseen')->where('deleted_at','n')->first();
+                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'passport_expiry')->first();
                     if (empty($alert)) {
+                        // dd($alert);
                         Alert::create([
                             'client_id' => $user->client->id,
                             'name' => $user->client->name,
-                            'email' => 'shoaibasad45@gmail.com',
+                            'email' => $user->client->email,
                             'email_forward' => 'n',
                             'type' => 'passport_expiry',
                             'user_id' => $user_id,
@@ -494,12 +496,12 @@ class UserController extends Controller
                 $visaExpiry = Carbon::parse($user->visa_expiry_date);
                 $alertDate = $visaExpiry->subDays(7);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'visa_expiry_date')->where('status','unseen')->where('deleted_at','n')->first();
+                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'visa_expiry_date')->first();
                     if (empty($alert)) {
                         Alert::create([
                             'client_id' => $user->client->id,
                             'name' => $user->client->name,
-                            'email' => 'shoaibasad45@gmail.com',
+                            'email' => $user->client->email,
                             'email_forward' => 'n',
                             'type' => 'visa_expiry_date',
                             'user_id' => $user_id,
@@ -524,12 +526,12 @@ class UserController extends Controller
                 $currentYearDob = $dob->copy()->year(Carbon::now()->year);
                 $alertDate = $currentYearDob->subDays(2);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'date_of_birth')->where('status','unseen')->where('deleted_at','n')->first();
+                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'date_of_birth')->first();
                     if (empty($alert)) {
                         Alert::create([
                             'client_id' => $user->client->id,
                             'name' => $user->client->name,
-                            'email' => 'shoaibasad45@gmail.com',
+                            'email' => $user->client->email,
                             'email_forward' => 'n',
                             'type' => 'date_of_birth',
                             'user_id' => $user_id,
@@ -548,19 +550,39 @@ class UserController extends Controller
     public function fetchUnseenAlerts()
     {
         $user_id = auth()->user()->id;
+    
+        // Fetch unseen alerts for the user
         $alerts = Alert::where('user_id', $user_id)
             ->where('status', 'unseen')
+ 
             ->orderBy('created_at', 'desc')
             ->get();
-        $alerts->each(function ($alert) {
-            $alert->body = json_decode($alert->body);
-        });
-
+        
+        foreach ($alerts as $alert) {
+            $maildata = [
+                'title' => $alert->title,
+                'body' => json_decode($alert->body),
+                'message' => $alert->message,
+            ];
+            try {
+              if($alert->email_forward == 'n')
+              {
+                  Mail::to($alert->email)->send(new AlertEmail($maildata));
+                  $alert->email_forward = 'y';
+                  
+                  $alert->save();
+              }
+            } catch (\Exception $e) {
+                \Log::error("Failed to send email to {$alert->email}: " . $e->getMessage());
+            }
+        }
         return response()->json([
             'alerts' => $alerts,
             'count' => $alerts->count()
         ]);
+       
     }
+    
     public function updateStatus(Request $request)
     {
         $alert = Alert::find($request->alert_id);
@@ -577,7 +599,7 @@ class UserController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         $alert = Alert::find($request->alert_id);
-        $alert->deleted_at='y';
+        $alert->deleted_at = 'y';
         $alert->status = 'seen';
         $alert->save();
         return response()->json([

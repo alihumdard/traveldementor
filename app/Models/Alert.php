@@ -18,6 +18,7 @@ class Alert extends Model
         'name',
         'email',
         'email_forward',
+        'message',
         'type',
         'deleted_at',
     ];

@@ -35,6 +35,7 @@ class ClientController extends Controller
             [
                 'name'                 => $request->name,
                 'sur_name'             => $request->sur_name,
+                'email'                => $request->email,
                 'contact_no'           => $request->contact_no,
                 'refer_person'         => $request->refer_person,
                 'dob'                  => $request->dob,
