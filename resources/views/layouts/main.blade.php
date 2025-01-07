@@ -163,9 +163,7 @@ $notifications = NULL;
             url: '{{ route('alerts.fetch') }}',
             method: 'GET',
             success: function(response) {
-                // Update the alert count
                 $('#alertBadge').text(response.count);
-
                 $('#alertDropdown').empty();
                 if (response.alerts.length > 0) {
                     response.alerts.forEach(function(alert) {
@@ -183,8 +181,8 @@ $notifications = NULL;
                                         </svg>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.body?.name || 'No name'}</p>
-                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.body?.message || 'No message'}</p>
+                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.name || 'No name'}</p>
+                                        <p class="mb-0" style="font-size: 11px; color: #8F9090;">${alert.message || 'No message'}</p>
                                     </div>
                                     <div class="col-lg-10">
                                         <a href="${alert.url}"  style="text-decoration: none; color: inherit;">Goto Page</a>
@@ -210,6 +208,27 @@ $notifications = NULL;
             }
         });
     }
+
+    // Define the function to fetch alerts
+function expiry() {
+    $.ajax({
+        url: '/passport/expiry',  // Route to call the controller
+        method: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',  // CSRF Token to protect the request
+        },
+        success: function(response) {
+            console.log('Alerts checked successfully!');
+            // You can also update the UI to show the alert message or any other updates here.
+        },
+        error: function(xhr, status, error) {
+            console.log('Error: ' + error);
+        }
+    });
+}
+
+setInterval(expiry, 10000);  // 10 seconds
+
     fetchAlerts();
         setInterval(fetchAlerts, 10000);
     </script>

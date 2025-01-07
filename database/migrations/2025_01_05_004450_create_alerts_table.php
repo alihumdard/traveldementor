@@ -14,9 +14,15 @@ return new class extends Migration
         Schema::create('alerts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('client_id');
             $table->string('title');
+            $table->string('name');
+            $table->string('email');
+            $table->string('email_forward')->default('n');
+            $table->string('type');
             $table->string('body');
             $table->string('url');
+            $table->string('deleted_at');
             $table->string('status')->default('unseen');
             $table->timestamps();
         });
