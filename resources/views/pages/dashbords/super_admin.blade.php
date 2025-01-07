@@ -33,7 +33,7 @@
     </div>
     <div class="row">
 
-        <div class="col-lg-6 col-xl-4 col-md-6 mb-4">
+        {{-- <div class="col-lg-6 col-xl-4 col-md-6 mb-4">
             <a href="#">
                 <div class="card h-100" style="border-radius: 20px;">
                     <div class="own-card-padding card-body d-flex justify-content-between" style="border-top: none !important;">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </div> --}}
         <div class="col-lg-6 col-xl-4 col-md-6 mb-4">
             <a href="{{route('application.index')}}">
                 <div class="card h-100" style="border-radius: 20px;">
@@ -72,7 +72,7 @@
             </a>
         </div>
         <div class="col-lg-6 col-xl-4 col-md-6 mb-4">
-            <a href="#">
+            <a href="{{ route('pending.appointment.index') }}">
                 <div class="  card h-100" style="border-radius: 20px;">
                     <div class=" own-card-padding card-body d-flex justify-content-between" style="border-top:none !important;">
                         <div>
@@ -92,7 +92,7 @@
             </a>
         </div>
         <div class="col-lg-6 col-xl-4 col-md-6 mb-4">
-            <a href="#">
+            <a href="{{ route('schedule.appointment.index') }}">
                 <div class="  card h-100" style="border-radius: 20px;">
                     <div class=" own-card-padding card-body d-flex justify-content-between" style="border-top:none !important;">
                         <div>
@@ -108,8 +108,8 @@
                 </div>
             </a>
         </div>
-        <div class="col-lg-6 col-xl-4 col-md-6 mb-4">
-            <a href="#">
+        {{-- <div class="col-lg-6 col-xl-4 col-md-6 mb-4">
+            <a href="">
                 <div class="card h-100" style="border-radius: 20px;">
                     <div class=" own-card-padding card-body d-flex justify-content-between" style="border-top:none !important;">
                         <div>
@@ -124,7 +124,7 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </div> --}}
     </div>
 
 </div>
