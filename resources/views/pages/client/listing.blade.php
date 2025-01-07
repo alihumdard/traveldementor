@@ -42,7 +42,7 @@
                 <tr style="font-size: small;">
                   <th>#</th>
                   <th>Name</th>
-                  <th>Surname</th>
+                  <th>Email</th>
                   <th>Contact no</th>
                   <th>Date of birth</th>
                   <th>Refer Person</th>
@@ -54,7 +54,7 @@
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $client->name }}</td>
-                  <td>{{ $client->sur_name}}</td>
+                  <td>{{ $client->email}}</td>
                   <td>{{ $client->contact_no }}</td>
                   <td>{{ $client->dob }}</td>
                   <td>{{ $client->refer_person }}</td>
