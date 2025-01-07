@@ -1,11 +1,5 @@
 @extends('layouts.main')
 @section('title', 'Travel Health Insurance')
-<style>
-  table th,
-  table td {
-    text-transform: capitalize;
-  }
-</style>
 @section('content')
 @include('pages.insurance.detail_page_modal')
 
