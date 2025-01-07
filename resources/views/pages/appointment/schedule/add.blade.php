@@ -122,7 +122,7 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="vfs_embassy_id">Vfs Embassy</label>
+                            <label for="vfs_embassy_id">VFS Embassy</label>
                             <select name="vfs_embassy_id" id="vfs_embassy_id" class="form-select">
                                 <option disabled selected>Select Vfs Embassy</option>
                                 @foreach ($vfsembasses as $vfsembassy)
@@ -144,8 +144,8 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="no_application">Application Number</label>
-                            <input type="number" name="no_application" id="no_application" class="form-control" value="{{ isset($appointment) ? $appointment->no_application : '' }}">
+                            <label for="no_application">No of Applicants</label>
+                            <input type="number" name="no_application" id="no_application" class="form-control" value="{{ isset($appointment) ? $appointment->no_application : '' }}" placeholder="Enter No of Apllicants">
                             <span id="no_application_error" class="error-message text-danger"></span>
                         </div>
                 
@@ -202,8 +202,16 @@
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="appointment_refer_no">Appointment Refer no</label>
-                            <input type="number" name="appointment_refer_no" id="appointment_refer_no" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_refer_no : '' }}">
+                            <input type="number" name="appointment_refer_no" id="appointment_refer_no" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_refer_no : '' }}" placeholder="Enter Appointment Refer no">
                             <span id="appointment_refer_no_error" class="error-message text-danger"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="status">Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="Inprocess" {{ isset($appointment) && $appointment->status == 'Inprocess' ? 'selected' : '' }}>Inprocess</option>
+                                <option value="Done" {{ isset($appointment) && $appointment->status == 'Done' ? 'selected' : '' }}>Done</option>
+                            </select>
+                            <span id="status_error" class="error-message text-danger"></span>
                         </div>
                     </div>
                 
@@ -307,6 +315,10 @@ $(document).ready(function () {
 
         if ($('#bio_metric_appointment_date').val().trim() === '') {
             $('#bio_metric_appointment_date_error').text('This field is required');
+            isValid = false;
+        }
+        if ($('#status').val() === null || $('#status').val() === '') {
+            $('#status_error').text('This field is required');
             isValid = false;
         }
 

@@ -81,13 +81,9 @@
             <div class="p-3">
                 <h3 class="page-title">
                     <span class="page-title-icon bg-gradient-primary text-white me-2 py-2">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M16.6667 0H3.33333C2.44928 0 1.60143 0.35119 0.976311 0.976311C0.35119 1.60143 0 2.44928 0 3.33333V16.6667C0 17.5507 0.35119 18.3986 0.976311 19.0237C1.60143 19.6488 2.44928 20 3.33333 20H16.6667C17.5507 20 18.3986 19.6488 19.0237 19.0237C19.6488 18.3986 20 17.5507 20 16.6667V3.33333C20 2.44928 19.6488 1.60143 19.0237 0.976311C18.3986 0.35119 17.5507 0 16.6667 0ZM17.7778 16.6667C17.7778 16.9614 17.6607 17.244 17.4523 17.4523C17.244 17.6607 16.9614 17.7778 16.6667 17.7778H3.33333C3.03865 17.7778 2.75603 17.6607 2.54766 17.4523C2.33929 17.244 2.22222 16.9614 2.22222 16.6667V3.33333C2.22222 3.03865 2.33929 2.75603 2.54766 2.54766C2.75603 2.33929 3.03865 2.22222 3.33333 2.22222H16.6667C16.9614 2.22222 17.244 2.33929 17.4523 2.54766C17.6607 2.75603 17.7778 3.03865 17.7778 3.33333V16.6667Z"
-                                fill="white" />
-                            <path
-                                d="M13.3333 8.88888H11.1111V6.66665C11.1111 6.37197 10.994 6.08935 10.7857 5.88098C10.5773 5.67261 10.2947 5.55554 9.99999 5.55554C9.7053 5.55554 9.42269 5.67261 9.21431 5.88098C9.00594 6.08935 8.88888 6.37197 8.88888 6.66665V8.88888H6.66665C6.37197 8.88888 6.08935 9.00594 5.88098 9.21431C5.67261 9.42269 5.55554 9.7053 5.55554 9.99999C5.55554 10.2947 5.67261 10.5773 5.88098 10.7857C6.08935 10.994 6.37197 11.1111 6.66665 11.1111H8.88888V13.3333C8.88888 13.628 9.00594 13.9106 9.21431 14.119C9.42269 14.3274 9.7053 14.4444 9.99999 14.4444C10.2947 14.4444 10.5773 14.3274 10.7857 14.119C10.994 13.9106 11.1111 13.628 11.1111 13.3333V11.1111H13.3333C13.628 11.1111 13.9106 10.994 14.119 10.7857C14.3274 10.5773 14.4444 10.2947 14.4444 9.99999C14.4444 9.7053 14.3274 9.42269 14.119 9.21431C13.9106 9.00594 13.628 8.88888 13.3333 8.88888Z"
-                                fill="white" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="20" width="20">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <path d="M0 32C0 14.3 14.3 0 32 0L480 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l0 384c17.7 0 32 14.3 32 32s-14.3 32-32 32l-176 0 0-48c0-26.5-21.5-48-48-48s-48 21.5-48 48l0 48L32 512c-17.7 0-32-14.3-32-32s14.3-32 32-32L32 64C14.3 64 0 49.7 0 32zm96 80l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zM240 96c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zm112 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zM112 192c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zm112 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zM328 384c13.3 0 24.3-10.9 21-23.8c-10.6-41.5-48.2-72.2-93-72.2s-82.5 30.7-93 72.2c-3.3 12.8 7.8 23.8 21 23.8l144 0z" fill="white" />
                         </svg>
                     </span>
                     <span>Hotel Booking</span>
@@ -98,35 +94,35 @@
                     @csrf
                     <div class="row">
                         <input type="hidden" name="id" value="{{ isset($hotelbooking) ? $hotelbooking->id : '' }}">
-                        
+
                         <!-- Application ID -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="application_id">Applicant Name</label>
                             <select name="application_id" id="application_id" class="form-select">
-                                <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select application</option>
+                                <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select Applicant</option>
                                 @foreach ($clients as $client)
-                                    <option value="{{ $client->id }}" {{ isset($hotelbooking) && $hotelbooking->application_id == $client->id ? 'selected' : '' }}>
-                                        {{ $client->name }}
-                                    </option>
+                                <option value="{{ $client->id }}" {{ isset($hotelbooking) && $hotelbooking->application_id == $client->id ? 'selected' : '' }}>
+                                    {{ $client->name }}
+                                </option>
                                 @endforeach
                             </select>
                             <span id="application_id_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Country -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
                             <select name="country_id" id="country_id" class="form-select">
                                 <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select country</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}" {{ isset($hotelbooking) && $hotelbooking->country_id == $country->id ? 'selected' : '' }}>
-                                        {{ $country->name }}
-                                    </option>
+                                <option value="{{ $country->id }}" {{ isset($hotelbooking) && $hotelbooking->country_id == $country->id ? 'selected' : '' }}>
+                                    {{ $country->name }}
+                                </option>
                                 @endforeach
                             </select>
                             <span id="country_id_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Dates -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="s_date">Start Date</label>
@@ -143,7 +139,7 @@
                             <input type="date" name="hotel_cancel_due_date" id="hotel_cancel_due_date" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->hotel_cancel_due_date : '' }}">
                             <span id="hotel_cancel_due_date_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Hotel Details -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="name">Hotel Name</label>
@@ -151,8 +147,8 @@
                             <span id="name_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="reservation_id">Reservation</label>
-                            <input type="text" name="reservation_id" id="reservation_id" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_id : '' }}" placeholder="Enter reservation">
+                            <label for="reservation_id">Reservation ID</label>
+                            <input type="text" name="reservation_id" id="reservation_id" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_id : '' }}" placeholder="Enter Reservation ID">
                             <span id="reservation_id_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
@@ -160,7 +156,7 @@
                             <input type="email" name="reservation_email" id="reservation_email" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_email : '' }}" placeholder="Enter reservation email">
                             <span id="reservation_email_error" class="error-message text-danger"></span>
                         </div>
-                
+
                         <!-- Status -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="status">Status</label>
@@ -173,7 +169,7 @@
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>
                     </div>
-                
+
                     <div class="mt-3">
                         <div class="row justify-content-end mt-2">
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-3">
@@ -190,7 +186,7 @@
                         </div>
                     </div>
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -205,12 +201,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $("#formData").on("submit", function (e) {
+    $(document).ready(function() {
+        $("#formData").on("submit", function(e) {
             e.preventDefault(); // Prevent form submission
-            
+
             let isValid = true; // Track overall form validity
-            
+
             // Clear previous error messages
             $(".error-message").text("");
 
@@ -279,8 +275,6 @@
             }
         });
     });
-
-    
 </script>
 
 @endPushOnce

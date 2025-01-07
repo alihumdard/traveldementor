@@ -26,6 +26,7 @@ class Appointment extends Model
         'bio_metric_appointment_date',
         'appointment_reschedule',
         'appointment_refer_no',
+        'status',
         'created_by',
     ];
     public function client()

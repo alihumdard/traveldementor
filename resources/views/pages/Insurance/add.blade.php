@@ -143,19 +143,17 @@
     <div style="border: none;">
         <div class="bg-white" style="border-radius: 20px;">
             <div class="p-3">
-                <h3 class="page-title">
-                    <span class="page-title-icon bg-gradient-primary text-white me-2 py-2">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M16.6667 0H3.33333C2.44928 0 1.60143 0.35119 0.976311 0.976311C0.35119 1.60143 0 2.44928 0 3.33333V16.6667C0 17.5507 0.35119 18.3986 0.976311 19.0237C1.60143 19.6488 2.44928 20 3.33333 20H16.6667C17.5507 20 18.3986 19.6488 19.0237 19.0237C19.6488 18.3986 20 17.5507 20 16.6667V3.33333C20 2.44928 19.6488 1.60143 19.0237 0.976311C18.3986 0.35119 17.5507 0 16.6667 0ZM17.7778 16.6667C17.7778 16.9614 17.6607 17.244 17.4523 17.4523C17.244 17.6607 16.9614 17.7778 16.6667 17.7778H3.33333C3.03865 17.7778 2.75603 17.6607 2.54766 17.4523C2.33929 17.244 2.22222 16.9614 2.22222 16.6667V3.33333C2.22222 3.03865 2.33929 2.75603 2.54766 2.54766C2.75603 2.33929 3.03865 2.22222 3.33333 2.22222H16.6667C16.9614 2.22222 17.244 2.33929 17.4523 2.54766C17.6607 2.75603 17.7778 3.03865 17.7778 3.33333V16.6667Z"
-                                fill="white" />
-                            <path
-                                d="M13.3333 8.88888H11.1111V6.66665C11.1111 6.37197 10.994 6.08935 10.7857 5.88098C10.5773 5.67261 10.2947 5.55554 9.99999 5.55554C9.7053 5.55554 9.42269 5.67261 9.21431 5.88098C9.00594 6.08935 8.88888 6.37197 8.88888 6.66665V8.88888H6.66665C6.37197 8.88888 6.08935 9.00594 5.88098 9.21431C5.67261 9.42269 5.55554 9.7053 5.55554 9.99999C5.55554 10.2947 5.67261 10.5773 5.88098 10.7857C6.08935 10.994 6.37197 11.1111 6.66665 11.1111H8.88888V13.3333C8.88888 13.628 9.00594 13.9106 9.21431 14.119C9.42269 14.3274 9.7053 14.4444 9.99999 14.4444C10.2947 14.4444 10.5773 14.3274 10.7857 14.119C10.994 13.9106 11.1111 13.628 11.1111 13.3333V11.1111H13.3333C13.628 11.1111 13.9106 10.994 14.119 10.7857C14.3274 10.5773 14.4444 10.2947 14.4444 9.99999C14.4444 9.7053 14.3274 9.42269 14.119 9.21431C13.9106 9.00594 13.628 8.88888 13.3333 8.88888Z"
-                                fill="white" />
-                        </svg>
-                    </span>
-                    <span>Insurance</span>
-                </h3>
+                <div class="p-3">
+                    <h3 class="page-title">
+                        <span class="page-title-icon bg-gradient-primary text-white me-2 py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="20" width="20">
+                                <path fill="white" d="M543.8 287.6c17 0 32-14 32-32.1c1-9-3-17-11-24L309.5 7c-6-5-14-7-21-7s-15 1-22 8L10 231.5c-7 7-10 15-10 24c0 18 14 32.1 32 32.1l32 0 0 160.4c0 35.3 28.7 64 64 64l102.3 0-31.3-52.2c-4.1-6.8-2.6-15.5 3.5-20.5L288 368l-60.2-82.8c-10.9-15 8.2-33.5 22.8-22l117.9 92.6c8 6.3 8.2 18.4 .4 24.9L288 448l38.4 64 122.1 0c35.5 0 64.2-28.8 64-64.3l-.7-160.2 32 0z" />
+                            </svg>
+                        </span>
+                        <span>Travel Hotel Insurance</span>
+                    </h3>
+                </div>
+
             </div>
             <div class="container" id="home">
                 <form action="{{ route('insurance.store') }}" id="formData" method="post">
@@ -196,9 +194,9 @@
 
                         <!-- Plan Type -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="plan_type">Plan Type</label>
+                            <label for="plan_type">Insurance Plan Type</label>
                             <select name="plan_type" id="plan_type" class="form-select">
-                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select Plan Type</option>
+                                <option disabled {{ isset($insurance) ? '' : 'selected' }}>Select Insurance Plan Type</option>
                                 <option value="individual" {{ isset($insurance) && $insurance->plan_type == 'individual'
                                     ? 'selected' : '' }}>Individual</option>
                                 <option value="family" {{ isset($insurance) && $insurance->plan_type == 'family' ?
@@ -227,7 +225,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="policy_no">Policy Number</label>
                             <input type="number" name="policy_no" id="policy_no" class="form-control"
-                                value="{{ isset($insurance) ? $insurance->policy_no : '' }}">
+                                value="{{ isset($insurance) ? $insurance->policy_no : '' }}" placeholder="Enter Policy Number">
                             <span id="policy_no_error" class="error-message text-danger"></span>
                         </div>
 
@@ -243,7 +241,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="amount">Amount</label>
                             <input type="number" name="amount" id="amount" class="form-control"
-                                value="{{ isset($insurance) ? $insurance->amount : '' }}">
+                                value="{{ isset($insurance) ? $insurance->amount : '' }}" placeholder="Enter Amount">
                             <span id="amount_error" class="error-message text-danger"></span>
                         </div>
 
@@ -252,7 +250,7 @@
                             <label for="payable_after_40_per">Payable After 40%</label>
                             <input type="number" name="payable_after_40_per" id="payable_after_40_per"
                                 class="form-control"
-                                value="{{ isset($insurance) ? $insurance->payable_after_40_per : '' }}">
+                                value="{{ isset($insurance) ? $insurance->payable_after_40_per : '' }}" placeholder=" Enter Payable After 40%">
                             <span id="payable_after_40_per_error" class="error-message text-danger"></span>
                         </div>
 
@@ -260,7 +258,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="net_payable">Net Payable</label>
                             <input type="number" name="net_payable" id="net_payable" class="form-control"
-                                value="{{ isset($insurance) ? $insurance->net_payable : '' }}">
+                                value="{{ isset($insurance) ? $insurance->net_payable : '' }}" placeholder="Enter Net Payable">
                             <span id="net_payable_error" class="error-message text-danger"></span>
                         </div>
 
@@ -384,8 +382,8 @@
                 isValid = false;
             }
             if (isValid) {
-            this.submit(); // Submit the form programmatically
-        }
+                this.submit(); // Submit the form programmatically
+            }
         });
     });
 </script>

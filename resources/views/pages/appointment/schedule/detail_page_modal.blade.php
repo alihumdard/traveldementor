@@ -87,12 +87,16 @@
                   <td style="padding: 12px;" id="bio_metric_appointment_date"></td>
                 </tr>
                 <tr>
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Number of Applications</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">No of Applicants</td>
                   <td style="padding: 12px;" id="no_application"></td>
                 </tr>
                 <tr>
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Payment Mode</td>
                   <td style="padding: 12px;" id="pay_mod"></td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
+                  <td style="padding: 12px;" id="status"></td>
                 </tr>
               </tbody>
             </table>

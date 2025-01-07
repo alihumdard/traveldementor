@@ -169,8 +169,7 @@
         $("#no_application").text(response.detail_page.no_application);
         $("#pay_mod").text(response.detail_page.payment_mode);
         $("#visa_status").text(response.detail_page.visa_status);
-
-
+        $("#status").text(response.detail_page.status);
         $('#qoutedetail').modal('show'); // Show the modal with updated details
       },
       error: function(error) {

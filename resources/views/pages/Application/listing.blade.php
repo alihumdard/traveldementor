@@ -76,6 +76,9 @@
     backdrop-filter: blur(5px);
     background-color: #01223770;
   }
+  .dataTables_filter{
+    margin-bottom: 8px;
+  }
 </style>
 @section('content')
 @include('pages.application.detail_page_modal')
