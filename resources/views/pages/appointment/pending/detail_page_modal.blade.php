@@ -63,13 +63,13 @@
                   <td style="padding: 12px;"id="category"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">No of Application</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">No of Applicants</td>
                   <td style="padding: 12px;" id="no_application"></td>
                 </tr>
-                {{-- <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <tr style="background-color: #ffffff; transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
-                  <td style="padding: 12px;">Pending</td>
-                </tr> --}}
+                  <td style="padding: 12px;" id="status"></td>
+                </tr> 
               </tbody>
             </table>
           </div>

@@ -59,6 +59,7 @@ class PendingController extends Controller
                 'bio_metric_appointment_date'  => $request->bio_metric_appointment_date,
                 'appointment_reschedule'       => $request->appointment_reschedule,
                 'appointment_refer_no'         => $request->appointment_refer_no,
+                'status'                       => $request->status,
                 'created_by'                   => $user->id,
             ]
         );

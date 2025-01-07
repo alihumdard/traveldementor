@@ -100,9 +100,9 @@
                         <input type="hidden" name="appointment_type" value="pending">
                         
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="application_id">Application</label>
+                            <label for="application_id">Applicant Name</label>
                             <select name="application_id" id="application_id" class="form-select">
-                                <option disabled selected> Select Application</option>
+                                <option disabled selected> Select Applicant</option>
                                 @foreach ($clients as $client)
                                     <option value="{{ $client->id }}" {{ isset($appointment) && $appointment->application_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                                 @endforeach
@@ -144,8 +144,8 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="no_application">Application Number</label>
-                            <input type="number" name="no_application" id="no_application" class="form-control" value="{{ isset($appointment) ? $appointment->no_application : '' }}">
+                            <label for="no_application">No of Applicants</label>
+                            <input type="number" name="no_application" id="no_application" class="form-control" value="{{ isset($appointment) ? $appointment->no_application : '' }}" placeholder="Enter No of Applicants">
                             <span id="no_application_error" class="error-message text-danger"></span>
                         </div>
                 

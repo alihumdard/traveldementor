@@ -5,11 +5,6 @@
   table td {
     text-transform: capitalize;
   }
-
-  .dataTables_filter {
-    display: none;
-    /* Hides the default search box */
-  }
 </style>
 @section('content')
 
@@ -27,22 +22,20 @@
           </span>
           <span>Hotel Booking</span>
         </h3>
-        <div class="row mb-2 d-flex justify-content-end">
+        <div class="row mb-2 d-flex justify-content-between">
           <!-- Add Booking Button -->
-          <div class="col-lg-2 col-md-4 col-sm-12 my-2 pr-0 ">
+          <div class="col-12 col-md-2 offset-md-2 my-2">
             <a href="{{ route('hotel.add') }}">
               <button class="btn add-btn text-white w-100" style="background-color: #452C88;">
                 <span><i class="fa fa-plus mr-2"></i> Add Booking</span>
               </button>
             </a>
           </div>
+
           <!-- Filter By Client Dropdown with Icon in the same line -->
-          <div class="col-lg-3 col-md-4 col-sm-12 my-2">
-            <div class="input-group d-flex">
-              <div class="input-group-text" style="background-color: white; border: 1px solid #DDDDDD; display: flex; align-items: center;">
-                <i class="fa fa-filter"></i>
-              </div>
-              <select name="filter_by_country" id="filter_by_country" class="form-select select-group" style="border-left: none;height: 45px;" >
+          <div class="col-12 col-md-4 my-2">
+            <div class="input-group">
+              <select name="filter_by_country" id="filter_by_country" class="form-select select-group select2" style="height: 45px;">
                 <option value="">Filter By Applicant</option>
                 @foreach ($clients as $client)
                 <option value="{{ $client->name }}">{{ $client->name }}</option>
@@ -51,9 +44,11 @@
             </div>
           </div>
 
-          <!-- Search Name of Client -->
-          <div class="col-lg-3 col-md-4 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control" placeholder="Search By Country" style="height: 45px;" />
+          <!-- Search Name of Client with Icon -->
+          <div class="col-12 col-md-4 my-2">
+            <div class="input-group">
+              <input type="text" id="search_input" class="form-control" placeholder="Search By Country" style="height: 45px;" />
+            </div>
           </div>
         </div>
         <hr>
@@ -191,14 +186,25 @@
 <script>
   var users_table = $('#qoute-table').DataTable({});
 
-  $('#filter_by_country').on('change', function() {
-    var selectedStatus = $(this).val();
-    users_table.column(1).search(selectedStatus).draw();
+  // $('#filter_by_country').on('change', function() {
+  //   var selectedStatus = $(this).val();
+  //   users_table.column(1).search(selectedStatus).draw();
+  // });
+  $('.select2').select2({
+    placeholder: "Select an option",
+    allowClear: true
   });
   $('#search_input').on('keyup', function() {
     var searchValue = $(this).val();
     // Apply search only on column index 1
     users_table.column(2).search(searchValue).draw();
+  });
+  $(document).ready(function() {
+    // Remove the 'form-select' and 'select-group' classes
+    $('#filter_by_country').removeClass('form-select select-group');
+
+    // Increase the height of the dropdown
+    $('#filter_by_country').css('height', '260px');
   });
 </script>
 

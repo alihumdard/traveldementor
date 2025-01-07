@@ -13,7 +13,7 @@
             <path d="M4 4H20C21.1046 4 22 4.89543 22 6V18C22 19.1046 21.1046 20 20 20H4C2.89543 20 2 19.1046 2 18V6C2 4.89543 2.89543 4 4 4Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M22 6L12 13L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <h5 class="modal-title text-white ml-2" id="qoutedetaillable"><span>Insurance</span></h5>
+          <h5 class="modal-title text-white ml-2" id="qoutedetaillable"><span>Travel Health Insurance</span></h5>
         </div>
         <button class="btn p-0" data-dismiss="modal">
           <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +52,7 @@
                   <td style="padding: 12px;" id="country"></td>
                 </tr>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Plan Type</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Insurance Plan Type</td>
                   <td style="padding: 12px;" id="plan_type"></td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">

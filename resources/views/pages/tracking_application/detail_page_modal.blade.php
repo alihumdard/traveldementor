@@ -76,7 +76,7 @@
                   <td style="padding: 12px;" id="visa_exp_date">loading</td>
                 </tr>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VISA Refer No</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VSF Refer No</td>
                   <td style="padding: 12px;"id="vsf_ref_no">loading</td>
                 </tr>
                 <tr style="background-color: #ffffff; transition: all 0.3s;">
@@ -85,7 +85,7 @@
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
-                  <td style="padding: 12px;">Active</td>
+                  <td style="padding: 12px;" id="status">Active</td>
                 </tr>
               </tbody>
             </table>

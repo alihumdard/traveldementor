@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Insurance')
+@section('title', 'Travel Health Insurance')
 <style>
   table th,
   table td {
@@ -19,7 +19,7 @@
               <path d="M543.8 287.6c17 0 32-14 32-32.1c1-9-3-17-11-24L309.5 7c-6-5-14-7-21-7s-15 1-22 8L10 231.5c-7 7-10 15-10 24c0 18 14 32.1 32 32.1l32 0 0 160.4c0 35.3 28.7 64 64 64l102.3 0-31.3-52.2c-4.1-6.8-2.6-15.5 3.5-20.5L288 368l-60.2-82.8c-10.9-15 8.2-33.5 22.8-22l117.9 92.6c8 6.3 8.2 18.4 .4 24.9L288 448l38.4 64 122.1 0c35.5 0 64.2-28.8 64-64.3l-.7-160.2 32 0z" />
             </svg>
           </span>
-          <span>Insurance</span>
+          <span>Travel Health Insurance</span>
         </h3>
         <div class="row mb-2 justify-content-end">
           <!-- Add Insurance Button -->
@@ -32,7 +32,7 @@
           </div>
           <!-- Search Inputs -->
           <div class="col-lg-6 col-md-8 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Applicant or Another Column" style="height: 45px;" />
+            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Applicant or Policy No" style="height: 45px;" />
           </div>
         </div>
         <hr>
