@@ -94,6 +94,19 @@ function view_permission($page_name)
         case 'Staff':
             switch ($page_name) {
                 case 'index':
+                case 'settings':
+                case 'vfs':
+                case 'categories':
+                case 'countries':
+                case 'application':
+                case 'tracking_application':
+                case 'schedule_appointment':
+                case 'pending_appointment':
+                case 'insurance':
+                case 'tracking':
+                case 'hotel_booking':
+                case 'client':
+                case 'ds_160':
                     return true;
                 default:
                     return false;
