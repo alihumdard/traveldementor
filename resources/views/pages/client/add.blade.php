@@ -97,7 +97,7 @@
             <div class="container" id="home">
                 <form action="{{ route('client.store') }}" id="formData" method="post">
                     @if($client->id == "" && $role == 'Super Admin')
-                    <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                    <div class="col-lg-4 col-md-6 col-sm-12 pl-0" style="margin-bottom: 10px;">
                         <select name="staff_id" class="form-select select-group">
                             @foreach ($staffs as $staff)
                             <option value="{{ $staff->id }}">{{ $staff->name }}</option>
