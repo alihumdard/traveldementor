@@ -44,6 +44,7 @@ class UserController extends Controller
         if ($user) {
             // User roles: 1 for Super Admin, 2 for Admin, 3 for User
             if (isset($user->role) && $user->role == user_roles('1')) {
+                $dahboard_name = "Super Admin";
                 $tot_apps = 0;
                 $staffs = 0;
                 $total_schd_apps = 0;
@@ -55,26 +56,29 @@ class UserController extends Controller
                 $total_schd_apps = Appointment::where('appointment_type', 'schedule')->count();
                 $staffs = User::where('role', 'Staff')->count();
                 $tot_apps = Application::count();
-                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users'));
+
+                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users', 'dahboard_name'));
             } else if (isset($user->role) && $user->role == user_roles('2')) {
+                $dahboard_name = "Staff";
                 $tot_apps = 0;
                 $staffs = 0;
                 $total_schd_apps = 0;
                 $total_pend_apps = 0;
                 $active_users = 0;
-
-                $active_users = Client::count();
-                $total_pend_apps = Appointment::where('appointment_type', 'pending')->count();
-                $total_schd_apps = Appointment::where('appointment_type', 'schedule')->count();
-                $staffs = User::where('role', 'Staff')->count();
-                $tot_apps = Application::count();
-                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users'));
+                $active_users = Client::where('staff_id', $user->id)->count();
+                $all_client_ids = Client::where('staff_id', $user->id)->pluck('id');
+                $total_pend_apps = Appointment::whereIn('application_id', $all_client_ids)
+                    ->where('appointment_type', 'pending')
+                    ->count();
+                $total_schd_apps = Appointment::whereIn('application_id', $all_client_ids)
+                    ->where('appointment_type', 'schedule')->count();
+                $tot_apps = Application::whereIn('user_id', $all_client_ids)->count();
+                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'total_schd_apps', 'total_pend_apps', 'active_users', 'dahboard_name'));
             }
         } else {
             return redirect()->route('login');
         }
     }
-
     public function staff()
     {
         $user = auth()->user();
@@ -99,7 +103,6 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $page_name = 'users';
-
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
@@ -110,6 +113,7 @@ class UserController extends Controller
                 ->orderBy('users.id', 'desc')
                 ->get()
                 ->toArray();
+
             $staffs_list = User::where(['role' => user_roles('2'), 'staff_id' => $user->id])->orderBy('id', 'desc')->select('id', 'name')->get()->toArray();
             return view('pages.profile.users', ['data' => $users, 'user' => $user, 'add_as_user' => user_roles('3'), 'staffs_list' => $staffs_list]);
         } else {
@@ -389,7 +393,6 @@ class UserController extends Controller
         }
         return view('pages.profile.settings', ['user' => $user]);
     }
-
     public function add_blank(Request $request)
     {
         $user = auth()->user();
@@ -469,13 +472,11 @@ class UserController extends Controller
         $users = Application::with('client')->get();
         foreach ($users as $user) {
             if ($user->passport_expiry) {
-                // dd($user->passport_expiry);
                 $passportExpiry = Carbon::parse($user->passport_expiry);
                 $alertDate = $passportExpiry->subDays(7);
                 if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
                     $alert = Alert::where('client_id', $user->client->id)->where('type', 'passport_expiry')->first();
                     if (empty($alert)) {
-                        // dd($alert);
                         Alert::create([
                             'client_id' => $user->client->id,
                             'name' => $user->client->name,
@@ -546,7 +547,7 @@ class UserController extends Controller
                             'user_id' => $user_id,
                             'title' => 'Date of Birth Alert',
                             'url' => route('client.index'),
-                            'body' => json_encode('Dear ' . $user->client->name . ', your date of birth is recorded as ' . $dob->format('M d, Y') . '. Please verify and update it if needed to avoid any discrepancies in your records.'),
+                            'body' => json_encode('Hello ' . $user->client->name . ', our records indicate that your date of birth is ' . $dob->format('M d, Y') . '. If this information is incorrect, please update it promptly to ensure accuracy in our system.'),
                             'message' => 'Dear ' . $user->client->name . ', your date of birth is recorded as ' . $dob->format('M d, Y') . '. Please verify and update it if needed to avoid any discrepancies in your records.',
                             'status' => 'unseen',
                             'deleted_at' => 'n',
@@ -559,14 +560,14 @@ class UserController extends Controller
     public function fetchUnseenAlerts()
     {
         $user_id = auth()->user()->id;
-    
+
         // Fetch unseen alerts for the user
         $alerts = Alert::where('user_id', $user_id)
             ->where('status', 'unseen')
- 
+
             ->orderBy('created_at', 'desc')
             ->get();
-        
+
         foreach ($alerts as $alert) {
             $maildata = [
                 'title' => $alert->title,
@@ -574,13 +575,12 @@ class UserController extends Controller
                 'message' => $alert->message,
             ];
             try {
-              if($alert->email_forward == 'n')
-              {
-                  Mail::to($alert->email)->send(new AlertEmail($maildata));
-                  $alert->email_forward = 'y';
-                  
-                  $alert->save();
-              }
+                if ($alert->email_forward == 'n') {
+                    Mail::to($alert->email)->send(new AlertEmail($maildata));
+                    $alert->email_forward = 'y';
+
+                    $alert->save();
+                }
             } catch (\Exception $e) {
                 \Log::error("Failed to send email to {$alert->email}: " . $e->getMessage());
             }
@@ -589,9 +589,7 @@ class UserController extends Controller
             'alerts' => $alerts,
             'count' => $alerts->count()
         ]);
-       
     }
-    
     public function updateStatus(Request $request)
     {
         $alert = Alert::find($request->alert_id);
