@@ -1,11 +1,5 @@
 @extends('layouts.main')
 @section('title', 'Hotel Booking')
-<style>
-  table th,
-  table td {
-    text-transform: capitalize;
-  }
-</style>
 @section('content')
 
 @include('pages.hotelbooking.detail_page_modal')

@@ -15,7 +15,14 @@ class DSController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
         $data['categories'] = Category::where('type','=','DS160')->get();
-        $data['clients']=Client::all();
+        if($user->role=="Staff")
+        {
+            $data['clients']=Client::where('staff_id',$user->id)->get();
+        }
+        else
+        {
+            $data['clients']=Client::all();
+        }
         if ($id) {
             $data['ds160'] = DS160::find($id);
         }
@@ -25,7 +32,17 @@ class DSController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['ds160']=DS160::with('client','category')->get();
+        if($user->role=="Staff")
+        {
+            $data['ds160']=DS160::with('client','category')
+            ->whereHas('client', function ($query) use ($user) {
+                $query->where('staff_id', $user->id);
+            })->get();
+        }
+        else
+        {
+            $data['ds160']=DS160::with('client','category')->get();
+        }
        
         return view('pages.ds160.listing', $data);
     }

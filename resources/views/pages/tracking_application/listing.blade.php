@@ -138,7 +138,7 @@
                   <td>{{ table_date($application->created_at) }}</td>
                   <td>{{ $application->country->name }}</td>
                   <td>{{ $application->client->name }}</td>
-                  <td>{{ $application->visa_status == 1 ? 'In Process' : 'Collected' }}</td>
+                  <td>{{ $application->status == 1 ? 'In Process' : 'Collected' }}</td>
                   <td class="">
                     <div class="d-flex my-auto">
                       <!-- Edit Button -->

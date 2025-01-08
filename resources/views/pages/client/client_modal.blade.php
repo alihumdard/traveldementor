@@ -31,7 +31,7 @@
                    <img src="/assets/images/user.png" id="quoteDetail_userImg" style="border-radius: 12px !important; object-fit: cover; width: 65px; height: 65px;" alt="no image">
                  </div>
                  <div class="ml-3">
-                   <label for="quoteDetail_user" class="mb-0"><span style="color: #184A45FF;">Applicant name</span></label>
+                   <label for="quoteDetail_user" class="mb-0 fw-bold"><span style="color: #184A45FF;">Client Name: </span></label>
                    <input type="text" disabled id="name" class="form-control" value="">
                  </div>
                </div>
@@ -41,8 +41,8 @@
              <table class="table table-bordered" style="border: 1px solid #ddd; border-radius: 12px; overflow: hidden; background-color: #f9f9f9; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
                <thead style="background-color: #452c88; color: white;">
                  <tr>
-                   <th style="text-align: left; padding: 15px; font-size: 16px;">Field</th>
-                   <th style="text-align: left; padding: 15px; font-size: 16px;">User Data</th>
+                   <th style="text-align: left; padding: 15px; font-size: 16px;">Details</th>
+                   <th style="text-align: left; padding: 15px; font-size: 16px;">Data</th>
                  </tr>
                </thead>
                <tbody>
@@ -66,11 +66,11 @@
                 
                </tbody>
              </table>
-             <div class="text-center mt-4">
+             <!-- <div class="text-center mt-4">
                <button class="btn" style="background: linear-gradient(90deg, #452c88, #6a4ab5); color: white; padding: 12px 30px; border-radius: 8px; font-size: 16px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                  Back
                </button>
-             </div>
+             </div> -->
            </div>
          </div>
        </div>

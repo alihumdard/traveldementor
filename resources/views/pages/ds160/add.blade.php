@@ -130,21 +130,21 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="ds160">DS160</label>
                             <input type="text" name="ds160" id="ds160" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->ds160 : '' }}">
+                                value="{{ isset($ds160) ? $ds160->ds160 : '' }}" placeholder="Enter the DS160">
                             <span id="ds160_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="revised_ds160">Revised DS160</label>
                             <input type="text" name="revised_ds160" id="revised_ds160" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->revised_ds160 : '' }}">
+                                value="{{ isset($ds160) ? $ds160->revised_ds160 : '' }}" placeholder="Enter the Revised DS160 ">
                             <span id="revised_ds160_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="surname">Surname</label>
                             <input type="text" name="surname" id="surname" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->surname : '' }}">
+                                value="{{ isset($ds160) ? $ds160->surname : '' }}" placeholder="Enter the Surname ">
                             <span id="surname_error" class="error-message text-danger"></span>
                         </div>
 
@@ -158,35 +158,35 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="sec_question">Security Question</label>
                             <input type="text" name="sec_question" id="sec_question" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->sec_question : '' }}">
+                                value="{{ isset($ds160) ? $ds160->sec_question : '' }}" placeholder="Enter the Security Question ">
                             <span id="sec_question_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="sec_answer">Security Answer</label>
                             <input type="text" name="sec_answer" id="sec_answer" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->sec_answer : '' }}">
+                                value="{{ isset($ds160) ? $ds160->sec_answer : '' }}" placeholder="Enter the Security Answer ">
                             <span id="sec_answer_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_email">Us Travel Doc Email</label>
                             <input type="email" name="us_travel_doc_email" id="us_travel_doc_email" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->us_travel_doc_email : '' }}">
+                                value="{{ isset($ds160) ? $ds160->us_travel_doc_email : '' }}" placeholder="Enter the Us Travel Doc Email ">
                             <span id="us_travel_doc_email_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_password">Us Travel Doc Password</label>
                             <input type="password" name="us_travel_doc_password" id="us_travel_doc_password"
-                                class="form-control" value="{{ isset($ds160) ? $ds160->us_travel_doc_password : '' }}">
+                                class="form-control" value="{{ isset($ds160) ? $ds160->us_travel_doc_password : '' }}" placeholder="Enter the Us Travel Doc Password ">
                             <span id="us_travel_doc_password_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_updated_password">Us Travel Doc Updated Password</label>
                             <input type="password" name="us_travel_doc_updated_password"
                                 id="us_travel_doc_updated_password" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->us_travel_doc_updated_password : '' }}">
+                                value="{{ isset($ds160) ? $ds160->us_travel_doc_updated_password : '' }}" placeholder="Enter the Us Travel Doc Updated Password ">
                             <span id="us_travel_doc_updated_password_error" class="error-message text-danger"></span>
                         </div>
 
@@ -268,7 +268,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12" style="margin-bottom: 10px;">
                             <label for="delivery_address">Delivery Address</label>
-                            <textarea name="delivery_address" id="delivery_address" class="form-control">{{  $ds160->delivery_address ?? ''}}</textarea>
+                            <textarea name="delivery_address" id="delivery_address" class="form-control" placeholder="Enter the Delivery Address ">{{  $ds160->delivery_address ?? ''}}</textarea>
                             <span id="delivery_address_error" class="error-message text-danger"></span>
                         </div>
                     </div>

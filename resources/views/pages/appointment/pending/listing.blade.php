@@ -1,11 +1,5 @@
 @extends('layouts.main')
 @section('title', 'Appointment Appointment')
-<style>
-  table th,
-  table td {
-    text-transform: capitalize;
-  }
-</style>
 @section('content')
 @include('pages.appointment.pending.detail_page_modal')
 <div class="content-wrapper py-0 my-0">

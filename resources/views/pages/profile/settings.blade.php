@@ -69,7 +69,7 @@
           </span>
           <span>@lang('lang.settings')</span>
         </h3>
-    
+
         <form id="formData" action="{{ route('settings', $user->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="row mb-3">
@@ -96,7 +96,7 @@
             </div>
           </div>
           <div class="row mb-3 w-50">
-            
+
             @if (Session::has('message'))
             <div class="alert alert-success">
               <button type="button" class="close ml-2" data-dismiss="alert">&times;</button>

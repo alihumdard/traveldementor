@@ -171,21 +171,21 @@ $notifications = NULL;
                             <div class="dropdown-divider"></div>
                             <div class="p-2" style="background: rgba(69, 44, 136, 0.06); border-left: 3px solid #452C88;" data-alert-id="${alert.id}">
                                 <div class="row">
-                                    
+                                    <div class="col-lg-12">
+                                        <p class="mb-0" style="font-size: 16px; color:red; font-weight:600; text-transform:capitalize;">${alert.title || 'No name'}</p>
+                                    </div>
                                     <div class="col-lg-10">
-                                        <p class="mb-0" style="font-size: 16px;font-weight:600;">${alert.title}</p>
+                                        <p class="mb-0" style="font-size: 14px; font-weight:400;">${alert.name}</p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p class="mb-0" style="font-size: 14px;font-weight:300;">${alert.email}</p>
                                     </div>
                                     <div class="col-lg-2 text-center">
                                         <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <!-- SVG Path Here -->
                                         </svg>
                                     </div>
-                                    <div class="col-lg-12">
-
-                                        <p class="mb-0" style="font-size: 14px; color:rgb(0, 0, 0); text-transform:capitalize;">${alert.body?.name || 'No name'}</p>
-                                        <p class="mb-0" style="font-size: 12px; color: #8F9090;">${alert.body?.message || 'No message'}</p>
-
-                                    </div>
+                                    
                                     <div class="col-lg-10">
                                         <a href="${alert.url}"  style="text-decoration:underline; color: #452c88; font-weight:600;">Get details</a>
                                     </div>

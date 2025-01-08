@@ -30,16 +30,33 @@ class ApplicationController extends Controller
     }
     public function index()
     {
-        $data['applications']  = Application::with('client', 'category', 'country')->get();
-        
+        $user = auth()->user();
+       
+        if ($user->role == 'Staff') {
+            $staff_ids = Client::where('staff_id', $user->id)->pluck('staff_id');
+            $data['applications'] = Application::with('client', 'category', 'country')
+                ->whereHas('client', function ($query) use ($staff_ids) {
+                    $query->whereIn('staff_id', $staff_ids);
+                })->get();
+        } else {
+            $data['applications']  = Application::with('client', 'category', 'country')->get();
+        }
         return view('pages.application.listing', $data);
     }
     public function add($id = null)
     {
+        $user = auth()->user();
         $data['user'] = auth()->user();
         $data['categories'] = Category::all();
         $data['countries'] = Country::all();
-        $data['users'] = Client::all();
+        if($user->role=="Staff")
+        {
+            $data['users'] = Client::where('staff_id',$user->id)->get();
+        }
+        else
+        {
+            $data['users'] = Client::all();
+        }
         if ($id) {
             $data['application'] = Application::find($id);
         }
@@ -80,7 +97,7 @@ class ApplicationController extends Controller
     }
     public function detail_page($id)
     {
-        
+
         $data['detail_page'] = Application::with('client', 'category', 'country')->find($id);
         return response()->json($data);
     }

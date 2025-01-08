@@ -93,6 +93,12 @@
     color: #452C88;
   }
 </style>
+@php
+    use App\Models\User;
+    $role = auth()->user()->role;
+    
+@endphp
+
 <nav class="navbar p-0 row">
   <div class="navbar-menu-wrapper col-12 col-lg-12 col-sm-12 d-flex"
     style="background-color: #F5F5F5 !important; justify-content: flex-end;">
@@ -112,23 +118,23 @@
             <!-- First List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-envelope mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Application</a>
+              <a href="{{ route('application.index') }}" class="text-decoration-none" style="color: #452C88;font-size:18px;">Application</a>
             </li>
 
             <!-- Second List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-house-crack mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Insurance</a>
+              <a href="{{ route('insurance.index') }}" class="text-decoration-none" style="color: #452C88;font-size:18px;">Insurance</a>
             </li>
             <!-- Third List Item -->
             <li class="d-flex align-items-center py-2">
               <i class="fas fa-hotel mx-2" style="font-size: 18px; color: #452C88;"></i>
-              <a href="#" class="text-decoration-none" style="color: #452C88;font-size:18px;">Hotel Booking</a>
+              <a href="{{ route('hotel.index') }}" class="text-decoration-none" style="color: #452C88;font-size:18px;">Hotel Booking</a>
             </li>
           </ul>
         </div>
       </li>
-
+@if($role=="Super Admin")
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
           data-bs-toggle="dropdown">
@@ -159,92 +165,10 @@
               style="max-height: 300px; overflow-y: auto; width:40%">
 
             </div>
-
-            {{-- @if($notifications ?? '')
-            @foreach($notifications as $key => $value)
-            <a href="/notifications" style="text-decoration: none !important;">
-              <div class="dropdown-divider"></div>
-              <div class="p-2"
-                style="width: 100%; height: 100%; background: rgba(69, 44, 136, 0.06); ">
-                <div class="row">
-                  <div class="col-lg-10">
-                    <p style="font-size: 11px;" class="mb-0">{{$value['title']}}</p>
-                  </div>
-                  <div class="col-lg-2 p-1 text-center">
-                    <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M4.93979 3.99943L7.8041 1.14179C7.92953 1.01635 8 0.846231 8 0.668843C8 0.491455 7.92953 0.321332 7.8041 0.1959C7.67867 0.0704672 7.50854 0 7.33116 0C7.15377 0 6.98365 0.0704672 6.85821 0.1959L4.00057 3.06021L1.14292 0.1959C1.01749 0.0704672 0.847368 -1.32164e-09 0.66998 0C0.492592 1.32165e-09 0.322469 0.0704672 0.197036 0.1959C0.0716041 0.321332 0.0011368 0.491455 0.0011368 0.668843C0.0011368 0.846231 0.0716041 1.01635 0.197036 1.14179L3.06134 3.99943L0.197036 6.85708C0.134602 6.919 0.0850471 6.99267 0.0512292 7.07385C0.0174113 7.15502 0 7.24208 0 7.33002C0 7.41795 0.0174113 7.50502 0.0512292 7.58619C0.0850471 7.66737 0.134602 7.74104 0.197036 7.80296C0.258961 7.8654 0.332634 7.91495 0.413807 7.94877C0.494979 7.98259 0.582045 8 0.66998 8C0.757915 8 0.844981 7.98259 0.926153 7.94877C1.00733 7.91495 1.081 7.8654 1.14292 7.80296L4.00057 4.93866L6.85821 7.80296C6.92014 7.8654 6.99381 7.91495 7.07498 7.94877C7.15616 7.98259 7.24322 8 7.33116 8C7.41909 8 7.50616 7.98259 7.58733 7.94877C7.6685 7.91495 7.74218 7.8654 7.8041 7.80296C7.86653 7.74104 7.91609 7.66737 7.94991 7.58619C7.98373 7.50502 8.00114 7.41795 8.00114 7.33002C8.00114 7.24208 7.98373 7.15502 7.94991 7.07385C7.91609 6.99267 7.86653 6.919 7.8041 6.85708L4.93979 3.99943Z"
-                        fill="#323C47" />
-                    </svg>
-                  </div>
-                  <div class="col-lg-12">
-                    <p style="font-size: 11px; color: #8F9090;" class="mb-0">{{ implode(' ', array_slice(explode(' ',
-                      $value['desc']), 0, 5)) }} ...</p>
-                  </div>
-                  <div class="col-lg-10">
-                    <p style="font-size: 11px;" class="mb-0">{{table_date($value['created_at'])}}</p>
-                  </div>
-                  <div class="col-lg-2 p-1 text-center">
-                    <svg width="13" height="3" viewBox="0 0 13 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="1.5" cy="1.5" r="1.5" fill="#452C88" />
-                      <circle cx="6.5" cy="1.5" r="1.5" fill="#452C88" />
-                      <circle cx="11.5" cy="1.5" r="1.5" fill="#452C88" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </a>
-            @endforeach
-            @endif --}}
-
             <div class="dropdown-divider"></div>
           </div>
       </li>
-      {{-- <li class="nav-item dropdown">
-        <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
-          data-bs-toggle="dropdown">
-          <div class="nav-profile-image" style="margin-top: 6px;">
-            <div class="preview-thumbnail">
-              <i class="" style="color:#67748E; position: relative;">
-                <!-- Notification Icon -->
-                <svg width="25" height="25" viewBox="0 0 25 29" fill="#452C88" xmlns="http://www.w3.org/2000/svg">
-                  <!-- SVG Path Here -->
-                </svg>
-              </i>
-              <span id="alertBadge" class="badge bg-danger text-white"
-                style="position: absolute; top: 1.2rem; right: 0.1rem; border-radius: 50%;">0</span>
-            </div>
-          </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-          aria-labelledby="notificationDropdown" id="alertDropdown">
-          <!-- Dynamic Content Will Be Loaded Here -->
-        </div>
-      </li>
-      --}}
-      {{-- <li class="nav-item dropdown">
-        <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
-          data-bs-toggle="dropdown">
-          <div class="nav-profile-image" style="margin-top: 6px;">
-            <div class="preview-thumbnail">
-              <i class="" style="color:#67748E; position: relative;">
-                <!-- Notification Icon -->
-                <svg width="25" height="25" viewBox="0 0 25 29" fill="#452C88" xmlns="http://www.w3.org/2000/svg">
-                  <!-- SVG Path Here -->
-                </svg>
-              </i>
-              <span id="alertBadge" class="badge bg-danger text-white"
-                style="position: absolute; top: 1.2rem; right: 0.1rem; border-radius: 50%;">0</span>
-            </div>
-          </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-          aria-labelledby="notificationDropdown" id="alertDropdown" style="max-height: 300px; overflow-y: auto;">
-          <!-- Dynamic Content Will Be Loaded Here -->
-        </div>
-      </li> --}}
-
-
+      @endif
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
           data-bs-toggle="dropdown">
@@ -304,8 +228,8 @@
  
  $(document).ready(function() {
  $(document).on('click', '[data-update]', function() {
-    var alertId = $(this).data('update'); // Get the alert id from the data-update attribute
-    var iconElement = $(this).find('i');  // Find the <i> element inside the clicked <p>
+    var alertId = $(this).data('update'); 
+    var iconElement = $(this).find('i'); 
 
     $.ajax({
         url: '/update/alert/status',
@@ -316,17 +240,17 @@
         success: function(response) {
             if(response.success) {
                 iconElement.css('color', 'green');
-                iconElement.removeClass('fa-circle').addClass('fa-check-circle'); // Change the icon to check-circle
+                iconElement.removeClass('fa-circle').addClass('fa-check-circle'); 
             } else {
                 console.error('Failed to update status');
                 iconElement.css('color', 'red');
-                iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); // Change the icon to sync-alt on failure
+                iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); 
             }
         },
         error: function(xhr, status, error) {
             console.error('Error:', error);
             iconElement.css('color', 'red');
-            iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); // Change to sync-alt icon in case of error
+            iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); 
         }
     });
 });
