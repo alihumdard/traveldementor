@@ -14,15 +14,31 @@ class InsuranceController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['insurances']=Insurance::with('country','client')->get();
+        if($user->role=="Staff")
+        {
+            $data['insurances'] = Insurance::with(['country', 'client'])
+                ->whereHas('client', function ($query) use ($user) {
+                    $query->where('staff_id', $user->id);
+                })->get();
+        }
+        else{
+            $data['insurances']=Insurance::with('country','client')->get();
+        }
         return view('pages.insurance.listing', $data);
     }
     public function add($id=null)
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['clients'] = Client::all();
         $data['countries'] = Country::all();
+        if($user->role=="Staff")
+        {
+            $data['clients'] = Client::where('staff_id',$user->id)->get();
+        }
+        else
+        {
+            $data['clients'] = Client::all();
+        }
         if ($id) {
             $data['insurance'] = Insurance::find($id);
         }

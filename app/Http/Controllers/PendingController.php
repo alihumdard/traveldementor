@@ -21,13 +21,20 @@ class PendingController extends Controller
     }
     public function add($id = null)
     {       
-        $userIds = Application::pluck('user_id')->unique()->toArray();
+        // $userIds = Application::pluck('user_id')->unique()->toArray();
         $user = auth()->user();
         $data['user'] = $user;
         $data['categories'] = Category::where('type','=','appointment')->get();
         $data['countries'] = Country::all();
-        $data['clients'] = Client::whereIn('id', $userIds)->get();
         $data['vfsembasses'] = VfsEmbassy::all();
+        if($user->role=="Staff")
+        {
+            $data['clients'] = Client::where('staff_id', $user->id)->get();
+        }
+        else{
+            $data['clients'] = Client::all();
+
+        }
         if ($id) {
             $data['appointment'] = Appointment::find($id);
         }

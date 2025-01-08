@@ -13,8 +13,16 @@ class HotelBookingController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['clients'] = Client::all();
         $data['countries'] = Country::all();
+        if($user->role=="Staff")
+        {
+            $data['clients'] = Client::where('staff_id',$user->id)->get();
+        }
+        else
+        {
+            $data['clients'] = Client::all();
+        }
+        
         if ($id) {
 
             $data['hotelbooking'] = HotelBooking::find($id);
@@ -26,8 +34,20 @@ class HotelBookingController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['clients'] = Client::all();
-        $data['hotel_bookings'] = HotelBooking::with('country', 'client')->get();
+        if($user->role=="Staff")
+        {
+            $data['clients'] = Client::where('staff_id',$user->id)->get();
+            $data['hotel_bookings'] = HotelBooking::with('country', 'client')
+            ->whereHas('client', function ($query) use ($user) {
+                $query->where('staff_id', $user->id);
+            })->get();
+
+        }
+        else
+        {
+            $data['clients'] = Client::all();
+            $data['hotel_bookings'] = HotelBooking::with('country', 'client')->get();
+        }
 
         return view('pages.hotelbooking.listing', $data);
     }

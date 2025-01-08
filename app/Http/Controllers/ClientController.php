@@ -10,17 +10,31 @@ class ClientController extends Controller
 {
     public function add($id = null)
     {
-        $data['client'] = $id ? Client::find($id) : new Client(); // Return a new Client instance if $id is null
+        $data['client'] = $id ? Client::find($id) : new Client();
+        // dd($id); // Return a new Client instance if $id is null
         $data['role'] = auth()->user()->role;
-        $data['staffs'] = User::where('role', 'Staff')->get();
+        $staff=auth()->user()->id;
+        if($data['role'] == "Staff")
+        {
+            $data['staffs'] = User::where('id',$staff)->first();
+            // dd($data['staffs']);
+        }
+        else
+        {
+            $data['staffs'] = User::where('role', 'Staff')->get();
 
+        }
         return view('pages.client.add', $data);
     }
     public function index()
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['clients'] = Client::all();
+        if ($user->role == "Staff") {
+            $data['clients'] = Client::where('staff_id', $user->id)->get();
+        } else {
+            $data['clients'] = Client::all();
+        }
         return view('pages.client.listing', $data);
     }
     public function store(Request $request)
@@ -48,7 +62,7 @@ class ClientController extends Controller
     }
     public function client_detail_page($id)
     {
-        $data['detail_page']=Client::find($id);
+        $data['detail_page'] = Client::find($id);
         return response()->json($data);
     }
     public function delete($id)

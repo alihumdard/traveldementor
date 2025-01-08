@@ -93,7 +93,7 @@
                     <span>Clients</span>
                 </h3>
             </div>
-
+           
             <div class="container" id="home">
                 <form action="{{ route('client.store') }}" id="formData" method="post">
                     @if($client->id == "" && $role == 'Super Admin')
@@ -104,8 +104,9 @@
                             @endforeach
                         </select>
                     </div>
+
                     @elseif ($client->id == "" && $role == 'Staff')
-                    <input name="staff_id" type="hidden" value="{{ $staff->id }}">
+                    <input name="staff_id" type="hidden" value="{{ $staffs->id }}">
                     @elseif(isset($client->id))
                     <input name="staff_id" type="hidden" value="{{ $client->staff_id }}">
                     @endif

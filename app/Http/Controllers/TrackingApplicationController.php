@@ -32,16 +32,32 @@ class TrackingApplicationController extends Controller
     }
     public function index()
     {
-
-        $data['applications']  = TrackingApplication::with('user', 'category', 'country')->get();
+        $user = auth()->user();
+        if ($user->role == 'Staff') {
+            $staff_ids = Client::where('staff_id', $user->id)->pluck('staff_id');
+            $data['applications'] = TrackingApplication::with('client', 'category', 'country')
+                ->whereHas('client', function ($query) use ($staff_ids) {
+                    $query->whereIn('staff_id', $staff_ids);
+                })->get();
+        } else {
+            $data['applications']  = Application::with('client', 'category', 'country')->get();
+        }
         return view('pages.tracking_application.listing', $data);
     }
     public function add($id = null)
     {
+        $user = auth()->user();
+       
         $data['user'] = auth()->user();
         $data['categories'] = Category::all();
         $data['countries'] = Country::all();
-        $data['users'] = Client::all();
+        if($user->role=="Staff")
+        {
+            $data['users'] = Client::where('staff_id',$user->id)->get();
+        }
+        else{
+            $data['users'] = Client::all();  
+        }
         if ($id) {
             $data['application'] = TrackingApplication::find($id);
         }
