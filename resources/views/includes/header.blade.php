@@ -96,7 +96,6 @@
 @php
     use App\Models\User;
     $role = auth()->user()->role;
-    
 @endphp
 
 <nav class="navbar p-0 row">
