@@ -186,12 +186,22 @@
               <span id="phone_error" class="error-message text-danger"></span>
             </div>
 
+            @if (isset($staff))
             <div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-              <label for="password">Password</label>
-              <input type="text" name="password" id="password" class="form-control"
+              <label for="password" style="display: none;">Password</label>
+              <input type="hidden" name="password" id="password" class="form-control"
                 placeholder="Enter the staff's password" value="{{ isset($staff) ? $staff->password : '' }}">
+              {{-- <span id="password_error" class="error-message text-danger"></span> --}}
+            </div>
+            @else
+            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+              <label for="password" >Password</label>
+              <input type="text" name="password" id="password" class="form-control"
+                placeholder="Enter the staff's password" >
               <span id="password_error" class="error-message text-danger"></span>
             </div>
+            @endif
+
 
             <div class="col-lg-12 col-md-6 col-sm-12" style="margin-bottom: 10px;">
               <label for="address">Address</label>
