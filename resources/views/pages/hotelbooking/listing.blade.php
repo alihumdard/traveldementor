@@ -16,35 +16,21 @@
           </span>
           <span>Hotel Booking</span>
         </h3>
-        <div class="row mb-2 d-flex justify-content-between">
-          <!-- Add Booking Button -->
-          <div class="col-12 col-md-2 offset-md-2 my-2">
-            <a href="{{ route('hotel.add') }}">
-              <button class="btn add-btn text-white w-100" style="background-color: #452C88;">
-                <span><i class="fa fa-plus mr-2"></i> Add Booking</span>
-              </button>
-            </a>
-          </div>
-
-          <!-- Filter By Client Dropdown with Icon in the same line -->
-          {{-- <div class="col-12 col-md-4 my-2">
-            <div class="input-group">
-              <select name="filter_by_country" id="filter_by_country" class="form-select select-group select2" style="height: 45px;">
-                <option value="">Filter By Applicant</option>
-                @foreach ($clients as $client)
-                <option value="{{ $client->name }}">{{ $client->name }}</option>
-                @endforeach
-              </select>
+        <div class="row my-1 g-2 justify-content-start justify-content-md-end">
+            <!-- Add Appointment Button -->
+            <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-md-end justify-content-start ">
+              <a href="{{ route('hotel.add') }}">
+                <button class="btn add-btn text-white" style="background-color: #452C88; width: fit-content; padding-left: 10px; padding-right: 10px;">
+                  <span><i class="fa fa-plus me-2"></i>Add Booking</span>
+                </button>
+              </a>
             </div>
-          </div> --}}
-
-          <!-- Search Name of Client with Icon -->
-          <div class="col-12 col-md-4 my-2">
-            <div class="input-group">
-              <input type="text" id="search_input" class="form-control" placeholder="Search by Applicant or Country Name" style="height: 45px;" />
+            <!-- Search Input -->
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <input
+                type="text" id="search_input" class="form-control w-100" placeholder="Search Applicant Name or Country Name" style="height: 45px;" />
             </div>
           </div>
-        </div>
         <hr>
         <div class="px-2">
           <div class="table-responsive">

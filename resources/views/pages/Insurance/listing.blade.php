@@ -21,20 +21,21 @@
           </span>
           <span> Insurance</span>
         </h3>
-        <div class="row mb-2 justify-content-end">
-          <!-- Add Insurance Button -->
-          <div class="col-lg-2 col-md-4 col-sm-12 my-2 pr-0">
-            <a href="{{ route('insurance.add') }}">
-              <button class="btn add-btn text-white w-100" style="background-color: #452C88;">
-                <span><i class="fa fa-plus mr-2"></i> Add Insurance</span>
-              </button>
-            </a>
+        <div class="row my-1 g-2 justify-content-start justify-content-md-end">
+            <!-- Add Appointment Button -->
+            <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-md-end justify-content-start ">
+              <a href="{{ route('insurance.add') }}">
+                <button class="btn add-btn text-white" style="background-color: #452C88; width: fit-content; padding-left: 10px; padding-right: 10px;">
+                  <span><i class="fa fa-plus me-2"></i>Add Insurance</span>
+                </button>
+              </a>
+            </div>
+            <!-- Search Input -->
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <input
+                type="text" id="search_input" class="form-control w-100" placeholder="Search Applicant, Country Name or Policy Number" style="height: 45px;" />
+            </div>
           </div>
-          <!-- Search Inputs -->
-          <div class="col-lg-6 col-md-8 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control" placeholder="Search by Applicant , Coutnry Name and Policy No" style="height: 45px;" />
-          </div>
-        </div>
         <hr>
         <div class="px-2">
           <div class="table-responsive">

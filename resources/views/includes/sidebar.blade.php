@@ -1,25 +1,13 @@
+<style>
+    .sidebar_list li {
+        height: 40px !important;
+    }
+    .sidebar li{
+        margin:1px !important;
+    }
+</style>
 <div class="sidebar" style="background-color: #452C88;">
-    <div class="navbar-brand brand-logo d-none mx-5 px-2 mb-2" id="logo-full-img">
-        <img src="/assets/images/traveldementor.jpeg" height="30px" width="140px" alt="logo">
-    </div>
-    <div class="navbar-brand brand-logo mb-2 mx-2" id="logo-img">
-        <img src="/assets/images/logo.svg" style="width: 100%; " alt="logo">
-    </div>
-    <div class="logo_details py-2" style="border-top: 1px solid #FFFFFF45; border-bottom: 1px solid #FFFFFF45;">
-        <div class="pl-3 pr-2" id="profile_img">
-            <img style="border-radius: 12px !important; object-fit: cover; width: 45px; height: 45px; background-color:#FFFFFF"
-                src="{{ (isset($user->user_pic)) ? asset('storage/' . $user->user_pic) : '/assets/images/user.png'}}"
-                alt="profile">
-        </div>
-        <div class="logo_name d-none" id="logo-name">
-            <div class="nav-profile-text d-flex flex-column text-wrap">
-                <span class="mb-1" style="font-size: small;">{{(isset($user->name)) ? $user->name : 'Guest'}}</span>
-                <span class="text-secondary text-white text-small">
-                    {{ $user->role ?? 'Guest'}}
-                </span>
-            </div>
-        </div>
-    </div>
+    
     <ul class="nav-list pl-0 sidebar_list">
         
         @if(view_permission('index'))
@@ -225,25 +213,9 @@
                         </svg>
                     </button>
                 </div>
-                <div class="mx-auto d-none" id="logout_btn">
-                    <button class="btn" style="background-color: #FFFFFF; width: 70%; height: 50px;">
-                        <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M13.7907 5.75V3.375C13.7907 2.74511 13.5457 2.14102 13.1096 1.69562C12.6734 1.25022 12.0819 1 11.4651 1H3.32558C2.7088 1 2.11728 1.25022 1.68115 1.69562C1.24502 2.14102 1 2.74511 1 3.375V17.625C1 18.2549 1.24502 18.859 1.68115 19.3044C2.11728 19.7498 2.7088 20 3.32558 20H11.4651C12.0819 20 12.6734 19.7498 13.1096 19.3044C13.5457 18.859 13.7907 18.2549 13.7907 17.625V15.25"
-                                stroke="#452C88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M4.72095 10.5H21M21 10.5L17.5116 6.9375M21 10.5L17.5116 14.0625" stroke="#452C88"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <span style="color: #452C88;">@lang('lang.logout')</span>
-                    </button>
-                </div>
             </a>
         </div>
         @endif
-
-        <div class="text-white text-center">
-            <span>V 1.0.0</span>
-        </div>
 
     </ul>
 </div>
