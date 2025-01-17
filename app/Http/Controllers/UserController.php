@@ -252,32 +252,26 @@ class UserController extends Controller
     }
     public function software_status(Request $request)
     {
-// dd($request->all());
         $user = auth()->user();
         $page_name = 'software_status';
 
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
         $software_status = NULL;
-        $message = NULL;
-        Session::forget('msg');
+
+        $existing = SoftwareStatus::where(['name' => ucwords($request->name), 'type' => $request->status_type])->first();
+        if ($existing && empty($request->id)) {
+            $message = 'This name already exists for this type.';
+            Session::flash('msg', $message); // Flash message
+            return redirect()->back();
+        }
 
         if ($request->action == 'edit') {
             $software_status = SoftwareStatus::findOrFail($request->id)->toArray();
-        } else if ($request->action == 'save') {
-
-
-            if (!view_permission($page_name)) {
-                return redirect()->back();
-            }
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|unique:software_statuses,name,' . $request->id,
-            ]);
-
-            if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-            $saved = SoftwareStatus::updateOrCreate(
+        } elseif ($request->action == 'save') {
+            SoftwareStatus::updateOrCreate(
                 ['id' => $request->id ?? NULL],
                 [
                     'name' => ucwords($request->name),
@@ -287,18 +281,20 @@ class UserController extends Controller
             );
 
             $message = "Software status " . ($request->id ? "Updated" : "Saved") . " Successfully";
-            Session::flash('msg', $message);
-        } else if ($request->action == 'dell') {
-            $deleted = SoftwareStatus::find($request->id)->delete();
+            Session::flash('msg', $message); // Flash message
+        } elseif ($request->action == 'dell') {
+            SoftwareStatus::find($request->id)->delete();
             $message = "Status has been deleted Successfully";
-            Session::flash('msg', $message);
+            Session::flash('msg', $message); // Flash message
         }
+
         $software_statuses = SoftwareStatus::latest('id')->get()->toArray();
-        
+
         $data = ['user' => $user, 'software_status' => $software_status, 'data' => $software_statuses];
 
         return view('pages.components.software_status', $data);
     }
+
 
     public function categories(REQUEST $request)
     {

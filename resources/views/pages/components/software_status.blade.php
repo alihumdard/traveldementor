@@ -77,13 +77,14 @@
             </div>
           </div>
         </form>
-
+       
         @if (Session::has('msg'))
         <div class="alert alert-success col-lg-8 col-md-12 col-sm-12 ">
           <button type="button" class="close ml-2" data-dismiss="alert">&times;</button>
           <strong>{{ session('msg') }}</strong>
         </div>
         @endif
+      
 
         <hr class="mt-3 mb-2">
         <div class="px-2">
