@@ -41,7 +41,7 @@ class ApplicationController extends Controller
     {
         $user = auth()->user();
         if ($user->role == 'Staff') {
-            $data['app_status']=SoftwareStatus::where('type','application')->get();
+            // $data['app_status']=SoftwareStatus::where('type','application')->get();
             $staff_ids = Client::where('staff_id', $user->id)->pluck('staff_id');
             $data['applications'] = Application::with('client', 'category', 'country')
                 ->whereHas('client', function ($query) use ($staff_ids) {
