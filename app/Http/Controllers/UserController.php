@@ -6,6 +6,7 @@ use App\Models\Alert;
 use App\Models\Application;
 use App\Models\Appointment;
 use App\Models\Category;
+use App\Models\SoftwareStatus;
 use App\Models\Client;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use App\Mail\AlertEmail;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -30,12 +31,19 @@ class UserController extends Controller
     protected $currencyTypes;
     protected $locationType;
 
+    public $app_status_type;
+
+
     public function __construct()
     {
-        $this->user          = auth()->user();
-        $this->status        = config('constants.STATUS');
-        $this->currencyTypes = config('constants.CURRENCY_TYPES');
-        $this->locationType  = config('constants.LOCATION_TYPES');
+        $this->user             = auth()->user();
+        $this->status           = config('constants.STATUS');
+        $this->currencyTypes    = config('constants.CURRENCY_TYPES');
+        $this->locationType     = config('constants.LOCATION_TYPES');
+        $this->app_status_type  = config('constants.APP_STATUS_TYPE');
+        view()->share([
+            'app_status_type' => $this->app_status_type,
+        ]);
     }
 
     public function index(Request $request)
@@ -242,6 +250,56 @@ class UserController extends Controller
         $vfs_embassies = VfsEmbassy::where(['status' => $this->status['Active']])->latest('id')->get()->toArray();
         return view('pages.components.vfs_embassy', ['user' => $user, 'vfs' => $vfs, 'data' => $vfs_embassies]);
     }
+    public function software_status(Request $request)
+    {
+// dd($request->all());
+        $user = auth()->user();
+        $page_name = 'software_status';
+
+        $software_status = NULL;
+        $message = NULL;
+        Session::forget('msg');
+
+        if ($request->action == 'edit') {
+            $software_status = SoftwareStatus::findOrFail($request->id)->toArray();
+        } else if ($request->action == 'save') {
+
+
+            if (!view_permission($page_name)) {
+                return redirect()->back();
+            }
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|unique:software_statuses,name,' . $request->id,
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $saved = SoftwareStatus::updateOrCreate(
+                ['id' => $request->id ?? NULL],
+                [
+                    'name' => ucwords($request->name),
+                    'type' => $request->status_type,
+                    'created_by' => $user->id,
+                ]
+            );
+
+            $message = "Software status " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            Session::flash('msg', $message);
+        } else if ($request->action == 'dell') {
+            $deleted = SoftwareStatus::find($request->id)->delete();
+            $message = "Status has been deleted Successfully";
+            Session::flash('msg', $message);
+        }
+        $software_statuses = SoftwareStatus::latest('id')->get()->toArray();
+        
+        $data = ['user' => $user, 'software_status' => $software_status, 'data' => $software_statuses];
+
+        return view('pages.components.software_status', $data);
+    }
+
     public function categories(REQUEST $request)
     {
         $user = auth()->user();

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Country;
 use App\Models\HotelBooking;
+use App\Models\SoftwareStatus;
 
 class HotelBookingController extends Controller
 {
@@ -14,6 +15,7 @@ class HotelBookingController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
         $data['countries'] = Country::all();
+        $data['status'] = SoftwareStatus::where('type',5)->get();
         if($user->role=="Staff")
         {
             $data['clients'] = Client::where('staff_id',$user->id)->get();
@@ -53,6 +55,7 @@ class HotelBookingController extends Controller
     }
     public function store(Request $request)
     {
+        
         $user = auth()->user();
         $page_name = 'hotel_booking';
         if (!view_permission($page_name)) {

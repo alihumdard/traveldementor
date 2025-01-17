@@ -166,10 +166,38 @@ return [
         'Deactive' => 2,
         'Deleted' => 3
     ],
-    'VISA_STATUS'=>[
+    
+    'APP_STATUS' => [
         'In Process'=>1,
-        'Collected'=>2,
+        'Pending'=>2,
+        'Submitted'=>3,
     ],
+    
+    'APP_STATUS_NAME' => [
+        1 => 'In Process',
+        2 => 'Pending',
+        3 => 'Submitted',
+    ],
+    'APP_STATUS_TYPE' => [
+        1 => 'Application',
+        // 2 => 'Appointment',
+        3 => 'Pending Appointment',
+        4 => 'Scheduled Appointment',
+        5 => 'Hotel Booking',
+    ],
+    
+    'VISA_STATUS'=>[
+        'Approved'=>1,
+        'Refused'=>2,
+        'Administrative Processing'=>3,
+    ],
+    
+    'VISA_STATUS_NAME'=>[
+        1 => 'Approved',
+        2 => 'Refused',
+        3 => 'Administrative Processing',
+    ],
+    
     'COUNTRIES' => [
         ['name' => 'Australia', 'code' => 'AU'],
         ['name' => 'Austria', 'code' => 'AT'],
@@ -268,15 +296,15 @@ return [
         'Anatolia Peshawar',
     ],
     'CATEGORIES' => [
-        ['name' => 'Tourist', 'type' => 'appointment'],
-        ['name' => 'Business', 'type' => 'appointment'],
-        ['name' => 'Family & Friend', 'type' => 'appointment'],
-        ['name' => 'Work', 'type' => 'appointment'],
-        ['name' => 'Family Reunion', 'type' => 'appointment'],
-        ['name' => 'Interview Waiver', 'type' => 'appointment'],
-        ['name' => 'Previously Refused', 'type' => 'appointment'],
-        ['name' => 'Fresh', 'type' => 'appointment'],
-        ['name' => 'Relative Permit', 'type' => 'appointment'],
+        ['name' => 'Tourist', 'type' => 'application'],
+        ['name' => 'Business', 'type' => 'application'],
+        ['name' => 'Family & Friend', 'type' => 'application'],
+        ['name' => 'Work', 'type' => 'application'],
+        ['name' => 'Family Reunion', 'type' => 'application'],
+        ['name' => 'Interview Waiver', 'type' => 'application'],
+        ['name' => 'Previously Refused', 'type' => 'application'],
+        ['name' => 'Fresh', 'type' => 'application'],
+        ['name' => 'Relative Permit', 'type' => 'application'],
         ['name' => 'Fresh', 'type' => 'DS160'],
         ['name' => 'Refused', 'type' => 'DS160'],
         ['name' => 'Waiver', 'type' => 'DS160'],

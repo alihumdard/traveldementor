@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Schedule Appointment')
+@section('title', 'Scheduled Appointments')
 
 @section('content')
 @include('pages.appointment.schedule.detail_page_modal')
@@ -13,7 +13,7 @@
               <path d="M128 0c17.7 0 32 14.3 32 32l0 32 128 0 0-32c0-17.7 14.3-32 32-32s32 14.3 32 32l0 32 48 0c26.5 0 48 21.5 48 48l0 48L0 160l0-48C0 85.5 21.5 64 48 64l48 0 0-32c0-17.7 14.3-32 32-32zM0 192l448 0 0 272c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 192zM329 305c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-95 95-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L329 305z" />
             </svg>
           </span>
-          <span>Schedule Appointment</span>
+          <span>Scheduled Appointments</span>
         </h3>
         <div class="row mb-2 justify-content-end">
           <!-- Add Appointment Button -->
@@ -27,7 +27,7 @@
 
           <!-- Search Input -->
           <div class="col-lg-6 col-md-8 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Country" style="height: 45px;" />
+            <input type="text" id="search_input" class="form-control" placeholder="Search by Applicant or Country Name " style="height: 45px;" />
           </div>
         </div>
 
@@ -44,11 +44,11 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.86);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th>Country Name</th>
                   <th>Applicant Name</th>
-                  <th>Appointment Contact </th>
-                  <th>No of Application</th>
-                  <th>Appointment Type</th>
+                  <th>Country Name</th>
+                  <th>Applicant Contact </th>
+                 
+                  <th> Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -59,8 +59,8 @@
                   <td>{{ $appointment->country->name }}</td>
                   <td>{{ $appointment->client->name }}</td>
                   <td>{{ $appointment->appointment_contact_no }}</td>
-                  <td>{{ $appointment->no_application }}</td>
-                  <td>{{ $appointment->appointment_type }}</td>
+                 
+                  <td>{{ $appointment->status }}</td>
                   <td class="">
                     <div class="d-flex my-auto">
                       <!-- Edit Button -->
@@ -110,15 +110,15 @@
 
 @pushOnce('scripts')
 <script>
-  $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-    var searchValue = $('#search_input').val().toLowerCase();
-    var column1 = data[1] ? data[1].toLowerCase() : "";
-    return column1.includes(searchValue);
-  });
-
-  $('#search_input').on('keyup', function() {
-    users_table.draw();
-  });
+   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+      var searchValue = $('#search_input').val().toLowerCase();
+      var column1 = data[1] ? data[1].toLowerCase() : "";
+      var column5 = data[2] ? data[2].toLowerCase() : "";
+      return column1.includes(searchValue) || column5.includes(searchValue);
+    });
+    $('#search_input').on('keyup', function() {
+      users_table.draw();
+    });
 
   // Initialize DataTable
   var users_table = $('#qoute-table').DataTable({});

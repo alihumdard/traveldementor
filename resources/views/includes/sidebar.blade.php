@@ -21,6 +21,7 @@
         </div>
     </div>
     <ul class="nav-list pl-0 sidebar_list">
+        
         @if(view_permission('index'))
         <li>
             <a href="{{ route('dashboard') }}" class="{{(request()->routeIs('dashboard')) ? 'menu-acitve' : ''}}">
@@ -35,6 +36,16 @@
             </a>
         </li>
         @endif
+        
+        @if(view_permission('client'))
+        <li>
+            <a href="{{ route('client.index') }}" class="{{(request()->routeIs('client.index')) ? 'menu-acitve' : ''}}">
+                <i class="ml-3 fa-solid fa-users"></i>
+                <span class="link_name">Client</span>
+            </a>
+        </li>
+        @endif
+        
         @if(view_permission('users'))
         <li>
             <a href="{{ route('users') }}" class="{{(request()->routeIs('users')) ? 'menu-acitve' : ''}}">
@@ -45,27 +56,30 @@
             </a>
         </li>
         @endif
+        
         @if(view_permission('application'))
         <li>
             <a href="{{ route('application.index') }}" class="{{(request()->routeIs('application.index')) ? 'menu-acitve' : ''}}">
                 <i class="ml-3 fa-solid fa-envelope"></i>
-                <span class="link_name">Application</span>
+                <span class="link_name">Applications</span>
             </a>
         </li>
         @endif
-        @if(view_permission('tracking_application'))
+        
+        {{-- @if(view_permission('tracking_application'))
         <li>
             <a href="{{ route('tracking.application.index') }}" class="{{(request()->routeIs('tracking.application.index')) ? 'menu-acitve' : ''}}">
                 <i class="ml-3 fa-solid fa-envelope"></i>
-                <span class="link_name">Tracking Application</span>
+                <span class="link_name">Track Applications</span>
             </a>
         </li>
-        @endif
+        @endif --}}
+        
         @if(view_permission('schedule_appointment'))
         <li>
             <a href="{{ route('schedule.appointment.index') }}" class="{{(request()->routeIs('schedule.appointment.index')) ? 'menu-acitve' : ''}}">
                 <i class=" ml-3 fas fa-money-bill"></i>
-                <span class="link_name">Schedule Appointment</span>
+                <span class="link_name">Scheduled Appointments</span>
             </a>
         </li>
         @endif
@@ -74,17 +88,7 @@
         <li>
             <a href="{{ route('pending.appointment.index') }}" class="{{(request()->routeIs('pending.appointment.index')) ? 'menu-acitve' : ''}}">
             <i class="ml-3 fa-solid fa-calendar-check"></i>
-                <span class="link_name">Pending Appointment</span>
-            </a>
-        </li>
-        @endif
-
-        @if(view_permission('insurance'))
-        <li>
-            <a href="{{ route('insurance.index') }}"
-                class="{{(request()->routeIs('insurance.index')) ? 'menu-acitve' : ''}} scroll-item">
-                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
-                <span class="link_name">Insurance</span>
+                <span class="link_name">Pending Appointments</span>
             </a>
         </li>
         @endif
@@ -109,6 +113,16 @@
         </li>
         @endif
 
+        @if(view_permission('insurance'))
+        <li>
+            <a href="{{ route('insurance.index') }}"
+                class="{{(request()->routeIs('insurance.index')) ? 'menu-acitve' : ''}} scroll-item">
+                <i class="ml-3 fa-solid fa-house-chimney-crack"></i>
+                <span class="link_name">Insurance</span>
+            </a>
+        </li>
+        @endif
+        
         @if(view_permission('categories'))
         <li>
             <a href="{{ route('categories') }}" class="{{(request()->routeIs('categories')) ? 'menu-acitve' : ''}}">
@@ -117,6 +131,7 @@
             </a>
         </li>
         @endif
+        
         @if(view_permission('countries'))
         <li>
             <a href="{{ route('countries') }}" class="{{(request()->routeIs('countries')) ? 'menu-acitve' : ''}}">
@@ -143,15 +158,7 @@
             </a>
         </li>
         @endif
-
-        @if(view_permission('client'))
-        <li>
-            <a href="{{ route('client.index') }}" class="{{(request()->routeIs('client.index')) ? 'menu-acitve' : ''}}">
-                <i class="ml-3 fa-solid fa-users"></i>
-                <span class="link_name">Client</span>
-            </a>
-        </li>
-        @endif
+        
         @if(view_permission('vfs'))
         <li>
             <a href="{{ route('vfs.embassy') }}" class="{{(request()->routeIs('vfs.embassy')) ? 'menu-acitve' : ''}}">
@@ -166,6 +173,14 @@
             <a href="{{ route('staff') }}" class="{{(request()->routeIs('staff')) ? 'menu-acitve' : ''}}">
                 <i class=" ml-3 fa-solid fa-users"></i>
                 <span class="link_name">Staff</span>
+            </a>
+        </li>
+        @endif
+        @if(view_permission('software_status'))
+        <li>
+            <a href="{{ route('software.status') }}" class="{{(request()->routeIs('software.staff')) ? 'menu-acitve' : ''}}">
+                <i class=" ml-3 fa-solid fa-users"></i>
+                <span class="link_name">Software Status</span>
             </a>
         </li>
         @endif

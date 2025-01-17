@@ -26,6 +26,7 @@ class DS160 extends Model
         'challan_created',
         'challan_submitted',
         'payment_mode',
+        'cgi_ref_no',
         'transaction_date',
         'appoint_date',
         'appoint_reschedule',

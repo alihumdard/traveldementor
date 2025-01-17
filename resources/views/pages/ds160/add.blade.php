@@ -211,7 +211,12 @@
                             </select>
                             <span id="challan_submitted_error" class="error-message text-danger"></span>
                         </div>
-
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="cgi_ref_no">CGI REF NO</label>
+                            <input type="number" name="cgi_ref_no" id="cgi_ref_no"
+                                class="form-control" value="{{ isset($ds160) ? $ds160->cgi_ref_no : '' }}" placeholder="Enter the CGI Ref No ">
+                            <span id="cgi_ref_no_error" class="error-message text-danger"></span>
+                        </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="payment_mode">Payment Mode</label>
                             <select name="payment_mode" id="payment_mode" class="form-select">

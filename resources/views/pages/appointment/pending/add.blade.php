@@ -154,9 +154,12 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-select">
-                                <option value="Inprocess" {{ isset($appointment) && $appointment->status == 'Inprocess' ? 'selected' : '' }}>Inprocess</option>
-                                <option value="Done" {{ isset($appointment) && $appointment->status == 'Done' ? 'selected' : '' }}>Done</option>
+                                @foreach ($status as $st )  
+                                <option value="{{ $st->name }}" {{ isset($appointment) && $appointment->status == $st->name ? 'selected' : '' }}>{{ $st->name }}</option>
+
+                                @endforeach
                             </select>
+
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>
                 

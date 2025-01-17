@@ -68,6 +68,7 @@ class DSController extends Controller
                 'sec_answer'           => $request->sec_answer,
                 'us_travel_doc_email'  => $request->us_travel_doc_email,
                 'us_travel_doc_password' => $request->us_travel_doc_password,
+                'cgi_ref_no'             => $request->cgi_ref_no,
                 'us_travel_doc_updated_password' => $request->us_travel_doc_updated_password,
                 'challan_created'      => $request->challan_created,
                 'challan_submitted'    => $request->challan_submitted,

@@ -57,11 +57,12 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Contact no</th>
+                  <th>Surname</th>
+                  <th>Given Name</th>
+                  <th>E-mail</th>
+                  <th>Contact No</th>
                   <th>Date of birth</th>
-                  <th>Refer Person</th>
+                  <th>Refer by</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -69,6 +70,7 @@
               <tbody id="tableData">
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
+                  <td>{{ $client->sur_name }}</td>
                   <td>{{ $client->name }}</td>
                   <td>{{ $client->email}}</td>
                   <td>{{ $client->contact_no }}</td>

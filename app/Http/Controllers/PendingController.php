@@ -8,6 +8,7 @@ use App\Models\Appointment;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\Country;
+use App\Models\SoftwareStatus;
 use App\Models\VfsEmbassy;
 
 class PendingController extends Controller
@@ -27,6 +28,7 @@ class PendingController extends Controller
         $data['categories'] = Category::where('type','=','appointment')->get();
         $data['countries'] = Country::all();
         $data['vfsembasses'] = VfsEmbassy::all();
+        $data['status'] = SoftwareStatus::where('type',3)->get();
         if($user->role=="Staff")
         {
             $data['clients'] = Client::where('staff_id', $user->id)->get();

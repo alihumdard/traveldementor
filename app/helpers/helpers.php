@@ -82,10 +82,10 @@ function view_permission($page_name)
                 case 'schedule_appointment':
                 case 'pending_appointment':
                 case 'insurance':
-                case 'tracking':
                 case 'hotel_booking':
                 case 'client':
                 case 'ds_160':
+                case 'software_status':
                     return true;
                 default:
                     return false;
@@ -103,7 +103,6 @@ function view_permission($page_name)
                 case 'schedule_appointment':
                 case 'pending_appointment':
                 case 'insurance':
-                case 'tracking':
                 case 'hotel_booking':
                 case 'client':
                 case 'ds_160':

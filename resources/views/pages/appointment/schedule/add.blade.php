@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Schedule Appoinment')
+@section('title', 'Scheduled Appointments')
 @section('content')
 
 <style>
@@ -100,7 +100,7 @@
                         <input type="hidden" name="appointment_type" value="schedule">
                         
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="application_id">Applicant name</label>
+                            <label for="application_id">Applicant Name</label>
                             <select name="application_id" id="application_id" class="form-select">
                                 <option disabled selected> Select Applicant Name</option>
                                 @foreach ($clients as $client)
@@ -122,9 +122,9 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="vfs_embassy_id">VFS Embassy</label>
+                            <label for="vfs_embassy_id">VFS/Embassy</label>
                             <select name="vfs_embassy_id" id="vfs_embassy_id" class="form-select">
-                                <option disabled selected>Select Vfs Embassy</option>
+                                <option disabled selected>Select Vfs/Embassy</option>
                                 @foreach ($vfsembasses as $vfsembassy)
                                     <option value="{{ $vfsembassy->id }}" {{ isset($appointment) && $appointment->vfs_embassy_id == $vfsembassy->id ? 'selected' : '' }}>{{ $vfsembassy->name }}</option>
                                 @endforeach
@@ -168,8 +168,8 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="vfs_appointment_refers">Vfs Appointment Refers</label>
-                            <input type="text" name="vfs_appointment_refers" id="vfs_appointment_refers" class="form-control" placeholder="Enter vfs appointment refers" value="{{ isset($appointment) ? $appointment->vfs_appointment_refers : '' }}">
+                            <label for="vfs_appointment_refers">Vfs Appointment Ref.</label>
+                            <input type="text" name="vfs_appointment_refers" id="vfs_appointment_refers" class="form-control" placeholder="Enter vfs appointment ref." value="{{ isset($appointment) ? $appointment->vfs_appointment_refers : '' }}">
                             <span id="vfs_appointment_refers_error" class="error-message text-danger"></span>
                         </div>
                 
@@ -201,15 +201,16 @@
                         </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="appointment_refer_no">Appointment Refer no</label>
-                            <input type="number" name="appointment_refer_no" id="appointment_refer_no" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_refer_no : '' }}" placeholder="Enter Appointment Refer no">
+                            <label for="appointment_refer_no">Application Refer No.</label>
+                            <input type="number" name="appointment_refer_no" id="appointment_refer_no" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_refer_no : '' }}" placeholder="Enter Application Refer No.">
                             <span id="appointment_refer_no_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-select">
-                                <option value="Inprocess" {{ isset($appointment) && $appointment->status == 'Inprocess' ? 'selected' : '' }}>Inprocess</option>
-                                <option value="Done" {{ isset($appointment) && $appointment->status == 'Done' ? 'selected' : '' }}>Done</option>
+                                @foreach ($status as $st )  
+                                <option value="{{ $st->name }}" {{ isset($appointment) && $appointment->status == $st->name ? 'selected' : '' }}>{{ $st->name }}</option>
+                                @endforeach
                             </select>
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>

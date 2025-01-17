@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('passport_no');
             $table->string('passport_expiry');
             $table->string('visa_status');
-            $table->string('visa_expiry_date');
+            $table->string('visa_expiry_date')->nullable();
             $table->string('visa_refer_tracking_id')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('card_holder_name')->nullable();
             $table->string('ds_160')->nullable();
             $table->string('status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();

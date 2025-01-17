@@ -156,16 +156,15 @@
                             <input type="email" name="reservation_email" id="reservation_email" class="form-control" value="{{ isset($hotelbooking) ? $hotelbooking->reservation_email : '' }}" placeholder="Enter reservation email">
                             <span id="reservation_email_error" class="error-message text-danger"></span>
                         </div>
-
-                        <!-- Status -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="status">Status</label>
-                            <select name="status" id="status" class="form-select">
-                                <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select status</option>
-                                <option value="active" {{ isset($hotelbooking) && $hotelbooking->status == 'active' ? 'selected' : '' }}>Active</option>
-                                <option value="cancel" {{ isset($hotelbooking) && $hotelbooking->status == 'cancel' ? 'selected' : '' }}>Cancel</option>
-                                <option value="paid" {{ isset($hotelbooking) && $hotelbooking->status == 'paid' ? 'selected' : '' }}>Paid</option>
+                            <select name="status" id="status"    class="form-select">
+                                @foreach ($status as $st )  
+                                <option value="{{ $st->name }}" {{ isset($hotelbooking) && $hotelbooking->status == $st->name ? 'selected' : '' }}>{{ $st->name }}</option>
+
+                                @endforeach
                             </select>
+
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>
                     </div>

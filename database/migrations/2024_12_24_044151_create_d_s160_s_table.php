@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('year_of_birth')->nullable();
             $table->string('sec_question')->nullable();
             $table->string('sec_answer')->nullable();
+            $table->string('cgi_ref_no')->nullable();
             $table->string('us_travel_doc_email')->nullable();
             $table->string('us_travel_doc_password')->nullable();
             $table->string('us_travel_doc_updated_password')->nullable();
