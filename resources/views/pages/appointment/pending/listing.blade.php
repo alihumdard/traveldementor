@@ -25,7 +25,7 @@
           </div>
           <!-- Search Input -->
           <div class="col-lg-6 col-md-8 col-sm-12 my-2">
-            <input type="text" id="search_input" class="form-control" placeholder="Search Name of Country" style="height: 45px;" />
+            <input type="text" id="search_input" class="form-control" placeholder="Search by Applicant or Country Name" style="height: 45px;" />
           </div>
         </div>
 
@@ -42,8 +42,8 @@
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.86);">
                 <tr style="font-size: small;">
                   <th>#</th>
+                  <th>Applicant Name</th>
                   <th>Country</th>
-                  <th>Application Name</th>
                   <th>No of application</th>
                   <th>Category</th>
                   <th>VFS Embassy</th>
@@ -55,8 +55,8 @@
                 @foreach ($appointments as $appointment)
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration ??'N/A' }}</td>
-                  <td>{{ $appointment->country->name ??'N/A'}} </td>
                   <td>{{ $appointment->client->name ??'N/A' }}</td>
+                  <td>{{ $appointment->country->name ??'N/A'}} </td>
                   <td>{{ $appointment->no_application ??'N/A' }}</td>
                   <td>{{ $appointment->category->name ??'N/A'}}</td>
                   <td>{{ $appointment->vfsembassy->name ??'N/A'}}</td>
@@ -104,15 +104,14 @@
 @pushOnce('scripts')
 <script>
   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-    var searchValue = $('#search_input').val().toLowerCase();
-    var column1 = data[1] ? data[1].toLowerCase() : "";
-    return column1.includes(searchValue);
-  });
-
-  $('#search_input').on('keyup', function() {
-    users_table.draw();
-  });
-
+      var searchValue = $('#search_input').val().toLowerCase();
+      var column1 = data[1] ? data[1].toLowerCase() : "";
+      var column5 = data[2] ? data[2].toLowerCase() : "";
+      return column1.includes(searchValue) || column5.includes(searchValue);
+    });
+    $('#search_input').on('keyup', function() {
+      users_table.draw();
+    });
   // Initialize DataTable
   var users_table = $('#qoute-table').DataTable({});
 </script>

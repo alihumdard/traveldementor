@@ -94,17 +94,9 @@
               <path d="M0 64C0 28.7 28.7 0 64 0H448c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zM470.6 96H41.4L256 281.4 470.6 96zM464 144.6 273.9 306.7c-10.7 9.2-26.1 9.2-36.8 0L48 144.6V432H464V144.6z" />
             </svg>
           </span>
-          <span>Tracking Application</span>
+          <span>Track Application</span>
         </h3>
         <div class="row mb-2 justify-content-end">
-          <!-- Add Appointment Button -->
-          <div class="col-lg-2 col-md-4 col-sm-12 my-2 text-md-right text-sm-center">
-            <a href="{{ route('tracking.application.add') }}">
-              <button class="btn add-btn text-white w-100" style="background-color: #452C88;">
-                <span><i class="fa fa-plus mr-2"></i>Add Application</span>
-              </button>
-            </a>
-          </div>
 
           <!-- Search Input -->
           <div class="col-lg-6 col-md-8 col-sm-12 my-2">

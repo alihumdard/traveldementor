@@ -27,7 +27,7 @@
           </div>
 
           <!-- Filter By Client Dropdown with Icon in the same line -->
-          <div class="col-12 col-md-4 my-2">
+          {{-- <div class="col-12 col-md-4 my-2">
             <div class="input-group">
               <select name="filter_by_country" id="filter_by_country" class="form-select select-group select2" style="height: 45px;">
                 <option value="">Filter By Applicant</option>
@@ -36,12 +36,12 @@
                 @endforeach
               </select>
             </div>
-          </div>
+          </div> --}}
 
           <!-- Search Name of Client with Icon -->
           <div class="col-12 col-md-4 my-2">
             <div class="input-group">
-              <input type="text" id="search_input" class="form-control" placeholder="Search By Country" style="height: 45px;" />
+              <input type="text" id="search_input" class="form-control" placeholder="Search by Applicant or Country Name" style="height: 45px;" />
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@
               <thead class="table-dark" style="background-color: #5F4A99;">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th>Name of Applicant</th>
+                  <th>Applicant Name</th>
                   <th>Country</th>
                   <th>Hotel Name</th>
                   <th>Start Date</th>
@@ -74,46 +74,8 @@
                   <td>{{ $booking->country->name }}</td>
                   <td>{{ $booking->name }}</td>
                   <td>{{ $booking->s_date }}</td>
-                  @if($booking->status == 'active')
-                  <td>
-                    <button class="btn btn_status">
-                      <span>
-                        <div
-                          style="width: 100%; height: 100%; padding-top: 5px; padding-bottom: 5px; padding-left: 19px; padding-right: 20px; background: rgba(48.62, 165.75, 19.34, 0.18); border-radius: 3px; justify-content: center; align-items: center; display: inline-flex">
-                          <div style="color: #31A613; font-size: 14px; font-weight: 500; word-wrap: break-word">
-                            Active
-                          </div>
-                        </div>
-                      </span>
-                    </button>
-                  </td>
-                  @elseif($booking->status == 'paid')
-                  <td>
-                    <button class="btn btn_status">
-                      <span>
-                        <div
-                          style="width: 100%; height: 100%; padding-top: 5px; padding-bottom: 5px; padding-left: 19px; padding-right: 20px; background: rgba(34, 139, 34, 0.18); border-radius: 3px; justify-content: center; align-items: center; display: inline-flex">
-                          <div style="color: #511cb9; font-size: 14px; font-weight: 500; word-wrap: break-word">
-                            Paid
-                          </div>
-                        </div>
-                      </span>
-                    </button>
-                  </td>
-                  @else
-                  <td>
-                    <button class="btn btn_status">
-                      <span>
-                        <div
-                          style="width: 100%; height: 100%; padding-top: 5px; padding-bottom: 5px; padding-left: 19px; padding-right: 20px; background: rgba(255, 0, 0, 0.18); border-radius: 3px; justify-content: center; align-items: center; display: inline-flex">
-                          <div style="color: #FF0000; font-size: 14px; font-weight: 500; word-wrap: break-word">
-                            Cancelled
-                          </div>
-                        </div>
-                      </span>
-                    </button>
-                  </td>
-                  @endif
+                  <td>{{ $booking->status }}</td>
+        
 
                   <td>
                     <div class="d-flex my-auto">
@@ -184,15 +146,19 @@
   //   var selectedStatus = $(this).val();
   //   users_table.column(1).search(selectedStatus).draw();
   // });
-  $('.select2').select2({
-    placeholder: "Select an option",
-    allowClear: true
-  });
-  $('#search_input').on('keyup', function() {
-    var searchValue = $(this).val();
-    // Apply search only on column index 1
-    users_table.column(2).search(searchValue).draw();
-  });
+  // $('.select2').select2({
+  //   placeholder: "Select an option",
+  //   allowClear: true
+  // });
+  $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+      var searchValue = $('#search_input').val().toLowerCase();
+      var column1 = data[1] ? data[1].toLowerCase() : "";
+      var column5 = data[2] ? data[2].toLowerCase() : "";
+      return column1.includes(searchValue) || column5.includes(searchValue);
+    });
+    $('#search_input').on('keyup', function() {
+      users_table.draw();
+    });
   $(document).ready(function() {
     // Remove the 'form-select' and 'select-group' classes
     $('#filter_by_country').removeClass('form-select select-group');

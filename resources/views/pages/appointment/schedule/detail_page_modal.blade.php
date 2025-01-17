@@ -51,7 +51,7 @@
                   <td style="padding: 12px;" id="name"></td>
                 </tr> --}}
                 <tr>
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Contact No</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Applicant Contact No</td>
                   <td style="padding: 12px;" id="contact_no"></td>
                 </tr>
                 <tr>
@@ -63,7 +63,7 @@
                   <td style="padding: 12px;" id="category"></td>
                 </tr>
                 <tr>
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS Embassy</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS/Embassy</td>
                   <td style="padding: 12px;" id="vfs_emb"></td>
                 </tr>
                 <tr>
@@ -79,7 +79,7 @@
                   <td style="padding: 12px;" id="appointment_refer_no"></td>
                 </tr>
                 <tr>
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS Appointment Refer</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">VFS Appointment Ref.</td>
                   <td style="padding: 12px;" id="vfs_appointment_refer"></td>
                 </tr>
                 <tr>

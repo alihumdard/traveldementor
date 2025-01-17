@@ -56,6 +56,10 @@
                 <td style="padding: 12px;" id="ds_160_create_date"></td>
               </tr>
               <tr style="background-color: #ffffff; transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">CGI Ref No</td>
+                <td style="padding: 12px;" id="cgi_ref_no">loading</td>
+              </tr>
+              <tr style="background-color: #ffffff; transition: all 0.3s;">
                 <td style="padding: 12px; color: #452c88; font-weight: bold;">DS160</td>
                 <td style="padding: 12px;" id="ds160"></td>
               </tr>
