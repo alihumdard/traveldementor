@@ -63,20 +63,20 @@
         </li>
         @endif --}}
         
-        @if(view_permission('schedule_appointment'))
-        <li>
-            <a href="{{ route('schedule.appointment.index') }}" class="{{(request()->routeIs('schedule.appointment.index')) ? 'menu-acitve' : ''}}">
-                <i class=" ml-3 fas fa-money-bill"></i>
-                <span class="link_name">Scheduled Appointments</span>
-            </a>
-        </li>
-        @endif
-        
         @if(view_permission('pending_appointment'))
         <li>
             <a href="{{ route('pending.appointment.index') }}" class="{{(request()->routeIs('pending.appointment.index')) ? 'menu-acitve' : ''}}">
             <i class="ml-3 fa-solid fa-calendar-check"></i>
                 <span class="link_name">Pending Appointments</span>
+            </a>
+        </li>
+        @endif
+        
+        @if(view_permission('schedule_appointment'))
+        <li>
+            <a href="{{ route('schedule.appointment.index') }}" class="{{(request()->routeIs('schedule.appointment.index')) ? 'menu-acitve' : ''}}">
+                <i class=" ml-3 fas fa-money-bill"></i>
+                <span class="link_name">Scheduled Appointments</span>
             </a>
         </li>
         @endif
@@ -151,7 +151,7 @@
         <li>
             <a href="{{ route('vfs.embassy') }}" class="{{(request()->routeIs('vfs.embassy')) ? 'menu-acitve' : ''}}">
                 <i class="ml-3 fa-solid fa-passport"></i>
-                <span class="link_name">VFS</span>
+                <span class="link_name">VFS/Embassy</span>
             </a>
         </li>
         @endif

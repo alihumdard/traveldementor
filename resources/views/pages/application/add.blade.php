@@ -157,7 +157,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="status">Status</label>
+                            <label for="status">Application Status</label>
                             <select name="status" id="status" class="form-select">
                                 @foreach ($status as $key => $value )    
                                 <option value="{{ $value['name'] }}" {{ isset($application) && $application->status == $key ? 'selected' : '' }}>{{ $value['name'] }}</option>
@@ -180,7 +180,6 @@
                                 value="{{ isset($application) ? $application->bank_name : old('bank_name') }}">
                             <span id="bank_name_error" class="error-message text-danger"></span>
                         </div>
-            
                         <div class="col-lg-4 col-md-6 col-sm-12 ">
                             <label for="visa_status">Visa Status</label>
                             <select  name="visa_status" id="visa_status" class="form-select">

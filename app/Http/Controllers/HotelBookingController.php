@@ -14,19 +14,18 @@ class HotelBookingController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['countries'] = Country::all();
-        $data['status'] = SoftwareStatus::where('type',5)->get();
+        $data['countries'] = Country::orderBy('name')->get();
+        $data['status'] = SoftwareStatus::where('type', 5)->get();
+       
         if($user->role=="Staff")
         {
-            $data['clients'] = Client::where('staff_id',$user->id)->get();
+            $data['clients'] = Client::where('staff_id',$user->id)->orderBy('name')->get();
         }
         else
         {
-            $data['clients'] = Client::all();
-        }
-        
+            $data['clients'] = Client::orderBy('name')->get();
+        }      
         if ($id) {
-
             $data['hotelbooking'] = HotelBooking::find($id);
         }
         return view('pages.hotelbooking.add', $data);
@@ -43,19 +42,16 @@ class HotelBookingController extends Controller
             ->whereHas('client', function ($query) use ($user) {
                 $query->where('staff_id', $user->id);
             })->get();
-
         }
         else
         {
-            $data['clients'] = Client::all();
+            $data['clients'] = Client::orderBy('name')->get();
             $data['hotel_bookings'] = HotelBooking::with('country', 'client')->get();
         }
-
         return view('pages.hotelbooking.listing', $data);
     }
     public function store(Request $request)
-    {
-        
+    {     
         $user = auth()->user();
         $page_name = 'hotel_booking';
         if (!view_permission($page_name)) {

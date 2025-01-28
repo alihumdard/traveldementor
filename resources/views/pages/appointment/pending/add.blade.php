@@ -89,7 +89,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span>Pending Appointment</span>
+                    <span>Appointment</span>
                 </h3>
             </div>
             <div class="container" id="home">
@@ -149,7 +149,56 @@
                             <span id="no_application_error" class="error-message text-danger"></span>
                         </div>
                 
-    
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appointment_email">Appointment Email</label>
+                            <input type="email" name="appointment_email" id="appointment_email" class="form-control" placeholder="Enter your email" value="{{ isset($appointment) ? $appointment->appointment_email : '' }}">
+                            <span id="appointment_email_error" class="error-message text-danger"></span>
+                        </div>
+                
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appointment_contact_no">Appointment Contact</label>
+                            <input type="tel" name="appointment_contact_no" id="appointment_contact_no" class="form-control" placeholder="Enter phone number" value="{{ isset($appointment) ? $appointment->appointment_contact_no : '' }}">
+                            <span id="appointment_contact_no_error" class="error-message text-danger"></span>
+                        </div>
+                
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="vfs_appointment_refers">Vfs Appointment Ref.</label>
+                            <input type="text" name="vfs_appointment_refers" id="vfs_appointment_refers" class="form-control" placeholder="Enter vfs appointment ref." value="{{ isset($appointment) ? $appointment->vfs_appointment_refers : '' }}">
+                            <span id="vfs_appointment_refers_error" class="error-message text-danger"></span>
+                        </div>
+                
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="payment_mode">Payment Mode</label>
+                            <select name="payment_mode" id="payment_mode" class="form-select">
+                                <option value="debit card" {{ isset($appointment) && $appointment->payment_mode == 'debit_card' ? 'selected' : '' }}>Debit card</option>
+                                <option value="credit card" {{ isset($appointment) && $appointment->payment_mode == 'credit_card' ? 'selected' : '' }}>Credit card</option>
+                            </select>
+                            <span id="payment_mode_error" class="error-message text-danger"></span>
+                        </div>
+                
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="transaction_date">Transaction Date</label>
+                            <input type="date" name="transaction_date" id="transaction_date" class="form-control" value="{{ isset($appointment) ? $appointment->transaction_date : '' }}">
+                            <span id="transaction_date_error" class="error-message text-danger"></span>
+                        </div>
+                
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="bio_metric_appointment_date">Biometric Appointment Date</label>
+                            <input type="date" name="bio_metric_appointment_date" id="bio_metric_appointment_date" class="form-control" value="{{ isset($appointment) ? $appointment->bio_metric_appointment_date : '' }}">
+                            <span id="bio_metric_appointment_date_error" class="error-message text-danger"></span>
+                        </div>
+                
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appointment_reschedule">Appointment Reschedule</label>
+                            <input type="date" name="appointment_reschedule" id="appointment_reschedule" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_reschedule : '' }}">
+                            <span id="appointment_reschedule_error" class="error-message text-danger"></span>
+                        </div>
+                
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appointment_refer_no">Application Refer No.</label>
+                            <input type="number" name="appointment_refer_no" id="appointment_refer_no" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_refer_no : '' }}" placeholder="Enter Application Refer No.">
+                            <span id="appointment_refer_no_error" class="error-message text-danger"></span>
+                        </div>
                 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="status">Status</label>

@@ -48,7 +48,6 @@ class ApplicationController extends Controller
                     $query->whereIn('staff_id', $staff_ids);
                 })->get();
         } else {
-          
             $data['applications']  = Application::with('client', 'category', 'country')->get();
         }
         // dd($data['applications']);
@@ -58,18 +57,18 @@ class ApplicationController extends Controller
     {
         $user = auth()->user();
         $data['user'] = auth()->user();
-        $data['categories'] = Category::where('type','application')->get();
-        $data['countries'] = Country::all();
+        $data['categories'] = Category::where('type','VISA')->orderBy('name')->get();
+        $data['countries'] = Country::orderBy('name')->get();
         $data['status'] = SoftwareStatus::where('type',1)->get();
 
         if($user->role=="Staff")
         {
             $data['status'] = SoftwareStatus::where('type',1)->get();
-            $data['users'] = Client::where('staff_id',$user->id)->get();
+            $data['users'] = Client::where('staff_id',$user->id)->orderBy('name')->get();
         }
         else
         {
-            $data['users'] = Client::all();
+            $data['users'] = Client::orderBy('name')->get();
             $data['status'] = SoftwareStatus::where('type',1)->get();
           
         }
@@ -86,7 +85,6 @@ class ApplicationController extends Controller
     }
     public function application_store(Request $request)
     {
-
         $user = auth()->user();
         $page_name = 'application';
 
@@ -117,8 +115,8 @@ class ApplicationController extends Controller
     }
     public function detail_page($id)
     {
-
         $data['detail_page'] = Application::with('client', 'category', 'country')->find($id);
+    //    dd($data['detail_page']);
         return response()->json($data);
     }
     public function delete($id)

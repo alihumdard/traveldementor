@@ -73,7 +73,7 @@
               </tr> --}}
               
               <tr style="transition: all 0.3s;">
-                <td style="padding: 12px; color: #452c88; font-weight: bold;">Year of Birth</td>
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Year</td>
                 <td style="padding: 12px;" id="year_of_birth"></td>
               </tr>
               <tr style="background-color: #ffffff; transition: all 0.3s;">
@@ -99,6 +99,10 @@
               <tr style="transition: all 0.3s;">
                 <td style="padding: 12px; color: #452c88; font-weight: bold;">Challan Created</td>
                 <td style="padding: 12px;" id="challan_created"></td>
+              </tr>
+              <tr style="transition: all 0.3s;">
+                <td style="padding: 12px; color: #452c88; font-weight: bold;">Challan Expiry</td>
+                <td style="padding: 12px;" id="challan_expiry"></td>
               </tr>
               <tr style="background-color: #ffffff; transition: all 0.3s;">
                 <td style="padding: 12px; color: #452c88; font-weight: bold;">Challan Submitted</td>

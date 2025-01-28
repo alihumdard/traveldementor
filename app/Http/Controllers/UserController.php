@@ -118,11 +118,11 @@ class UserController extends Controller
             $users = User::join('users as staff', 'users.staff_id', '=', 'staff.id')
                 ->where(['users.role' => user_roles('3'), 'users.staff_id' => $user->id])
                 ->select('users.*', 'staff.name as staff_name', 'staff.user_pic as staff_pic', 'staff.email as staff_email')
-                ->orderBy('users.id', 'desc')
+                ->orderBy('users.name')
                 ->get()
                 ->toArray();
 
-            $staffs_list = User::where(['role' => user_roles('2'), 'staff_id' => $user->id])->orderBy('id', 'desc')->select('id', 'name')->get()->toArray();
+            $staffs_list = User::where(['role' => user_roles('2'), 'staff_id' => $user->id])->orderBy('name')->select('id', 'name')->get()->toArray();
             return view('pages.profile.users', ['data' => $users, 'user' => $user, 'add_as_user' => user_roles('3'), 'staffs_list' => $staffs_list]);
         } else {
             $users = User::where(['role' => user_roles('3'), 'staff_id' => $user->id])->orderBy('id', 'desc')->get()->toArray();
@@ -132,7 +132,6 @@ class UserController extends Controller
     public function add($id = null)
     {
         if ($id) {
-
             $data['staff'] = User::find($id);
             return view('pages.profile.add_staff', $data);
         }
@@ -228,7 +227,6 @@ class UserController extends Controller
                 ],
             ]);
         }
-
         if ($request->action == 'edit') {
             $vfs = VfsEmbassy::findOrFail($request->id)->toArray();
         } else if ($request->action == 'save') {
@@ -247,7 +245,7 @@ class UserController extends Controller
             $message = "VFS has been deleted Successfully";
             Session::flash('msg', $message);
         }
-        $vfs_embassies = VfsEmbassy::where(['status' => $this->status['Active']])->latest('id')->get()->toArray();
+        $vfs_embassies = VfsEmbassy::where(['status' => $this->status['Active']])->orderBy('name')->get()->toArray();
         return view('pages.components.vfs_embassy', ['user' => $user, 'vfs' => $vfs, 'data' => $vfs_embassies]);
     }
     public function software_status(Request $request)
@@ -260,16 +258,15 @@ class UserController extends Controller
         }
 
         $software_status = NULL;
-
         $existing = SoftwareStatus::where(['name' => ucwords($request->name), 'type' => $request->status_type])->first();
         if ($existing && empty($request->id)) {
             $message = 'This name already exists for this type.';
-            Session::flash('msg', $message); // Flash message
+            Session::flash('msg', $message);
             return redirect()->back();
         }
-
         if ($request->action == 'edit') {
             $software_status = SoftwareStatus::findOrFail($request->id)->toArray();
+          
         } elseif ($request->action == 'save') {
             SoftwareStatus::updateOrCreate(
                 ['id' => $request->id ?? NULL],
@@ -279,7 +276,6 @@ class UserController extends Controller
                     'created_by' => $user->id,
                 ]
             );
-
             $message = "Software status " . ($request->id ? "Updated" : "Saved") . " Successfully";
             Session::flash('msg', $message); // Flash message
         } elseif ($request->action == 'dell') {
@@ -287,11 +283,9 @@ class UserController extends Controller
             $message = "Status has been deleted Successfully";
             Session::flash('msg', $message); // Flash message
         }
-
         $software_statuses = SoftwareStatus::latest('id')->get()->toArray();
 
         $data = ['user' => $user, 'software_status' => $software_status, 'data' => $software_statuses];
-
         return view('pages.components.software_status', $data);
     }
 
@@ -338,7 +332,7 @@ class UserController extends Controller
             $message = "Category has been deleted Successfully";
             Session::flash('msg', $message);
         }
-        $categories = Category::where(['status' => $this->status['Active']])->latest('id')->get()->toArray();
+        $categories = Category::where(['status' => $this->status['Active']])->orderBy('name')->get()->toArray();
         $data = ['user' => $user, 'category' => $category, 'data' => $categories];
 
         return view('pages.components.categories', $data);
@@ -386,7 +380,7 @@ class UserController extends Controller
             $message = "Country has been deleted Successfully";
             Session::flash('msg', $message);
         }
-        $countries = Country::where(['status' => $this->status['Active']])->latest('id')->get()->toArray();
+        $countries = Country::where(['status' => $this->status['Active']])->orderBy('name')->get()->toArray();
         $data = ['user' => $user, 'country' => $country, 'data' => $countries];
         return view('pages.components.countries', $data);
     }
@@ -552,7 +546,7 @@ class UserController extends Controller
                         ]);
                     }
                 }
-            }
+            } 
         }
 
         foreach ($users as $user) {
@@ -614,14 +608,10 @@ class UserController extends Controller
     public function fetchUnseenAlerts()
     {
         $user_id = auth()->user()->id;
-
-        // Fetch unseen alerts for the user
         $alerts = Alert::where('user_id', $user_id)
             ->where('status', 'unseen')
-
             ->orderBy('created_at', 'desc')
             ->get();
-
         foreach ($alerts as $alert) {
             $maildata = [
                 'title' => $alert->title,
@@ -649,7 +639,6 @@ class UserController extends Controller
         $alert = Alert::find($request->alert_id);
         $alert->status = 'seen';
         $alert->save();
-
         return response()->json(['success' => true]);
     }
     public function alert_delete(Request $request)

@@ -130,6 +130,7 @@
         $("#us_travel_doc_password").text(response.detail_page.us_travel_doc_password);
         $("#us_travel_doc_updated_password").text(response.detail_page.us_travel_doc_updated_password);
         $("#challan_created").text(response.detail_page.challan_created);
+        $("#challan_expiry").text(response.detail_page.challan_expiry);
         $("#cgi_ref_no").text(response.detail_page.cgi_ref_no);
         $("#challan_submitted").text(response.detail_page.challan_submitted);
         $("#payment_mode").text(response.detail_page.payment_mode);

@@ -229,7 +229,6 @@
  $(document).on('click', '[data-update]', function() {
     var alertId = $(this).data('update'); 
     var iconElement = $(this).find('i'); 
-
     $.ajax({
         url: '/update/alert/status',
         method: 'POST',

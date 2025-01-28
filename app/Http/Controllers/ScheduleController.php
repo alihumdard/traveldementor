@@ -22,17 +22,17 @@ class ScheduleController extends Controller
 
         if ($user->role == "Staff") {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('appointment_type', '=', 'schedule')
+                ->where('status', '=', 'Schedule')
                 ->whereHas('client', function ($query) use ($user) {
-                    $query->where('staff_id', $user->id); // Directly filter by staff_id
+                    $query->where('staff_id', $user->id);
                 })
                 ->get();
         } else {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('appointment_type', '=', 'schedule')
+                ->where('status', '=', 'Schedule')
                 ->get();
         }
-
+        // dd($data['appointments']);
         return view('pages.appointment.schedule.listing', $data);
     }
     public function add($id = null)
@@ -40,9 +40,9 @@ class ScheduleController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
 
-        $data['categories'] = Category::where('type', '=', 'appointment')->get();
-        $data['countries'] = Country::all();
-        $data['vfsembasses'] = VfsEmbassy::all();
+        $data['categories'] = Category::where('type', '=', 'appointment')->orderBy('name')->get();
+        $data['countries'] = Country::orderBy('name')->get();
+        $data['vfsembasses'] = VfsEmbassy::orderBy('name')->get();
         $data['status'] = SoftwareStatus::where('type',4)->get();
 
         if ($user->role == "Staff") {
@@ -95,7 +95,7 @@ class ScheduleController extends Controller
     public function schedule_detail_page($id)
     {
 
-        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('appointment_type', 'schedule')->find($id);
+        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('status', 'schedule')->find($id);
         return response()->json($data);
     }
 

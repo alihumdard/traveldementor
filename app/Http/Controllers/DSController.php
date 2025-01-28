@@ -14,14 +14,14 @@ class DSController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['categories'] = Category::where('type','=','DS160')->get();
+        $data['categories'] = Category::where('type','=','DS160')->orderBy('name')->get();
         if($user->role=="Staff")
         {
-            $data['clients']=Client::where('staff_id',$user->id)->get();
+            $data['clients']=Client::where('staff_id',$user->id)->orderBy('name')->get();
         }
         else
         {
-            $data['clients']=Client::all();
+            $data['clients']=Client::orderBy('name')->get();      
         }
         if ($id) {
             $data['ds160'] = DS160::find($id);
@@ -49,6 +49,7 @@ class DSController extends Controller
 
     public function store(Request $request)
     {
+
         $user = auth()->user();
         $page_name = 'ds_160';
         if (!view_permission($page_name)) {
@@ -71,6 +72,7 @@ class DSController extends Controller
                 'cgi_ref_no'             => $request->cgi_ref_no,
                 'us_travel_doc_updated_password' => $request->us_travel_doc_updated_password,
                 'challan_created'      => $request->challan_created,
+                'challan_expiry'      => $request->challan_expiry,
                 'challan_submitted'    => $request->challan_submitted,
                 'payment_mode'         => $request->payment_mode,
                 'transaction_date'     => $request->transaction_date,

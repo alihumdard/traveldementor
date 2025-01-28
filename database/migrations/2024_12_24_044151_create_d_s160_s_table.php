@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('us_travel_doc_password')->nullable();
             $table->string('us_travel_doc_updated_password')->nullable();
             $table->string('challan_created')->nullable();
+            $table->string('challan_expiry')->nullable();
             $table->string('challan_submitted')->nullable();
             $table->string('payment_mode')->nullable();
             $table->string('transaction_date')->nullable();
