@@ -17,7 +17,7 @@ class PendingController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['appointments'] = Appointment::with('client','category','vfsembassy')->where('appointment_type', '=', 'pending')->get();
+        $data['appointments'] = Appointment::with('client','category','vfsembassy')->where('status', '=', 'pending')->get();
         return view('pages.appointment.pending.listing', $data);
     }
     public function add($id = null)
@@ -25,16 +25,16 @@ class PendingController extends Controller
         // $userIds = Application::pluck('user_id')->unique()->toArray();
         $user = auth()->user();
         $data['user'] = $user;
-        $data['categories'] = Category::where('type','=','appointment')->get();
-        $data['countries'] = Country::all();
-        $data['vfsembasses'] = VfsEmbassy::all();
+        $data['categories'] = Category::where('type','=','VISA')->get();
+        $data['countries'] = Country::orderBy('name')->get();
+        $data['vfsembasses'] = VfsEmbassy::orderBy('name')->get();
         $data['status'] = SoftwareStatus::where('type',3)->get();
         if($user->role=="Staff")
         {
-            $data['clients'] = Client::where('staff_id', $user->id)->get();
+            $data['clients'] = Client::where('staff_id', $user->id)->orderBy('name')->get();
         }
         else{
-            $data['clients'] = Client::all();
+            $data['clients'] = Client::orderBy('name')->get();
 
         }
         if ($id) {

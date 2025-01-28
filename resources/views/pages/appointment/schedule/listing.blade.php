@@ -17,13 +17,13 @@
         </h3>
         <div class="row mb-2 g-2 justify-content-start justify-content-md-end">
           <!-- Add Appointment Button -->
-          <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-md-end justify-content-start ">
+        {{-- <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-md-end justify-content-start ">
             <a href="{{ route('schedule.appointment.add') }}">
               <button class="btn add-btn text-white" style="background-color: #452C88; width: fit-content; padding-left: 10px; padding-right: 10px;">
                 <span><i class="fa fa-plus me-2"></i>Add Appointment</span>
               </button>
             </a>
-          </div>
+          </div> --}}
           <!-- Search Input -->
           <div class="col-lg-6 col-md-6 col-sm-12">
             <input

@@ -237,12 +237,6 @@
             }
 
             // Validate Refer Person
-            const referPerson = $('#refer_person').val().trim();
-            if (!referPerson) {
-                $('#refer_person_error').text('Refer person is required.');
-                isValid = false;
-            }
-
             // Submit the form if valid
             if (isValid) {
                 this.submit(); // Submit form if all fields are valid

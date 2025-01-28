@@ -30,14 +30,14 @@ class InsuranceController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['countries'] = Country::all();
+        $data['countries'] = Country::orderBy('name')->orderBy('name')->get();
         if($user->role=="Staff")
         {
-            $data['clients'] = Client::where('staff_id',$user->id)->get();
+            $data['clients'] = Client::where('staff_id',$user->id)->orderBy('name')->get();
         }
         else
         {
-            $data['clients'] = Client::all();
+            $data['clients'] = Client::orderBy('name')->get();
         }
         if ($id) {
             $data['insurance'] = Insurance::find($id);

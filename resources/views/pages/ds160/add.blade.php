@@ -149,9 +149,11 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="year_of_birth">Year of Birth</label>
-                            <input type="date" name="year_of_birth" id="year_of_birth" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->year_of_birth : '' }}">
+                            <label for="year_of_birth">Year</label>
+                            <input type="number" name="year_of_birth" id="year_of_birth" class="form-control"
+                            placeholder="Enter year (e.g., 1990)"
+                            value="{{ isset($ds160) ? $ds160->year_of_birth : '' }}" min="1900" max="2100" step="1">
+                     
                             <span id="year_of_birth_error" class="error-message text-danger"></span>
                         </div>
 
@@ -200,7 +202,12 @@
                             </select>
                             <span id="challan_created_error" class="error-message text-danger"></span>
                         </div>
-
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="challan_expiry">Challan Expiry</label>
+                            <input type="date" name="challan_expiry" id="challan_expiry" class="form-control"
+                                value="{{ isset($ds160) ? $ds160->challan_expiry : '' }}">
+                            <span id="challan_expiry_error" class="error-message text-danger"></span>
+                        </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="challan_submitted">Challan Submitted</label>
                             <select name="challan_submitted" id="challan_submitted" class="form-select">

@@ -31,9 +31,9 @@ class ClientController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
         if ($user->role == "Staff") {
-            $data['clients'] = Client::where('staff_id', $user->id)->get();
+            $data['clients'] = Client::where('staff_id', $user->id)->orderBy('name')->get();
         } else {
-            $data['clients'] = Client::all();
+            $data['clients'] = Client::orderBy('name')->orderBy('name')->get();
         }
         return view('pages.client.listing', $data);
     }

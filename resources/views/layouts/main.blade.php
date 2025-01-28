@@ -219,8 +219,6 @@ $notifications = NULL;
             }
         });
     }
-
-    // Define the function to fetch alerts
 function expiry() {
     $.ajax({
         url: '/passport/expiry',  // Route to call the controller
@@ -229,7 +227,7 @@ function expiry() {
             _token: '{{ csrf_token() }}',  // CSRF Token to protect the request
         },
         success: function(response) {
-            console.log('Alerts checked successfully!');
+            console.log('Alerts checked successfully!' + response);
             // You can also update the UI to show the alert message or any other updates here.
         },
         error: function(xhr, status, error) {

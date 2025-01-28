@@ -13,6 +13,7 @@ class DS160 extends Model
     protected $fillable = [
         'application_id',
         'category_id',
+        'challan_expiry',
         'ds_160_create_date',
         'ds160',
         'revised_ds160',
