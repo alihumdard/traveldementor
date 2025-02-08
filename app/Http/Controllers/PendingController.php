@@ -17,25 +17,33 @@ class PendingController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['appointments'] = Appointment::with('client','category','vfsembassy')->where('status', '=', 'pending')->get();
+        if ($user->role == "Staff") {
+            $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
+                ->where('appointment_type', '=', 'pending')
+                ->whereHas('client', function ($query) use ($user) {
+                    $query->where('staff_id', $user->id);
+                })
+                ->get();
+        } else {
+            $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
+                ->where('appointment_type', '=', 'pending')
+                ->get();
+        }
         return view('pages.appointment.pending.listing', $data);
     }
     public function add($id = null)
-    {       
+    {
         // $userIds = Application::pluck('user_id')->unique()->toArray();
         $user = auth()->user();
         $data['user'] = $user;
-        $data['categories'] = Category::where('type','=','VISA')->get();
+        $data['categories'] = Category::where('type', '=', 'VISA')->get();
         $data['countries'] = Country::orderBy('name')->get();
         $data['vfsembasses'] = VfsEmbassy::orderBy('name')->get();
-        $data['status'] = SoftwareStatus::where('type',3)->get();
-        if($user->role=="Staff")
-        {
+        $data['status'] = SoftwareStatus::where('type', 3)->get();
+        if ($user->role == "Staff") {
             $data['clients'] = Client::where('staff_id', $user->id)->orderBy('name')->get();
-        }
-        else{
+        } else {
             $data['clients'] = Client::orderBy('name')->get();
-
         }
         if ($id) {
             $data['appointment'] = Appointment::find($id);
@@ -72,20 +80,23 @@ class PendingController extends Controller
                 'created_by'                   => $user->id,
             ]
         );
-
         $message = "Appointment" . ($request->id ? "Updated" : "Saved") . " Successfully";
-        return redirect()->route('pending.appointment.index')->with('message', $message);
+        if (strtolower($request->status) == 'schedule') {
+            return redirect()->route('schedule.appointment.index');
+        } else {
+            return redirect()->route('pending.appointment.index');
+        }
     }
     public function pending_detail_page($id)
     {
-        
-        $data['detail_page'] = Appointment::with('client', 'category', 'country','vfsembassy')->where('appointment_type','pending')->find($id);
+
+        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('appointment_type', 'pending')->find($id);
         return response()->json($data);
     }
     public function delete($id)
     {
-    $appointment=Appointment::find($id);
-    $appointment->delete();
-    return redirect()->back()->with('message','Successfull Deleted');
+        $appointment = Appointment::find($id);
+        $appointment->delete();
+        return redirect()->back()->with('message', 'Successfull Deleted');
     }
 }

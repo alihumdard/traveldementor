@@ -94,10 +94,10 @@
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Payment Mode</td>
                   <td style="padding: 12px;" id="pay_mod"></td>
                 </tr>
-                <tr>
+                {{-- <tr>
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Status</td>
                   <td style="padding: 12px;" id="status"></td>
-                </tr>
+                </tr> --}}
               </tbody>
             </table>
           </div>

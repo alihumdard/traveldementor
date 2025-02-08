@@ -205,7 +205,7 @@
                             <input type="number" name="appointment_refer_no" id="appointment_refer_no" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_refer_no : '' }}" placeholder="Enter Application Refer No.">
                             <span id="appointment_refer_no_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                        {{-- <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-select">
                                 @foreach ($status as $st )  
@@ -213,7 +213,7 @@
                                 @endforeach
                             </select>
                             <span id="status_error" class="error-message text-danger"></span>
-                        </div>
+                        </div> --}}
                     </div>
                 
                     <div class="mt-3">
@@ -318,10 +318,10 @@ $(document).ready(function () {
             $('#bio_metric_appointment_date_error').text('This field is required');
             isValid = false;
         }
-        if ($('#status').val() === null || $('#status').val() === '') {
-            $('#status_error').text('This field is required');
-            isValid = false;
-        }
+        // if ($('#status').val() === null || $('#status').val() === '') {
+        //     $('#status_error').text('This field is required');
+        //     isValid = false;
+        // }
 
         if ($('#appointment_reschedule').val().trim() === '') {
             $('#appointment_reschedule_error').text('This field is required');

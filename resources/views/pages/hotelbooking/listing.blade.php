@@ -55,12 +55,12 @@
               <tbody id="tableData">
                 @foreach ($hotel_bookings as $booking )
                 <tr style="font-size: small;">
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $booking->client->name}}</td>
-                  <td>{{ $booking->country->name }}</td>
-                  <td>{{ $booking->name }}</td>
-                  <td>{{ $booking->s_date }}</td>
-                  <td>{{ $booking->status }}</td>
+                  <td>{{ $loop->iteration ?? ''}}</td>
+                  <td>{{ $booking->client->name ?? ''}}</td>
+                  <td>{{ $booking->country->name ?? ''}}</td>
+                  <td>{{ $booking->name ?? ''}}</td>
+                  <td>{{ $booking->s_date ?? ''}}</td>
+                  <td>{{ $booking->status ?? ''}}</td>
         
 
                   <td>

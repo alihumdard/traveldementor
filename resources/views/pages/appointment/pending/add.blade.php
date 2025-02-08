@@ -69,7 +69,8 @@
     #btn_cancel_appointment:hover {
         transform: scale(1.05);
     }
-    label{
+
+    label {
         margin-bottom: 0px !important;
     }
 </style>
@@ -96,144 +97,172 @@
                 <form action="{{ route('pending.appointment.store') }}" id="formData" method="post">
                     <div class="row">
                         @csrf
-                        <input type="hidden" id="appointment_id" name="id" value="{{ isset($appointment) ? $appointment->id : '' }}">
-                        <input type="hidden" name="appointment_type" value="pending">
-                        
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="application_id">Applicant Name</label>
-                            <select name="application_id" id="application_id" class="form-select">
-                                <option disabled selected> Select Applicant</option>
-                                @foreach ($clients as $client)
-                                    <option value="{{ $client->id }}" {{ isset($appointment) && $appointment->application_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
-                                @endforeach
-                            </select>
-                            <span id="application_id_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="country_id">Country</label>
-                            <select name="country_id" id="country_id" class="form-select">
-                                <option disabled selected> Select Country</option>
-                                @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}" {{ isset($appointment) && $appointment->country_id == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
-                                @endforeach
-                            </select>
-                            <span id="country_id_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="vfs_embassy_id">VFS Embassy</label>
-                            <select name="vfs_embassy_id" id="vfs_embassy_id" class="form-select">
-                                <option disabled selected>Select Vfs Embassy</option>
-                                @foreach ($vfsembasses as $vfsembassy)
-                                    <option value="{{ $vfsembassy->id }}" {{ isset($appointment) && $appointment->vfs_embassy_id == $vfsembassy->id ? 'selected' : '' }}>{{ $vfsembassy->name }}</option>
-                                @endforeach
-                            </select>
-                            <span id="vfs_embassy_id_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="category_id">Category</label>
-                            <select name="category_id" id="category_id" class="form-select">
-                                <option disabled selected>Select Category</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" {{ isset($appointment) && $appointment->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                            <span id="category_id_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="no_application">No of Applicants</label>
-                            <input type="number" name="no_application" id="no_application" class="form-control" value="{{ isset($appointment) ? $appointment->no_application : '' }}" placeholder="Enter No of Applicants">
-                            <span id="no_application_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="appointment_email">Appointment Email</label>
-                            <input type="email" name="appointment_email" id="appointment_email" class="form-control" placeholder="Enter your email" value="{{ isset($appointment) ? $appointment->appointment_email : '' }}">
-                            <span id="appointment_email_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="appointment_contact_no">Appointment Contact</label>
-                            <input type="tel" name="appointment_contact_no" id="appointment_contact_no" class="form-control" placeholder="Enter phone number" value="{{ isset($appointment) ? $appointment->appointment_contact_no : '' }}">
-                            <span id="appointment_contact_no_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="vfs_appointment_refers">Vfs Appointment Ref.</label>
-                            <input type="text" name="vfs_appointment_refers" id="vfs_appointment_refers" class="form-control" placeholder="Enter vfs appointment ref." value="{{ isset($appointment) ? $appointment->vfs_appointment_refers : '' }}">
-                            <span id="vfs_appointment_refers_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="payment_mode">Payment Mode</label>
-                            <select name="payment_mode" id="payment_mode" class="form-select">
-                                <option value="debit card" {{ isset($appointment) && $appointment->payment_mode == 'debit_card' ? 'selected' : '' }}>Debit card</option>
-                                <option value="credit card" {{ isset($appointment) && $appointment->payment_mode == 'credit_card' ? 'selected' : '' }}>Credit card</option>
-                            </select>
-                            <span id="payment_mode_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="transaction_date">Transaction Date</label>
-                            <input type="date" name="transaction_date" id="transaction_date" class="form-control" value="{{ isset($appointment) ? $appointment->transaction_date : '' }}">
-                            <span id="transaction_date_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="bio_metric_appointment_date">Biometric Appointment Date</label>
-                            <input type="date" name="bio_metric_appointment_date" id="bio_metric_appointment_date" class="form-control" value="{{ isset($appointment) ? $appointment->bio_metric_appointment_date : '' }}">
-                            <span id="bio_metric_appointment_date_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="appointment_reschedule">Appointment Reschedule</label>
-                            <input type="date" name="appointment_reschedule" id="appointment_reschedule" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_reschedule : '' }}">
-                            <span id="appointment_reschedule_error" class="error-message text-danger"></span>
-                        </div>
-                
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="appointment_refer_no">Application Refer No.</label>
-                            <input type="number" name="appointment_refer_no" id="appointment_refer_no" class="form-control" value="{{ isset($appointment) ? $appointment->appointment_refer_no : '' }}" placeholder="Enter Application Refer No.">
-                            <span id="appointment_refer_no_error" class="error-message text-danger"></span>
-                        </div>
-                
+                        <input type="hidden" id="appointment_id" name="id"
+                            value="{{ isset($appointment) ? $appointment->id : '' }}">
+                        <input type="hidden" name="appointment_type" value="pending" id="appointment_type">
+
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-select">
-                                @foreach ($status as $st )  
-                                <option value="{{ $st->name }}" {{ isset($appointment) && $appointment->status == $st->name ? 'selected' : '' }}>{{ $st->name }}</option>
-
+                                @foreach ($status as $st)
+                                <option value="{{ $st->name }}" {{ (isset($appointment) && $appointment->status ==
+                                    $st->name) || (!isset($appointment) && $st->name == 'Pending') ? 'selected' : '' }}>
+                                    {{ $st->name }}
+                                </option>
                                 @endforeach
                             </select>
 
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>
-                
-                        
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="application_id">Applicant Name</label>
+                            <select name="application_id" id="application_id" class="form-select">
+                                <option disabled selected> Select Applicant</option>
+                                @foreach ($clients as $client)
+                                <option value="{{ $client->id }}" {{ isset($appointment) && $appointment->application_id
+                                    == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
+                                @endforeach
+                            </select>
+                            <span id="application_id_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="country_id">Country</label>
+                            <select name="country_id" id="country_id" class="form-select">
+                                <option disabled selected> Select Country</option>
+                                @foreach ($countries as $country)
+                                <option value="{{ $country->id }}" {{ isset($appointment) && $appointment->country_id ==
+                                    $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                            <span id="country_id_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="vfs_embassy_id">VFS Embassy</label>
+                            <select name="vfs_embassy_id" id="vfs_embassy_id" class="form-select">
+                                <option disabled selected>Select Vfs Embassy</option>
+                                @foreach ($vfsembasses as $vfsembassy)
+                                <option value="{{ $vfsembassy->id }}" {{ isset($appointment) && $appointment->
+                                    vfs_embassy_id == $vfsembassy->id ? 'selected' : '' }}>{{ $vfsembassy->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                            <span id="vfs_embassy_id_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="category_id">Category</label>
+                            <select name="category_id" id="category_id" class="form-select">
+                                <option disabled selected>Select Category</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ isset($appointment) && $appointment->category_id
+                                    == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            <span id="category_id_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="no_application">No of Applicants</label>
+                            <input type="number" name="no_application" id="no_application" class="form-control"
+                                value="{{ isset($appointment) ? $appointment->no_application : '' }}"
+                                placeholder="Enter No of Applicants">
+                            <span id="no_application_error" class="error-message text-danger"></span>
+                        </div>
                     </div>
-                
+                    <div class="row" id="additionalFields">
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appointment_email">Appointment Email</label>
+                            <input type="email" name="appointment_email" id="appointment_email" class="form-control"
+                                placeholder="Enter your email"
+                                value="{{ isset($appointment) ? $appointment->appointment_email : '' }}">
+                            <span id="appointment_email_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appointment_contact_no">Appointment Contact</label>
+                            <input type="tel" name="appointment_contact_no" id="appointment_contact_no"
+                                class="form-control" placeholder="Enter phone number"
+                                value="{{ isset($appointment) ? $appointment->appointment_contact_no : '' }}">
+                            <span id="appointment_contact_no_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="vfs_appointment_refers">Vfs Appointment Ref.</label>
+                            <input type="text" name="vfs_appointment_refers" id="vfs_appointment_refers"
+                                class="form-control" placeholder="Enter vfs appointment ref."
+                                value="{{ isset($appointment) ? $appointment->vfs_appointment_refers : '' }}">
+                            <span id="vfs_appointment_refers_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="payment_mode">Payment Mode</label>
+                            <select name="payment_mode" id="payment_mode" class="form-select">
+                                <option value="debit card" {{ (!isset($appointment) || (isset($appointment) &&
+                                    $appointment->payment_mode == 'debit_card')) ? 'selected' : '' }}>Debit card
+                                </option>
+                                <option value="credit card" {{ isset($appointment) && $appointment->payment_mode ==
+                                    'credit_card' ? 'selected' : '' }}>Credit card</option>
+                            </select>
+                            <span id="payment_mode_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="transaction_date">Transaction Date</label>
+                            <input type="date" name="transaction_date" id="transaction_date" class="form-control"
+                                value="{{ isset($appointment) ? $appointment->transaction_date : '' }}">
+                            <span id="transaction_date_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="bio_metric_appointment_date">Biometric Appointment Date</label>
+                            <input type="date" name="bio_metric_appointment_date" id="bio_metric_appointment_date"
+                                class="form-control"
+                                value="{{ isset($appointment) ? $appointment->bio_metric_appointment_date : '' }}">
+                            <span id="bio_metric_appointment_date_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appointment_reschedule">Appointment Reschedule</label>
+                            <input type="date" name="appointment_reschedule" id="appointment_reschedule"
+                                class="form-control"
+                                value="{{ isset($appointment) ? $appointment->appointment_reschedule : '' }}">
+                            <span id="appointment_reschedule_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="appointment_refer_no">Application Refer No.</label>
+                            <input type="number" name="appointment_refer_no" id="appointment_refer_no"
+                                class="form-control"
+                                value="{{ isset($appointment) ? $appointment->appointment_refer_no : '' }}"
+                                placeholder="Enter Application Refer No.">
+                            <span id="appointment_refer_no_error" class="error-message text-danger"></span>
+                        </div>
+
+                    </div>
+
                     <div class="mt-3">
                         <div class="row justify-content-end mt-2">
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4">
-                                <a href="/appointment/pending" id="btn_cancel_appointment" class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
+                                <a href="/appointment/pending" id="btn_cancel_appointment"
+                                    class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
                                     <span>Cancel</span>
                                 </a>
                             </div>
                             <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
-                                <button type="submit" id="btn_save_appointment" class="btn btn-block text-white" style="border-radius: 8px;">
+                                <button type="submit" id="btn_save_appointment" class="btn btn-block text-white"
+                                    style="border-radius: 8px;">
                                     <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
                                     <span id="text">Submit</span>
                                 </button>
                             </div>
                         </div>
                     </div>
-                
                 </form>
-                
             </div>
+
         </div>
     </div>
 </div>
@@ -244,7 +273,40 @@
 @stop
 @pushOnce('scripts')
 <script>
-$(document).ready(function () {
+    $(document).ready(function () {
+    // Function to toggle fields based on status
+    function toggleFields() {
+        if ($('#status').val().toLowerCase() === 'pending') {
+            $('#additionalFields').hide(); // Hide fields if status is "Pending"
+            $('#appointment_type').val('pending');
+        } else {
+            $('#additionalFields').show(); // Show fields for other statuses
+            $('#appointment_type').val('schedule');
+            clearAdditionalFields(); // Clear the values of the fields when status is "schedule"
+        }
+    }
+
+    // Function to clear the values of additional fields
+    function clearAdditionalFields() {
+        $('#appointment_email').val(''); // Clear appointment email
+        $('#appointment_contact_no').val(''); // Clear appointment contact
+        $('#vfs_appointment_refers').val(''); // Clear VFS appointment ref
+        $('#payment_mode').val(''); // Clear payment mode
+        $('#transaction_date').val(''); // Clear transaction date
+        $('#bio_metric_appointment_date').val(''); // Clear biometric appointment date
+        $('#appointment_reschedule').val(''); // Clear appointment reschedule
+        $('#appointment_refer_no').val(''); // Clear appointment refer no
+    }
+
+    // Call the function on page load to set initial visibility
+    toggleFields();
+
+    // Add change event listener to the status dropdown
+    $('#status').change(function () {
+        toggleFields(); // Toggle fields whenever the status changes
+    });
+
+    // Form submission logic
     $('#formData').on('submit', function (e) {
         e.preventDefault(); // Prevent form submission
         let isValid = true;
@@ -278,15 +340,11 @@ $(document).ready(function () {
             isValid = false;
         }
 
-       
-
         if ($('#status').val() === null || $('#status').val() === '') {
             $('#status_error').text('This field is required');
             isValid = false;
         }
 
-       
-     
         // Submit the form if all fields are valid
         if (isValid) {
             this.submit();

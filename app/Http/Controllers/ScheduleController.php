@@ -22,14 +22,14 @@ class ScheduleController extends Controller
 
         if ($user->role == "Staff") {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('status', '=', 'Schedule')
+                ->where('appointment_type', '=','schedule')
                 ->whereHas('client', function ($query) use ($user) {
                     $query->where('staff_id', $user->id);
                 })
                 ->get();
         } else {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('status', '=', 'Schedule')
+                ->where('appointment_type', '=','schedule')
                 ->get();
         }
         // dd($data['appointments']);
@@ -40,7 +40,7 @@ class ScheduleController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
 
-        $data['categories'] = Category::where('type', '=', 'appointment')->orderBy('name')->get();
+        $data['categories'] = Category::where('type', '=', 'VISA')->orderBy('name')->get();
         $data['countries'] = Country::orderBy('name')->get();
         $data['vfsembasses'] = VfsEmbassy::orderBy('name')->get();
         $data['status'] = SoftwareStatus::where('type',4)->get();
@@ -94,8 +94,7 @@ class ScheduleController extends Controller
     }
     public function schedule_detail_page($id)
     {
-
-        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('status', 'schedule')->find($id);
+        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('appointment_type','schedule')->find($id);
         return response()->json($data);
     }
 

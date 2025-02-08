@@ -126,10 +126,10 @@
               <tbody id="tableData">
                 @foreach ($applications as $application )
                 <tr style="font-size: small;">
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ table_date($application->created_at) }}</td>
-                  <td>{{ $application->country->name }}</td>
-                  <td>{{ $application->client->name }}</td>
+                  <td>{{ $loop->iteration ?? ''}}</td>
+                  <td>{{ table_date($application->created_at) ?? ''}}</td>
+                  <td>{{ $application->country->name ?? ''}}</td>
+                  <td>{{ $application->client->name ?? ''}}</td>
                   <td>{{ $application->status == 1 ? 'In Process' : 'Collected' }}</td>
                   <td class="">
                     <div class="d-flex my-auto">
