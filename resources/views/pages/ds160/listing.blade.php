@@ -55,11 +55,11 @@
                 @foreach ($ds160 as $ds)
 
                 <tr style="font-size: small;">
-                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $loop->iteration ?? '' }}</td>
                   <td>{{ $ds->client->name ?? 'N/A' }}</td>
                   <td>{{ $ds->category->name ?? 'N/A' }}</td>
-                  <td>{{ $ds->ds160 }}</td>
-                  <td>{{ $ds->revised_ds160 }}</td>
+                  <td>{{ $ds->ds160 ?? '' }}</td>
+                  <td>{{ $ds->revised_ds160 ?? '' }}</td>
                   <td>
                     <div class="d-flex my-auto">
                       <!-- Edit Button -->

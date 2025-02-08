@@ -70,12 +70,12 @@
               <tbody id="tableData">
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $client->sur_name }}</td>
-                  <td>{{ $client->name }}</td>
-                  <td>{{ $client->email}}</td>
-                  <td>{{ $client->contact_no }}</td>
-                  <td>{{ $client->dob }}</td>
-                  <td>{{ $client->refer_person }}</td>
+                  <td>{{ $client->sur_name ?? '' }}</td>
+                  <td>{{ $client->name ?? '' }}</td>
+                  <td>{{ $client->email ?? ''}}</td>
+                  <td>{{ $client->contact_no ?? '' }}</td>
+                  <td>{{ $client->dob ?? ''}}</td>
+                  <td>{{ $client->refer_person ?? '' }}</td>
                   <td class="">
                     <div class="d-flex my-auto">
                       <!-- Edit Button -->

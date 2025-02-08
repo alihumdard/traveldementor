@@ -258,7 +258,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="net_payable">Net Payable</label>
                             <input type="number" name="net_payable" id="net_payable" class="form-control"
-                                value="{{ isset($insurance) ? $insurance->net_payable : 0 }}" placeholder="Enter Net Payable" readonlyx>
+                                value="{{ isset($insurance) ? $insurance->net_payable : 0 }}" placeholder="Enter Net Payable" readonly>
                             <span id="net_payable_error" class="error-message text-danger"></span>
                         </div>
 

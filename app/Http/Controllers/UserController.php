@@ -145,6 +145,13 @@ class UserController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
+         $request->validate([
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($request->id), 
+            ],
+        ]);
         $message = null;
         $saved = User::updateOrCreate(
             ['id' => $request->id ?? null],

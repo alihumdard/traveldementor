@@ -61,11 +61,11 @@
                 @foreach ($insurances as $insurance)
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $insurance->client->name }}</td>
-                  <td>{{ $insurance->country->name }}</td>
-                  <td>{{ $insurance->plan_type }}</td>
-                  <td>{{ $insurance->policy_no }}</td>
-                  <td>{{ $insurance->amount }}</td>
+                  <td>{{ $insurance->client->name ?? ''}}</td>
+                  <td>{{ $insurance->country->name ?? ''}}</td>
+                  <td>{{ $insurance->plan_type ?? ''}}</td>
+                  <td>{{ $insurance->policy_no ?? ''}}</td>
+                  <td>{{ $insurance->amount ?? '' }}</td>
 
                   <td class="">
                     <div class="d-flex my-auto">

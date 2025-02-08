@@ -172,12 +172,16 @@
               <span id="name_error" class="error-message text-danger"></span>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+          
+            
+             <div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 10px;">
               <label for="email">Email</label>
               <input type="text" name="email" id="email" class="form-control" placeholder="Enter the staff's email"
-                value="{{ isset($staff) ? $staff->email : '' }}">
-              <span id="email_error" class="error-message text-danger"></span>
-            </div>
+                  value="{{ old('email', isset($staff) ? $staff->email : '') }}">
+              @if ($errors->has('email'))
+                  <span id="email_error" class="error-message text-danger">{{ $errors->first('email') }}</span>
+              @endif
+          </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 10px;">
               <label for="net_payable">Phone</label>

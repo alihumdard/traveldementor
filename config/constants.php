@@ -181,7 +181,7 @@ return [
     'APP_STATUS_TYPE' => [
         1 => 'Application',
         // 2 => 'Appointment',
-        3 => 'Pending Appointment',
+        3 => 'Appointment',
         // 4 => 'Scheduled Appointment',
         5 => 'Hotel Booking',
     ],
