@@ -98,15 +98,15 @@
                     <div class="row">
                         @csrf
                         <input type="hidden" id="application_id" name="id" value="{{ isset($application) ? $application->id : '' }}">
-                        
+
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="user_id">Applicant Name</label>
-                            <select  name="user_id" id="user_id" class="form-select">
+                            <select name="user_id" id="user_id" class="form-select">
                                 <option disabled selected>Select Applicant</option>
                                 @foreach ($users as $user)
                                 <option value="{{ $user->id }}" {{ isset($application) && $application->user_id ==
                                     $user->id ? 'selected' : '' }}>
-                                    {{ $user->name }}
+                                    {{ $user->name.' ~ '.$user->sur_name }}
                                 </option>
                                 @endforeach
                             </select>
@@ -115,7 +115,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="country_id">Country</label>
-                            <select  name="country_id" id="country_id" class="form-select">
+                            <select name="country_id" id="country_id" class="form-select">
                                 <option disabled selected> Select Country</option>
                                 @foreach ($countries as $country)
                                 <option value="{{ $country->id }}" {{ isset($application) && $application->country_id ==
@@ -129,7 +129,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="category_id">Category</label>
-                            <select  name="category_id" id="category_id" class="form-select">
+                            <select name="category_id" id="category_id" class="form-select">
                                 <option disabled selected> Select Category</option>
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" {{ isset($application) && $application->category_id
@@ -143,51 +143,28 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="passport_no">Passport Number</label>
-                            <input  type="text" maxlength="100" name="passport_no" id="passport_no"
+                            <input type="text" maxlength="100" name="passport_no" id="passport_no"
                                 class="form-control" placeholder="Enter your passport number"
                                 value="{{ isset($application) ? $application->passport_no : old('passport_no') }}" ma="">
                             <span id="passport_no_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="passport_expiry">Passport Expiry</label>
-                            <input  type="date" name="passport_expiry" id="passport_expiry" class="form-control"
-                                value="{{ isset($application) ? $application->passport_expiry : old('passport_expiry') }}">
-                            <span id="passport_expiry_error" class="error-message text-danger"></span>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="status">Application Status</label>
+                            <label for="status">Application Internal Status</label>
                             <select name="status" id="status" class="form-select">
-                                @foreach ($status as $key => $value )    
-                                <option value="{{ $value['name'] }}" {{ isset($application) && $application->status == $key ? 'selected' : '' }}>{{ $value['name'] }}</option>
+                                @foreach ($status as $key => $value )
+                                <option value="{{ $value['name'] }}" {{ isset($application) && $application->status == $value->name ? 'selected' : '' }}>{{ $value['name'] }}</option>
                                 @endforeach
                             </select>
 
                             <span id="status_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="card_holder_name">Card Holder Name</label>
-                            <input  type="text" name="card_holder_name" id="card_holder_name"
-                                class="form-control" placeholder="Enter card holder name "
-                                value="{{ isset($application) ? $application->card_holder_name : old('card_holder_name') }}">
-                            <span id="card_holder_name_error" class="error-message text-danger"></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="bank_name">Bank Name</label>
-                            <input  type="text" name="bank_name" id="bank_name"
-                                class="form-control" placeholder="Enter Bank Name "
-                                value="{{ isset($application) ? $application->bank_name : old('bank_name') }}">
-                            <span id="bank_name_error" class="error-message text-danger"></span>
-                        </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 ">
                             <label for="visa_status">Visa Status</label>
-                            <select  name="visa_status" id="visa_status" class="form-select">
-                                
+                            <select name="visa_status" id="visa_status" class="form-select">
+
                                 @foreach ($visa_status as $key => $value)
-                               
-                                <option value="{{ $key }}" {{ isset($application) && $application->visa_status == $key ?
-                                    'selected' : '' }}>
+                                <option value="{{ $key }}" {{ isset($application) && $application->visa_status == $key ? 'selected' : '' }}>
                                     {{ $key }}
                                 </option>
                                 @endforeach
@@ -195,47 +172,69 @@
                             <span id="visa_status_error" class="error-message text-danger"></span>
                         </div>
 
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="passport_expiry">Passport Expiry</label>
+                            <input type="date" name="passport_expiry" id="passport_expiry" class="form-control"
+                                value="{{ isset($application) ? $application->passport_expiry : old('passport_expiry') }}">
+                            <span id="passport_expiry_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="submission_date">Submission Date</label>
+                            <input type="date" name="submission_date" id="submission_date" class="form-control"
+                                value="{{ isset($application) ? $application->submission_date : old('submission_date') }}">
+                            <span id="submission_date_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="visa_expiry_date">Visa Expiry Date</label>
+                            <input type="date" name="visa_expiry_date" id="visa_expiry_date" class="form-control"
+                                value="{{ isset($application) ? $application->visa_expiry_date : old('visa_expiry_date') }}">
+                            <span id="visa_expiry_date_error" class="error-message text-danger"></span>
+                        </div>
+
+
                         {{-- <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="vsf_ref_track_id">VSF Ref</label>
                             <input  type="number" name="visa_refer_tracking_id" id="visa_refer_tracking_id"
                                 class="form-control" placeholder="Enter vsf ref or tracking id "
                                 value="{{ isset($application) ? $application->visa_refer_tracking_id : old('visa_refer_tracking_id') }}">
-                            <span id="visa_refer_tracking_id_error" class="error-message text-danger"></span>
-                        </div> --}}
-{{-- 
+                        <span id="visa_refer_tracking_id_error" class="error-message text-danger"></span>
+                    </div> --}}
+                    {{--
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="ds_160">DS160</label>
                             <input  type="number" name="ds_160" id="ds_160" class="form-control"
                                 placeholder="Enter dsf 160"
                                 value="{{ isset($application) ? $application->ds_160 : old('ds_160') }}">
-                            <span id="ds_160_error" class="error-message text-danger"></span>
-                        </div> --}}
+                    <span id="ds_160_error" class="error-message text-danger"></span>
+            </div> --}}
 
-                    </div>
-       
-                    <div class="mt-3">
-                        <div class="row justify-content-end mt-2  ">
-                            <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
-                                <a href="/application" id="btn_cancel_application"
-                                    class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
-                                    <span>Cancel</span>
-                                </a>
-                            </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
-                                <button type="submit" id="btn_save_application" class="btn btn-block text-white"
-                                    style="border-radius: 8px;">
-                                    <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
-                                    <span id="text">Submit</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+        </div>
 
-                </form>
-
+        <div class="mt-3">
+            <div class="row justify-content-end mt-2  ">
+                <div class="col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-4 ">
+                    <a href="/application" id="btn_cancel_application"
+                        class="btn btn-block btn-warning text-white" style="border-radius: 8px;">
+                        <span>Cancel</span>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-12 mb-5 mb-md-5 mb-lg-4 text-right">
+                    <button type="submit" id="btn_save_application" class="btn btn-block text-white"
+                        style="border-radius: 8px;">
+                        <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
+                        <span id="text">Submit</span>
+                    </button>
+                </div>
             </div>
         </div>
+
+        </form>
+
     </div>
+</div>
+</div>
 </div>
 
 </div>
@@ -244,10 +243,10 @@
 @stop
 @pushOnce('scripts')
 <script>
-    $(document).ready(function () {
-        
-        $('#formData').on('submit', function (e) {
-        
+    $(document).ready(function() {
+
+        $('#formData').on('submit', function(e) {
+
             e.preventDefault(); // Prevent form submission
             let isValid = true;
             const passportNoPattern = /^[A-Z]{2}\d{7}$/; // 2 uppercase letters + 7 digits
@@ -281,13 +280,12 @@
 
             if ($('#passport_no').val().trim() === '') {
                 $('#passport_no_error').text('This field is required');
-                
+
 
                 isValid = false;
-            }
-            else if (!passportNoPattern.test($('#passport_no').val().trim())) {
-            $('#passport_no_error').text('Invalid format. Use AK1234567');
-            isValid = false;
+            } else if (!passportNoPattern.test($('#passport_no').val().trim())) {
+                $('#passport_no_error').text('Invalid format. Use AK1234567');
+                isValid = false;
             }
 
             if ($('#passport_expiry').val().trim() === '') {

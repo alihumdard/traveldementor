@@ -51,12 +51,8 @@
                   <td style="padding: 12px;" id="dob">N/A</td>
                 </tr>
                 <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Card Holder Name</td>
-                  <td style="padding: 12px;" id="card_holder_name">N/A</td>
-                </tr>
-                <tr style="transition: all 0.3s;">
-                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Bank Name</td>
-                  <td style="padding: 12px;" id="bank_name">N/A</td>
+                  <td style="padding: 12px; color: #452c88; font-weight: bold;">Submission Date</td>
+                  <td style="padding: 12px;" id="submission_date">N/A</td>
                 </tr>
                 <tr style="transition: all 0.3s;">
                   <td style="padding: 12px; color: #452c88; font-weight: bold;">Country </td>

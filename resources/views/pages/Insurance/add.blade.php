@@ -170,7 +170,7 @@
                                 @foreach ($clients as $client)
                                 <option value="{{ $client->id }}" {{ isset($insurance) && $insurance->application_id ==
                                     $client->id ? 'selected' : '' }}>
-                                    {{ $client->name }}
+                                    {{ $client->name.' ~ '.$client->sur_name }}
                                 </option>
                                 @endforeach
                             </select>
@@ -224,7 +224,7 @@
                         <!-- Policy Number -->
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="policy_no">Policy Number</label>
-                            <input type="number" name="policy_no" id="policy_no" class="form-control"
+                            <input type="text" name="policy_no" id="policy_no" class="form-control"
                                 value="{{ isset($insurance) ? $insurance->policy_no : '' }}" placeholder="Enter Policy Number">
                             <span id="policy_no_error" class="error-message text-danger"></span>
                         </div>

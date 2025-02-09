@@ -5,7 +5,7 @@
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
     <div class="bg-white" style="border-radius: 20px;">
-    <div class="p-3">
+      <div class="p-3">
         <h3 class="page-title">
           <span class="page-title-icon bg-gradient-primary text-white me-2 py-2">
             <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,12 +53,13 @@
               <strong>{{ session('message') }}</strong>
             </div>
             @endif
-            <table id="qoute-table" class="display" style="width:100%">
+
+            <table id="user-table" style="width:100%">
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th>Surname</th>
                   <th>Given Name</th>
+                  <th>Surname</th>
                   <th>E-mail</th>
                   <th>Contact No</th>
                   <th>Date of birth</th>
@@ -66,12 +67,12 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              @foreach($clients as $client)
-              <tbody id="tableData">
+              <tbody>
+                @foreach($clients as $client)
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $client->sur_name ?? '' }}</td>
                   <td>{{ $client->name ?? '' }}</td>
+                  <td>{{ $client->sur_name ?? '' }}</td>
                   <td>{{ $client->email ?? ''}}</td>
                   <td>{{ $client->contact_no ?? '' }}</td>
                   <td>{{ $client->dob ?? ''}}</td>
@@ -109,11 +110,11 @@
                     </div>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
-              @endforeach
             </table>
           </div>
-    
+
 
         </div>
       </div>
@@ -125,41 +126,11 @@
 @stop
 
 @pushOnce('scripts')
-<script>
-  var users_table = $('#qoute-table').DataTable({});
-
-  $('#filter_by_sts_qoute').on('change', function() {
-    var selectedStatus = $(this).val();
-    users_table.column(7).search(selectedStatus).draw();
-  });
-
-  $('#filter_by_loc').on('change', function() {
-    var selectedLocation = $(this).val();
-    users_table.column(5).search(selectedLocation).draw();
-  });
-</script>
-<script>
-  var users_table = $('#qoute-table').DataTable();
-  $('#filter_by_sts_qoute').on('change', function() {
-    var selectedStatus = $(this).val();
-    users_table.column(6).search(selectedStatus).draw();
-  });
-  $('#filter_by_loc').on('change', function() {
-    var selectedLocation = $(this).val();
-    users_table.column(4).search(selectedLocation).draw();
-  });
-</script>
 
 <script>
-  var users_table = $('#qoute-table').DataTable();
-  $('#filter_by_sts_qoute').on('change', function() {
-    var selectedStatus = $(this).val();
-    users_table.column(5).search(selectedStatus).draw();
-  });
-  $('#filter_by_loc').on('change', function() {
-    var selectedLocation = $(this).val();
-    users_table.column(3).search(selectedLocation).draw();
-  });
+  var service_table = $('#user-table').DataTable();
+  console.log(users_table);
+  // client getting modal
   $(document).on('click', '#client_btn', function() {
     var insuranceId = $(this).data('id');
     $.ajax({

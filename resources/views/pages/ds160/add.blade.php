@@ -102,7 +102,9 @@
                                 <option disabled> Select Application</option>
                                 @foreach ($clients as $client)
                                 <option value="{{ $client->id }}" {{ isset($ds160) && $ds160->application_id ==
-                                    $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
+                                    $client->id ? 'selected' : '' }}>
+                                    {{ $client->name.' ~ '.$client->sur_name }}
+                                </option>
                                 @endforeach
                             </select>
                             <span id="application_id_error" class="error-message text-danger"></span>
@@ -129,8 +131,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="ds160">DS160</label>
-                            <input type="text" name="ds160" id="ds160" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->ds160 : '' }}" placeholder="Enter the DS160">
+                            <input type="text" name="ds160" id="ds160" class="form-control" value="{{ isset($ds160) ? $ds160->ds160 : '' }}" placeholder="Enter the DS160" required>
                             <span id="ds160_error" class="error-message text-danger"></span>
                         </div>
 
@@ -149,11 +150,11 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="year_of_birth">Year</label>
+                            <label for="year_of_birth">Birth Year</label>
                             <input type="number" name="year_of_birth" id="year_of_birth" class="form-control"
-                            placeholder="Enter year (e.g., 1990)"
-                            value="{{ isset($ds160) ? $ds160->year_of_birth : '' }}" min="1900" max="2100" step="1">
-                     
+                                placeholder="Enter year (e.g., 1990)"
+                                value="{{ isset($ds160) ? $ds160->year_of_birth : '' }}" min="1900" max="2100" step="1">
+
                             <span id="year_of_birth_error" class="error-message text-danger"></span>
                         </div>
 
@@ -180,13 +181,13 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_password">Us Travel Doc Password</label>
-                            <input type="password" name="us_travel_doc_password" id="us_travel_doc_password"
+                            <input type="text" name="us_travel_doc_password" id="us_travel_doc_password"
                                 class="form-control" value="{{ isset($ds160) ? $ds160->us_travel_doc_password : '' }}" placeholder="Enter the Us Travel Doc Password ">
                             <span id="us_travel_doc_password_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_updated_password">Us Travel Doc Updated Password</label>
-                            <input type="password" name="us_travel_doc_updated_password"
+                            <input type="text" name="us_travel_doc_updated_password"
                                 id="us_travel_doc_updated_password" class="form-control"
                                 value="{{ isset($ds160) ? $ds160->us_travel_doc_updated_password : '' }}" placeholder="Enter the Us Travel Doc Updated Password ">
                             <span id="us_travel_doc_updated_password_error" class="error-message text-danger"></span>
@@ -195,94 +196,101 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="challan_created">Challan Created</label>
                             <select name="challan_created" id="challan_created" class="form-select">
-                                <option value="yes" {{ isset($ds160) && $ds160->challan_created == 'yes' ? 'selected' :
-                                    '' }}>Yes</option>
-                                <option value="no" {{ isset($ds160) && $ds160->challan_created == 'no' ? 'selected' : ''
-                                    }}>No</option>
+                                <option value="yes" {{ isset($ds160) && $ds160->challan_created == 'yes' ? 'selected' : '' }}>Yes</option>
+                                <option value="no" {{ isset($ds160) && $ds160->challan_created == 'no' ? 'selected' : '' }}>No</option>
                             </select>
                             <span id="challan_created_error" class="error-message text-danger"></span>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="challan_expiry">Challan Expiry</label>
-                            <input type="date" name="challan_expiry" id="challan_expiry" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->challan_expiry : '' }}">
-                            <span id="challan_expiry_error" class="error-message text-danger"></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="challan_submitted">Challan Submitted</label>
-                            <select name="challan_submitted" id="challan_submitted" class="form-select">
-                                <option value="yes" {{ isset($ds160) && $ds160->challan_submitted == 'yes' ? 'selected'
+
+                        <div class="row" id="additionalFields">
+
+                            <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                                <label for="challan_expiry">Challan Expiry</label>
+                                <input type="date" name="challan_expiry" id="challan_expiry" class="form-control"
+                                    value="{{ isset($ds160) ? $ds160->challan_expiry : '' }}">
+                                <span id="challan_expiry_error" class="error-message text-danger"></span>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                                <label for="challan_submitted">Challan Submitted</label>
+                                <select name="challan_submitted" id="challan_submitted" class="form-select">
+                                    <option value="yes" {{ isset($ds160) && $ds160->challan_submitted == 'yes' ? 'selected'
                                     : '' }}>Yes</option>
-                                <option value="no" {{ isset($ds160) && $ds160->challan_submitted == 'no' ? 'selected' :
+                                    <option value="no" {{ isset($ds160) && $ds160->challan_submitted == 'no' ? 'selected' :
                                     '' }}>No</option>
-                            </select>
-                            <span id="challan_submitted_error" class="error-message text-danger"></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="cgi_ref_no">CGI REF NO</label>
-                            <input type="number" name="cgi_ref_no" id="cgi_ref_no"
-                                class="form-control" value="{{ isset($ds160) ? $ds160->cgi_ref_no : '' }}" placeholder="Enter the CGI Ref No ">
-                            <span id="cgi_ref_no_error" class="error-message text-danger"></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="payment_mode">Payment Mode</label>
-                            <select name="payment_mode" id="payment_mode" class="form-select">
-                                <option value="online" {{ isset($ds160) && $ds160->payment_mode == 'online' ? 'selected' : '' }}>Online</option>
-                                <option value="cash" {{ isset($ds160) && $ds160->payment_mode == 'cash' ? 'selected' : '' }}>Cash</option>
-                            </select>
-                            <span id="payment_mode_error" class="error-message text-danger"></span>
-                        </div>
+                                </select>
+                                <span id="challan_submitted_error" class="error-message text-danger"></span>
+                            </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="transaction_date">Transcation Date</label>
-                            <input type="date" name="transaction_date" id="transaction_date" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->transaction_date : '' }}">
-                            <span id="transaction_date_error" class="error-message text-danger"></span>
-                        </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                                <label for="cgi_ref_no">CGI REF NO</label>
+                                <input type="text" name="cgi_ref_no" id="cgi_ref_no"
+                                    class="form-control" value="{{ isset($ds160) ? $ds160->cgi_ref_no : '' }}" placeholder="Enter the CGI Ref No ">
+                                <span id="cgi_ref_no_error" class="error-message text-danger"></span>
+                            </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="appoint_date">Appointment Date</label>
-                            <input type="date" name="appoint_date" id="appoint_date" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->appoint_date : '' }}">
-                            <span id="appoint_date_error" class="error-message text-danger"></span>
-                        </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                                <label for="payment_mode">Payment Mode</label>
+                                <select name="payment_mode" id="payment_mode" class="form-select">
+                                    <option value="online" {{ isset($ds160) && $ds160->payment_mode == 'online' ? 'selected' : '' }}>Online</option>
+                                    <option value="cash" {{ isset($ds160) && $ds160->payment_mode == 'cash' ? 'selected' : '' }}>Cash</option>
+                                </select>
+                                <span id="payment_mode_error" class="error-message text-danger"></span>
+                            </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="appoint_reschedule">Appointment Reschedule</label>
-                            <input type="date" name="appoint_reschedule" id="appoint_reschedule" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->appoint_reschedule : '' }}">
-                            <span id="appoint_reschedule_error" class="error-message text-danger"></span>
-                        </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                                <label for="transaction_date">Transcation Date</label>
+                                <input type="date" name="transaction_date" id="transaction_date" class="form-control"
+                                    value="{{ isset($ds160) ? $ds160->transaction_date : '' }}">
+                                <span id="transaction_date_error" class="error-message text-danger"></span>
+                            </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="pick_up_location">Pick up Location</label>
-                            <select name="pick_up_location" id="pick_up_location" class="form-select">
-                                <option disabled>Pick location</option>
-                                <option value="islamabad" {{ isset($ds160) && $ds160->pick_up_location == 'islamabad' ?
+                            <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                                <label for="appoint_date">Appointment Date</label>
+                                <input type="date" name="appoint_date" id="appoint_date" class="form-control"
+                                    value="{{ isset($ds160) ? $ds160->appoint_date : '' }}">
+                                <span id="appoint_date_error" class="error-message text-danger"></span>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                                <label for="appoint_reschedule">Appointment Reschedule</label>
+                                <input type="date" name="appoint_reschedule" id="appoint_reschedule" class="form-control"
+                                    value="{{ isset($ds160) ? $ds160->appoint_reschedule : '' }}">
+                                <span id="appoint_reschedule_error" class="error-message text-danger"></span>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                                <label for="pick_up_location">Pick up Location</label>
+                                <select name="pick_up_location" id="pick_up_location" class="form-select">
+                                    <option disabled>Pick location</option>
+                                    <option value="islamabad" {{ isset($ds160) && $ds160->pick_up_location == 'islamabad' ?
                                     'selected' : '' }}>Islamabad</option>
-                                <option value="lahore" {{ isset($ds160) && $ds160->pick_up_location == 'lahore' ?
+                                    <option value="lahore" {{ isset($ds160) && $ds160->pick_up_location == 'lahore' ?
                                     'selected' : '' }}>Lahore</option>
-                                <option value="karachi" {{ isset($ds160) && $ds160->pick_up_location == 'karachi' ?
+                                    <option value="karachi" {{ isset($ds160) && $ds160->pick_up_location == 'karachi' ?
                                     'selected' : '' }}>Karachi</option>
-                            </select>
-                            <span id="pick_up_location_error" class="error-message text-danger"></span>
+                                </select>
+                                <span id="pick_up_location_error" class="error-message text-danger"></span>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
+                                <label for="premium_delivery">Premium Delivery</label>
+                                <select name="premium_delivery" id="premium_delivery" class="form-select">
+                                    <option value="yes" {{ isset($ds160) && $ds160->premium_delivery == 'yes' ? 'selected' :
+                                    '' }}>Yes</option>
+                                    <option value="no" {{ isset($ds160) && $ds160->premium_delivery == 'no' ? 'selected' :
+                                    '' }}>No</option>
+                                </select>
+                                <span id="premium_delivery_error" class="error-message text-danger"></span>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12 col-sm-12" style="margin-bottom: 10px;">
+                                <label for="delivery_address">Delivery Address</label>
+                                <textarea name="delivery_address" id="delivery_address" class="form-control" placeholder="Enter the Delivery Address ">{{ $ds160->delivery_address ?? ''}}</textarea>
+                                <span id="delivery_address_error" class="error-message text-danger"></span>
+                            </div>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
-                            <label for="premium_delivery">Premium Delivery</label>
-                            <select name="premium_delivery" id="premium_delivery" class="form-select">
-                                <option value="yes" {{ isset($ds160) && $ds160->premium_delivery == 'yes' ? 'selected' :
-                                    '' }}>Yes</option>
-                                <option value="no" {{ isset($ds160) && $ds160->premium_delivery == 'no' ? 'selected' :
-                                    '' }}>No</option>
-                            </select>
-                            <span id="premium_delivery_error" class="error-message text-danger"></span>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="delivery_address">Delivery Address</label>
-                            <textarea name="delivery_address" id="delivery_address" class="form-control" placeholder="Enter the Delivery Address ">{{  $ds160->delivery_address ?? ''}}</textarea>
-                            <span id="delivery_address_error" class="error-message text-danger"></span>
-                        </div>
                     </div>
                     <div class="mt-3">
                         <div class="row justify-content-end mt-2  ">
@@ -310,30 +318,64 @@
 @stop
 @pushOnce('scripts')
 <script>
- $(document).ready(function() {
-    $("#formData").submit(function(e) {
-        let isValid = true;
-        
-        // Clear previous error messages
-        $(".error-message").text("");
-        
-        // Check each required field
-        $("#formData input:not([type='hidden']), #formData select, #formData textarea").each(function() {
-            if (!$(this).val()) {
-                isValid = false;
-                let fieldName = $(this).attr("id");
-                $(`#${fieldName}_error`).text("This field is required");
+    $(document).ready(function() {
+
+        // Function to toggle fields based on status
+        function toggleFields() {
+            if ($('#challan_created').val().toLowerCase() === 'no') {
+                $('#additionalFields').hide();
+            } else {
+                $('#additionalFields').show();
+                clearAdditionalFields();
+            }
+        }
+
+        function clearAdditionalFields() {
+            $('#delivery_address').val('');
+            $('#premium_delivery').val('');
+            $('#pick_up_location').val('');
+            $('#appoint_reschedule').val('');
+            $('#appoint_date').val('');
+            $('#transaction_date').val('');
+            $('#payment_mode').val('');
+            $('#cgi_ref_no').val('');
+            $('#challan_submitted').val('');
+            $('#challan_expiry').val('');
+        }
+
+        toggleFields();
+
+        $('#challan_created').change(function() {
+            toggleFields();
+        });
+
+
+        $("#formData").submit(function(e) {
+            let isValid = true;
+
+            // Clear previous error messages
+            $(".error-message").text("");
+
+            // Check each required field
+            $("#formData input[required], #formData select[required], #formData textarea[required]").each(function() {
+                if (!$(this).val()) {
+                    isValid = false;
+                    let fieldName = $(this).attr("id");
+                    $(`#${fieldName}_error`).text("This field is required");
+                } else {
+                    $(`#${fieldName}_error`).text(""); // Clear error if field is filled
+                }
+            });
+
+
+            if (!isValid) {
+                e.preventDefault();
+            } else {
+                $('#spinner').removeClass('d-none');
+                $('#text').addClass('d-none');
+                this.submit();
             }
         });
-        
-        if(!isValid) {
-            e.preventDefault();
-        } else {
-            $('#spinner').removeClass('d-none');
-            $('#text').addClass('d-none');
-            this.submit();
-        }
     });
-});
 </script>
 @endPushOnce

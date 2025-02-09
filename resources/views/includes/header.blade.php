@@ -1,49 +1,32 @@
 <style>
   .nav-profile-image .btn.content-background {
     background-color: #452C88 !important;
-    /* Aap yahan apni desired color value daalain */
   }
 
   .dropdown-menu {
     background-color: #f0f0f0 !important;
-    /* Dropdown menu ka background color change kare */
   }
 
-  /* Ensure the parent element is positioned correctly */
-  
-  /* Style the dropdown menu */
   .navbar-nav .nav-item .dropdown-menu {
     display: none;
-    /* Initially hide the dropdown */
     width: 310px;
-    /* Aligns the dropdown to the left of the parent item */
-    /* Set the width of the dropdown menu */
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     z-index: 9999;
-    /* Ensure dropdown appears above other content */
     opacity: 0;
-    /* Hide the dropdown initially */
     visibility: hidden;
-    /* Hide it initially */
     transition: opacity 0.3s ease, visibility 0.3s ease, width 0.3s ease;
-    /* Smooth transition effect */
-}
+  }
 
 
-  /* Show the dropdown when the parent is hovered */
   .navbar-nav .nav-item:hover .dropdown-menu {
     display: block;
-    /* Make the dropdown visible */
     opacity: 1;
-    /* Make the dropdown fully opaque */
     visibility: visible;
-    /* Ensure it's visible */
     margin-left: 50px;
   }
 
-  /* Styling for items in the dropdown */
   .dropdown-item {
     padding: 10px;
     color: #452C88;
@@ -94,8 +77,8 @@
   }
 </style>
 @php
-    use App\Models\User;
-    $role = auth()->user()->role;
+use App\Models\User;
+$role = auth()->user()->role;
 @endphp
 
 <nav class="navbar p-0 row">
@@ -133,7 +116,7 @@
           </ul>
         </div>
       </li>
-@if($role=="Super Admin")
+
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
           data-bs-toggle="dropdown">
@@ -167,7 +150,7 @@
             <div class="dropdown-divider"></div>
           </div>
       </li>
-      @endif
+
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle mx-1" id="notificationDropdown" href="#"
           data-bs-toggle="dropdown">
@@ -202,7 +185,7 @@
           </a>
           <div class="dropdown-divider"></div>
           <!-- Logout link -->
-          <a class="dropdown-item preview-item" href="/logout" >
+          <a class="dropdown-item preview-item" href="/logout">
             <div class="preview-thumbnail">
               <div class="preview-icon">
                 <svg width="30" height="30" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -224,63 +207,60 @@
 </nav>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
- 
- $(document).ready(function() {
- $(document).on('click', '[data-update]', function() {
-    var alertId = $(this).data('update'); 
-    var iconElement = $(this).find('i'); 
-    $.ajax({
+  $(document).ready(function() {
+
+    $(document).on('click', '[data-update]', function() {
+      var alertId = $(this).data('update');
+      var iconElement = $(this).find('i');
+      $.ajax({
         url: '/update/alert/status',
         method: 'POST',
         data: {
-            alert_id: alertId,
+          alert_id: alertId,
         },
         success: function(response) {
-            if(response.success) {
-                iconElement.css('color', 'green');
-                iconElement.removeClass('fa-circle').addClass('fa-check-circle'); 
-            } else {
-                console.error('Failed to update status');
-                iconElement.css('color', 'red');
-                iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); 
-            }
+          if (response.success) {
+            iconElement.css('color', 'green');
+            iconElement.removeClass('fa-circle').addClass('fa-check-circle');
+          } else {
+            console.error('Failed to update status');
+            iconElement.css('color', 'red');
+            iconElement.removeClass('fa-circle').addClass('fa-sync-alt');
+          }
         },
         error: function(xhr, status, error) {
-            console.error('Error:', error);
-            iconElement.css('color', 'red');
-            iconElement.removeClass('fa-circle').addClass('fa-sync-alt'); 
+          console.error('Error:', error);
+          iconElement.css('color', 'red');
+          iconElement.removeClass('fa-circle').addClass('fa-sync-alt');
         }
+      });
     });
-});
 
-
-$(document).on('click', '[data-id]', function() {
-    var alertId = $(this).data('id');
-
-    $.ajax({
-        url: '/delete/alert',  
+    $(document).on('click', '[data-id]', function() {
+      var alertId = $(this).data('id');
+      $.ajax({
+        url: '/delete/alert',
         method: 'POST',
         data: {
-            alert_id: alertId,
+          alert_id: alertId,
         },
         success: function(response) {
-            if(response.success) {
- 
-              $('#alertBadge').text(function(index, currentCount) {
-                    return Math.max(0, parseInt(currentCount) - 1); // Ensure count doesn't go below 0
-                });
-              $(`[data-alert-id="${alertId}"]`).closest('.p-2').fadeOut();
-            } else {
-                console.error('Failed to deleted');
-            }
+          if (response.success) {
+
+            $('#alertBadge').text(function(index, currentCount) {
+              return Math.max(0, parseInt(currentCount) - 1); // Ensure count doesn't go below 0
+            });
+            $(`[data-alert-id="${alertId}"]`).closest('.p-2').fadeOut();
+          } else {
+            console.error('Failed to deleted');
+          }
         },
         error: function(xhr, status, error) {
-            console.error('Error:', error);
-            statusElement.css('color', 'red'); 
+          console.error('Error:', error);
+          statusElement.css('color', 'red');
         }
+      });
     });
-});
 
-});
-
+  });
 </script>
