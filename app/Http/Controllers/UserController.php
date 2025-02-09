@@ -537,18 +537,23 @@ class UserController extends Controller
     {
         $user_id = auth()->user()->id;
         $users = Application::with('client')->get();
-
     }
 
     public function fetchUnseenAlerts()
     {
-        $user_id = auth()->user()->id;
-        $alerts = Alert::where('user_id', $user_id)
-            ->where('status', 'unseen')
-            ->whereDate('display_date', Carbon::today())
-            ->orderBy('created_at', 'desc')
-            ->get();
-
+        $user = auth()->user();
+        if ($user->role == 'Super Admin') {
+            $alerts = Alert::where('status', 'unseen')
+                ->whereDate('display_date', Carbon::today())
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            $alerts = Alert::where('user_id', $user->id)
+                ->where('status', 'unseen')
+                ->whereDate('display_date', Carbon::today())
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
 
         foreach ($alerts as $alert) {
             $maildata = [
