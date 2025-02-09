@@ -57,23 +57,19 @@
                 @endif
               </div>
             </div>
+            
             <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
               <label for="status_type">Status Type</label>
               <select name="status_type" id="status_type" class="form-select">
-                  @foreach($app_status_type as $key => $value)
-                  <option value="{{ $key }}" 
-                      {{ old('status_type', $software_status['type'] ?? '') == $key ? 'selected' : '' }}>
-                      {{ $value }}
-                  </option>
-                  @endforeach
+                @foreach($app_status_type as $key => $value)
+                <option value="{{ $key }}"
+                  {{ old('status_type', $software_status['type'] ?? '') == $key ? 'selected' : '' }}>
+                  {{ $value }}
+                </option>
+                @endforeach
               </select>
               <span id="status_type_error" class="error-message text-danger"></span>
-          </div>
-          
-
-
-
-
+            </div>
 
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-end  justify-content-center">
               <input type="submit" id="btn_save_" class="btn form-control w-50 text-white mt-2" name="submit"

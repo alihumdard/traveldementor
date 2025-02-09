@@ -130,8 +130,8 @@
                   <th>Applicant Name</th>
                   <th>Country</th>
                   <th>Contact No</th>
-                  <th>Status</th>
                   <th>Visa Status</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -237,8 +237,7 @@
           $("#name").text(response.detail_page.client.name);
           // $("#contact_no").text(response.detail_page.client.contact_no);
           $("#dob").text(response.detail_page.client.dob);
-           $("#bank_name").text(response.detail_page.bank_name);
-           $("#card_holder_name").text(response.detail_page.card_holder_name);
+          $("#submission_date").text(response.detail_page.submission_date);
           $("#country").text(response.detail_page.country.name);
           $("#category").text(response.detail_page.category.name);
           $("#pass_no").text(response.detail_page.passport_no);

@@ -87,6 +87,7 @@ class UserController extends Controller
             return redirect()->route('login');
         }
     }
+
     public function staff()
     {
         $user = auth()->user();
@@ -101,12 +102,14 @@ class UserController extends Controller
         }
         return view('pages.profile.staff', $data);
     }
+
     public function staff_detail_page($id)
     {
 
         $data['detail_page'] = User::where('role', 'Staff')->find($id);
         return response()->json($data);
     }
+
     public function users()
     {
         $user = auth()->user();
@@ -129,6 +132,7 @@ class UserController extends Controller
             return view('pages.profile.users', ['data' => $users, 'user' => $user, 'add_as_user' => user_roles('3')]);
         }
     }
+
     public function add($id = null)
     {
         if ($id) {
@@ -137,6 +141,7 @@ class UserController extends Controller
         }
         return view('pages.profile.add_staff');
     }
+
     public function store(Request $request)
     {
 
@@ -145,25 +150,25 @@ class UserController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-         $request->validate([
+        $request->validate([
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($request->id), 
+                Rule::unique('users')->ignore($request->id),
             ],
         ]);
         $message = null;
         $saved = User::updateOrCreate(
             ['id' => $request->id ?? null],
             [
-                'name'          => $request->name,
-                'email'         => $request->email,
-                'phone'          => $request->phone,
-                'address'        => $request->address,
-                'password'        => Hash::make($request->password),
-                'sadmin_id'       => $admin->id,
-                'role'            => $request->role,
-                'created_by'      => $admin->id,
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'phone'     => $request->phone,
+                'address'   => $request->address,
+                'password'  => Hash::make($request->password),
+                'sadmin_id' => $admin->id,
+                'role'      => $request->role,
+                'created_by' => $admin->id,
             ]
         );
 
@@ -171,12 +176,14 @@ class UserController extends Controller
 
         return redirect()->route('staff')->with('message', $message);
     }
+
     public function delete($id)
     {
         $staff = User::find($id);
         $staff->delete();
         return redirect()->back()->with('message', 'Successful Deleted');
     }
+
     public function currencies(REQUEST $request)
     {
         $user = auth()->user();
@@ -212,6 +219,7 @@ class UserController extends Controller
         $currencies = Currency::where(['sadmin_id' => $user->id, 'status' => $this->status['Active']])->latest('id')->get()->toArray();
         return view('pages.components.currencies', ['user' => $user, 'currency' => $currency, 'data' => $currencies, 'types' => $this->currencyTypes]);
     }
+
     public function vfs_embassy(REQUEST $request)
     {
         $user = auth()->user();
@@ -255,6 +263,7 @@ class UserController extends Controller
         $vfs_embassies = VfsEmbassy::where(['status' => $this->status['Active']])->orderBy('name')->get()->toArray();
         return view('pages.components.vfs_embassy', ['user' => $user, 'vfs' => $vfs, 'data' => $vfs_embassies]);
     }
+
     public function software_status(Request $request)
     {
         $user = auth()->user();
@@ -273,7 +282,6 @@ class UserController extends Controller
         }
         if ($request->action == 'edit') {
             $software_status = SoftwareStatus::findOrFail($request->id)->toArray();
-          
         } elseif ($request->action == 'save') {
             SoftwareStatus::updateOrCreate(
                 ['id' => $request->id ?? NULL],
@@ -295,7 +303,6 @@ class UserController extends Controller
         $data = ['user' => $user, 'software_status' => $software_status, 'data' => $software_statuses];
         return view('pages.components.software_status', $data);
     }
-
 
     public function categories(REQUEST $request)
     {
@@ -344,9 +351,9 @@ class UserController extends Controller
 
         return view('pages.components.categories', $data);
     }
+
     public function countries(REQUEST $request)
     {
-        // dd($request->all());
         $user = auth()->user();
         $page_name = 'countries';
 
@@ -391,6 +398,7 @@ class UserController extends Controller
         $data = ['user' => $user, 'country' => $country, 'data' => $countries];
         return view('pages.components.countries', $data);
     }
+
     public function locations(REQUEST $request)
     {
         $user = auth()->user();
@@ -448,6 +456,7 @@ class UserController extends Controller
         }
         return view('pages.profile.settings', ['user' => $user]);
     }
+
     public function add_blank(Request $request)
     {
         $user = auth()->user();
@@ -491,6 +500,7 @@ class UserController extends Controller
 
         return view('pages.components.blank_temp', $data);
     }
+
     public function blank_temp()
     {
         $user = auth()->user();
@@ -499,9 +509,10 @@ class UserController extends Controller
         $data['location']   = Location::select('id', 'name')->pluck('name', 'id')->toArray();
         return view('pages.blank', $data);
     }
+
     public function runMigrations()
     {
-        Artisan::call('migrate:fresh --seed');
+        Artisan::call('migrate --seed');
 
         Artisan::call('cache:clear');
 
@@ -521,104 +532,24 @@ class UserController extends Controller
             'view_clear_output' => Artisan::output(),
         ]);
     }
+
     public function passport_expiry()
     {
         $user_id = auth()->user()->id;
         $users = Application::with('client')->get();
-        foreach ($users as $user) {
-            if ($user->passport_expiry) {
-                $passportExpiry = Carbon::parse($user->passport_expiry);
-                $alertDate = $passportExpiry->subDays(7);
-                if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'passport_expiry')->first();
-                    if (empty($alert)) {
-                        Alert::create([
-                            'client_id' => $user->client->id,
-                            'name' => $user->client->name,
-                            'email' => $user->client->email,
-                            'email_forward' => 'n',
-                            'type' => 'passport_expiry',
-                            'user_id' => $user_id,
-                            'title' => 'Passport Expiry Alert',
-                            'url' => route('application.index'),
-                            'body' => json_encode([
-                                'Your passport will expire on ' . $passportExpiry->format('M d, Y') . '. Please renew it.'
-                            ]),
-                            'message' => 'Dear ' . $user->client->name . ', 
-                                Your passport is due to expire on ' . $passportExpiry->format('M d, Y') . '. 
-                                To avoid any inconvenience or travel restrictions, please ensure to renew your passport promptly. 
-                                Visit the passport renewal office or consult with your travel administrator for further guidance.',
-                            'status' => 'unseen',
-                            'deleted_at' => 'n',
-                        ]);
-                    }
-                }
-            } 
-        }
 
-        foreach ($users as $user) {
-            if ($user->visa_expiry_date) {
-                $visaExpiry = Carbon::parse($user->visa_expiry_date);
-                $alertDate = $visaExpiry->subDays(7);
-                if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'visa_expiry_date')->first();
-                    if (empty($alert)) {
-                        Alert::create([
-                            'client_id' => $user->client->id,
-                            'name' => $user->client->name,
-                            'email' => $user->client->email,
-                            'email_forward' => 'n',
-                            'type' => 'visa_expiry_date',
-                            'user_id' => $user_id,
-                            'title' => 'Visa Expiry Alert',
-                            'url' => route('application.index'),
-                            'body' => json_encode('Your Visa will expire on ' . $visaExpiry->format('M d, Y') . '. Please renew it.'),
-                            'message' => 'Dear ' . $user->client->name . ', 
-                                Your visa is set to expire on ' . $visaExpiry->format('M d, Y') . '. 
-                                To ensure uninterrupted travel or stay, kindly proceed with the renewal process at your earliest convenience. 
-                                If assistance is needed, please contact the relevant authority or immigration office.',
-                            'status' => 'unseen',
-                            'deleted_at' => 'n',
-                        ]);
-                    }
-                }
-            }
-        }
-
-        foreach ($users as $user) {
-            if ($user->client && $user->client->dob) {
-                $dob = Carbon::parse($user->client->dob);
-                $currentYearDob = $dob->copy()->year(Carbon::now()->year);
-                $alertDate = $currentYearDob->subDays(2);
-                if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                    $alert = Alert::where('client_id', $user->client->id)->where('type', 'date_of_birth')->first();
-                    if (empty($alert)) {
-                        Alert::create([
-                            'client_id' => $user->client->id,
-                            'name' => $user->client->name,
-                            'email' => $user->client->email,
-                            'email_forward' => 'n',
-                            'type' => 'date_of_birth',
-                            'user_id' => $user_id,
-                            'title' => 'Date of Birth Alert',
-                            'url' => route('client.index'),
-                            'body' => json_encode('Hello ' . $user->client->name . ', our records indicate that your date of birth is ' . $dob->format('M d, Y') . '. If this information is incorrect, please update it promptly to ensure accuracy in our system.'),
-                            'message' => 'Dear ' . $user->client->name . ', your date of birth is recorded as ' . $dob->format('M d, Y') . '. Please verify and update it if needed to avoid any discrepancies in your records.',
-                            'status' => 'unseen',
-                            'deleted_at' => 'n',
-                        ]);
-                    }
-                }
-            }
-        }
     }
+
     public function fetchUnseenAlerts()
     {
         $user_id = auth()->user()->id;
         $alerts = Alert::where('user_id', $user_id)
             ->where('status', 'unseen')
+            ->whereDate('display_date', Carbon::today())
             ->orderBy('created_at', 'desc')
             ->get();
+
+
         foreach ($alerts as $alert) {
             $maildata = [
                 'title' => $alert->title,
@@ -641,6 +572,7 @@ class UserController extends Controller
             'count' => $alerts->count()
         ]);
     }
+
     public function updateStatus(Request $request)
     {
         $alert = Alert::find($request->alert_id);
@@ -648,6 +580,7 @@ class UserController extends Controller
         $alert->save();
         return response()->json(['success' => true]);
     }
+
     public function alert_delete(Request $request)
     {
         $user_id = auth()->user()->id;

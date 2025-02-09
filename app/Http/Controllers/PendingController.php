@@ -72,6 +72,8 @@ class PendingController extends Controller
                 'appointment_contact_no'       => $request->appointment_contact_no,
                 'vfs_appointment_refers'       => $request->vfs_appointment_refers,
                 'payment_mode'                 => $request->payment_mode,
+                'bank_name'                    => $request->bank_name,
+                'card_holder_name'             => $request->card_holder_name,
                 'transaction_date'             => $request->transaction_date,
                 'bio_metric_appointment_date'  => $request->bio_metric_appointment_date,
                 'appointment_reschedule'       => $request->appointment_reschedule,
@@ -81,7 +83,7 @@ class PendingController extends Controller
             ]
         );
         $message = "Appointment" . ($request->id ? "Updated" : "Saved") . " Successfully";
-        if (strtolower($request->status) == 'schedule') {
+        if (strtolower($request->status) == 'scheduled') {
             return redirect()->route('schedule.appointment.index');
         } else {
             return redirect()->route('pending.appointment.index');

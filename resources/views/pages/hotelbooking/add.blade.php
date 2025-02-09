@@ -102,7 +102,7 @@
                                 <option disabled {{ isset($hotelbooking) ? '' : 'selected' }}>Select Applicant</option>
                                 @foreach ($clients as $client)
                                 <option value="{{ $client->id }}" {{ isset($hotelbooking) && $hotelbooking->application_id == $client->id ? 'selected' : '' }}>
-                                    {{ $client->name }}
+                                {{ $client->name.' ~ '.$client->sur_name }}
                                 </option>
                                 @endforeach
                             </select>

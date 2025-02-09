@@ -22,6 +22,8 @@ class Appointment extends Model
         'appointment_contact_no',
         'vfs_appointment_refers',
         'payment_mode',
+        'bank_name',
+        'card_holder_name',
         'transaction_date',
         'bio_metric_appointment_date',
         'appointment_reschedule',

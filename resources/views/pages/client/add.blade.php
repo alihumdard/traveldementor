@@ -114,7 +114,7 @@
                     <div class="row">
                         <input type="hidden" name="id" value="{{ isset($client) ? $client->id : '' }}">
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
-                            <label for="name">Name</label>
+                            <label for="name">Given Name</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name"
                                 value="{{ isset($client) ? $client->name : '' }}" />
                             <span id="name_error" class="error-message text-danger"></span>
@@ -138,7 +138,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="contact_no">Contact Number</label>
-                            <input type="tel" name="contact_no" id="contact_no" class="form-control"
+                            <input type="text" name="contact_no" id="contact_no" class="form-control"
                                 placeholder="Enter your contact number"
                                 value="{{ isset($client) ? $client->contact_no : '' }}" />
                             <span id="contact_no_error" class="error-message text-danger"></span>
@@ -223,9 +223,6 @@
             const contactNo = $('#contact_no').val().trim();
             if (!contactNo) {
                 $('#contact_no_error').text('Contact number is required.');
-                isValid = false;
-            } else if (!/^\d+$/.test(contactNo)) { // Check if contact number contains only digits
-                $('#contact_no_error').text('Contact number must be numeric.');
                 isValid = false;
             }
 

@@ -3,6 +3,13 @@
 
 @section('content')
 @include('pages.appointment.schedule.detail_page_modal')
+<style>
+  .select2-container .select2-selection--single {
+    height: 45px !important;
+    padding: 8px !important;
+    border-radius: 5px;
+  }
+</style>
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
     <div class="bg-white" style="border-radius: 20px;">
@@ -15,21 +22,32 @@
           </span>
           <span>Scheduled Appointments</span>
         </h3>
-        <div class="row mb-2 g-2 justify-content-start justify-content-md-end">
-          <!-- Add Appointment Button -->
-        {{-- <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-md-end justify-content-start ">
-            <a href="{{ route('schedule.appointment.add') }}">
-              <button class="btn add-btn text-white" style="background-color: #452C88; width: fit-content; padding-left: 10px; padding-right: 10px;">
-                <span><i class="fa fa-plus me-2"></i>Add Appointment</span>
-              </button>
-            </a>
-          </div> --}}
+
+        <div class="row my-2 g-2 justify-content-start justify-content-md-end">
+          <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+            @php
+            $uniqueMonths = $appointments->map(function($appointment) {
+            return \Carbon\Carbon::parse($appointment->bio_metric_appointment_date)->format('M-Y');
+            })->unique()->sortBy(function($date) {
+            [$month, $year] = explode('-', $date);
+            return [\Carbon\Carbon::parse("01-$month-2000")->month, -intval($year)];
+            });
+            @endphp
+
+            <select id="bio_m_date" class="form-select select2 py-2" style="width: 100%; padding: 8px;">
+              <option value="">Select Bio Metric Month</option>
+              @foreach($uniqueMonths as $monthYear)
+              <option value="{{ $monthYear }}">{{ $monthYear }}</option>
+              @endforeach
+            </select>
+          </div>
+
           <!-- Search Input -->
           <div class="col-lg-6 col-md-6 col-sm-12">
-            <input
-              type="text" id="search_input" class="form-control w-100" placeholder="Search Applicant Name or Country Name" style="height: 45px;" />
+            <input type="text" id="search_input" class="form-control w-100" placeholder="Search Applicant Name or Country Name" style="height: 45px;" />
           </div>
         </div>
+
 
         <hr>
         <div class="px-2">
@@ -40,49 +58,39 @@
               <strong>{{ session('message') }}</strong>
             </div>
             @endif
+
             <table id="qoute-table" class="display" style="width:100%">
+
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.86);">
                 <tr style="font-size: small;">
                   <th>#</th>
                   <th>Applicant Name</th>
                   <th>Country Name</th>
                   <th>Applicant Contact </th>
-
-                  {{-- <th> Status</th> --}}
+                  <th>Appointment Date </th>
                   <th>Action</th>
                 </tr>
               </thead>
+
               <tbody id="tableData">
-                @foreach ($appointments as $appointment)
+                @foreach ($appointments ?? [] as $key => $appointment)
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration ?? '' }}</td>
                   <td>{{ $appointment->client->name ?? '' }}</td>
                   <td>{{ $appointment->country->name ?? '' }}</td>
                   <td>{{ $appointment->appointment_contact_no ?? '' }}</td>
-
-                  {{-- <td>{{ $appointment->status }}</td> --}}
+                  <td>{{\Carbon\Carbon::parse( $appointment->bio_metric_appointment_date)->format('d-M-Y') ?? '' }}</td>
                   <td class="">
                     <div class="d-flex my-auto">
                       <!-- Edit Button -->
-                      {{-- <a href="{{route('schedule.appointment.add',['id' => $appointment->id])}}" class="btn p-0">
+                      <a href="{{route('pending.appointment.add',['id' => $appointment->id])}}" class="btn p-0">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle opacity="0.1" cx="18" cy="18" r="18" fill="#233A85" />
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M16.1634 23.6195L22.3139 15.6658C22.6482 15.2368 22.767 14.741 22.6556 14.236C22.559 13.777 22.2768 13.3406 21.8534 13.0095L20.8208 12.1893C19.922 11.4744 18.8078 11.5497 18.169 12.3699L17.4782 13.2661C17.3891 13.3782 17.4114 13.5438 17.5228 13.6341C17.5228 13.6341 19.2684 15.0337 19.3055 15.0638C19.4244 15.1766 19.5135 15.3271 19.5358 15.5077C19.5729 15.8614 19.3278 16.1925 18.9638 16.2376C18.793 16.2602 18.6296 16.2075 18.5107 16.1097L16.676 14.6499C16.5868 14.5829 16.4531 14.5972 16.3788 14.6875L12.0185 20.3311C11.7363 20.6848 11.6397 21.1438 11.7363 21.5878L12.2934 24.0032C12.3231 24.1312 12.4345 24.2215 12.5682 24.2215L15.0195 24.1914C15.4652 24.1838 15.8812 23.9807 16.1634 23.6195ZM19.5955 22.8673H23.5925C23.9825 22.8673 24.2997 23.1886 24.2997 23.5837C24.2997 23.9795 23.9825 24.3 23.5925 24.3H19.5955C19.2055 24.3 18.8883 23.9795 18.8883 23.5837C18.8883 23.1886 19.2055 22.8673 19.5955 22.8673Z"
-                            fill="#233A85" />
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M16.1634 23.6195L22.3139 15.6658C22.6482 15.2368 22.767 14.741 22.6556 14.236C22.559 13.777 22.2768 13.3406 21.8534 13.0095L20.8208 12.1893C19.922 11.4744 18.8078 11.5497 18.169 12.3699L17.4782 13.2661C17.3891 13.3782 17.4114 13.5438 17.5228 13.6341C17.5228 13.6341 19.2684 15.0337 19.3055 15.0638C19.4244 15.1766 19.5135 15.3271 19.5358 15.5077C19.5729 15.8614 19.3278 16.1925 18.9638 16.2376C18.793 16.2602 18.6296 16.2075 18.5107 16.1097L16.676 14.6499C16.5868 14.5829 16.4531 14.5972 16.3788 14.6875L12.0185 20.3311C11.7363 20.6848 11.6397 21.1438 11.7363 21.5878L12.2934 24.0032C12.3231 24.1312 12.4345 24.2215 12.5682 24.2215L15.0195 24.1914C15.4652 24.1838 15.8812 23.9807 16.1634 23.6195ZM19.5955 22.8673H23.5925C23.9825 22.8673 24.2997 23.1886 24.2997 23.5837C24.2997 23.9795 23.9825 24.3 23.5925 24.3H19.5955C19.2055 24.3 18.8883 23.9795 18.8883 23.5837C18.8883 23.1886 19.2055 22.8673 19.5955 22.8673Z" fill="#233A85" />
                         </svg>
-                      </a> --}}
+                      </a>
 
-                      <!-- Delete Button -->
-                      {{-- <a href="{{ route('schedule.appointment.delete',['id' => $appointment->id]) }}" class="btn p-0">
-                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle opacity="0.1" cx="18" cy="18" r="18" fill="#ACADAE" />
-                          <path d="M10 2L9 3H3V5H21V3H15L14 2H10ZM4.36523 7L6.06836 22H17.9316L19.6348 7H4.36523Z"
-                            fill="#452c88" transform="translate(6, 6)" />
-                        </svg>
-                      </a> --}}
-
-                      <!-- Quote Detail Button -->
+                      <!--  Detail Button -->
                       <button data-id="{{ $appointment->id }}" id="appointment_btn" class="btn p-0 quoteDetail_view"
                         data-toggle="modal" data-target="#qoutedetail">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +103,6 @@
                     </div>
                   </td>
                 </tr>
-
                 @endforeach
               </tbody>
             </table>
@@ -129,27 +136,23 @@
     var selectedStatus = $(this).val();
     users_table.column(6).search(selectedStatus).draw();
   });
+
   $('#filter_by_loc').on('change', function() {
     var selectedLocation = $(this).val();
     users_table.column(4).search(selectedLocation).draw();
   });
+
+  $('#bio_m_date').on('change', function() {
+    var selectedMonthYear = $(this).val();
+    users_table.column(4).search(selectedMonthYear).draw();
+  });
 </script>
 
 <script>
-  var users_table = $('#qoute-table').DataTable();
-  $('#filter_by_sts_qoute').on('change', function() {
-    var selectedStatus = $(this).val();
-    users_table.column(5).search(selectedStatus).draw();
-  });
-  $('#filter_by_loc').on('change', function() {
-    var selectedLocation = $(this).val();
-    users_table.column(3).search(selectedLocation).draw();
-  });
-</script>
-<script>
   $(document).on('click', '#appointment_btn', function() {
+
     var appointmentId = $(this).data('id');
-    console.log('Clicked application ID:', appointmentId);
+
     $.ajax({
       url: '/appointment/schedule/' + appointmentId,
       method: 'GET',
@@ -169,13 +172,15 @@
         $("#no_application").text(response.detail_page.no_application);
         $("#pay_mod").text(response.detail_page.payment_mode);
         $("#visa_status").text(response.detail_page.visa_status);
-        // $("#status").text(response.detail_page.status);
-        $('#qoutedetail').modal('show'); // Show the modal with updated details
+        $("#bank_name").text(response.detail_page.bank_name);
+        $("#card_holder_name").text(response.detail_page.card_holder_name);
+        $('#qoutedetail').modal('show');
       },
       error: function(error) {
         console.error('Error fetching application details:', error);
       }
     });
+
   });
 </script>
 @endPushOnce

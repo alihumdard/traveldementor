@@ -20,6 +20,7 @@ class Alert extends Model
         'email_forward',
         'message',
         'type',
+        'display_date',
         'deleted_at',
     ];
 }

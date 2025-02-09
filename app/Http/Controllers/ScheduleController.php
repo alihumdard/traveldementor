@@ -22,17 +22,17 @@ class ScheduleController extends Controller
 
         if ($user->role == "Staff") {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('appointment_type', '=','schedule')
+                ->where('status', '=', 'Scheduled')
                 ->whereHas('client', function ($query) use ($user) {
                     $query->where('staff_id', $user->id);
                 })
                 ->get();
         } else {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('appointment_type', '=','schedule')
+                ->where('status', '=', 'scheduled')
                 ->get();
         }
-        // dd($data['appointments']);
+
         return view('pages.appointment.schedule.listing', $data);
     }
     public function add($id = null)
@@ -40,10 +40,10 @@ class ScheduleController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
 
-        $data['categories'] = Category::where('type', '=', 'VISA')->orderBy('name')->get();
-        $data['countries'] = Country::orderBy('name')->get();
+        $data['categories']  = Category::where('type', '=', 'VISA')->orderBy('name')->get();
+        $data['countries']   = Country::orderBy('name')->get();
         $data['vfsembasses'] = VfsEmbassy::orderBy('name')->get();
-        $data['status'] = SoftwareStatus::where('type',4)->get();
+        $data['status']      = SoftwareStatus::where('type', 4)->get();
 
         if ($user->role == "Staff") {
             $data['clients'] = Client::where('staff_id', $user->id)->get();
@@ -57,9 +57,9 @@ class ScheduleController extends Controller
 
         return view('pages.appointment.schedule.add', $data);
     }
+
     public function appointment_store(Request $request)
     {
-        // dd($request->all());
         $user = auth()->user();
         $page_name = 'schedule_appointment';
         if (!view_permission($page_name)) {
@@ -92,12 +92,12 @@ class ScheduleController extends Controller
         $message = "Appointment " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return redirect()->route('schedule.appointment.index')->with('message', $message);
     }
+
     public function schedule_detail_page($id)
     {
-        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('appointment_type','schedule')->find($id);
+        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('status', 'Scheduled')->find($id);
         return response()->json($data);
     }
-
 
     public function delete($id)
     {
