@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Alert;
+use App\Models\Country;
 use Carbon\Carbon;
 
 class ClientController extends Controller
@@ -14,6 +15,7 @@ class ClientController extends Controller
     {
         $data['client'] = $id ? Client::find($id) : new Client();
         $data['role'] = auth()->user()->role;
+        $data['countries'] = Country::orderBy('name')->get();
         $staff = auth()->user()->id;
         if ($data['role'] == "Staff") {
             $data['staffs'] = User::where('id', $staff)->first();
@@ -43,21 +45,26 @@ class ClientController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
+        $data = [
+            'name'         => $request->name,
+            'sur_name'     => $request->sur_name,
+            'email'        => $request->email,
+            'contact_no'   => $request->contact_no,
+            'refer_person' => $request->refer_person,
+            'dob'          => $request->dob,
+            'staff_id'     => $request->staff_id,
+            'created_by'   => $user->id,
+        ];
 
-        // Create or Update the Client
-        $client = Client::updateOrCreate(
-            ['id' => $request->id ?? null],
-            [
-                'name'         => $request->name,
-                'sur_name'     => $request->sur_name,
-                'email'        => $request->email,
-                'contact_no'   => $request->contact_no,
-                'refer_person' => $request->refer_person,
-                'dob'          => $request->dob,
-                'staff_id'     => $request->staff_id,
-                'created_by'   => $user->id,
-            ],
-        );
+        if ($request->hasFile('passport_pic')) {
+            $file = $request->file('passport_pic');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads/passport', $fileName, 'public');
+            $data['passport_pic'] = $filePath;
+        }
+
+        $client = Client::updateOrCreate(['id' => $request->id ?? null], $data);
+
 
         if ($client && $client->dob) {
             $dob = Carbon::parse($client->dob);

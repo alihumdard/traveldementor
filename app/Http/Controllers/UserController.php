@@ -90,6 +90,7 @@ class UserController extends Controller
 
     public function staff()
     {
+
         $user = auth()->user();
         $page_name = 'staff';
         if (!view_permission($page_name)) {
@@ -450,6 +451,20 @@ class UserController extends Controller
         if (!empty($request->password)) {
             $user->password = bcrypt($request->password);
         }
+        if ($request->hasFile('user_pic')) {
+
+            if (!empty($user->user_pic)) {
+                $oldImagePath = public_path('storage/' . $user->user_pic);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            $file = $request->file('user_pic');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads/profile', $fileName, 'public');
+            $user->user_pic = $filePath;
+        }
         if ($request->address ||  $request->phone || $request->name) {
             $user->save();
             return redirect()->back()->with('message', 'Successful updated');
@@ -537,17 +552,21 @@ class UserController extends Controller
     {
         $user_id = auth()->user()->id;
         $users = Application::with('client')->get();
-
     }
 
     public function fetchUnseenAlerts()
     {
-        $user_id = auth()->user()->id;
-        $alerts = Alert::where('user_id', $user_id)
-            ->where('status', 'unseen')
+        // $user_id = auth()->user()->id;
+        $query = Alert::where('status', 'unseen')
             ->whereDate('display_date', Carbon::today())
-            ->orderBy('created_at', 'desc')
-            ->get();
+            ->orderBy('created_at', 'desc');
+
+        if (auth()->user()->role != 'Super Admin') {
+            $query->where('user_id', auth()->user()->id);
+        }
+        
+        $alerts = $query->get();
+    
 
 
         foreach ($alerts as $alert) {

@@ -145,10 +145,11 @@ class ApplicationController extends Controller
             ->where('user_id', $client->staff_id)
             ->where('type', 'visa_expiry_date')
             ->first();
-
         if (!$alert && $client && $request->visa_expiry_date) {
             $visaExpiry = Carbon::parse($request->visa_expiry_date);
-            $alertDate = $visaExpiry->subDays(7);
+            
+            $alertDate = $visaExpiry->copy()->subDays(15);
+            // Check if current time is on or after the alert date
             if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
                 Alert::create([
                     'client_id'      => $client->id,
@@ -163,12 +164,12 @@ class ApplicationController extends Controller
                         'message' => 'Your Visa will expire on ' . $visaExpiry->format('M d, Y') . '. Please renew it.'
                     ]),
                     'message'        => 'Dear ' . $client->name . ', 
-                    Your visa is set to expire on ' . $visaExpiry->format('M d, Y') . '. 
-                    To ensure uninterrupted travel or stay, kindly proceed with the renewal process at your earliest convenience. 
-                    If assistance is needed, please contact the relevant authority or immigration office.',
+            Your visa is set to expire on ' . $visaExpiry->format('M d, Y') . '. 
+            To ensure uninterrupted travel or stay, kindly proceed with the renewal process at your earliest convenience. 
+            If assistance is needed, please contact the relevant authority or immigration office.',
                     'status'         => 'unseen',
-                    'display_date'   => $alertDate->format('Y-m-d H:i:s'), 
-                    'deleted_at'     => 'n', 
+                    'display_date'   => $alertDate,
+                    'deleted_at'     => 'n',
                 ]);
             }
         }

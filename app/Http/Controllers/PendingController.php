@@ -10,6 +10,8 @@ use App\Models\Client;
 use App\Models\Country;
 use App\Models\SoftwareStatus;
 use App\Models\VfsEmbassy;
+use App\Models\Alert;
+use Carbon\Carbon;
 
 class PendingController extends Controller
 {
@@ -58,7 +60,7 @@ class PendingController extends Controller
             return redirect()->back();
         }
         $message = null;
-        $saved = Appointment::updateOrCreate(
+        $appointment = Appointment::updateOrCreate(
             ['id' => $request->id ?? null],
             [
                 'application_id'               => $request->application_id,
@@ -76,12 +78,47 @@ class PendingController extends Controller
                 'card_holder_name'             => $request->card_holder_name,
                 'transaction_date'             => $request->transaction_date,
                 'bio_metric_appointment_date'  => $request->bio_metric_appointment_date,
-                'appointment_reschedule'       => $request->appointment_reschedule,
-                'appointment_refer_no'         => $request->appointment_refer_no,
+                'appointment_reschedule'       => $request->appointment_reschedule ?? null,
+                'appointment_refer_no'         => $request->appointment_refer_no ,
                 'status'                       => $request->status,
                 'created_by'                   => $user->id,
             ]
         );
+        if ($appointment && $request->appointment_type == "scheduled") {
+            $appointmentExpiry = Carbon::parse($request->bio_metric_appointment_date);
+            // Alert date ko insurance expiry se 1 week pehle set karen
+            $alertDate = $appointmentExpiry->copy()->subDays(7);
+            // Agar alert already exist nahi karta
+            $alert = Alert::where('client_id', $appointment->client->id)
+                ->where('user_id', $appointment->client->staff_id)
+                ->where('type', 'appointment_expiry')
+                ->first();
+
+            if (!$alert) {
+                Alert::create([
+                    'client_id'     => $appointment->client->id,
+                    'name'          => 'Appointment', // Alert ka name
+                    'email'         => $appointment->client->email,
+                    'email_forward' => 'n',
+                    'type'          => 'appointment_expiry', // Alert type
+                    'user_id'       => $appointment->client->staff_id,
+                    'title'         => 'Appointment Alert', // Alert title
+                    'url'           => route('schedule.appointment.index'),
+                    'body'          => json_encode([
+                        'Your appointment will expire on ' . $appointmentExpiry->format('M d, Y') . '. Please renew it.'
+                    ]),
+                    'message'       => 'Dear ' . $appointment->client->name . ', 
+                     Your appointment is due to expire on ' . $appointmentExpiry->format('M d, Y') . '. 
+                     To avoid any inconvenience, please renew your insurance promptly.',
+                    'status'        => 'unseen',
+                    'display_date'   => $alertDate,
+                    'deleted_at'    => 'n',
+                ]);
+            }
+        }
+
+
+
         $message = "Appointment" . ($request->id ? "Updated" : "Saved") . " Successfully";
         if (strtolower($request->status) == 'scheduled') {
             return redirect()->route('schedule.appointment.index');

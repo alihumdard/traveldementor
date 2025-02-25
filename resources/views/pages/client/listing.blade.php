@@ -129,10 +129,11 @@
 
 <script>
   var service_table = $('#user-table').DataTable();
-  console.log(users_table);
+  // console.log(users_table);
   // client getting modal
   $(document).on('click', '#client_btn', function() {
     var insuranceId = $(this).data('id');
+    console.log(insuranceId);
     $.ajax({
       url: '/client/' + insuranceId,
       method: 'GET',
@@ -143,6 +144,20 @@
         $("#contact_no").text(response.detail_page.contact_no);
         $("#dob").text(response.detail_page.dob);
         $("#refer_person").text(response.detail_page.refer_person);
+        var passportPicPath = response.detail_page.passport_pic && response.detail_page.passport_pic.trim() !== ""
+        ? response.detail_page.passport_pic
+        : "";
+
+    if (passportPicPath !== "") {
+        
+        var passportSrc = passportPicPath.startsWith("http")
+            ? passportPicPath
+            : "{{ asset('storage') }}/" + passportPicPath;
+        $("#passportPic").attr("src", passportSrc);
+        $('#passportPicContainer').show();
+    } else {
+        $('#passportPicContainer').hide();
+    }
         $('#qoutedetail').modal('show'); // Show the modal with updated details
       },
       error: function(error) {

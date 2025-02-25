@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\DS160;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Alert;
+use Carbon\Carbon;
 
 class DSController extends Controller
 {
@@ -25,7 +27,9 @@ class DSController extends Controller
         }
         if ($id) {
             $data['ds160'] = DS160::find($id);
+            // dd($data['ds160']);
         }
+        // dd($data['ca'])
         return view('pages.ds160.add',$data);
     }
     public function index()
@@ -55,7 +59,7 @@ class DSController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $saved = DS160::updateOrCreate(
+        $ds_160 = DS160::updateOrCreate(
             ['id' => $request->id ?? null],
             [
                 'application_id'       => $request->application_id,
@@ -84,6 +88,38 @@ class DSController extends Controller
                 'created_by'           => $user->id,
             ]
         );
+        if ($ds_160 && $request->challan_expiry) {
+            $ds_160Expiry = Carbon::parse($request->challan_expiry);
+            $alertDate = $ds_160Expiry->copy()->subDays(1);
+            $alert = Alert::where('client_id', $ds_160->client->id)
+                ->where('user_id', $ds_160->client->staff_id)
+                ->where('type', 'USA_challan_expiry')
+                ->first();
+
+            if (!$alert) {
+                Alert::create([
+                    'client_id'     => $ds_160->client->id,
+                    'name'          => 'USA Challan Expiry', // Alert ka name
+                    'email'         => $ds_160->client->email,
+                    'email_forward' => 'n',
+                    'type'          => 'USA_challan_expiry', // Alert type
+                    'user_id'       => $ds_160->client->staff_id,
+                    'title'         => 'USA Challan Alert', // Alert title
+                    'url'           => route('ds.index'),
+                    'body'          => json_encode([
+                        'Your USA Challan Expiry will expire on ' . $ds_160Expiry->format('M d, Y') . '. Please renew it.'
+                    ]),
+                    'message'       => 'Dear ' . $ds_160->client->name . ', 
+                     Your USA Challan Expiry is due to expire on ' . $ds_160Expiry->format('M d, Y') . '. 
+                     To avoid any inconvenience, please renew your USA Challan promptly.',
+                    'status'        => 'unseen',
+                    'display_date'   => $alertDate,
+                    'deleted_at'    => 'n',
+                ]);
+            }
+        }
+
+
         $message = "DS160 " . ($request->id ? "Updated" : "Created") . " Successfully";
         return redirect()->route('ds.index')->with('message', $message);
     }

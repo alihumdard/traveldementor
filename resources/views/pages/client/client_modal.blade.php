@@ -66,6 +66,9 @@
                 
                </tbody>
              </table>
+             <div id="passportPicContainer" style="margin-top: 20px; text-align: center;">
+              <img id="passportPic" src=""  style="width: 400px; height: 200px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
              <!-- <div class="text-center mt-4">
                <button class="btn" style="background: linear-gradient(90deg, #452c88, #6a4ab5); color: white; padding: 12px 30px; border-radius: 8px; font-size: 16px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                  Back

@@ -288,14 +288,15 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
+        toggleFields(); 
         // Function to toggle fields based on status
         function toggleFields() {
             if ($('#status').val().toLowerCase() === 'pending') {
                 $('#additionalFields').hide(); // Hide fields if status is "Pending"
-                $('#appointment_type').val('Pending');
+                $('#appointment_type').val('pending');
             } else {
                 $('#additionalFields').show(); // Show fields for other statuses
-                $('#appointment_type').val('Scheduled');
+                $('#appointment_type').val('scheduled');
                 clearAdditionalFields(); // Clear the values of the fields when status is "schedule"
             }
         }
