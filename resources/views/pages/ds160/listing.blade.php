@@ -56,7 +56,7 @@
 
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration ?? '' }}</td>
-                  <td>{{ $ds->client->name ?? 'N/A' }}</td>
+                  <td>{{ $ds->client->name ? $ds->client->name .'~'. $ds->client->sur_name : 'N/A' }}</td>
                   <td>{{ $ds->category->name ?? 'N/A' }}</td>
                   <td>{{ $ds->ds160 ?? '' }}</td>
                   <td>{{ $ds->revised_ds160 ?? '' }}</td>
@@ -122,7 +122,7 @@
         $("#ds160").text(response.detail_page.ds160);
         $("#revised_ds160").text(response.detail_page.revised_ds160);
         $("#surname").text(response.detail_page.surname); // Use text() instead of val() for non-input fields
-        $("#name").val(response.detail_page.client.name); // Use text() instead of val() for non-input fields
+        $("#name").val(response.detail_page.client.name + '~' + response.detail_page.client.sur_name); // Use text() instead of val() for non-input fields
         $("#year_of_birth").text(response.detail_page.year_of_birth);
         $("#sec_question").text(response.detail_page.sec_question);
         $("#sec_answer").text(response.detail_page.sec_answer);

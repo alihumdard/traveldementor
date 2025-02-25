@@ -76,7 +76,7 @@
                 @foreach ($appointments ?? [] as $key => $appointment)
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration ?? '' }}</td>
-                  <td>{{ $appointment->client->name ?? '' }}</td>
+                  <td>{{ $appointment->client ? $appointment->client->name . ' ~' . $appointment->client->sur_name : 'N/A' }}</td>
                   <td>{{ $appointment->country->name ?? '' }}</td>
                   <td>{{ $appointment->appointment_contact_no ?? '' }}</td>
                   <td>{{\Carbon\Carbon::parse( $appointment->bio_metric_appointment_date)->format('d-M-Y') ?? '' }}</td>
@@ -158,7 +158,7 @@
       method: 'GET',
       success: function(response) {
         console.log(response);
-        $("#name").val(response.detail_page.client.name);
+        $("#name").val(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
         $("#contact_no").text(response.detail_page.client.contact_no);
         $("#country").text(response.detail_page.country.name);
         $("#category").text(response.detail_page.category.name);

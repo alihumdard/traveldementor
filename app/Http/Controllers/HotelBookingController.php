@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\Country;
 use App\Models\HotelBooking;
 use App\Models\SoftwareStatus;
+use App\Models\Alert;
+use Carbon\Carbon;
 
 class HotelBookingController extends Controller
 {
@@ -58,7 +60,7 @@ class HotelBookingController extends Controller
             return redirect()->back();
         }
         $message = null;
-        $saved = HotelBooking::updateOrCreate(
+        $hotelbooking = HotelBooking::updateOrCreate(
             ['id' => $request->id ?? null],
             [
                 'application_id'          => $request->application_id,
@@ -73,6 +75,38 @@ class HotelBookingController extends Controller
                 'created_by'              => $user->id,
             ]
         );
+        if ($hotelbooking && $request->hotel_cancel_due_date) {
+            $hotelExpiry = Carbon::parse($request->hotel_cancel_due_date);
+           
+            $alertDate = $hotelExpiry->copy()->subDays(7);
+            // Agar alert already exist nahi karta
+            $alert = Alert::where('client_id', $hotelbooking->client->id)
+                ->where('user_id', $hotelbooking->client->staff_id)
+                ->where('type', 'hotel_expiry')
+                ->first();
+
+            if (!$alert) {
+                Alert::create([
+                    'client_id'     => $hotelbooking->client->id,
+                    'name'          => 'Hotel Booking', // Alert ka name
+                    'email'         => $hotelbooking->client->email,
+                    'email_forward' => 'n',
+                    'type'          => 'hotel_expiry', // Alert type
+                    'user_id'       => $hotelbooking->client->staff_id,
+                    'title'         => 'Hotel Alert', // Alert title
+                    'url'           => route('hotel.index'),
+                    'body'          => json_encode([
+                    'Your hotel booking will expire on ' . $hotelExpiry->format('M d, Y') . '. Please renew it.'
+                    ]),
+                    'message'       => 'Dear ' . $hotelbooking->client->name . ', 
+                     Your insurance is due to expire on ' . $hotelExpiry->format('M d, Y') . '. 
+                     To avoid any inconvenience, please renew your insurance promptly.',
+                    'status'        => 'unseen',
+                    'display_date'  => $alertDate,
+                    'deleted_at'    => 'n',
+                ]);
+            }
+        }
 
         $message = "Hotel Booking " . ($request->id ? "Updated" : "Saved") . " Successfully";
 

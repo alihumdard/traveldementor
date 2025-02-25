@@ -56,7 +56,7 @@
                 @foreach ($hotel_bookings as $booking )
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration ?? ''}}</td>
-                  <td>{{ $booking->client->name ?? ''}}</td>
+                  <td>{{ $booking->client ? $booking->client->name . '~' . $booking->client->sur_name : ''}}</td>
                   <td>{{ $booking->country->name ?? ''}}</td>
                   <td>{{ $booking->name ?? ''}}</td>
                   <td>{{ $booking->s_date ?? ''}}</td>
@@ -163,7 +163,7 @@
       url: '/hotel/booking/' + bookingId, // Your route to fetch application details
       method: 'GET',
       success: function(response) {
-        $("#name").val(response.detail_page.client.name);
+        $("#name").val(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
         $("#country").text(response.detail_page.country.name);
         $("#s_date").text(response.detail_page.s_date);
         $("#e_date").text(response.detail_page.e_date);

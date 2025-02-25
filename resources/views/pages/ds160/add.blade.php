@@ -203,11 +203,10 @@
                         </div>
 
                         <div class="row" id="additionalFields">
-
                             <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                                 <label for="challan_expiry">Challan Expiry</label>
                                 <input type="date" name="challan_expiry" id="challan_expiry" class="form-control"
-                                    value="{{ isset($ds160) ? $ds160->challan_expiry : '' }}">
+                                    value="{{ isset($ds160) && $ds160->challan_expiry  ? $ds160->challan_expiry : '' }}">
                                 <span id="challan_expiry_error" class="error-message text-danger"></span>
                             </div>
 
@@ -319,7 +318,7 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
-
+        toggleFields();
         // Function to toggle fields based on status
         function toggleFields() {
             if ($('#challan_created').val().toLowerCase() === 'no') {
@@ -343,7 +342,6 @@
             $('#challan_expiry').val('');
         }
 
-        toggleFields();
 
         $('#challan_created').change(function() {
             toggleFields();

@@ -61,7 +61,7 @@
                 @foreach ($insurances as $insurance)
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $insurance->client->name ?? ''}}</td>
+                  <td>{{ $insurance->client ? $insurance->client->name .'~'. $insurance->client->sur_name : ''}}</td>
                   <td>{{ $insurance->country->name ?? ''}}</td>
                   <td>{{ $insurance->plan_type ?? ''}}</td>
                   <td>{{ $insurance->policy_no ?? ''}}</td>
@@ -162,7 +162,7 @@
       url: '/insurance/' + insuranceId, // Your route to fetch application details
       method: 'GET',
       success: function(response) {
-        $("#name").val(response.detail_page.client.name);
+        $("#name").val(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
         $("#country").text(response.detail_page.country.name);
         $("#plan_type").text(response.detail_page.plan_type);
         $("#s_date").text(response.detail_page.s_date);
