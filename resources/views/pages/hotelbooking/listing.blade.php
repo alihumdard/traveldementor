@@ -49,7 +49,7 @@
                   <th>Hotel Name</th>
                   <th>Start Date</th>
                   <th>Status</th>
-                  <th>actions</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="tableData">
