@@ -95,7 +95,7 @@
                 <form action="{{ route('ds.store') }}" id="formData" method="post">
                     <div class="row">
                         @csrf
-                        <input type="hidden" name="id" value="{{ isset($ds160) ? $ds160->id : '' }}">
+                        <input type="hidden" name="id" id="form_id" value="{{ isset($ds160) ? $ds160->id : '' }}">
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="application_id">Applicant Name</label>
                             <select name="application_id" id="application_id" class="form-select">
@@ -131,14 +131,16 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="ds160">DS160</label>
-                            <input type="text" name="ds160" id="ds160" class="form-control" value="{{ isset($ds160) ? $ds160->ds160 : '' }}" placeholder="Enter the DS160" required>
+                            <input type="text" name="ds160" id="ds160" class="form-control"
+                                value="{{ isset($ds160) ? $ds160->ds160 : '' }}" placeholder="Enter the DS160" required>
                             <span id="ds160_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="revised_ds160">Revised DS160</label>
                             <input type="text" name="revised_ds160" id="revised_ds160" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->revised_ds160 : '' }}" placeholder="Enter the Revised DS160 ">
+                                value="{{ isset($ds160) ? $ds160->revised_ds160 : '' }}"
+                                placeholder="Enter the Revised DS160 ">
                             <span id="revised_ds160_error" class="error-message text-danger"></span>
                         </div>
 
@@ -161,43 +163,50 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="sec_question">Security Question</label>
                             <input type="text" name="sec_question" id="sec_question" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->sec_question : '' }}" placeholder="Enter the Security Question ">
+                                value="{{ isset($ds160) ? $ds160->sec_question : '' }}"
+                                placeholder="Enter the Security Question ">
                             <span id="sec_question_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="sec_answer">Security Answer</label>
                             <input type="text" name="sec_answer" id="sec_answer" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->sec_answer : '' }}" placeholder="Enter the Security Answer ">
+                                value="{{ isset($ds160) ? $ds160->sec_answer : '' }}"
+                                placeholder="Enter the Security Answer ">
                             <span id="sec_answer_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_email">Us Travel Doc Email</label>
                             <input type="email" name="us_travel_doc_email" id="us_travel_doc_email" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->us_travel_doc_email : '' }}" placeholder="Enter the Us Travel Doc Email ">
+                                value="{{ isset($ds160) ? $ds160->us_travel_doc_email : '' }}"
+                                placeholder="Enter the Us Travel Doc Email ">
                             <span id="us_travel_doc_email_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_password">Us Travel Doc Password</label>
                             <input type="text" name="us_travel_doc_password" id="us_travel_doc_password"
-                                class="form-control" value="{{ isset($ds160) ? $ds160->us_travel_doc_password : '' }}" placeholder="Enter the Us Travel Doc Password ">
+                                class="form-control" value="{{ isset($ds160) ? $ds160->us_travel_doc_password : '' }}"
+                                placeholder="Enter the Us Travel Doc Password ">
                             <span id="us_travel_doc_password_error" class="error-message text-danger"></span>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="us_travel_doc_updated_password">Us Travel Doc Updated Password</label>
-                            <input type="text" name="us_travel_doc_updated_password"
-                                id="us_travel_doc_updated_password" class="form-control"
-                                value="{{ isset($ds160) ? $ds160->us_travel_doc_updated_password : '' }}" placeholder="Enter the Us Travel Doc Updated Password ">
+                            <input type="text" name="us_travel_doc_updated_password" id="us_travel_doc_updated_password"
+                                class="form-control"
+                                value="{{ isset($ds160) ? $ds160->us_travel_doc_updated_password : '' }}"
+                                placeholder="Enter the Us Travel Doc Updated Password ">
                             <span id="us_travel_doc_updated_password_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                             <label for="challan_created">Challan Created</label>
                             <select name="challan_created" id="challan_created" class="form-select">
-                                <option value="yes" {{ isset($ds160) && $ds160->challan_created == 'yes' ? 'selected' : '' }}>Yes</option>
-                                <option value="no" {{ isset($ds160) && $ds160->challan_created == 'no' ? 'selected' : '' }}>No</option>
+                                <option value="no" {{ isset($ds160) && $ds160->challan_created == 'no' ? 'selected' : ''
+                                    }}>No</option>
+                                <option value="yes" {{ isset($ds160) && $ds160->challan_created == 'yes' ? 'selected' :
+                                    '' }}>Yes</option>
                             </select>
                             <span id="challan_created_error" class="error-message text-danger"></span>
                         </div>
@@ -213,26 +222,31 @@
                             <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                                 <label for="challan_submitted">Challan Submitted</label>
                                 <select name="challan_submitted" id="challan_submitted" class="form-select">
-                                    <option value="yes" {{ isset($ds160) && $ds160->challan_submitted == 'yes' ? 'selected'
-                                    : '' }}>Yes</option>
-                                    <option value="no" {{ isset($ds160) && $ds160->challan_submitted == 'no' ? 'selected' :
-                                    '' }}>No</option>
+                                    <option value="yes" {{ isset($ds160) && $ds160->challan_submitted == 'yes' ?
+                                        'selected'
+                                        : '' }}>Yes</option>
+                                    <option value="no" {{ isset($ds160) && $ds160->challan_submitted == 'no' ?
+                                        'selected' :
+                                        '' }}>No</option>
                                 </select>
                                 <span id="challan_submitted_error" class="error-message text-danger"></span>
                             </div>
 
                             <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                                 <label for="cgi_ref_no">CGI REF NO</label>
-                                <input type="text" name="cgi_ref_no" id="cgi_ref_no"
-                                    class="form-control" value="{{ isset($ds160) ? $ds160->cgi_ref_no : '' }}" placeholder="Enter the CGI Ref No ">
+                                <input type="text" name="cgi_ref_no" id="cgi_ref_no" class="form-control"
+                                    value="{{ isset($ds160) ? $ds160->cgi_ref_no : '' }}"
+                                    placeholder="Enter the CGI Ref No ">
                                 <span id="cgi_ref_no_error" class="error-message text-danger"></span>
                             </div>
 
                             <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                                 <label for="payment_mode">Payment Mode</label>
                                 <select name="payment_mode" id="payment_mode" class="form-select">
-                                    <option value="online" {{ isset($ds160) && $ds160->payment_mode == 'online' ? 'selected' : '' }}>Online</option>
-                                    <option value="cash" {{ isset($ds160) && $ds160->payment_mode == 'cash' ? 'selected' : '' }}>Cash</option>
+                                    <option value="online" {{ isset($ds160) && $ds160->payment_mode == 'online' ?
+                                        'selected' : '' }}>Online</option>
+                                    <option value="cash" {{ isset($ds160) && $ds160->payment_mode == 'cash' ? 'selected'
+                                        : '' }}>Cash</option>
                                 </select>
                                 <span id="payment_mode_error" class="error-message text-danger"></span>
                             </div>
@@ -253,8 +267,8 @@
 
                             <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                                 <label for="appoint_reschedule">Appointment Reschedule</label>
-                                <input type="date" name="appoint_reschedule" id="appoint_reschedule" class="form-control"
-                                    value="{{ isset($ds160) ? $ds160->appoint_reschedule : '' }}">
+                                <input type="date" name="appoint_reschedule" id="appoint_reschedule"
+                                    class="form-control" value="{{ isset($ds160) ? $ds160->appoint_reschedule : '' }}">
                                 <span id="appoint_reschedule_error" class="error-message text-danger"></span>
                             </div>
 
@@ -262,12 +276,13 @@
                                 <label for="pick_up_location">Pick up Location</label>
                                 <select name="pick_up_location" id="pick_up_location" class="form-select">
                                     <option disabled>Pick location</option>
-                                    <option value="islamabad" {{ isset($ds160) && $ds160->pick_up_location == 'islamabad' ?
-                                    'selected' : '' }}>Islamabad</option>
+                                    <option value="islamabad" {{ isset($ds160) && $ds160->pick_up_location ==
+                                        'islamabad' ?
+                                        'selected' : '' }}>Islamabad</option>
                                     <option value="lahore" {{ isset($ds160) && $ds160->pick_up_location == 'lahore' ?
-                                    'selected' : '' }}>Lahore</option>
+                                        'selected' : '' }}>Lahore</option>
                                     <option value="karachi" {{ isset($ds160) && $ds160->pick_up_location == 'karachi' ?
-                                    'selected' : '' }}>Karachi</option>
+                                        'selected' : '' }}>Karachi</option>
                                 </select>
                                 <span id="pick_up_location_error" class="error-message text-danger"></span>
                             </div>
@@ -275,17 +290,20 @@
                             <div class="col-lg-4 col-md-6 col-sm-12 " style="margin-bottom: 10px;">
                                 <label for="premium_delivery">Premium Delivery</label>
                                 <select name="premium_delivery" id="premium_delivery" class="form-select">
-                                    <option value="yes" {{ isset($ds160) && $ds160->premium_delivery == 'yes' ? 'selected' :
-                                    '' }}>Yes</option>
-                                    <option value="no" {{ isset($ds160) && $ds160->premium_delivery == 'no' ? 'selected' :
-                                    '' }}>No</option>
+                                    <option value="yes" {{ isset($ds160) && $ds160->premium_delivery == 'yes' ?
+                                        'selected' :
+                                        '' }}>Yes</option>
+                                    <option value="no" {{ isset($ds160) && $ds160->premium_delivery == 'no' ? 'selected'
+                                        :
+                                        '' }}>No</option>
                                 </select>
                                 <span id="premium_delivery_error" class="error-message text-danger"></span>
                             </div>
 
                             <div class="col-lg-6 col-md-12 col-sm-12" style="margin-bottom: 10px;">
                                 <label for="delivery_address">Delivery Address</label>
-                                <textarea name="delivery_address" id="delivery_address" class="form-control" placeholder="Enter the Delivery Address ">{{ $ds160->delivery_address ?? ''}}</textarea>
+                                <textarea name="delivery_address" id="delivery_address" class="form-control"
+                                    placeholder="Enter the Delivery Address ">{{ $ds160->delivery_address ?? ''}}</textarea>
                                 <span id="delivery_address_error" class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -318,14 +336,18 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
-        toggleFields();
+   toggleFields();
         // Function to toggle fields based on status
         function toggleFields() {
-            if ($('#challan_created').val().toLowerCase() === 'no') {
+           
+            if ($('#challan_created').val().toLowerCase() == 'no') {
                 $('#additionalFields').hide();
             } else {
                 $('#additionalFields').show();
+                if($('#form_id').val() == '')
+            {
                 clearAdditionalFields();
+            }
             }
         }
 
