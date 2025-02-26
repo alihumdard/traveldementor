@@ -61,7 +61,7 @@ class UserController extends Controller
 
                 $active_users = Client::count();
                 $total_pend_apps = Appointment::where('appointment_type', 'pending')->count();
-                $total_schd_apps = Appointment::where('appointment_type', 'schedule')->count();
+                $total_schd_apps = Appointment::where('appointment_type', 'scheduled')->count();
                 $staffs = User::where('role', 'Staff')->count();
                 $tot_apps = Application::count();
 
@@ -79,7 +79,7 @@ class UserController extends Controller
                     ->where('appointment_type', 'pending')
                     ->count();
                 $total_schd_apps = Appointment::whereIn('application_id', $all_client_ids)
-                    ->where('appointment_type', 'schedule')->count();
+                    ->where('appointment_type', 'scheduled')->count();
                 $tot_apps = Application::whereIn('user_id', $all_client_ids)->count();
                 return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'total_schd_apps', 'total_pend_apps', 'active_users', 'dahboard_name'));
             }

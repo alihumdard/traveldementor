@@ -54,7 +54,6 @@ class PendingController extends Controller
     }
     public function appointment_store(Request $request)
     {
-       
         $user = auth()->user();
         $page_name = 'pending_appointment';
         if (!view_permission($page_name)) {
@@ -121,7 +120,7 @@ class PendingController extends Controller
 
 
         $message = "Appointment" . ($request->id ? "Updated" : "Saved") . " Successfully";
-        if ($request->appointment_type == 'scheduled') {
+        if (strtolower($request->status) == 'scheduled') {
             return redirect()->route('schedule.appointment.index');
         } else {
             return redirect()->route('pending.appointment.index');
