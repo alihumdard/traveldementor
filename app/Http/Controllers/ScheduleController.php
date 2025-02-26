@@ -29,7 +29,7 @@ class ScheduleController extends Controller
                 ->get();
         } else {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('status', '=', 'Scheduled')
+                ->where('status', '=', 'scheduled')
                 ->get();
         }
 
@@ -96,7 +96,6 @@ class ScheduleController extends Controller
     public function schedule_detail_page($id)
     {
         $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('status', 'Scheduled')->find($id);
-    //    dd($data['detail_page']);
         return response()->json($data);
     }
 
