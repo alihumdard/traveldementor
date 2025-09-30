@@ -56,7 +56,7 @@
                 @foreach ($appointments as $appointment)
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration ??'N/A' }}</td>
-                  <td>{{ $appointment->client->name ??'N/A' }}</td>
+                  <td>{{ $appointment->client ? $appointment->client->name .'~'. $appointment->client->sur_name : 'N/A' }}</td>
                   <td>{{ $appointment->country->name ??'N/A'}} </td>
                   <td>{{ $appointment->no_application ??'N/A' }}</td>
                   <td>{{ $appointment->category->name ??'N/A'}}</td>
@@ -149,7 +149,7 @@
       method: 'GET',
       success: function(response) {
         console.log(response);
-        $("#name").val(response.detail_page.client.name);
+        $("#name").val(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
         $("#country").text(response.detail_page.country.name);
         $("#category").text(response.detail_page.category.name);
         $("#vfs_emb").text(response.detail_page.vfsembassy.name);

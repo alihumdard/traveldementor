@@ -73,6 +73,33 @@
         font-size: 1rem;
         margin-bottom: 0;
     }
+
+    .circle-dropzone {
+        width: 150px;
+        height: 150px;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .upload-text {
+        position: absolute;
+        z-index: 1;
+        color: #aaa;
+        font-size: 16px;
+    }
+
+    #preview {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
 </style>
 
 <div class="content-wrapper py-0 my-2">
@@ -93,9 +120,21 @@
                     <span>Clients</span>
                 </h3>
             </div>
-           
             <div class="container" id="home">
-                <form action="{{ route('client.store') }}" id="formData" method="post">
+                <form action="{{ route('client.store') }}" id="formData" method="post" enctype="multipart/form-data">
+                    <div class="container text-center mb-5">
+                        <div class="d-inline-block">
+                          <div class="circle-dropzone" id="dropzone">
+                            <input type="file" id="fileInput" accept="image/*" style="display:none;" name="passport_pic" />
+                            <span class="upload-text">Upload</span>
+                            <img id="preview" src="{{ isset($client->passport_pic) ? asset('storage/' . $client->passport_pic) : asset('assets/images/user.png') }}"
+                                 style="{{ isset($client->passport_pic) ? '' : 'display: none;' }}" />
+                          </div>
+                        </div>
+                      </div>
+                      
+
+
                     @if($client->id == "" && $role == 'Super Admin')
                     <div class="col-lg-4 col-md-6 col-sm-12 pl-0" style="margin-bottom: 10px;">
                         <select name="staff_id" class="form-select select-group">
@@ -131,8 +170,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="email">Email</label>
                             <input type="text" name="email" id="email" class="form-control"
-                                placeholder="Enter your email"
-                                value="{{ isset($client) ? $client->email : '' }}" />
+                                placeholder="Enter your email" value="{{ isset($client) ? $client->email : '' }}" />
                             <span id="email_error" class="error-message text-danger"></span>
                         </div>
 
@@ -191,6 +229,25 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function () {
+        document.getElementById('dropzone').addEventListener('click', function(){
+    document.getElementById('fileInput').click();
+});
+
+document.getElementById('fileInput').addEventListener('change', function(event){
+    var input = event.target;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var preview = document.getElementById('preview');
+            preview.src = e.target.result;
+            preview.style.display = "block";
+            // Upload text ko hide karne ke liye
+            document.querySelector('.upload-text').style.display = "none";
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+});
+
         // Form submission event
         $('#formData').on('submit', function (e) {
             e.preventDefault(); // Prevent form submission

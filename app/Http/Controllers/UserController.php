@@ -61,7 +61,7 @@ class UserController extends Controller
 
                 $active_users = Client::count();
                 $total_pend_apps = Appointment::where('appointment_type', 'pending')->count();
-                $total_schd_apps = Appointment::where('appointment_type', 'schedule')->count();
+                $total_schd_apps = Appointment::where('appointment_type', 'scheduled')->count();
                 $staffs = User::where('role', 'Staff')->count();
                 $tot_apps = Application::count();
 
@@ -79,7 +79,7 @@ class UserController extends Controller
                     ->where('appointment_type', 'pending')
                     ->count();
                 $total_schd_apps = Appointment::whereIn('application_id', $all_client_ids)
-                    ->where('appointment_type', 'schedule')->count();
+                    ->where('appointment_type', 'scheduled')->count();
                 $tot_apps = Application::whereIn('user_id', $all_client_ids)->count();
                 return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'total_schd_apps', 'total_pend_apps', 'active_users', 'dahboard_name'));
             }
@@ -90,6 +90,7 @@ class UserController extends Controller
 
     public function staff()
     {
+
         $user = auth()->user();
         $page_name = 'staff';
         if (!view_permission($page_name)) {
@@ -450,6 +451,20 @@ class UserController extends Controller
         if (!empty($request->password)) {
             $user->password = bcrypt($request->password);
         }
+        if ($request->hasFile('user_pic')) {
+
+            if (!empty($user->user_pic)) {
+                $oldImagePath = public_path('storage/' . $user->user_pic);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            $file = $request->file('user_pic');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads/profile', $fileName, 'public');
+            $user->user_pic = $filePath;
+        }
         if ($request->address ||  $request->phone || $request->name) {
             $user->save();
             return redirect()->back()->with('message', 'Successful updated');
@@ -541,19 +556,18 @@ class UserController extends Controller
 
     public function fetchUnseenAlerts()
     {
-        $user = auth()->user();
-        if ($user->role == 'Super Admin') {
-            $alerts = Alert::where('status', 'unseen')
-                ->whereDate('display_date', Carbon::today())
-                ->orderBy('created_at', 'desc')
-                ->get();
-        } else {
-            $alerts = Alert::where('user_id', $user->id)
-                ->where('status', 'unseen')
-                ->whereDate('display_date', Carbon::today())
-                ->orderBy('created_at', 'desc')
-                ->get();
+        // $user_id = auth()->user()->id;
+        $query = Alert::where('status', 'unseen')
+            ->whereDate('display_date', Carbon::today())
+            ->orderBy('created_at', 'desc');
+
+        if (auth()->user()->role != 'Super Admin') {
+            $query->where('user_id', auth()->user()->id);
         }
+        
+        $alerts = $query->get();
+    
+
 
         foreach ($alerts as $alert) {
             $maildata = [

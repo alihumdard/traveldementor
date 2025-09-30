@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Alert;
+use App\Models\Country;
 use Carbon\Carbon;
 
 class ClientController extends Controller
@@ -14,6 +15,7 @@ class ClientController extends Controller
     {
         $data['client'] = $id ? Client::find($id) : new Client();
         $data['role'] = auth()->user()->role;
+        $data['countries'] = Country::orderBy('name')->get();
         $staff = auth()->user()->id;
         if ($data['role'] == "Staff") {
             $data['staffs'] = User::where('id', $staff)->first();
@@ -44,35 +46,45 @@ class ClientController extends Controller
             return redirect()->back();
         }
 
-        // Create or Update the Client
-        $client = Client::updateOrCreate(
-            ['id' => $request->id ?? null],
-            [
-                'name'         => $request->name,
-                'sur_name'     => $request->sur_name,
-                'email'        => $request->email,
-                'contact_no'   => $request->contact_no,
-                'refer_person' => $request->refer_person,
-                'dob'          => $request->dob,
-                'staff_id'     => $request->staff_id,
-                'created_by'   => $user->id,
-            ],
-        );
+        // prepare data
+        $data = [
+            'name'         => $request->name,
+            'sur_name'     => $request->sur_name,
+            'email'        => $request->email,
+            'contact_no'   => $request->contact_no,
+            'refer_person' => $request->refer_person,
+            'dob'          => $request->dob,
+            'staff_id'     => $request->staff_id,
+            'created_by'   => $user->id,
+        ];
+
+        if ($request->hasFile('passport_pic')) {
+            $file = $request->file('passport_pic');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads/passport', $fileName, 'public');
+            $data['passport_pic'] = $filePath;
+        }
+
+        // fetch existing client for comparison
+        $existingClient = $request->id ? Client::find($request->id) : null;
+
+        $client = Client::updateOrCreate(['id' => $request->id ?? null], $data);
 
         if ($client && $client->dob) {
-            $dob = Carbon::parse($client->dob);
-
-            for ($i = 0; $i < 20; $i++) {
-                $futureYear = Carbon::now()->year + $i;
-                $futureDob = $dob->copy()->year($futureYear);
-                $alertDate = $futureDob->subDays(1);
-
-                $existingAlert = Alert::where('client_id', $client->id)
+            // if DOB changed or client is new, delete old birthday alerts
+            if (!$existingClient || $existingClient->dob !== $client->dob) {
+                Alert::where('client_id', $client->id)
                     ->where('type', 'date_of_birth')
-                    ->whereYear('display_date', $futureYear)
-                    ->first();
+                    ->delete();
 
-                if (!$existingAlert) {
+                $dob = Carbon::parse($client->dob);
+
+                // recreate alerts for the next 20 years
+                for ($i = 0; $i < 20; $i++) {
+                    $futureYear = Carbon::now()->year + $i;
+                    $futureDob  = $dob->copy()->year($futureYear);
+                    $alertDate  = $futureDob->subDay(); // 1 day before DOB
+
                     Alert::create([
                         'client_id'     => $client->id,
                         'name'          => $client->name,
@@ -82,8 +94,14 @@ class ClientController extends Controller
                         'user_id'       => $client->staff_id,
                         'title'         => 'Date of Birth Alert',
                         'url'           => route('client.index'),
-                        'body'          => json_encode('Hello ' . $client->name . ', our records indicate that your date of birth is ' . $dob->format('M d, Y') . '. If this information is incorrect, please update it promptly to ensure accuracy in our system.'),
-                        'message'       => 'Dear ' . $client->name . ', your date of birth is recorded as ' . $dob->format('M d, Y') . '. Please verify and update it if needed to avoid any discrepancies in your records.',
+                        'body'          => json_encode(
+                            'Hello ' . $client->name . ', our records indicate that your date of birth is ' .
+                                $dob->format('M d, Y') .
+                                '. If this information is incorrect, please update it promptly to ensure accuracy in our system.'
+                        ),
+                        'message'       => 'Dear ' . $client->name . ', your date of birth is recorded as ' .
+                            $dob->format('M d, Y') .
+                            '. Please verify and update it if needed to avoid any discrepancies in your records.',
                         'status'        => 'unseen',
                         'display_date'  => $alertDate,
                         'deleted_at'    => 'n',
@@ -95,6 +113,7 @@ class ClientController extends Controller
         $message = "Client " . ($request->id ? "Updated" : "Created") . " Successfully";
         return redirect()->route('client.index')->with('message', $message);
     }
+
     public function client_detail_page($id)
     {
         $data['detail_page'] = Client::find($id);

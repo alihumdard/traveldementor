@@ -41,7 +41,7 @@
               <thead style="background-color: #452c88; color: white;">
                 <tr>
                   <th style="text-align: left; padding: 15px; font-size: 16px;">Field</th>
-                  <th style="text-align: left; padding: 15px; font-size: 16px;">User Data</th>
+                  <th style="text-align: left; padding: 15px; font-size: 16px;">Applicant Data</th>
                 </tr>
               </thead>
               <tbody>

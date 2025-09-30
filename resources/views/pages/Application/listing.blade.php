@@ -140,7 +140,7 @@
                 @foreach ($applications as $application )
                 <tr style="font-size: small;">
                   <td>{{ $loop->iteration  ?? ''}} </td>
-                  <td>{{ $application->client->name ?? ''}}</td>
+                  <td>{{ $application->client ? $application->client->name . '~' . $application->client->sur_name : '' }}</td>
                   <td>{{ $application->country->name ?? ''}}</td>
                   <td>{{ $application->client->contact_no ?? ''}}</td>
                   <td>{{ $application->visa_status ?? ''}}</td>
@@ -234,7 +234,7 @@
         url: '/application/' + applicationId, // Your route to fetch application details
         method: 'GET',
         success: function(response) {
-          $("#name").text(response.detail_page.client.name);
+          // $("#name").text(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
           // $("#contact_no").text(response.detail_page.client.contact_no);
           $("#dob").text(response.detail_page.client.dob);
           $("#submission_date").text(response.detail_page.submission_date);
@@ -247,7 +247,7 @@
           $("#vsf_ref_no").text(response.detail_page.visa_refer_tracking_id);
 
           $("#ds_160").text(response.detail_page.ds_160);
-          $("#quoteDetail_user").val(response.detail_page.client.name);
+          $("#quoteDetail_user").val(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
 
           $('#qoutedetail').modal('show'); // Show the modal with updated details
         },

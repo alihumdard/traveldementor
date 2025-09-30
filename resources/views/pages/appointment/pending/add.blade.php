@@ -234,7 +234,7 @@
                             <label for="bio_metric_appointment_date">Biometric Appointment Date</label>
                             <input type="date" name="bio_metric_appointment_date" id="bio_metric_appointment_date"
                                 class="form-control"
-                                value="{{ isset($appointment) ? \Carbon\Carbon::parse($appointment->bio_metric_appointment_date)->format('Y-m-d') : '' }}">
+                                value="{{ isset($appointment) ? $appointment->bio_metric_appointment_date : '' }}">
                             <span id="bio_metric_appointment_date_error" class="error-message text-danger"></span>
                         </div>
 
@@ -243,7 +243,7 @@
                             <label for="appointment_reschedule">Appointment Reschedule</label>
                             <input type="date" name="appointment_reschedule" id="appointment_reschedule"
                                 class="form-control"
-                                value="{{ isset($appointment) ? \Carbon\Carbon::parse($appointment->appointment_reschedule)->format('Y-m-d')  : '' }}">
+                                value="{{ isset($appointment) ? $appointment->appointment_reschedule  : '' }}">
                             <span id="appointment_reschedule_error" class="error-message text-danger"></span>
                         </div>
 
@@ -288,15 +288,20 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
+        toggleFields();  
         // Function to toggle fields based on status
         function toggleFields() {
             if ($('#status').val().toLowerCase() === 'pending') {
                 $('#additionalFields').hide(); // Hide fields if status is "Pending"
-                $('#appointment_type').val('Pending');
+                $('#appointment_type').val('pending');
+            
             } else {
                 $('#additionalFields').show(); // Show fields for other statuses
-                $('#appointment_type').val('Scheduled');
+                $('#appointment_type').val('scheduled');
+                if($('#appointment_id').val() == null && $('#appointment_type').val() == 'scheduled')
+            {
                 clearAdditionalFields(); // Clear the values of the fields when status is "schedule"
+            }
             }
         }
 

@@ -20,21 +20,25 @@ class ScheduleController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
 
-        if ($user->role == "Staff") {
+        if ($user->role === "Staff") {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('status', '=', 'Scheduled')
+                ->where('status', 'Scheduled')
                 ->whereHas('client', function ($query) use ($user) {
                     $query->where('staff_id', $user->id);
                 })
+                ->orderBy('bio_metric_appointment_date', 'asc')   // sort by date ascending
                 ->get();
         } else {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('status', '=', 'scheduled')
+                ->where('status', 'Scheduled')
+                ->orderBy('bio_metric_appointment_date', 'asc')   // sort by date ascending
                 ->get();
         }
 
         return view('pages.appointment.schedule.listing', $data);
     }
+
+
     public function add($id = null)
     {
         $user = auth()->user();
