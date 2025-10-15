@@ -110,68 +110,63 @@ class ApplicationController extends Controller
             ]
         );
 
-        //passport expiry
         $client = Client::find($request->user_id);
-        $alert  = Alert::where('client_id', $client->id)->where('user_id', $client->staff_id)->where('type', 'passport_expiry')->first();
-        if (!$alert) {
-            if ($client && $request->passport_expiry) {
-                $passportExpiry = Carbon::parse($request->passport_expiry);
-                $alertDate = $passportExpiry->subMonths(7);
-                Alert::create([
-                    'client_id'      => $client->id,
-                    'name'           => $client->name,
-                    'email'          => $client->email,
-                    'email_forward'  => 'n',
-                    'type'           => 'passport_expiry',
-                    'user_id'        => $client->staff_id,
-                    'title'          => 'Passport Expiry Alert',
-                    'url'            => route('application.index'),
-                    'body'           => json_encode([
-                        'Your passport will expire on ' . $passportExpiry->format('M d, Y') . '. Please renew it.'
-                    ]),
-                    'message'        => 'Dear ' . $client->name . ', 
-                Your passport is due to expire on ' . $passportExpiry->format('M d, Y') . '. 
-                To avoid any inconvenience or travel restrictions, please ensure to renew your passport promptly. 
-                Visit the passport renewal office or consult with your travel administrator for further guidance.',
-                    'status'         => 'unseen',
-                    'display_date'  => $alertDate,
-                    'deleted_at'     => 'n',
-                ]);
-            }
+
+        //passport expiry
+        if ($client && $request->passport_expiry) {
+            Alert::where('application_id', $saved->id)->where('type', 'passport_expiry')->delete();
+            $passportExpiry = Carbon::parse($request->passport_expiry);
+            $alertDate = $passportExpiry->subMonths(7);
+            Alert::create([
+                'client_id'      => $client->id,
+                'application_id' => $saved->id,
+                'name'           => $client->name,
+                'email'          => $client->email,
+                'email_forward'  => 'n',
+                'type'           => 'passport_expiry',
+                'user_id'        => $client->staff_id,
+                'title'          => 'Passport Expiry Alert',
+                'url'            => route('application.index'),
+                'body'           => json_encode([
+                    'Your passport will expire on ' . $passportExpiry->format('M d, Y') . '. Please renew it.'
+                ]),
+                'message'        => 'Dear ' . $client->name . ', 
+            Your passport is due to expire on ' . $passportExpiry->format('M d, Y') . '. 
+            To avoid any inconvenience or travel restrictions, please ensure to renew your passport promptly. 
+            Visit the passport renewal office or consult with your travel administrator for further guidance.',
+                'status'         => 'unseen',
+                'display_date'  => $alertDate,
+                'deleted_at'     => 'n',
+            ]);
         }
 
         //visa expiry
-        $alert = Alert::where('client_id', $client->id)
-            ->where('user_id', $client->staff_id)
-            ->where('type', 'visa_expiry_date')
-            ->first();
-        if (!$alert && $client && $request->visa_expiry_date) {
+        if ($client && $request->visa_expiry_date) {
+            Alert::where('application_id', $saved->id)->where('type', 'visa_expiry_date')->delete();
             $visaExpiry = Carbon::parse($request->visa_expiry_date);
             
             $alertDate = $visaExpiry->copy()->subDays(15);
-            // Check if current time is on or after the alert date
-            if (Carbon::now()->greaterThanOrEqualTo($alertDate)) {
-                Alert::create([
-                    'client_id'      => $client->id,
-                    'name'           => $client->name,
-                    'email'          => $client->email,
-                    'email_forward'  => 'n',
-                    'type'           => 'visa_expiry_date',
-                    'user_id'        => $client->staff_id,
-                    'title'          => 'Visa Expiry Alert',
-                    'url'            => route('application.index'),
-                    'body'           => json_encode([
-                        'message' => 'Your Visa will expire on ' . $visaExpiry->format('M d, Y') . '. Please renew it.'
-                    ]),
-                    'message'        => 'Dear ' . $client->name . ', 
-            Your visa is set to expire on ' . $visaExpiry->format('M d, Y') . '. 
-            To ensure uninterrupted travel or stay, kindly proceed with the renewal process at your earliest convenience. 
-            If assistance is needed, please contact the relevant authority or immigration office.',
-                    'status'         => 'unseen',
-                    'display_date'   => $alertDate,
-                    'deleted_at'     => 'n',
-                ]);
-            }
+            Alert::create([
+                'client_id'      => $client->id,
+                'application_id' => $saved->id,
+                'name'           => $client->name,
+                'email'          => $client->email,
+                'email_forward'  => 'n',
+                'type'           => 'visa_expiry_date',
+                'user_id'        => $client->staff_id,
+                'title'          => 'Visa Expiry Alert',
+                'url'            => route('application.index'),
+                'body'           => json_encode([
+                    'message' => 'Your Visa will expire on ' . $visaExpiry->format('M d, Y') . '. Please renew it.'
+                ]),
+                'message'        => 'Dear ' . $client->name . ', 
+        Your visa is set to expire on ' . $visaExpiry->format('M d, Y') . '. 
+        To ensure uninterrupted travel or stay, kindly proceed with the renewal process at your earliest convenience. 
+        If assistance is needed, please contact the relevant authority or immigration office.',
+                'status'         => 'unseen',
+                'display_date'   => $alertDate,
+                'deleted_at'     => 'n',
+            ]);
         }
 
 
@@ -183,13 +178,16 @@ class ApplicationController extends Controller
     public function detail_page($id)
     {
         $data['detail_page'] = Application::with('client', 'category', 'country')->find($id);
-        //    dd($data['detail_page']);
         return response()->json($data);
     }
+
     public function delete($id)
     {
         $application = Application::find($id);
-        $application->delete();
-        return redirect()->back()->with('message', 'Successfull Deleted');
+        if ($application) {
+            Alert::where('application_id', $id)->delete();
+            $application->delete();
+        }
+        return redirect()->back()->with('message', 'Successfully Deleted');
     }
 }
