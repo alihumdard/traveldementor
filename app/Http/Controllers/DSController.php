@@ -27,9 +27,7 @@ class DSController extends Controller
         }
         if ($id) {
             $data['ds160'] = DS160::find($id);
-            // dd($data['ds160']);
         }
-        // dd($data['ca'])
         return view('pages.ds160.add',$data);
     }
     public function index()
@@ -89,34 +87,30 @@ class DSController extends Controller
             ]
         );
         if ($ds_160 && $request->challan_expiry) {
+            Alert::where('ds160_id', $ds_160->id)->where('type', 'USA_challan_expiry')->delete();
             $ds_160Expiry = Carbon::parse($request->challan_expiry);
             $alertDate = $ds_160Expiry->copy()->subDays(1);
-            $alert = Alert::where('client_id', $ds_160->client->id)
-                ->where('user_id', $ds_160->client->staff_id)
-                ->where('type', 'USA_challan_expiry')
-                ->first();
 
-            if (!$alert) {
-                Alert::create([
-                    'client_id'     => $ds_160->client->id,
-                    'name'          => 'USA Challan Expiry', // Alert ka name
-                    'email'         => $ds_160->client->email,
-                    'email_forward' => 'n',
-                    'type'          => 'USA_challan_expiry', // Alert type
-                    'user_id'       => $ds_160->client->staff_id,
-                    'title'         => 'USA Challan Alert', // Alert title
-                    'url'           => route('ds.index'),
-                    'body'          => json_encode([
-                        'Your USA Challan Expiry will expire on ' . $ds_160Expiry->format('M d, Y') . '. Please renew it.'
-                    ]),
-                    'message'       => 'Dear ' . $ds_160->client->name . ', 
-                     Your USA Challan Expiry is due to expire on ' . $ds_160Expiry->format('M d, Y') . '. 
-                     To avoid any inconvenience, please renew your USA Challan promptly.',
-                    'status'        => 'unseen',
-                    'display_date'   => $alertDate,
-                    'deleted_at'    => 'n',
-                ]);
-            }
+            Alert::create([
+                'client_id'     => $ds_160->client->id,
+                'ds160_id'      => $ds_160->id,
+                'name'          => 'USA Challan Expiry',
+                'email'         => $ds_160->client->email,
+                'email_forward' => 'n',
+                'type'          => 'USA_challan_expiry',
+                'user_id'       => $ds_160->client->staff_id,
+                'title'         => 'USA Challan Alert', 
+                'url'           => route('ds.index'),
+                'body'          => json_encode([
+                    'Your USA Challan Expiry will expire on ' . $ds_160Expiry->format('M d, Y') . '. Please renew it.'
+                ]),
+                'message'       => 'Dear ' . $ds_160->client->name . ', 
+                 Your USA Challan Expiry is due to expire on ' . $ds_160Expiry->format('M d, Y') . '. 
+                 To avoid any inconvenience, please renew your USA Challan promptly.',
+                'status'        => 'unseen',
+                'display_date'   => $alertDate,
+                'deleted_at'    => 'n',
+            ]);
         }
 
 
@@ -130,8 +124,11 @@ class DSController extends Controller
     }
     public function delete($id)
     {
-    $ds_160=DS160::find($id);
-    $ds_160->delete();
-    return redirect()->back()->with('message','Successfull Deleted');
+        $ds_160=DS160::find($id);
+        if ($ds_160) {
+            Alert::where('ds160_id', $id)->delete();
+            $ds_160->delete();
+        }
+        return redirect()->back()->with('message','Successfully Deleted');
     }
 }

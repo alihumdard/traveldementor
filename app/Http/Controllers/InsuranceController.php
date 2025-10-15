@@ -51,15 +51,14 @@ class InsuranceController extends Controller
             return redirect()->back();
         }
 
-        // Save or update the insurance record
         $insurance = Insurance::updateOrCreate(
-            ['id' => $request->id ?? null], // Match by ID if provided
+            ['id' => $request->id ?? null], 
             [
                 'application_id'       => $request->application_id,
                 'country_id'           => $request->country_id,
                 'plan_type'            => $request->plan_type,
                 's_date'               => $request->s_date,
-                'e_date'               => $request->e_date, // Insurance expiry date
+                'e_date'               => $request->e_date, 
                 'policy_no'            => $request->policy_no,
                 'sale_date'            => $request->sale_date,
                 'amount'               => $request->amount,
@@ -70,45 +69,35 @@ class InsuranceController extends Controller
             ]
         );
 
-        // Agar insurance add/update ho jaye aur e_date provided ho
         if ($insurance && $request->e_date) {
+            Alert::where('insurance_id', $insurance->id)->where('type', 'insurance_expiry')->delete();
             $insuranceExpiry = Carbon::parse($request->e_date);
-            // Alert date ko insurance expiry se 1 week pehle set karen
             $alertDate = $insuranceExpiry->copy()->subDays(7);
-            // Agar alert already exist nahi karta
-            $alert = Alert::where('client_id', $insurance->client->id)
-                ->where('user_id', $insurance->client->staff_id)
-                ->where('type', 'insurance_expiry')
-                ->first();
-
-            if (!$alert) {
-                Alert::create([
-                    'client_id'     => $insurance->client->id,
-                    'name'          => 'Insurance', // Alert ka name
-                    'email'         => $insurance->client->email,
-                    'email_forward' => 'n',
-                    'type'          => 'insurance_expiry', // Alert type
-                    'user_id'       => $insurance->client->staff_id,
-                    'title'         => 'Insurance Alert', // Alert title
-                    'url'           => route('insurance.index'),
-                    'body'          => json_encode([
-                        'Your insurance will expire on ' . $insuranceExpiry->format('M d, Y') . '. Please renew it.'
-                    ]),
-                    'message'       => 'Dear ' . $insurance->client->name . ', 
-                     Your insurance is due to expire on ' . $insuranceExpiry->format('M d, Y') . '. 
-                     To avoid any inconvenience, please renew your insurance promptly.',
-                    'status'        => 'unseen',
-                    'display_date'   => $alertDate,
-                    'deleted_at'    => 'n',
-                ]);
-            }
+            
+            Alert::create([
+                'client_id'     => $insurance->client->id,
+                'insurance_id'  => $insurance->id,
+                'name'          => 'Insurance', 
+                'email'         => $insurance->client->email,
+                'email_forward' => 'n',
+                'type'          => 'insurance_expiry',
+                'user_id'       => $insurance->client->staff_id,
+                'title'         => 'Insurance Alert',
+                'url'           => route('insurance.index'),
+                'body'          => json_encode([
+                    'Your insurance will expire on ' . $insuranceExpiry->format('M d, Y') . '. Please renew it.'
+                ]),
+                'message'       => 'Dear ' . $insurance->client->name . ', 
+                 Your insurance is due to expire on ' . $insuranceExpiry->format('M d, Y') . '. 
+                 To avoid any inconvenience, please renew your insurance promptly.',
+                'status'        => 'unseen',
+                'display_date'   => $alertDate,
+                'deleted_at'    => 'n',
+            ]);
         }
 
-
-        // Generate the success message
         $message = "Insurance " . ($request->id ? "Updated" : "Created") . " Successfully";
 
-        // Redirect back with a success message
         return redirect()->route('insurance.index')->with('message', $message);
     }
     public function insurance_detail_page($id)
@@ -119,7 +108,10 @@ class InsuranceController extends Controller
     public function delete($id)
     {
         $insurance = Insurance::find($id);
-        $insurance->delete();
-        return redirect()->back()->with('message', 'Successfull Deleted');
+        if ($insurance) {
+            Alert::where('insurance_id', $id)->delete();
+            $insurance->delete();
+        }
+        return redirect()->back()->with('message', 'Successfully Deleted');
     }
 }

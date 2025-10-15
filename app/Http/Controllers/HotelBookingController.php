@@ -52,6 +52,7 @@ class HotelBookingController extends Controller
         }
         return view('pages.hotelbooking.listing', $data);
     }
+
     public function store(Request $request)
     {     
         $user = auth()->user();
@@ -75,43 +76,41 @@ class HotelBookingController extends Controller
                 'created_by'              => $user->id,
             ]
         );
-        if ($hotelbooking && $request->hotel_cancel_due_date) {
+        
+        if ($hotelbooking && $request->hotel_cancel_due_date && $hotelbooking->status !== 'Cancelled') {
+            Alert::where('hotel_booking_id', $hotelbooking->id)->where('type', 'hotel_expiry')->delete();
             $hotelExpiry = Carbon::parse($request->hotel_cancel_due_date);
-           
             $alertDate = $hotelExpiry->copy()->subDays(7);
-            // Agar alert already exist nahi karta
-            $alert = Alert::where('client_id', $hotelbooking->client->id)
-                ->where('user_id', $hotelbooking->client->staff_id)
-                ->where('type', 'hotel_expiry')
-                ->first();
-
-            if (!$alert) {
-                Alert::create([
-                    'client_id'     => $hotelbooking->client->id,
-                    'name'          => 'Hotel Booking', // Alert ka name
-                    'email'         => $hotelbooking->client->email,
-                    'email_forward' => 'n',
-                    'type'          => 'hotel_expiry', // Alert type
-                    'user_id'       => $hotelbooking->client->staff_id,
-                    'title'         => 'Hotel Alert', // Alert title
-                    'url'           => route('hotel.index'),
-                    'body'          => json_encode([
-                    'Your hotel booking will expire on ' . $hotelExpiry->format('M d, Y') . '. Please renew it.'
-                    ]),
-                    'message'       => 'Dear ' . $hotelbooking->client->name . ', 
-                     Your insurance is due to expire on ' . $hotelExpiry->format('M d, Y') . '. 
-                     To avoid any inconvenience, please renew your insurance promptly.',
-                    'status'        => 'unseen',
-                    'display_date'  => $alertDate,
-                    'deleted_at'    => 'n',
-                ]);
-            }
+            
+            Alert::create([
+                'client_id'         => $hotelbooking->client->id,
+                'hotel_booking_id'  => $hotelbooking->id,
+                'name'              => 'Hotel Booking', 
+                'email'             => $hotelbooking->client->email,
+                'email_forward'     => 'n',
+                'type'              => 'hotel_expiry', 
+                'user_id'           => $hotelbooking->client->staff_id,
+                'title'             => 'Hotel Alert', 
+                'url'               => route('hotel.index'),
+                'body'              => json_encode([
+                'Your hotel booking will expire on ' . $hotelExpiry->format('M d, Y') . '. Please renew it.'
+                ]),
+                'message'           => 'Dear ' . $hotelbooking->client->name . ', 
+                 Your hotel booking is due to expire on ' . $hotelExpiry->format('M d, Y') . '. 
+                 To avoid any inconvenience, please renew your booking promptly.',
+                'status'            => 'unseen',
+                'display_date'      => $alertDate,
+                'deleted_at'        => 'n',
+            ]);
+        } else if ($hotelbooking && $hotelbooking->status === 'Cancelled') {
+            Alert::where('hotel_booking_id', $hotelbooking->id)->where('type', 'hotel_expiry')->delete();
         }
 
         $message = "Hotel Booking " . ($request->id ? "Updated" : "Saved") . " Successfully";
 
         return redirect()->route('hotel.index')->with('message', $message);
     }
+
     public function hotel_detail_page($id)
     {
         $data['detail_page']=HotelBooking::with('client','country')->find($id);
@@ -121,7 +120,10 @@ class HotelBookingController extends Controller
     public function delete($id)
     {
         $hotelbooking = HotelBooking::find($id);
-        $hotelbooking->delete();
-        return redirect()->back()->with('message', 'Successfull Deleted');
+        if ($hotelbooking) {
+            Alert::where('hotel_booking_id', $id)->delete();
+            $hotelbooking->delete();
+        }
+        return redirect()->back()->with('message', 'Successfully Deleted');
     }
 }

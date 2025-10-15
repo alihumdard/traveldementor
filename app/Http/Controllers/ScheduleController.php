@@ -2,66 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Appointment;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\Country;
-use App\Models\SoftwareStatus;
 use App\Models\VfsEmbassy;
+use Illuminate\Http\Request;
+use App\Models\Alert;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
-
-
     public function schedule_index()
     {
         $user = auth()->user();
         $data['user'] = $user;
-
-        if ($user->role === "Staff") {
+        if ($user->role == "Staff") {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('status', 'Scheduled')
+                ->where('appointment_type', '=', 'scheduled')
                 ->whereHas('client', function ($query) use ($user) {
                     $query->where('staff_id', $user->id);
                 })
-                ->orderBy('bio_metric_appointment_date', 'asc')   // sort by date ascending
                 ->get();
         } else {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
-                ->where('status', 'Scheduled')
-                ->orderBy('bio_metric_appointment_date', 'asc')   // sort by date ascending
+                ->where('appointment_type', '=', 'scheduled')
                 ->get();
         }
 
         return view('pages.appointment.schedule.listing', $data);
     }
-
-
     public function add($id = null)
     {
         $user = auth()->user();
         $data['user'] = $user;
-
-        $data['categories']  = Category::where('type', '=', 'VISA')->orderBy('name')->get();
-        $data['countries']   = Country::orderBy('name')->get();
-        $data['vfsembasses'] = VfsEmbassy::orderBy('name')->get();
-        $data['status']      = SoftwareStatus::where('type', 4)->get();
-
-        if ($user->role == "Staff") {
-            $data['clients'] = Client::where('staff_id', $user->id)->get();
-        } else {
-            $data['clients'] = Client::all();
-        }
-
-        if (isset($id)) {
+        $data['categories'] = Category::all();
+        $data['countries'] = Country::all();
+        $data['clients'] = Client::all();
+        $data['vfsembasses'] = VfsEmbassy::all();
+        if ($id) {
             $data['appointment'] = Appointment::find($id);
         }
-
         return view('pages.appointment.schedule.add', $data);
     }
-
     public function appointment_store(Request $request)
     {
         $user = auth()->user();
@@ -70,7 +54,7 @@ class ScheduleController extends Controller
             return redirect()->back();
         }
         $message = null;
-        $saved = Appointment::updateOrCreate(
+        $appointment = Appointment::updateOrCreate(
             ['id' => $request->id ?? null],
             [
                 'application_id'               => $request->application_id,
@@ -78,7 +62,7 @@ class ScheduleController extends Controller
                 'vfs_embassy_id'               => $request->vfs_embassy_id,
                 'category_id'                  => $request->category_id,
                 'no_application'               => $request->no_application,
-                'appointment_type'             => $request->appointment_type,
+                'appointment_type'             => 'scheduled',
                 'applicant_contact'            => $request->applicant_contact,
                 'appointment_email'            => $request->appointment_email,
                 'appointment_contact_no'       => $request->appointment_contact_no,
@@ -88,10 +72,44 @@ class ScheduleController extends Controller
                 'bio_metric_appointment_date'  => $request->bio_metric_appointment_date,
                 'appointment_reschedule'       => $request->appointment_reschedule,
                 'appointment_refer_no'         => $request->appointment_refer_no,
-                'status'                       => $request->status,
                 'created_by'                   => $user->id,
             ]
         );
+
+        if ($appointment && $request->bio_metric_appointment_date) {
+            $application = Application::with('country', 'client')->find($request->application_id);
+            if ($application) {
+                Alert::where('appointment_id', $appointment->id)->where('type', 'scheduled_appointment')->delete();
+
+                $appointmentDate = Carbon::parse($request->bio_metric_appointment_date);
+                $alertDate = null;
+
+                if ($application->country->code == 'US') {
+                    $alertDate = $appointmentDate->copy()->subMonth();
+                } else {
+                    $alertDate = $appointmentDate->copy()->subDays(3);
+                }
+
+                Alert::create([
+                    'client_id'      => $application->client->id,
+                    'appointment_id' => $appointment->id,
+                    'name'           => 'Scheduled Appointment',
+                    'email'          => $application->client->email,
+                    'email_forward'  => 'n',
+                    'type'           => 'scheduled_appointment',
+                    'user_id'        => $application->client->staff_id,
+                    'title'          => 'Scheduled Appointment Reminder',
+                    'url'            => route('schedule.appointment.index'),
+                    'body'           => json_encode([
+                        'message' => 'You have a scheduled appointment on ' . $appointmentDate->format('M d, Y') . ' for ' . $application->country->name . '.'
+                    ]),
+                    'message'        => 'Dear ' . $application->client->name . ', This is a reminder for your scheduled appointment on ' . $appointmentDate->format('M d, Y') . ' for ' . $application->country->name . '.',
+                    'status'         => 'unseen',
+                    'display_date'   => $alertDate,
+                    'deleted_at'     => 'n',
+                ]);
+            }
+        }
 
         $message = "Appointment " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return redirect()->route('schedule.appointment.index')->with('message', $message);
@@ -99,14 +117,17 @@ class ScheduleController extends Controller
 
     public function schedule_detail_page($id)
     {
-        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->where('status', 'Scheduled')->find($id);
+        $data['detail_page'] = Appointment::with('client', 'category', 'country', 'vfsembassy')->find($id);
         return response()->json($data);
     }
 
     public function delete($id)
     {
         $appointment = Appointment::find($id);
-        $appointment->delete();
-        return redirect()->back()->with('message', 'Successfull Deleted');
+        if ($appointment) {
+            Alert::where('appointment_id', $id)->delete();
+            $appointment->delete();
+        }
+        return redirect()->back()->with('message', 'Successfully Deleted');
     }
 }

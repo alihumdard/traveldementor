@@ -84,40 +84,41 @@ class PendingController extends Controller
                 'created_by'                   => $user->id,
             ]
         );
-        if ($appointment && $request->appointment_type == "scheduled") {
-            $appointmentExpiry = Carbon::parse($request->bio_metric_appointment_date);
-            // Alert date ko insurance expiry se 1 week pehle set karen
-            $alertDate = $appointmentExpiry->copy()->subDays(7);
-            // Agar alert already exist nahi karta
-            $alert = Alert::where('client_id', $appointment->client->id)
-                ->where('user_id', $appointment->client->staff_id)
-                ->where('type', 'appointment_expiry')
-                ->first();
 
-            if (!$alert) {
+           if ($appointment && $request->appointment_type == "scheduled" && $request->bio_metric_appointment_date) {
+            $client = Client::find($appointment->application_id);
+            $country = Country::find($appointment->country_id);
+            if ($client && $country) {
+                Alert::where('appointment_id', $appointment->id)->where('type', 'scheduled_appointment')->delete();
+
+                $appointmentDate = Carbon::parse($request->bio_metric_appointment_date);
+                $alertDate = null;
+                if ($country->code == 'US') {
+                    $alertDate = $appointmentDate->copy()->subMonth();
+                } else {
+                    $alertDate = $appointmentDate->copy()->subDays(3);
+                }
+
                 Alert::create([
-                    'client_id'     => $appointment->client->id,
-                    'name'          => 'Appointment', // Alert ka name
-                    'email'         => $appointment->client->email,
-                    'email_forward' => 'n',
-                    'type'          => 'appointment_expiry', // Alert type
-                    'user_id'       => $appointment->client->staff_id,
-                    'title'         => 'Appointment Alert', // Alert title
-                    'url'           => route('schedule.appointment.index'),
-                    'body'          => json_encode([
-                        'Your appointment will expire on ' . $appointmentExpiry->format('M d, Y') . '. Please renew it.'
+                    'client_id'      => $client->id,
+                    'appointment_id' => $appointment->id,
+                    'name'           => 'Scheduled Appointment',
+                    'email'          => $client->email,
+                    'email_forward'  => 'n',
+                    'type'           => 'scheduled_appointment',
+                    'user_id'        => $client->staff_id,
+                    'title'          => 'Scheduled Appointment Reminder',
+                    'url'            => route('schedule.appointment.index'),
+                    'body'           => json_encode([
+                        'message' => 'You have a scheduled appointment on ' . $appointmentDate->format('M d, Y') . ' for ' . $country->name . '.'
                     ]),
-                    'message'       => 'Dear ' . $appointment->client->name . ', 
-                     Your appointment is due to expire on ' . $appointmentExpiry->format('M d, Y') . '. 
-                     To avoid any inconvenience, please renew your insurance promptly.',
-                    'status'        => 'unseen',
+                    'message'        => 'Dear ' . $client->name . ', This is a reminder for your scheduled appointment on ' . $appointmentDate->format('M d, Y') . ' for ' . $country->name . '.',
+                    'status'         => 'unseen',
                     'display_date'   => $alertDate,
-                    'deleted_at'    => 'n',
+                    'deleted_at'     => 'n',
                 ]);
             }
         }
-
-
 
         $message = "Appointment" . ($request->id ? "Updated" : "Saved") . " Successfully";
         if (strtolower($request->status) == 'scheduled') {
@@ -125,6 +126,7 @@ class PendingController extends Controller
         } else {
             return redirect()->route('pending.appointment.index');
         }
+    
     }
     public function pending_detail_page($id)
     {
