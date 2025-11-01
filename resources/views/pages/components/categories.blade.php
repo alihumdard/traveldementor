@@ -204,6 +204,59 @@
       }
     });
 
-    let service_table = $('#category-table').DataTable();
+    var service_table = $('#category-table').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excelHtml5',
+            text: '<i class="fa-solid fa-file-excel"></i> Export Excel',
+            className: 'btn-excel'
+        },
+        {
+            extend: 'pdfHtml5',
+            text: '<i class="fa-solid fa-file-pdf"></i> Export PDF',
+            className: 'btn-pdf'
+        },
+    ],
+    initComplete: function () {
+        // Excel button
+        $('.btn-excel').css({
+            'background': 'linear-gradient(135deg, #452C88, #452C88)',
+            'color': '#fff',
+            'border': 'none',
+            'padding': '8px 14px',
+            'border-radius': '6px',
+            'font-weight': '600',
+            'margin-right': '8px',
+            'cursor': 'pointer',
+            'box-shadow': '0 3px 6px rgba(0,0,0,0.1)',
+            'transition': 'all 0.3s ease',
+            'display': 'inline-flex',
+            'align-items': 'center',
+            'gap': '6px',
+            'font-size': '14px'
+        })
+
+        // PDF button
+        $('.btn-pdf').css({
+            'background': 'linear-gradient(135deg, #452C88, #452C88)',
+            'color': '#fff',
+            'border': 'none',
+            'padding': '8px 14px',
+            'border-radius': '6px',
+            'font-weight': '600',
+            'margin-right': '8px',
+            'cursor': 'pointer',
+            'box-shadow': '0 3px 6px rgba(0,0,0,0.1)',
+            'transition': 'all 0.3s ease',
+            'display': 'inline-flex',
+            'align-items': 'center',
+            'gap': '6px',
+            'font-size': '14px'
+        })
+    }
+});
+
+
   </script>
   @endPushOnce
