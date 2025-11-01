@@ -141,7 +141,11 @@ var service_table = $('#qoute-table').DataTable({
         {
             extend: 'pdfHtml5',
             text: '<i class="fa-solid fa-file-pdf"></i> Export PDF',
-            className: 'btn-pdf'
+            className: 'btn-pdf',
+             orientation: 'landscape', // Sets orientation to landscape
+            exportOptions: {
+                columns: [ 0, 1, 2, 3, 4, 5 ] // Skips the 8th column (index 7)
+            }
         },
     ],
     initComplete: function () {
