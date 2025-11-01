@@ -134,12 +134,19 @@ var service_table = $('#user-table').DataTable({
         {
             extend: 'excelHtml5',
             text: '<i class="fa-solid fa-file-excel"></i> Export Excel',
-            className: 'btn-excel'
+            className: 'btn-excel',
+            exportOptions: {
+                columns: [ 0, 1, 2, 3, 4, 5, 6 ] // Skips the 8th column (index 7)
+            }
         },
         {
             extend: 'pdfHtml5',
             text: '<i class="fa-solid fa-file-pdf"></i> Export PDF',
-            className: 'btn-pdf'
+            className: 'btn-pdf',
+            orientation: 'landscape', // Sets orientation to landscape
+            exportOptions: {
+                columns: [ 0, 1, 2, 3, 4, 5, 6 ] // Skips the 8th column (index 7)
+            }
         },
     ],
     initComplete: function () {
@@ -180,8 +187,6 @@ var service_table = $('#user-table').DataTable({
         })
     }
 });
-
-
   // console.log(users_table);
   // client getting modal
   $(document).on('click', '#client_btn', function() {
