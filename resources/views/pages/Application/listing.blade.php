@@ -135,7 +135,7 @@
                   <th>Contact No</th>
                   <th>Submission Date</th>
                   <th>Visa Status</th>
-                  <th>Status</th>
+                  <th>Internal Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
