@@ -172,10 +172,10 @@
 
           if (formattedDate < today) {
             // Past appointment → green
-            $(row).css('background-color', '#d4edda');
+           $(row).css('background-color', '#75ff75');
           } else {
             // Pending/future appointment → red
-            $(row).css('background-color', '#f8d7da'); // light red
+            $(row).css('background-color', '#ff7b7b'); 
           }
         }
       },
