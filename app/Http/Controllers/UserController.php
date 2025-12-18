@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Alert;
-use App\Models\Application;
-use App\Models\Appointment;
-use App\Models\Category;
-use App\Models\SoftwareStatus;
+use App\Models\DS160;
 use App\Models\Client;
 use App\Models\Country;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Client\ConnectionException;
-use App\Models\User;
+use App\Mail\AlertEmail;
+use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Location;
+use App\Models\Insurance;
 use App\Models\VfsEmbassy;
-use Illuminate\Support\Facades\Artisan;
+use App\Models\Application;
+use App\Models\Appointment;
+use App\Models\HotelBooking;
+use Illuminate\Http\Request;
+use App\Models\SoftwareStatus;
 use Illuminate\Validation\Rule;
-use Carbon\Carbon;
-use App\Mail\AlertEmail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Client\ConnectionException;
 
 class UserController extends Controller
 {
@@ -64,8 +67,12 @@ class UserController extends Controller
                 $total_schd_apps = Appointment::where('appointment_type', 'scheduled')->count();
                 $staffs = User::where('role', 'Staff')->count();
                 $tot_apps = Application::count();
+                $hotel_bookings = HotelBooking::count();
+                $insurances     = Insurance::count();
+                $ds160s         = DS160::count();
 
-                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users', 'dahboard_name'));
+
+                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users', 'hotel_bookings', 'insurances', 'ds160s', 'dahboard_name'));
             } else if (isset($user->role) && $user->role == user_roles('2')) {
                 $dahboard_name = "Staff";
                 $tot_apps = 0;
@@ -81,7 +88,11 @@ class UserController extends Controller
                 $total_schd_apps = Appointment::whereIn('application_id', $all_client_ids)
                     ->where('appointment_type', 'scheduled')->count();
                 $tot_apps = Application::whereIn('user_id', $all_client_ids)->count();
-                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'total_schd_apps', 'total_pend_apps', 'active_users', 'dahboard_name'));
+                $hotel_bookings = HotelBooking::whereIn('application_id', $all_client_ids)->count();
+                $insurances     = Insurance::whereIn('application_id', $all_client_ids)->count();
+                $ds160s         = Ds160::whereIn('application_id', $all_client_ids)->count();
+
+                return view('pages.dashbords.super_admin', compact('user', 'tot_apps', 'total_schd_apps', 'total_pend_apps', 'active_users', 'hotel_bookings', 'insurances', 'ds160s', 'dahboard_name'));
             }
         } else {
             return redirect()->route('login');
@@ -564,9 +575,9 @@ class UserController extends Controller
         if (auth()->user()->role != 'Super Admin') {
             $query->where('user_id', auth()->user()->id);
         }
-        
+
         $alerts = $query->get();
-    
+
 
 
         foreach ($alerts as $alert) {
