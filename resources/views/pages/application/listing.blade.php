@@ -80,6 +80,22 @@
   .dataTables_filter {
     margin-bottom: 8px;
   }
+
+  #filter_country,
+  #filter_staff {
+    border: 2px solid #452C88;
+    border-radius: 8px;
+    padding-left: 15px;
+    height: 45px;
+    font-size: 14px;
+    transition: 0.3s ease;
+  }
+
+  #filter_country:focus,
+  #filter_staff:focus {
+    border-color: #331F66;
+    box-shadow: 0 0 5px rgba(69, 44, 136, 0.6);
+  }
 </style>
 @section('content')
 @include('pages.application.detail_page_modal')
@@ -126,10 +142,14 @@
               </div>
             @endif
 
+
             <table id="qoute-table" class="display" style="width:100%">
+
+
               <thead class="table-dark" style="background-color:rgba(69, 44, 136, 0.85);">
                 <tr style="font-size: small;">
                   <th>#</th>
+                  <th style="display:none;">Staff ID</th>
                   <th>Applicant Name</th>
                   <th>Country</th>
                   <th>Contact No</th>
@@ -144,6 +164,8 @@
                 @foreach ($applications as $application)
                   <tr style="font-size: small;">
                     <td>{{ $loop->iteration ?? ''}} </td>
+                    <td style="display:none;">{{ $application->client->staff_id ?? '' }}</td>
+
                     <td>
                       {{ $application->client ? $application->client->name . '~' . $application->client->sur_name : '' }}
                     </td>
@@ -197,129 +219,127 @@
   </div>
 
   @stop
-  @pushOnce('scripts')
-    <script>
-      $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-        var searchValue = $('#search_input').val().toLowerCase();
-        var column1 = data[1] ? data[1].toLowerCase() : "";
-        var column5 = data[2] ? data[2].toLowerCase() : "";
-        return column1.includes(searchValue) || column5.includes(searchValue);
-      });
-      $('#search_input').on('keyup', function () {
-        users_table.draw();
-      });
-      // var users_table = $('#qoute-table').DataTable({});
-      var service_table = $('#qoute-table').DataTable({
+@pushOnce('scripts')
+<script>
+$(document).ready(function() {
+    // Initialize DataTable
+    var table = $('#qoute-table').DataTable({
         dom: 'Bfrtip',
+        pageLength: 10,
+        lengthMenu: [10, 25, 50, 100, 200],
         buttons: [
-          {
-            extend: 'excelHtml5',
-            text: '<i class="fa-solid fa-file-excel"></i> Export Excel',
-            className: 'btn-excel'
-          },
-          {
-            extend: 'pdfHtml5',
-            text: '<i class="fa-solid fa-file-pdf"></i> Export PDF',
-            className: 'btn-pdf',
-            orientation: 'landscape', // Sets orientation to landscape
-            exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5] // Skips the 8th column (index 7)
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa-solid fa-file-excel"></i> Export Excel',
+                className: 'btn-excel'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa-solid fa-file-pdf"></i> Export PDF',
+                className: 'btn-pdf',
+                orientation: 'landscape',
+                exportOptions: { columns: [0, 2, 3, 4, 5, 6] } // Adjust columns if needed
             }
-          },
         ],
         initComplete: function () {
-          // Excel button
-          $('.btn-excel').css({
-            'background': 'linear-gradient(135deg, #452C88, #452C88)',
-            'color': '#fff',
-            'border': 'none',
-            'padding': '8px 14px',
-            'border-radius': '6px',
-            'font-weight': '600',
-            'margin-right': '8px',
-            'cursor': 'pointer',
-            'box-shadow': '0 3px 6px rgba(0,0,0,0.1)',
-            'transition': 'all 0.3s ease',
-            'display': 'inline-flex',
-            'align-items': 'center',
-            'gap': '6px',
-            'font-size': '14px'
-          })
+            // Add Country Filter
+            $(".dt-buttons").append(`
+                <select id="filter_country" class="form-control ms-2" style="height:38px; width:300px; display:inline-block;">
+                    <option value="">Filter by Country</option>
+                    @foreach($applications->pluck('country.name')->unique()->sort() as $countryName)
+                        <option value="{{ strtolower($countryName) }}">{{ $countryName }}</option>
+                    @endforeach
+                </select>
+            `);
 
-          // PDF button
-          $('.btn-pdf').css({
-            'background': 'linear-gradient(135deg, #452C88, #452C88)',
-            'color': '#fff',
-            'border': 'none',
-            'padding': '8px 14px',
-            'border-radius': '6px',
-            'font-weight': '600',
-            'margin-right': '8px',
-            'cursor': 'pointer',
-            'box-shadow': '0 3px 6px rgba(0,0,0,0.1)',
-            'transition': 'all 0.3s ease',
-            'display': 'inline-flex',
-            'align-items': 'center',
-            'gap': '6px',
-            'font-size': '14px'
-          })
+            // Add Staff Filter if Super Admin
+            @if(auth()->user()->role === 'Super Admin')
+            $(".dt-buttons").append(`
+                <select id="filter_staff" class="form-control ms-2" style="height:38px; width:200px; display:inline-block;">
+                    <option value="">Filter by Staff</option>
+                    @foreach(\App\Models\User::where('role', 'Staff')->get() as $staff)
+                        <option value="{{ $staff->id }}">{{ $staff->name }}</option>
+                    @endforeach
+                </select>
+            `);
+            @endif
+
+            // Style buttons
+            $('.btn-excel, .btn-pdf').css({
+                'background': 'linear-gradient(135deg, #452C88, #452C88)',
+                'color': '#fff',
+                'border': 'none',
+                'padding': '8px 14px',
+                'border-radius': '6px',
+                'font-weight': '600',
+                'margin-right': '8px',
+                'cursor': 'pointer',
+                'box-shadow': '0 3px 6px rgba(0,0,0,0.1)',
+                'transition': 'all 0.3s ease',
+                'display': 'inline-flex',
+                'align-items': 'center',
+                'gap': '6px',
+                'font-size': '14px'
+            });
         }
-      });
+    });
 
+    // Custom filter: Country & Staff
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        var selectedCountry = $('#filter_country').val();
+        var selectedStaff = $('#filter_staff').val();
 
-    </script>
-    <script>
-      var users_table = $('#qoute-table').DataTable();
-      $('#filter_by_sts_qoute').on('change', function () {
-        var selectedStatus = $(this).val();
-        users_table.column(6).search(selectedStatus).draw();
-      });
-      $('#filter_by_loc').on('change', function () {
-        var selectedLocation = $(this).val();
-        users_table.column(4).search(selectedLocation).draw();
-      });
-    </script>
+        var rowCountry = data[3] ? data[3].toLowerCase() : ''; // Column index for Country
+        var rowStaffId = data[1]; // Column index for Staff ID (hidden)
 
-    <script>
-      var users_table = $('#qoute-table').DataTable();
-      $('#filter_by_sts_qoute').on('change', function () {
-        var selectedStatus = $(this).val();
-        users_table.column(5).search(selectedStatus).draw();
-      });
-      $('#filter_by_loc').on('change', function () {
-        var selectedLocation = $(this).val();
-        users_table.column(3).search(selectedLocation).draw();
-      });
+        if (selectedCountry && rowCountry !== selectedCountry.toLowerCase()) {
+            return false;
+        }
 
-      $(document).on('click', '#quoteDetail_btn', function () {
-        var applicationId = $(this).data('id'); // Get the ID associated with the clicked button
-        console.log('Clicked application ID:', applicationId); // Check the application ID
+        if (selectedStaff && rowStaffId != selectedStaff) {
+            return false;
+        }
+
+        return true;
+    });
+
+    // Trigger redraw when filter changes
+    $(document).on('change', '#filter_country, #filter_staff', function() {
+        table.draw();
+    });
+
+    // Search input
+    $('#search_input').on('keyup', function() {
+        table.search(this.value).draw();
+    });
+
+    // Quote Detail Modal
+    $(document).on('click', '#quoteDetail_btn', function() {
+        var applicationId = $(this).data('id');
 
         $.ajax({
-          url: '/application/' + applicationId, // Your route to fetch application details
-          method: 'GET',
-          success: function (response) {
-            // $("#name").text(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
-            // $("#contact_no").text(response.detail_page.client.contact_no);
-            $("#dob").text(response.detail_page.client.dob);
-            $("#submission_date").text(response.detail_page.submission_date);
-            $("#country").text(response.detail_page.country.name);
-            $("#category").text(response.detail_page.category.name);
-            $("#pass_no").text(response.detail_page.passport_no);
-            $("#pass_exp_date").text(response.detail_page.passport_expiry);
-            $("#visa_status").text(response.detail_page.visa_status);
-            $("#visa_exp_date").text(response.detail_page.visa_expiry_date);
-            $("#vsf_ref_no").text(response.detail_page.visa_refer_tracking_id);
+            url: '/application/' + applicationId,
+            method: 'GET',
+            success: function(response) {
+                $("#dob").text(response.detail_page.client.dob);
+                $("#submission_date").text(response.detail_page.submission_date);
+                $("#country").text(response.detail_page.country.name);
+                $("#category").text(response.detail_page.category.name);
+                $("#pass_no").text(response.detail_page.passport_no);
+                $("#pass_exp_date").text(response.detail_page.passport_expiry);
+                $("#visa_status").text(response.detail_page.visa_status);
+                $("#visa_exp_date").text(response.detail_page.visa_expiry_date);
+                $("#vsf_ref_no").text(response.detail_page.visa_refer_tracking_id);
+                $("#ds_160").text(response.detail_page.ds_160);
+                $("#quoteDetail_user").val(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
 
-            $("#ds_160").text(response.detail_page.ds_160);
-            $("#quoteDetail_user").val(response.detail_page.client.name + '~' + response.detail_page.client.sur_name);
-
-            $('#qoutedetail').modal('show'); // Show the modal with updated details
-          },
-          error: function (error) {
-            console.error('Error fetching application details:', error);
-          }
+                $('#qoutedetail').modal('show');
+            },
+            error: function(error) {
+                console.error('Error fetching application details:', error);
+            }
         });
-      });
-    </script>
-  @endPushOnce
+    });
+});
+</script>
+@endPushOnce

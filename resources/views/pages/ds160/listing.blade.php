@@ -44,9 +44,11 @@
               <thead class="table-dark" style="background-color: #5F4A99;">
                 <tr style="font-size: small;">
                   <th>#</th>
-                  <th>Applicant Name</th>
+                  <th>Applicant Name</th> 
+                  <th>Contact No</th>
                   <th>Category</th>
                   <th>DS160</th>
+                  <th>Challan Status</th>
                   <th>Revised DS160</th>
                   <th>Actions</th>
                 </tr>
@@ -58,8 +60,10 @@
                   <td>{{ $loop->iteration ?? '' }}</td>
                   
                   <td>{{ ($ds->client->name ?? 'N/A') . (isset($ds->client->sur_name) ? ' ~ ' . $ds->client->sur_name : '') }}</td>
+                  <td>{{ $ds->client->contact_no ?? 'N/A' }}</td>
                   <td>{{ $ds->category->name ?? 'N/A' }}</td>
                   <td>{{ $ds->ds160 ?? '' }}</td>
+                   <td>{{ $ds->challan_created == 'yes' ? 'Created' : 'Not Created' }}</td>
                   <td>{{ $ds->revised_ds160 ?? '' }}</td>
                   <td>
                     <div class="d-flex my-auto">

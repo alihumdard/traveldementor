@@ -54,6 +54,7 @@ class PendingController extends Controller
     }
     public function appointment_store(Request $request)
     {
+        //  dd($request->all());
         $user = auth()->user();
         $page_name = 'pending_appointment';
         if (!view_permission($page_name)) {
@@ -76,16 +77,18 @@ class PendingController extends Controller
                 'payment_mode'                 => $request->payment_mode,
                 'bank_name'                    => $request->bank_name,
                 'card_holder_name'             => $request->card_holder_name,
+                'transaction_id'               => $request->transaction_id,       // Added
+                'transaction_amount'           => $request->transaction_amount,   // Added
                 'transaction_date'             => $request->transaction_date,
                 'bio_metric_appointment_date'  => $request->bio_metric_appointment_date,
                 'appointment_reschedule'       => $request->appointment_reschedule ?? null,
-                'appointment_refer_no'         => $request->appointment_refer_no ,
+                'appointment_refer_no'         => $request->appointment_refer_no,
                 'status'                       => $request->status,
                 'created_by'                   => $user->id,
             ]
         );
 
-           if ($appointment && $request->appointment_type == "scheduled" && $request->bio_metric_appointment_date) {
+        if ($appointment && $request->appointment_type == "scheduled" && $request->bio_metric_appointment_date) {
             $client = Client::find($appointment->application_id);
             $country = Country::find($appointment->country_id);
             if ($client && $country) {
@@ -126,7 +129,6 @@ class PendingController extends Controller
         } else {
             return redirect()->route('pending.appointment.index');
         }
-    
     }
     public function pending_detail_page($id)
     {

@@ -20,7 +20,7 @@ class AppointmentController extends Controller
         return view('pages.appointment.listing', $data);
     }
     public function add($id = null)
-    {       
+    {
         $userIds = Application::pluck('user_id')->unique()->toArray();
         $user = auth()->user();
         $data['user'] = $user;
@@ -55,6 +55,8 @@ class AppointmentController extends Controller
                 'appointment_contact_no'       => $request->appointment_contact_no,
                 'vfs_appointment_refers'       => $request->vfs_appointment_refers,
                 'payment_mode'                 => $request->payment_mode,
+                'transaction_id'               => $request->transaction_id,       // Added
+                'transaction_amount'           => $request->transaction_amount,   // Added
                 'transaction_date'             => $request->transaction_date,
                 'bio_metric_appointment_date'  => $request->bio_metric_appointment_date,
                 'appointment_reschedule'       => $request->appointment_reschedule,
@@ -68,8 +70,8 @@ class AppointmentController extends Controller
     }
     public function delete($id)
     {
-    $appointment=Appointment::find($id);
-    $appointment->delete();
-    return redirect()->back()->with('message','Successfull Deleted');
+        $appointment = Appointment::find($id);
+        $appointment->delete();
+        return redirect()->back()->with('message', 'Successfull Deleted');
     }
 }

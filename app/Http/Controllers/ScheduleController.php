@@ -14,20 +14,42 @@ use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
+    // public function schedule_index()
+    // {
+    //     $user = auth()->user();
+    //     $data['user'] = $user;
+    //     if ($user->role == "Staff") {
+    //         $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
+    //             ->where('appointment_type', '=', 'scheduled')
+    //             ->whereHas('client', function ($query) use ($user) {
+    //                 $query->where('staff_id', $user->id);
+    //             })
+    //             ->get();
+    //     } else {
+    //         $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
+    //             ->where('appointment_type', '=', 'scheduled')
+    //             ->get();
+    //     }
+
+    //     return view('pages.appointment.schedule.listing', $data);
+    // }
     public function schedule_index()
     {
         $user = auth()->user();
         $data['user'] = $user;
+
         if ($user->role == "Staff") {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
                 ->where('appointment_type', '=', 'scheduled')
                 ->whereHas('client', function ($query) use ($user) {
                     $query->where('staff_id', $user->id);
                 })
+                ->orderBy('bio_metric_appointment_date', 'asc') // ⭐ Added sorting
                 ->get();
         } else {
             $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
                 ->where('appointment_type', '=', 'scheduled')
+                ->orderBy('bio_metric_appointment_date', 'asc') // ⭐ Added sorting
                 ->get();
         }
 

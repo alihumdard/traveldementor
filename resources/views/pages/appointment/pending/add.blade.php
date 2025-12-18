@@ -106,9 +106,9 @@
                             <select name="application_id" id="application_id" class="form-select">
                                 <option disabled selected> Select Applicant</option>
                                 @foreach ($clients as $client)
-                                <option value="{{ $client->id }}" {{ isset($appointment) && $appointment->application_id == $client->id ? 'selected' : '' }}>
-                                    {{ $client->name.' ~ '.$client->sur_name }}
-                                </option>
+                                    <option value="{{ $client->id }}" {{ isset($appointment) && $appointment->application_id == $client->id ? 'selected' : '' }}>
+                                        {{ $client->name . ' ~ ' . $client->sur_name }}
+                                    </option>
                                 @endforeach
                             </select>
                             <span id="application_id_error" class="error-message text-danger"></span>
@@ -118,10 +118,10 @@
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-select">
                                 @foreach ($status as $st)
-                                <option value="{{ $st->name }}" {{ (isset($appointment) && $appointment->status ==
+                                                            <option value="{{ $st->name }}" {{ (isset($appointment) && $appointment->status ==
                                     $st->name) || (!isset($appointment) && $st->name == 'Pending') ? 'selected' : '' }}>
-                                    {{ $st->name }}
-                                </option>
+                                                                {{ $st->name }}
+                                                            </option>
                                 @endforeach
                             </select>
 
@@ -133,8 +133,9 @@
                             <select name="country_id" id="country_id" class="form-select">
                                 <option disabled selected> Select Country</option>
                                 @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" {{ isset($appointment) && $appointment->country_id ==
-                                    $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
+                                                            <option value="{{ $country->id }}" {{ isset($appointment) && $appointment->country_id ==
+                                    $country->id ? 'selected' : '' }}>{{ $country->name }}
+                                                            </option>
                                 @endforeach
                             </select>
                             <span id="country_id_error" class="error-message text-danger"></span>
@@ -145,9 +146,9 @@
                             <select name="vfs_embassy_id" id="vfs_embassy_id" class="form-select">
                                 <option disabled selected>Select Vfs Embassy</option>
                                 @foreach ($vfsembasses as $vfsembassy)
-                                <option value="{{ $vfsembassy->id }}" {{ isset($appointment) && $appointment->
+                                                            <option value="{{ $vfsembassy->id }}" {{ isset($appointment) && $appointment->
                                     vfs_embassy_id == $vfsembassy->id ? 'selected' : '' }}>{{ $vfsembassy->name }}
-                                </option>
+                                                            </option>
                                 @endforeach
                             </select>
                             <span id="vfs_embassy_id_error" class="error-message text-danger"></span>
@@ -158,8 +159,9 @@
                             <select name="category_id" id="category_id" class="form-select">
                                 <option disabled selected>Select Category</option>
                                 @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" {{ isset($appointment) && $appointment->category_id
-                                    == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                                            <option value="{{ $category->id }}" {{ isset($appointment) && $appointment->category_id
+                                    == $category->id ? 'selected' : '' }}>{{ $category->name }}
+                                                            </option>
                                 @endforeach
                             </select>
                             <span id="category_id_error" class="error-message text-danger"></span>
@@ -209,19 +211,36 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="bank_name">Bank Name</label>
-                            <input type="text" name="bank_name" id="bank_name"
-                                class="form-control" placeholder="Enter Bank Name "
+                            <input type="text" name="bank_name" id="bank_name" class="form-control"
+                                placeholder="Enter Bank Name "
                                 value="{{ isset($appointment) ? $appointment->bank_name : old('bank_name') }}">
                             <span id="bank_name_error" class="error-message text-danger"></span>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="card_holder_name">Card Holder Name</label>
-                            <input type="text" name="card_holder_name" id="card_holder_name"
-                                class="form-control" placeholder="Enter card holder name "
+                            <input type="text" name="card_holder_name" id="card_holder_name" class="form-control"
+                                placeholder="Enter card holder name "
                                 value="{{ isset($appointment) ? $appointment->card_holder_name : old('card_holder_name') }}">
                             <span id="card_holder_name_error" class="error-message text-danger"></span>
                         </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="transaction_id">Transaction ID</label>
+                            <input type="text" name="transaction_id" id="transaction_id" class="form-control"
+                                placeholder="Enter Transaction ID"
+                                value="{{ isset($appointment) ? $appointment->transaction_id : old('transaction_id') }}">
+                            <span id="transaction_id_error" class="error-message text-danger"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
+                            <label for="transaction_amount">Transaction Amount</label>
+                            <input type="text" name="transaction_amount" id="transaction_amount" class="form-control"
+                                placeholder="Enter Transaction Amount"
+                                value="{{ isset($appointment) ? $appointment->transaction_amount : old('transaction_amount') }}">
+                            <span id="transaction_amount_error" class="error-message text-danger"></span>
+                        </div>
+
 
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 10px;">
                             <label for="transaction_date">Transaction Date</label>
@@ -243,7 +262,7 @@
                             <label for="appointment_reschedule">Appointment Reschedule</label>
                             <input type="date" name="appointment_reschedule" id="appointment_reschedule"
                                 class="form-control"
-                                value="{{ isset($appointment) ? $appointment->appointment_reschedule  : '' }}">
+                                value="{{ isset($appointment) ? $appointment->appointment_reschedule : '' }}">
                             <span id="appointment_reschedule_error" class="error-message text-danger"></span>
                         </div>
 
@@ -286,88 +305,89 @@
 <!-- viewlocation Modal End -->
 @stop
 @pushOnce('scripts')
-<script>
-    $(document).ready(function() {
-        toggleFields();  
-        // Function to toggle fields based on status
-        function toggleFields() {
-            if ($('#status').val().toLowerCase() === 'pending') {
-                $('#additionalFields').hide(); // Hide fields if status is "Pending"
-                $('#appointment_type').val('pending');
-            
-            } else {
-                $('#additionalFields').show(); // Show fields for other statuses
-                $('#appointment_type').val('scheduled');
-                if($('#appointment_id').val() == null && $('#appointment_type').val() == 'scheduled')
-            {
-                clearAdditionalFields(); // Clear the values of the fields when status is "schedule"
+    <script>
+        $(document).ready(function () {
+            toggleFields();
+            // Function to toggle fields based on status
+            function toggleFields() {
+                if ($('#status').val().toLowerCase() === 'pending') {
+                    $('#additionalFields').hide(); // Hide fields if status is "Pending"
+                    $('#appointment_type').val('pending');
+
+                } else {
+                    $('#additionalFields').show(); // Show fields for other statuses
+                    $('#appointment_type').val('scheduled');
+                    if ($('#appointment_id').val() == null && $('#appointment_type').val() == 'scheduled') {
+                        clearAdditionalFields(); // Clear the values of the fields when status is "schedule"
+                    }
+                }
             }
+
+            // Function to clear the values of additional fields
+            function clearAdditionalFields() {
+                $('#appointment_email').val(''); // Clear appointment email
+                $('#appointment_contact_no').val(''); // Clear appointment contact
+                $('#vfs_appointment_refers').val(''); // Clear VFS appointment ref
+                $('#payment_mode').val(''); // Clear payment mode
+                $('#transaction_date').val(''); // Clear transaction date
+                $('#bio_metric_appointment_date').val(''); // Clear biometric appointment date
+                $('#appointment_reschedule').val(''); // Clear appointment reschedule
+                $('#bank_name').val(''); // Clear appointment reschedule
+                $('#card_holder_name').val(''); // Clear appointment reschedule
+                $('#appointment_refer_no').val(''); // Clear appointment refer no
+                $('#transaction_id').val(''); // Clear Transaction ID
+                $('#transaction_amount').val(''); // Clear Transaction Amount
             }
-        }
 
-        // Function to clear the values of additional fields
-        function clearAdditionalFields() {
-            $('#appointment_email').val(''); // Clear appointment email
-            $('#appointment_contact_no').val(''); // Clear appointment contact
-            $('#vfs_appointment_refers').val(''); // Clear VFS appointment ref
-            $('#payment_mode').val(''); // Clear payment mode
-            $('#transaction_date').val(''); // Clear transaction date
-            $('#bio_metric_appointment_date').val(''); // Clear biometric appointment date
-            $('#appointment_reschedule').val(''); // Clear appointment reschedule
-            $('#bank_name').val(''); // Clear appointment reschedule
-            $('#card_holder_name').val(''); // Clear appointment reschedule
-            $('#appointment_refer_no').val(''); // Clear appointment refer no
-        }
+            // Call the function on page load to set initial visibility
+            // toggleFields();
 
-        // Call the function on page load to set initial visibility
-        // toggleFields();
+            // Add change event listener to the status dropdown
+            $('#status').change(function () {
+                toggleFields(); // Toggle fields whenever the status changes
+            });
 
-        // Add change event listener to the status dropdown
-        $('#status').change(function() {
-            toggleFields(); // Toggle fields whenever the status changes
+            // Form submission logic
+            $('#formData').on('submit', function (e) {
+                e.preventDefault(); // Prevent form submission
+                let isValid = true;
+
+                $('.error-message').text('');
+                if ($('#application_id').val() === null || $('#application_id').val() === '') {
+                    $('#application_id_error').text('This field is required');
+                    isValid = false;
+                }
+
+                if ($('#country_id').val() === null || $('#country_id').val() === '') {
+                    $('#country_id_error').text('This field is required');
+                    isValid = false;
+                }
+
+                if ($('#vfs_embassy_id').val() === null || $('#vfs_embassy_id').val() === '') {
+                    $('#vfs_embassy_id_error').text('This field is required');
+                    isValid = false;
+                }
+
+                if ($('#category_id').val() === null || $('#category_id').val() === '') {
+                    $('#category_id_error').text('This field is required');
+                    isValid = false;
+                }
+
+                if ($('#no_application').val().trim() === '') {
+                    $('#no_application_error').text('This field is required');
+                    isValid = false;
+                }
+
+                if ($('#status').val() === null || $('#status').val() === '') {
+                    $('#status_error').text('This field is required');
+                    isValid = false;
+                }
+
+                // Submit the form if all fields are valid
+                if (isValid) {
+                    this.submit();
+                }
+            });
         });
-
-        // Form submission logic
-        $('#formData').on('submit', function(e) {
-            e.preventDefault(); // Prevent form submission
-            let isValid = true;
-
-            $('.error-message').text('');
-            if ($('#application_id').val() === null || $('#application_id').val() === '') {
-                $('#application_id_error').text('This field is required');
-                isValid = false;
-            }
-
-            if ($('#country_id').val() === null || $('#country_id').val() === '') {
-                $('#country_id_error').text('This field is required');
-                isValid = false;
-            }
-
-            if ($('#vfs_embassy_id').val() === null || $('#vfs_embassy_id').val() === '') {
-                $('#vfs_embassy_id_error').text('This field is required');
-                isValid = false;
-            }
-
-            if ($('#category_id').val() === null || $('#category_id').val() === '') {
-                $('#category_id_error').text('This field is required');
-                isValid = false;
-            }
-
-            if ($('#no_application').val().trim() === '') {
-                $('#no_application_error').text('This field is required');
-                isValid = false;
-            }
-
-            if ($('#status').val() === null || $('#status').val() === '') {
-                $('#status_error').text('This field is required');
-                isValid = false;
-            }
-
-            // Submit the form if all fields are valid
-            if (isValid) {
-                this.submit();
-            }
-        });
-    });
-</script>
+    </script>
 @endPushOnce

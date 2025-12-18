@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
-    use SoftDeletes,HasFactory;
+    use SoftDeletes, HasFactory;
     protected $fillable = [
         'application_id',
         'country_id',
@@ -25,6 +25,8 @@ class Appointment extends Model
         'bank_name',
         'card_holder_name',
         'transaction_date',
+        'transaction_id',
+        'transaction_amount',
         'bio_metric_appointment_date',
         'appointment_reschedule',
         'appointment_refer_no',
@@ -47,6 +49,4 @@ class Appointment extends Model
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
-    
-    
 }
