@@ -16,27 +16,16 @@ class InsuranceController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-
-        $query = Insurance::with(['country', 'client'])
-            ->withCount([
-                'alerts as insurance_alert_count' => function ($q) {
-                    $q->where('type', 'insurance_expiry')
-                        ->where('status', 'unseen')
-                        ->whereDate('display_date', '<=', now());
-                }
-            ]);
-
         if ($user->role == "Staff") {
-            $query->whereHas('client', function ($q) use ($user) {
-                $q->where('staff_id', $user->id);
-            });
+            $data['insurances'] = Insurance::with(['country', 'client'])
+                ->whereHas('client', function ($query) use ($user) {
+                    $query->where('staff_id', $user->id);
+                })->get();
+        } else {
+            $data['insurances'] = Insurance::with('country', 'client')->get();
         }
-
-        $data['insurances'] = $query->get();
-
         return view('pages.insurance.listing', $data);
     }
-
     public function add($id = null)
     {
         $user = auth()->user();
@@ -63,13 +52,13 @@ class InsuranceController extends Controller
         }
 
         $insurance = Insurance::updateOrCreate(
-            ['id' => $request->id ?? null],
+            ['id' => $request->id ?? null], 
             [
                 'application_id'       => $request->application_id,
                 'country_id'           => $request->country_id,
                 'plan_type'            => $request->plan_type,
                 's_date'               => $request->s_date,
-                'e_date'               => $request->e_date,
+                'e_date'               => $request->e_date, 
                 'policy_no'            => $request->policy_no,
                 'sale_date'            => $request->sale_date,
                 'amount'               => $request->amount,
@@ -84,11 +73,11 @@ class InsuranceController extends Controller
             Alert::where('insurance_id', $insurance->id)->where('type', 'insurance_expiry')->delete();
             $insuranceExpiry = Carbon::parse($request->e_date);
             $alertDate = $insuranceExpiry->copy()->subDays(7);
-
+            
             Alert::create([
                 'client_id'     => $insurance->client->id,
                 'insurance_id'  => $insurance->id,
-                'name'          => 'Insurance',
+                'name'          => 'Insurance', 
                 'email'         => $insurance->client->email,
                 'email_forward' => 'n',
                 'type'          => 'insurance_expiry',

@@ -29,26 +29,13 @@ class ClientController extends Controller
     {
         $user = auth()->user();
         $data['user'] = $user;
-
-        $query = Client::withCount([
-            'alerts as birthday_alert_count' => function ($q) {
-                $q->where('type', 'date_of_birth')   // 🎂 Birthday only
-                    ->where('status', 'unseen')       // 👁 Not seen
-                    ->where('display_date', '<=', now()) // ⏰ Active
-                    ->where('deleted_at', 'n');
-            }
-        ])->orderBy('name');
-
-        // Staff should see only their clients
         if ($user->role == "Staff") {
-            $query->where('staff_id', $user->id);
+            $data['clients'] = Client::where('staff_id', $user->id)->orderBy('name')->get();
+        } else {
+            $data['clients'] = Client::orderBy('name')->orderBy('name')->get();
         }
-
-        $data['clients'] = $query->get();
-
         return view('pages.client.listing', $data);
     }
-
 
     public function store(Request $request)
     {

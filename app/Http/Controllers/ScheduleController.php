@@ -38,28 +38,23 @@ class ScheduleController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
 
-        $appointmentsQuery = Appointment::with(['client', 'category', 'vfsembassy', 'country'])
-            ->where('appointment_type', 'scheduled')
-            ->withCount([
-                'alerts as scheduled_alert_count' => function ($q) {
-                    $q->where('type', 'scheduled_appointment')
-                        ->where('status', 'unseen')
-                        ->whereDate('display_date', '<=', now());
-                }
-            ])
-            ->orderBy('bio_metric_appointment_date', 'asc');
-
-        if ($user->role === 'Staff') {
-            $appointmentsQuery->whereHas('client', function ($q) use ($user) {
-                $q->where('staff_id', $user->id);
-            });
+        if ($user->role == "Staff") {
+            $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
+                ->where('appointment_type', '=', 'scheduled')
+                ->whereHas('client', function ($query) use ($user) {
+                    $query->where('staff_id', $user->id);
+                })
+                ->orderBy('bio_metric_appointment_date', 'asc') // ⭐ Added sorting
+                ->get();
+        } else {
+            $data['appointments'] = Appointment::with(['client', 'category', 'vfsembassy'])
+                ->where('appointment_type', '=', 'scheduled')
+                ->orderBy('bio_metric_appointment_date', 'asc') // ⭐ Added sorting
+                ->get();
         }
-
-        $data['appointments'] = $appointmentsQuery->get();
 
         return view('pages.appointment.schedule.listing', $data);
     }
-
     public function add($id = null)
     {
         $user = auth()->user();
@@ -75,8 +70,6 @@ class ScheduleController extends Controller
     }
     public function appointment_store(Request $request)
     {
-
-        dd($request->all());
         $user = auth()->user();
         $page_name = 'schedule_appointment';
         if (!view_permission($page_name)) {
@@ -97,8 +90,6 @@ class ScheduleController extends Controller
                 'appointment_contact_no'       => $request->appointment_contact_no,
                 'vfs_appointment_refers'       => $request->vfs_appointment_refers,
                 'payment_mode'                 => $request->payment_mode,
-                'transaction_id'               => $request->transaction_id,       // Added
-                'transaction_amount'           => $request->transaction_amount,   // Added
                 'transaction_date'             => $request->transaction_date,
                 'bio_metric_appointment_date'  => $request->bio_metric_appointment_date,
                 'appointment_reschedule'       => $request->appointment_reschedule,

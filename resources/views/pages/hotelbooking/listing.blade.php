@@ -3,29 +3,6 @@
 @section('content')
 
 @include('pages.hotelbooking.detail_page_modal')
-<style>
-  .hotel-alert-row {
-    background-color: #F2CD74 !important;
-    /* Soft gold */
-    border-left: 6px solid #C59C3D;
-    /* Brand gold */
-    animation: hotelPulse 1.6s infinite;
-  }
-
-  @keyframes hotelPulse {
-    0% {
-      box-shadow: inset 0 0 0 rgba(47, 52, 91, 0);
-    }
-
-    50% {
-      box-shadow: inset 0 0 22px rgba(47, 52, 91, 0.45);
-    }
-
-    100% {
-      box-shadow: inset 0 0 0 rgba(47, 52, 91, 0);
-    }
-  }
-</style>
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
     <div class="bg-white" style="border-radius: 20px;">
@@ -79,17 +56,9 @@
               </thead>
               <tbody id="tableData">
                 @foreach ($hotel_bookings as $booking)
-                  <tr class="{{ $booking->hotel_alert_count > 0 ? 'hotel-alert-row' : '' }}" style="font-size: small;">
-
+                  <tr style="font-size: small;">
                     <td>{{ $loop->iteration ?? ''}}</td>
-                    <td>
-                      {{ $booking->client ? $booking->client->name . '~' . $booking->client->sur_name : '' }}
-
-                      @if($booking->hotel_alert_count > 0)
-                        <i class="fas fa-hotel text-warning ms-1" title="Hotel Booking Expiry Alert"></i>
-                      @endif
-                    </td>
-
+                    <td>{{ $booking->client ? $booking->client->name . '~' . $booking->client->sur_name : ''}}</td>
                     <td>{{ $booking->country->name ?? ''}}</td>
                     <td>{{ $booking->name ?? ''}}</td>
                     <td>{{ $booking->s_date ?? ''}}</td>
@@ -174,7 +143,7 @@
           className: 'btn-pdf',
           orientation: 'landscape', // Sets orientation to landscape
           exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5, 6] // Skips the 8th column (index 7)
+            columns: [0, 1, 2, 3, 4, 5] // Skips the 8th column (index 7)
           }
         },
       ],

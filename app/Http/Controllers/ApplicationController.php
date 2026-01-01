@@ -40,35 +40,17 @@ class ApplicationController extends Controller
     public function index()
     {
         $user = auth()->user();
-
-        $query = Application::with('client', 'category', 'country')
-            ->withCount([
-                'alerts as passport_alert_count' => function ($q) {
-                    $q->where('type', 'passport_expiry')
-                        ->where('status', 'unseen')
-                        ->where('display_date', '<=', now())
-                        ->where('deleted_at', 'n');
-                },
-                'alerts as visa_alert_count' => function ($q) {
-                    $q->where('type', 'visa_expiry_date')
-                        ->where('status', 'unseen')
-                        ->where('display_date', '<=', now())
-                        ->where('deleted_at', 'n');
-                }
-            ]);
-
-        // Staff restriction
         if ($user->role == 'Staff') {
-            $query->whereHas('client', function ($q) use ($user) {
-                $q->where('staff_id', $user->id);
-            });
+            $staff_ids = Client::where('staff_id', $user->id)->pluck('staff_id');
+            $data['applications'] = Application::with('client', 'category', 'country')
+                ->whereHas('client', function ($query) use ($staff_ids) {
+                    $query->whereIn('staff_id', $staff_ids);
+                })->get();
+        } else {
+            $data['applications']  = Application::with('client', 'category', 'country')->get();
         }
-
-        $data['applications'] = $query->get();
-
         return view('pages.application.listing', $data);
     }
-
 
     public function add($id = null)
     {
@@ -162,7 +144,7 @@ class ApplicationController extends Controller
         if ($client && $request->visa_expiry_date) {
             Alert::where('application_id', $saved->id)->where('type', 'visa_expiry_date')->delete();
             $visaExpiry = Carbon::parse($request->visa_expiry_date);
-
+            
             $alertDate = $visaExpiry->copy()->subDays(15);
             Alert::create([
                 'client_id'      => $client->id,

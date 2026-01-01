@@ -9,27 +9,6 @@
     padding: 8px !important;
     border-radius: 5px;
   }
-
-  .scheduled-alert-row {
-    background-color: #F2CD74 !important;
-    /* Soft gold */
-    border-left: 6px solid #C59C3D;
-    animation: scheduledPulse 1.6s infinite;
-  }
-
-  @keyframes scheduledPulse {
-    0% {
-      box-shadow: inset 0 0 0 rgba(47, 52, 91, 0);
-    }
-
-    50% {
-      box-shadow: inset 0 0 22px rgba(47, 52, 91, 0.45);
-    }
-
-    100% {
-      box-shadow: inset 0 0 0 rgba(47, 52, 91, 0);
-    }
-  }
 </style>
 <div class="content-wrapper py-0 my-0">
   <div style="border: none;">
@@ -99,20 +78,14 @@
 
               <tbody id="tableData">
                 @foreach ($appointments ?? [] as $key => $appointment)
-                  <tr class="{{ $appointment->scheduled_alert_count > 0 ? 'scheduled-alert-row' : '' }}"
-                    style="font-size: small;">
-
+                  <tr style="font-size: small;">
                     <td>{{ $loop->iteration ?? '' }}</td>
                     <td>
                       {{ $appointment->client ? $appointment->client->name . ' ~' . $appointment->client->sur_name : 'N/A' }}
-
-                      @if($appointment->scheduled_alert_count > 0)
-                        <i class="fas fa-calendar-check text-primary ms-1" title="Scheduled Appointment Alert"></i>
-                      @endif
                     </td>
-
                     <td>{{ $appointment->country->name ?? '' }}</td>
                     <td>{{ $appointment->appointment_contact_no ?? '' }}</td>
+                    
                     <td>
                       {{ $appointment->bio_metric_appointment_date ? \Carbon\Carbon::parse($appointment->bio_metric_appointment_date)->format('d-M-Y') : ''  }}
                     </td>
@@ -199,10 +172,10 @@
 
           if (formattedDate < today) {
             // Past appointment → green
-            $(row).css('background-color', '#75ff75');
+           $(row).css('background-color', '#75ff75');
           } else {
             // Pending/future appointment → red
-            $(row).css('background-color', '#ff7b7b'); // light red
+            $(row).css('background-color', '#ff7b7b'); 
           }
         }
       },
@@ -296,7 +269,6 @@
           $("#visa_status").text(response.detail_page.visa_status);
           $("#bank_name").text(response.detail_page.bank_name);
           $("#card_holder_name").text(response.detail_page.card_holder_name);
-          $('#transaction_date').text(response.detail_page.transaction_date ?? '');
           $('#transaction_id').text(response.detail_page.transaction_id ?? '');
           $('#transaction_amount').text(response.detail_page.transaction_amount ?? '');
           $('#qoutedetail').modal('show');

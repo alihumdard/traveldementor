@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Application extends Model
 {
-    use SoftDeletes, HasFactory;
-    protected $guarded = [];
+    use SoftDeletes,HasFactory;
+    protected $guarded=[];
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -21,7 +21,7 @@ class Application extends Model
     }
     public function client()
     {
-        return $this->belongsTo(Client::class, 'user_id', 'id');
+        return $this->belongsTo(Client::class,'user_id','id');
     }
 
     public function category()
@@ -31,11 +31,5 @@ class Application extends Model
     public function appointment()
     {
         return $this->hasMany(Appointment::class);
-    }
-
-    // App\Models\Application.php
-    public function alerts()
-    {
-        return $this->hasMany(Alert::class, 'application_id');
     }
 }

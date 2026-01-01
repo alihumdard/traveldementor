@@ -9,15 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model
 {
-    use HasFactory, SoftDeletes;
-
-
-
-    protected $fillable = ['name', 'sur_name', 'email', 'contact_no', 'refer_person', 'dob', 'passport_pic', 'created_by', 'staff_id'];
-
-
-    public function alerts()
-    {
-        return $this->hasMany(Alert::class, 'client_id');
-    }
+    use HasFactory,SoftDeletes;
+    protected $fillable=['name','sur_name','email','contact_no','refer_person','dob','passport_pic','created_by','staff_id'];
 }
