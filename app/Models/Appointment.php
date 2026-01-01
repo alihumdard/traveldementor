@@ -49,4 +49,9 @@ class Appointment extends Model
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
+
+    public function alerts()
+    {
+        return $this->hasMany(Alert::class, 'appointment_id');
+    }
 }

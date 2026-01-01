@@ -41,6 +41,11 @@ class DS160 extends Model
     }
     public function client()
     {
-        return $this->belongsTo(Client::class,'application_id','id');
+        return $this->belongsTo(Client::class, 'application_id', 'id');
+    }
+
+    public function alerts()
+    {
+        return $this->hasMany(Alert::class, 'ds160_id');
     }
 }

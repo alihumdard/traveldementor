@@ -5,6 +5,24 @@
   table td {
     text-transform: capitalize;
   }
+.insurance-alert-row {
+    background-color: #F2CD74 !important; /* Soft gold */
+    border-left: 6px solid #C59C3D;       /* Brand gold */
+    animation: insurancePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes insurancePulse {
+    0% {
+        box-shadow: inset 0 0 0 rgba(47, 52, 91, 0);
+    }
+    50% {
+        box-shadow: inset 0 0 22px rgba(47, 52, 91, 0.45);
+    }
+    100% {
+        box-shadow: inset 0 0 0 rgba(47, 52, 91, 0);
+    }
+}
+
 </style>
 @section('content')
 @include('pages.insurance.detail_page_modal')
@@ -63,14 +81,27 @@
               </thead>
               <tbody id="tableData">
                 @foreach ($insurances as $insurance)
-                  <tr style="font-size: small;">
+               <tr class="{{ $insurance->insurance_alert_count > 0 ? 'insurance-alert-row' : '' }}" style="font-size: small;">
+
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $insurance->client ? $insurance->client->name . '~' . $insurance->client->sur_name : ''}}</td>
+                    <td>
+                      {{ $insurance->client ? $insurance->client->name . '~' . $insurance->client->sur_name : '' }}
+
+                      @if($insurance->insurance_alert_count > 0)
+                          <i class="fas fa-shield text-primary ms-1"
+                            title="Insurance Expiry Alert"></i>
+                      @endif
+                    </td>
+
                     <td>{{ $insurance->country->name ?? ''}}</td>
                     <td>{{ $insurance->plan_type ?? ''}}</td>
                     <td>{{ $insurance->policy_no ?? ''}}</td>
                     <td>{{ $insurance->amount ?? '' }}</td>
-                    <td>{{ $insurance->refund_applied == 'yes' ? 'Applied' : 'Not Applied' }}</td>
+                    {{-- <td>{{ $insurance->refund_applied ?? ''}}</td> --}}
+                                      <td>
+    {{ $insurance->refund_applied == 'yes' ? 'Applied' : 'Not Applied' }}
+</td>
+
 
                     <td class="">
                       <div class="d-flex my-auto">

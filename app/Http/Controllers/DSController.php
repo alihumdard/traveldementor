@@ -12,42 +12,46 @@ use Carbon\Carbon;
 
 class DSController extends Controller
 {
-    public function add($id=null)
+    public function add($id = null)
     {
         $user = auth()->user();
         $data['user'] = $user;
-        $data['categories'] = Category::where('type','=','DS160')->orderBy('name')->get();
-        if($user->role=="Staff")
-        {
-            $data['clients']=Client::where('staff_id',$user->id)->orderBy('name')->get();
-        }
-        else
-        {
-            $data['clients']=Client::orderBy('name')->get();      
+        $data['categories'] = Category::where('type', '=', 'DS160')->orderBy('name')->get();
+        if ($user->role == "Staff") {
+            $data['clients'] = Client::where('staff_id', $user->id)->orderBy('name')->get();
+        } else {
+            $data['clients'] = Client::orderBy('name')->get();
         }
         if ($id) {
             $data['ds160'] = DS160::find($id);
         }
-        return view('pages.ds160.add',$data);
+        return view('pages.ds160.add', $data);
     }
     public function index()
     {
         $user = auth()->user();
         $data['user'] = $user;
-        if($user->role=="Staff")
-        {
-            $data['ds160']=DS160::with('client','category')
-            ->whereHas('client', function ($query) use ($user) {
-                $query->where('staff_id', $user->id);
-            })->get();
+
+        $query = DS160::with('client', 'category')
+            ->withCount([
+                'alerts as ds160_alert_count' => function ($q) {
+                    $q->where('type', 'USA_challan_expiry')
+                        ->where('status', 'unseen')
+                        ->whereDate('display_date', '<=', now());
+                }
+            ]);
+
+        if ($user->role == "Staff") {
+            $query->whereHas('client', function ($q) use ($user) {
+                $q->where('staff_id', $user->id);
+            });
         }
-        else
-        {
-            $data['ds160']=DS160::with('client','category')->get();
-        }
-       
+
+        $data['ds160'] = $query->get();
+
         return view('pages.ds160.listing', $data);
     }
+
 
     public function store(Request $request)
     {
@@ -99,7 +103,7 @@ class DSController extends Controller
                 'email_forward' => 'n',
                 'type'          => 'USA_challan_expiry',
                 'user_id'       => $ds_160->client->staff_id,
-                'title'         => 'USA Challan Alert', 
+                'title'         => 'USA Challan Alert',
                 'url'           => route('ds.index'),
                 'body'          => json_encode([
                     'Your USA Challan Expiry will expire on ' . $ds_160Expiry->format('M d, Y') . '. Please renew it.'
@@ -119,16 +123,16 @@ class DSController extends Controller
     }
     public function ds_detail_page($id)
     {
-        $data['detail_page']=DS160::with('client','category')->find($id);
+        $data['detail_page'] = DS160::with('client', 'category')->find($id);
         return response()->json($data);
     }
     public function delete($id)
     {
-        $ds_160=DS160::find($id);
+        $ds_160 = DS160::find($id);
         if ($ds_160) {
             Alert::where('ds160_id', $id)->delete();
             $ds_160->delete();
         }
-        return redirect()->back()->with('message','Successfully Deleted');
+        return redirect()->back()->with('message', 'Successfully Deleted');
     }
 }

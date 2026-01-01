@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class HotelBooking extends Model
 {
     use HasFactory, SoftDeletes;
@@ -32,6 +33,11 @@ class HotelBooking extends Model
     }
     public function client()
     {
-        return $this->belongsTo(Client::class,'application_id','id');
+        return $this->belongsTo(Client::class, 'application_id', 'id');
+    }
+
+    public function alerts()
+    {
+        return $this->hasMany(Alert::class, 'hotel_booking_id');
     }
 }
